@@ -28,10 +28,7 @@ label {
 .error {
   color: red;
 }
-input.error,
-textarea.error {
-  border: 1px solid red;
-}
+
 .form-error {
   color: red;
   background-color: lavenderblush;
