@@ -8,13 +8,6 @@ generator client {
   binaryTargets = "native"
 }
 
-model Team {
-  id        String   @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-}
-
 model Contact {
   id        Int      @id @default(autoincrement())
   name      String
