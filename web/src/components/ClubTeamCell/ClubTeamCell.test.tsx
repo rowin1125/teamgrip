@@ -35,7 +35,7 @@ describe('ClubTeamCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success clubTeam={standard().clubTeam} />)
+      render(<Success team={standard().team} />)
     }).not.toThrow()
   })
 })

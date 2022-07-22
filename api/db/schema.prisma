@@ -23,6 +23,11 @@ model Contact {
   createdAt DateTime @default(now())
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
   id                  Int       @id @default(autoincrement())
   name                String?
@@ -31,4 +36,5 @@ model User {
   salt                String
   resetToken          String?
   resetTokenExpiresAt DateTime?
+  roles               Role      @default(USER)
 }

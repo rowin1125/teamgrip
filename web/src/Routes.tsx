@@ -10,7 +10,7 @@ const Routes = () => {
       <Route path="/signup" page={SignupPage} name="signup" />
       <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
       <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
-      <Private unauthenticated="home">
+      <Private unauthenticated="home" roles={['ADMIN']}>
         <Set wrap={TeamsLayout}>
           <Route path="/admin/teams/new" page={TeamNewTeamPage} name="newTeam" />
           <Route path="/admin/teams/{id}/edit" page={TeamEditTeamPage} name="editTeam" />

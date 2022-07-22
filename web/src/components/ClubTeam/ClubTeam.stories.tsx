@@ -1,7 +1,8 @@
 import ClubTeam from './ClubTeam'
+import { standard } from '../ClubTeamCell/ClubTeamCell.mock'
 
 export const generated = () => {
-  return <ClubTeam />
+  return <ClubTeam team={standard().team} />
 }
 
 export default { title: 'Components/ClubTeam' }
