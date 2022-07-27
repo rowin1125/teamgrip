@@ -1,4 +1,5 @@
 import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
+
 import { db } from './db'
 
 /**
@@ -53,7 +54,7 @@ export const hasRole = (roles: AllowedRoles): boolean => {
     return false
   }
 
-  const currentUserRoles = context.currentUser?.roles
+  const currentUserRoles = context.currentUser?.roles as AllowedRoles
 
   if (typeof roles === 'string') {
     if (typeof currentUserRoles === 'string') {

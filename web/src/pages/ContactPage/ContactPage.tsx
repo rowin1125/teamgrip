@@ -1,4 +1,9 @@
-import { MetaTags, useMutation } from '@redwoodjs/web'
+import { Box, Button, FormControl, Input, Textarea } from '@chakra-ui/react'
+import {
+  CreateContactMutation,
+  CreateContactMutationVariables,
+} from 'types/graphql'
+
 import {
   Form,
   Label,
@@ -10,11 +15,7 @@ import {
   useForm,
   FormError,
 } from '@redwoodjs/forms'
-import { Box, Button, FormControl, Input, Textarea } from '@chakra-ui/react'
-import {
-  CreateContactMutation,
-  CreateContactMutationVariables,
-} from 'types/graphql'
+import { MetaTags, useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 type FormValues = {

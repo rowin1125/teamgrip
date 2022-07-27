@@ -1,4 +1,4 @@
-import { Router, Route, Set, Private } from '@redwoodjs/router'
+import { Router, Route } from '@redwoodjs/router'
 
 const Routes = () => {
   return (
