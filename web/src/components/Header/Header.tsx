@@ -23,10 +23,10 @@ const Header = () => {
   const { currentUser } = useAuth()
 
   return (
-    <Box as="header" w="full" pl={8} p={4} mb={10} bgColor="primary.500">
+    <Box as="header" w="full" pl={8} p={4} mb={10}>
       <Flex justifyContent="space-between" alignItems="center">
         <Link to={routes.home()}>
-          <Heading color="white">TeamStats</Heading>
+          <Heading color="white"></Heading>
         </Link>
         <Flex alignItems="center">
           <InputGroup>
@@ -56,7 +56,8 @@ const Header = () => {
               as={Link}
               to={routes.login()}
               variant="solid"
-              colorScheme="whiteAlpha"
+              colorScheme="gray"
+              minWidth={120}
             >
               Inloggen
             </Button>

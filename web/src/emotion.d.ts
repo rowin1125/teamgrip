@@ -19,7 +19,6 @@ interface ChakraColorPalette {
 interface G3MTheme extends ChrakraTheme {
   colors: ChrakraTheme['colors'] & {
     primary: ChakraColorPalette
-    secondary: ChakraColorPalette
   }
 }
 

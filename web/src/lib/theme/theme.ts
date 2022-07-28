@@ -19,3 +19,5 @@ export const theme = extendTheme({
     Button,
   },
 })
+
+export type TeamStatsTheme = typeof theme
