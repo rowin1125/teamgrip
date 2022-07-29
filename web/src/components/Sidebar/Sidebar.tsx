@@ -1,14 +1,6 @@
 import React from 'react'
 
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  List,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, Image, List, Text } from '@chakra-ui/react'
 
 import { Link } from '@redwoodjs/router'
 
@@ -24,10 +16,10 @@ const Sidebar = () => {
       boxShadow="lg"
       position="sticky"
       top={8}
-      display={{ md: 'none', lg: 'block' }}
+      display={{ base: 'none', md: 'none', lg: 'block' }}
     >
       <Flex justifyContent="center" alignItems="center" mt={4}>
-        <Heading color="primary.500">TeamStats</Heading>
+        <Image h="100px" src="/TeamStats Logo.png" alt="Redwood" />
       </Flex>
       <Flex justifyContent="center" alignItems="center" pt={6} pb={6}>
         <Divider w="80%" />

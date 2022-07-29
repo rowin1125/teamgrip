@@ -7,17 +7,18 @@ import stadiumImage from './images/stadium.jpg'
 
 export type HeroProps = {
   type?: 'stadium' | 'football-night-man'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | '1/2'
 }
 
 const HERO_SIZES_MAP = {
   sm: '200px',
   md: '414px',
   lg: '600px',
+  '1/2': '50vh',
 }
 
 const Hero = ({ type = 'stadium', size = 'md' }: HeroProps) => {
-  const sizePx = HERO_SIZES_MAP[size]
+  const heightProperty = HERO_SIZES_MAP[size]
   let heroImage: string
 
   switch (type) {
@@ -30,7 +31,7 @@ const Hero = ({ type = 'stadium', size = 'md' }: HeroProps) => {
 
   return (
     <Box
-      h={sizePx}
+      h={heightProperty}
       bg="primary.500"
       position="absolute"
       top={0}

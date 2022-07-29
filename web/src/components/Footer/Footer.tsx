@@ -3,7 +3,11 @@ import React from 'react'
 import { Box, Flex, Icon, Text } from '@chakra-ui/react'
 import { CgCopyright } from 'react-icons/cg'
 
-const Footer = () => {
+type FooterProps = {
+  inverse?: boolean
+}
+
+const Footer = ({ inverse }: FooterProps) => {
   return (
     <Flex
       as="footer"
@@ -17,13 +21,19 @@ const Footer = () => {
       px={16}
     >
       <Flex alignItems="center" justifyContent="center" w="full">
-        <Icon as={CgCopyright} fontSize="24px" mr={1} />
-        <Text display="flex">
+        <Icon
+          as={CgCopyright}
+          color={inverse ? 'white' : 'black'}
+          fontSize="24px"
+          mr={1}
+        />
+        <Text display="flex" color={inverse ? 'white' : 'black'}>
           {new Date().getFullYear()}, Made by{' '}
           <Box
             as="a"
             fontWeight="bold"
-            color="primary.500"
+            textDecoration="underline"
+            color={inverse ? 'primary.100' : 'primary.500'}
             px={1}
             target="_blank"
             href="https://derow.nl"
