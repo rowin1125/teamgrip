@@ -126,8 +126,8 @@ const SignupPage = () => {
             <SignUpForm
               onSubmit={onSubmit}
               initialValues={{
-                username: 'rowinmol648@gmail.com',
-                password: '123456',
+                username: '',
+                password: '',
               }}
             />
           </Box>

@@ -38,7 +38,12 @@ const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
             label="Email"
             placeholder="ronald@mesi.com"
           />
-          <ControlledInput id="password" label="Wachtwoord" type="password" />
+          <ControlledInput
+            id="password"
+            label="Wachtwoord"
+            type="password"
+            placeholder="Geef een veilig wachtwoord op!"
+          />
 
           <Flex alignItems="center" justifyContent="space-between" mt={4}>
             <Button colorScheme="secondary" type="submit">
@@ -46,9 +51,9 @@ const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
             </Button>
             <Box>
               Heb je a een account?{' '}
-              <Link as={RedwoodLink} to={routes.login()}>
+              <RedwoodLink to={routes.login()} className="rw-link">
                 Login
-              </Link>
+              </RedwoodLink>
             </Box>
           </Flex>
         </Box>
