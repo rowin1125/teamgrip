@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -29,10 +31,8 @@
   },
   "include": [
     "src",
-    "src/**/*.d.ts",
     "../.redwood/types/includes/all-*",
     "../.redwood/types/includes/web-*",
-    "../types",
-    "./types"
+    "./types",
   ]
 }

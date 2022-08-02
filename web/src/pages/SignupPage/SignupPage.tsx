@@ -1,17 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import {
+  ResendActivateUserMutation,
+  ResendActivateUserMutationVariables,
+} from 'types/graphql'
 
 import { useAuth } from '@redwoodjs/auth'
 import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags, useMutation } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/toast'
 
 import footballNightMan from './login-bg.jpg'
 import SignUpForm from './SignUpForm'
 
+const RESEND_ACTIVATE_USER = gql`
+  mutation ResendActivateUserMutation($input: ResendActivateUserInput!) {
+    resendActivateUser(input: $input) {
+      id
+      verifiedToken
+    }
+  }
+`
+
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth()
+  const [showResendButton, setShowResendButton] = useState(false)
+  const [email, setEmail] = useState('')
+  const [resend, { loading }] = useMutation<
+    ResendActivateUserMutation,
+    ResendActivateUserMutationVariables
+  >(RESEND_ACTIVATE_USER, {
+    onCompleted: () => {
+      setShowResendButton(false)
+      toast.success('Activation email sent')
+    },
+  })
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -23,8 +47,10 @@ const SignupPage = () => {
     const response = await signUp({ ...data })
 
     if (response.message) {
-      toast(response.message)
+      toast.success(response.message)
     } else if (response.error) {
+      setEmail(data.username)
+      setShowResendButton(true)
       toast.error(response.error)
     } else {
       // user is signed in automatically
@@ -99,9 +125,36 @@ const SignupPage = () => {
           <Box maxW="400px" w="full">
             <SignUpForm
               onSubmit={onSubmit}
-              initialValues={{ username: '', password: '' }}
+              initialValues={{
+                username: 'rowinmol648@gmail.com',
+                password: '123456',
+              }}
             />
           </Box>
+          {showResendButton && (
+            <Text>
+              Heb je geen email ontvangen? Verstuur hem dan nogmaals{' '}
+              <Button
+                textDecoration="underline"
+                isLoading={loading}
+                variant="link"
+                onClick={async () =>
+                  await resend({
+                    variables: {
+                      input: {
+                        email,
+                      },
+                    },
+                  })
+                }
+                mt={8}
+                colorScheme="secondary"
+              >
+                hier
+              </Button>{' '}
+              .
+            </Text>
+          )}
         </Flex>
       </Flex>
     </>

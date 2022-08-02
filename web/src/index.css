@@ -50,3 +50,7 @@ label {
 .flex-between button {
   display: inline;
 }
+
+.chakra-steps .step div:nth-child(2) span {
+  color: white;
+}

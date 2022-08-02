@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 
-import { Link, routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router'
 
 import ControlledInput from 'src/components/forms/components/ControlledInput'
+import RedwoodLink from 'src/components/RedwoodLink'
 
 type SignUpFormProps = {
   initialValues: Record<string, unknown>
@@ -16,9 +17,13 @@ type SignUpFormProps = {
 const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
   const validationSchema = Yup.object({
     username: Yup.string()
-      .required('Gebruikersnaam moet wel een email zijn...')
-      .min(6),
-    password: Yup.string().required('Wachtwoord is verplicht').min(6),
+      .email()
+      .required('Email moet wel een email zijn...')
+      .min(4),
+    password: Yup.string().min(
+      6,
+      'Wachtwoord moet minimaal 6 karakters lang zijn...'
+    ),
   })
   return (
     <Formik
@@ -30,22 +35,18 @@ const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
         <Box as={Form} w="full">
           <ControlledInput
             id="username"
-            label="Gebruikersnaam"
-            placeholder="Gebruikersnaam"
+            label="Email"
+            placeholder="ronald@mesi.com"
           />
-          <ControlledInput
-            id="password"
-            label="Wachtwoord"
-            type="password"
-            placeholder="Jouw wachtwoord"
-          />
+          <ControlledInput id="password" label="Wachtwoord" type="password" />
+
           <Flex alignItems="center" justifyContent="space-between" mt={4}>
             <Button colorScheme="secondary" type="submit">
               Registreer
             </Button>
             <Box>
               Heb je a een account?{' '}
-              <Link to={routes.login()} className="rw-link">
+              <Link as={RedwoodLink} to={routes.login()}>
                 Login
               </Link>
             </Box>

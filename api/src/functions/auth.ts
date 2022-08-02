@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import nanoid from 'nanoid'
+
 import { DbAuthHandler } from '@redwoodjs/api'
 
 import { db } from 'src/lib/db'
+import { activateUserEmail } from 'src/services/users/users'
 
-export const handler = async (event, context) => {
+export const handler = async (event: any, context: any) => {
   const forgotPasswordOptions = {
     // handler() is invoked after verifying that a user was found with the given
     // username. This is where you can send the user an email with a link to
@@ -16,7 +20,7 @@ export const handler = async (event, context) => {
     // You could use this return value to, for example, show the email
     // address in a toast message so the user will know it worked and where
     // to look for the email.
-    handler: (user) => {
+    handler: (user: any) => {
       return user
     },
 
@@ -45,8 +49,12 @@ export const handler = async (event, context) => {
     // didn't validate their email yet), throw an error and it will be returned
     // by the `logIn()` function from `useAuth()` in the form of:
     // `{ message: 'Error message' }`
-    handler: (user) => {
-      return user
+    handler: (user: any) => {
+      if (!user.verified) {
+        throw new Error('Please validate your email first!')
+      } else {
+        return user
+      }
     },
 
     errors: {
@@ -67,7 +75,7 @@ export const handler = async (event, context) => {
     // the database. Returning anything truthy will automatically log the user
     // in. Return `false` otherwise, and in the Reset Password page redirect the
     // user to the login page.
-    handler: (user) => {
+    handler: (user: any) => {
       return user
     },
 
@@ -103,15 +111,36 @@ export const handler = async (event, context) => {
     // If this returns anything else, it will be returned by the
     // `signUp()` function in the form of: `{ message: 'String here' }`.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    handler: ({ username, hashedPassword, salt, userAttributes }) => {
-      return db.user.create({
-        data: {
-          email: username,
-          hashedPassword: hashedPassword,
-          salt: salt,
-          // name: userAttributes.name
-        },
-      })
+    handler: async ({
+      username,
+      hashedPassword,
+      salt,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      userAttributes,
+    }: any) => {
+      const token = nanoid()
+      try {
+        const user = await db.user.create({
+          data: {
+            email: username,
+            salt: salt,
+            hashedPassword,
+            verifiedToken: token,
+            userProfile: {
+              create: {
+                firstname: null,
+                lastname: null,
+              },
+            },
+          },
+        })
+        if (!user) throw new Error('User not created')
+        await activateUserEmail({ email: user.email, token })
+      } catch (error) {
+        throw new Error('Failed to sign up')
+      }
+
+      return 'Activeer je account via de email die we naar je hebben gestuurd'
     },
 
     errors: {

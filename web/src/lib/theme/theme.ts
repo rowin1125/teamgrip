@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react'
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps'
 
 import { Button } from './components/button'
 import { Heading } from './components/headingOverrides'
@@ -16,6 +17,7 @@ export const theme = extendTheme({
   },
   components: {
     Heading,
+    Steps,
     Button,
   },
 })

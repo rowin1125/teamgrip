@@ -9,11 +9,12 @@ generator client {
 }
 
 model Contact {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   name      String
   email     String
   message   String
   createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 enum Role {
@@ -22,12 +23,36 @@ enum Role {
 }
 
 model User {
-  id                  Int       @id @default(autoincrement())
-  name                String?
-  email               String    @unique
-  hashedPassword      String
-  salt                String
+  id                  String       @id @default(cuid())
+  email               String       @unique
+  hashedPassword      String?
+  salt                String?
   resetToken          String?
   resetTokenExpiresAt DateTime?
-  roles               Role      @default(USER)
+  verified            Boolean      @default(false)
+  verifiedToken       String?
+  roles               Role         @default(USER)
+  audits              Audit[]
+  userProfile         UserProfile?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @default(now()) @updatedAt
+}
+
+model UserProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  firstname String?
+  lastname  String?
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Audit {
+  id        String   @id @default(uuid())
+  userId    String
+  log       String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

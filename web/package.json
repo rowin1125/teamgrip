@@ -20,6 +20,7 @@
     "@redwoodjs/forms": "2.1.0",
     "@redwoodjs/router": "2.1.0",
     "@redwoodjs/web": "2.1.0",
+    "chakra-ui-steps": "^1.7.3",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "prop-types": "15.8.1",

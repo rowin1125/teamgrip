@@ -27,8 +27,17 @@ const LoginForm = ({ initialValues, onSubmit }: LoginFormProps) => {
       >
         {() => (
           <FormikForm>
-            <ControlledInput id="username" label="Username" />
-            <ControlledInput id="password" label="Password" type="password" />
+            <ControlledInput
+              id="username"
+              label="Username"
+              placeholder="ronaldo@gmail.nl"
+            />
+            <ControlledInput
+              id="password"
+              label="Password"
+              type="password"
+              placeholder="super geheim wachtwoord 🤫"
+            />
             <Flex alignItems="center" justifyContent="space-between" mt={4}>
               <Button colorScheme="secondary" type="submit">
                 Login
