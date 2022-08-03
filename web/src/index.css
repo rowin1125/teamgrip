@@ -54,3 +54,8 @@ label {
 .chakra-steps .step div:nth-child(2) span {
   color: white;
 }
+
+form .custom-select__option--is-focused,
+form .custom-select__option--is-selected {
+  background-color: #0d121d;
+}

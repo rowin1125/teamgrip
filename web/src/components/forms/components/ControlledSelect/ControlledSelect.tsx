@@ -1,33 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React from 'react'
 
 import {
   Box,
   Box as ChakraSelect,
   FormControl,
+  FormControlProps,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
   SelectProps,
   Text,
-} from "@chakra-ui/react";
-import { FieldInputProps, FieldMetaProps, useField } from "formik";
-import Select from "react-select";
+} from '@chakra-ui/react'
+import { FieldInputProps, FieldMetaProps, useField } from 'formik'
+import Select from 'react-select'
 
-import { customSelectStyles } from "./customSelectStyles";
+import { customSelectStyles } from './customSelectStyles'
 
 type ControlledSelectProps = SelectProps & {
-  label: string;
-  helperText?: string;
-  id: string;
-  options: Record<"value" | "label", string>[];
+  label: string
+  helperText?: string
+  id: string
+  options: Record<'value' | 'label', string>[]
   onChangeCallback?: (
     value: string | number,
     field: FieldInputProps<any>,
     meta: FieldMetaProps<any>
-  ) => void;
-  hiddenOptions?: Record<"id" | "value", string | number>[];
-};
+  ) => void
+  hiddenOptions?: Record<'id' | 'value', string | number>[]
+} & FormControlProps
 
 const ControlledSelect = ({
   id,
@@ -37,20 +38,20 @@ const ControlledSelect = ({
   options,
   onChangeCallback,
   hiddenOptions,
+  ...props
 }: ControlledSelectProps) => {
-  if (!options) return null;
-
-  const [searchInput, setSearchInput] = React.useState(false);
-  const [field, meta, { setTouched, setValue }] = useField(id);
-  const isInvalid = !!meta.error && !!meta.touched;
+  const [searchInput, setSearchInput] = React.useState(false)
+  const [field, meta, { setTouched, setValue }] = useField(id)
+  const isInvalid = !!meta.error && !!meta.touched
 
   const handleOnChange = (option: any) => {
-    setValue(option?.value, true);
-    onChangeCallback?.(option?.value, field, meta);
-  };
+    setValue(option?.value, true)
+    onChangeCallback?.(option?.value, field, meta)
+  }
 
+  if (!options) return null
   return (
-    <FormControl isInvalid={isInvalid} mb={8}>
+    <FormControl isInvalid={isInvalid} mb={8} {...props}>
       <FormLabel fontWeight="bold" htmlFor={id}>
         {label}
       </FormLabel>
@@ -73,7 +74,8 @@ const ControlledSelect = ({
           instanceId={id}
           options={options}
           defaultValue={meta.initialValue}
-          placeholder={"custom placeholder component"}
+          placeholder={'custom placeholder component'}
+          classNamePrefix="custom-select"
           value={{
             value: field.value,
             label: options.find((option) => option.value === field.value)
@@ -82,14 +84,14 @@ const ControlledSelect = ({
           onChange={handleOnChange}
           onBlur={() => setTouched(true)}
           onInputChange={(inputValue: string) => setSearchInput(!!inputValue)}
-          borderColor={isInvalid ? "red.500" : "gray.200"}
-          borderWidth={isInvalid ? "2px" : "0px"}
-          borderRadius={isInvalid ? "md" : "none"}
+          borderColor={isInvalid ? 'red.500' : ''}
+          borderWidth={isInvalid ? '2px' : '0px'}
+          borderRadius={isInvalid ? 'md' : 'none'}
           styles={customSelectStyles}
           isOptionDisabled={(option: any) => {
-            if (!hiddenOptions) return false;
+            if (!hiddenOptions) return false
 
-            return !!hiddenOptions.find((item) => item.value === option.value);
+            return !!hiddenOptions.find((item) => item.value === option.value)
           }}
         />
       </Box>
@@ -98,7 +100,7 @@ const ControlledSelect = ({
       )}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
-  );
-};
+  )
+}
 
-export default ControlledSelect;
+export default ControlledSelect
