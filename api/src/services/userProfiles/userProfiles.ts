@@ -24,8 +24,6 @@ export const updateUserProfile: MutationResolvers['updateUserProfile'] = ({
   id,
   input,
 }) => {
-  console.log('input', input)
-  console.log('id', id)
   return db.userProfile.update({
     where: { userId: id },
     data: input,

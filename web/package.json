@@ -30,5 +30,9 @@
     "react-icons": "^4.4.0",
     "react-select": "^5.4.0",
     "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "sass": "^1.54.2",
+    "sass-loader": "^13.0.2"
   }
 }

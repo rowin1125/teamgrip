@@ -27,4 +27,8 @@ export const customSelectStyles = {
     ...prevStyles,
     backgroundColor: '#242e42',
   }),
+  input: (prevStyles: Record<string, unknown>) => ({
+    ...prevStyles,
+    color: 'white',
+  }),
 }

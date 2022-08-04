@@ -33,6 +33,24 @@ export const getCurrentUser = async (session) => {
           lastname: true,
         },
       },
+      avatar: {
+        select: {
+          avatarStyle: true,
+          topType: true,
+          accessoriesType: true,
+          hatColor: true,
+          hairColor: true,
+          facialHairType: true,
+          facialHairColor: true,
+          clotheType: true,
+          clotheColor: true,
+          graphicType: true,
+          eyeType: true,
+          eyebrowType: true,
+          mouthType: true,
+          skinColor: true,
+        },
+      },
     },
   })
 }

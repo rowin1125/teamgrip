@@ -1,12 +1,13 @@
 import React from 'react'
 
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { Formik, Form as FormikForm } from 'formik'
 import * as Yup from 'yup'
 
-import { Link, routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router'
 
 import ControlledInput from 'src/components/forms/components/ControlledInput'
+import RedwoodLink from 'src/components/RedwoodLink'
 
 type LoginFormProps = {
   initialValues: Record<string, unknown>
@@ -15,7 +16,9 @@ type LoginFormProps = {
 
 const LoginForm = ({ initialValues, onSubmit }: LoginFormProps) => {
   const validationSchema = Yup.object({
-    username: Yup.string().required('Email moet wel een email zijn...'),
+    username: Yup.string()
+      .email('Email moet wel een email zijn...')
+      .required('Veld is verplicht'),
     password: Yup.string().required('Wachtwoord is verplicht'),
   })
   return (
@@ -36,16 +39,26 @@ const LoginForm = ({ initialValues, onSubmit }: LoginFormProps) => {
             label="Password"
             type="password"
             placeholder="super geheim wachtwoord 🤫"
+            formControlProps={{ mb: 1 }}
           />
+          <Flex alignItems="center" justifyContent="flex-end" mt={0}>
+            <Link
+              as={RedwoodLink}
+              color="gray.500"
+              to={routes.forgotPassword()}
+            >
+              Wachtwoord vergeten?
+            </Link>
+          </Flex>
           <Flex alignItems="center" justifyContent="space-between" mt={4}>
             <Button colorScheme="secondary" type="submit">
               Login
             </Button>
             <Box>
               Heb je nog geen account?{' '}
-              <Link to={routes.signup()} className="rw-link">
+              <RedwoodLink to={routes.signup()} className="rw-link">
                 Registeer
-              </Link>
+              </RedwoodLink>
             </Box>
           </Flex>
         </FormikForm>

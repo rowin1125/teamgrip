@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Box, Heading, Button } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
@@ -9,7 +9,6 @@ import {
 } from 'types/graphql'
 
 import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
@@ -26,25 +25,39 @@ const UPDATE_USER_PROFILE = gql`
   }
 `
 
-const UpdateUserInfoForm = () => {
+type UpdateUserInfoFormProps = {
+  setActivateStep: (step: number) => void
+  handlePlayVideo: () => void
+}
+
+const UpdateUserInfoForm = ({ setActivateStep }: UpdateUserInfoFormProps) => {
   const { currentUser } = useAuth()
   const [updateUserProfile, { loading }] = useMutation<
     UpdateUserProfileMutation,
     UpdateUserProfileMutationVariables
   >(UPDATE_USER_PROFILE)
-  console.log('currentUser', currentUser)
 
   const onSubmit = async (data: UpdateUserProfileInput) => {
     try {
       await updateUserProfile({
         variables: { input: data, id: currentUser.id },
       })
-      navigate(routes.home())
+      setActivateStep(2)
       toast.success('Informatie verwerkt, nog 1 stapje 🎈')
     } catch (error) {
       toast.error(error.message)
     }
   }
+
+  useEffect(() => {
+    if (
+      currentUser?.userProfile.lastname ||
+      currentUser?.userProfile.firstname
+    ) {
+      setActivateStep(2)
+    }
+  }, [currentUser, setActivateStep])
+
   return (
     <Formik
       initialValues={{

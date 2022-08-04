@@ -2,6 +2,7 @@ import React from 'react'
 
 import {
   FormControl,
+  FormControlProps,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
@@ -22,6 +23,7 @@ type ControlledInputProps = {
   inputRightAddonText?: string
   inputLeftAddonText?: string
   fullWidth?: boolean
+  formControlProps?: FormControlProps
 } & InputProps
 
 const ControlledInput = ({
@@ -32,6 +34,7 @@ const ControlledInput = ({
   inputRightAddonText,
   inputLeftAddonText,
   fullWidth = true,
+  formControlProps,
   ...props
 }: ControlledInputProps) => {
   const [field, meta] = useField(id)
@@ -43,6 +46,7 @@ const ControlledInput = ({
       mb={8}
       maxW={fullWidth ? null : 80}
       w="full"
+      {...formControlProps}
     >
       {label && (
         <FormLabel fontWeight="bold" htmlFor={id} {...labelProps}>

@@ -21,7 +21,7 @@ const TopType = () => {
     'Hat',
     'Eyepatch',
   ].includes(values.topType)
-  const disableHatColor = [
+  const showHatColor = [
     'WinterHat1',
     'WinterHat2',
     'WinterHat3',
@@ -36,7 +36,7 @@ const TopType = () => {
         <ControlledSelect
           m={0}
           id="topType"
-          label="Top variant"
+          label="Haar / hoed"
           options={avatarOptions.topType.map((option) => ({
             label: option,
             value: option,
@@ -73,7 +73,7 @@ const TopType = () => {
         </GridItem>
       )}
 
-      {!disableHatColor && (
+      {showHatColor && (
         <GridItem colSpan={2}>
           <ControlledSelect
             m={0}

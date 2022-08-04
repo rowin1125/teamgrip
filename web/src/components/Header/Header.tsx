@@ -23,7 +23,7 @@ const Header = () => {
   const { currentUser } = useAuth()
 
   return (
-    <Box as="header" w="full" pl={8} p={4} mb={10}>
+    <Box as="header" w="full" pl={8} pb={4} mb={10}>
       <Flex justifyContent="space-between" alignItems="center">
         <Link to={routes.home()}>
           <Heading color="white"></Heading>

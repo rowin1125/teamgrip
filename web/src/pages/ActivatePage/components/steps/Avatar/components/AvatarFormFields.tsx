@@ -1,14 +1,6 @@
 import React from 'react'
 
-import {
-  Grid,
-  GridItem,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from '@chakra-ui/react'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import ClotheType from './tabs/ClotheType'
 import ExtraType from './tabs/ExtraType'
@@ -20,10 +12,10 @@ const AvatarFormFields = () => {
     <>
       <Tabs mt={8} variant="line" colorScheme="secondary">
         <TabList>
-          <Tab>Bovenkant hoofd</Tab>
-          <Tab>Kleding</Tab>
-          <Tab>Gezicht</Tab>
-          <Tab>Overig</Tab>
+          <Tab>Bovenkant hoofd 🎩</Tab>
+          <Tab>Kleding 👕</Tab>
+          <Tab>Gezicht 💁</Tab>
+          <Tab>Overig 🎨</Tab>
         </TabList>
 
         <TabPanels>

@@ -1,18 +1,34 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
+import {
+  ResendActivateUserMutation,
+  ResendActivateUserMutationVariables,
+} from 'types/graphql'
 
 import { useAuth } from '@redwoodjs/auth'
 import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags, useMutation } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/toast'
 
-import footballNightMan from '../../components/Hero/images/footbal-night-man.jpg'
+import { RESEND_ACTIVATE_USER } from '../SignupPage/SignupPage'
 
+import LoginWithImage from './components/LoginWithImage'
 import LoginForm from './LoginForm'
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('')
+  const [showResendButton, setShowResendButton] = useState(false)
   const { isAuthenticated, logIn } = useAuth()
+  const [resend, { loading }] = useMutation<
+    ResendActivateUserMutation,
+    ResendActivateUserMutationVariables
+  >(RESEND_ACTIVATE_USER, {
+    onCompleted: () => {
+      setShowResendButton(false)
+      toast.success('Activation email sent')
+    },
+  })
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -26,11 +42,25 @@ const LoginPage = () => {
     if (response.message) {
       toast(response.message)
     } else if (response.error) {
+      if ((response.error as string).includes('Please validate')) {
+        setEmail(data.username)
+        setShowResendButton(true)
+      }
+
       toast.error(response.error)
     } else {
-      toast.success('Welcome back!')
+      toast.success('Welcome back 🥳')
     }
   }
+
+  const handleResend = async () =>
+    await resend({
+      variables: {
+        input: {
+          email,
+        },
+      },
+    })
 
   return (
     <>
@@ -40,56 +70,7 @@ const LoginPage = () => {
         <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
 
         <Flex w="100vw" h="100vh">
-          <Box w="66.66%" position="relative">
-            <Box
-              h="100%"
-              bg="primary.500"
-              position="absolute"
-              top={0}
-              left={0}
-              right={0}
-              zIndex="-1"
-            >
-              <Image
-                filter="auto"
-                blur="1px"
-                brightness="0.8"
-                src={footballNightMan}
-                objectFit="cover"
-                w="full"
-                h="full"
-              />
-              <Box
-                bg="primary.500"
-                opacity={0.7}
-                bgGradient="linear(to-tl, primary.500, gray.900)"
-                position="absolute"
-                top={0}
-                left={0}
-                right={0}
-                bottom={0}
-              />
-              <Box
-                position="absolute"
-                inset={0}
-                display="flex"
-                pl={8}
-                justifyContent="center"
-                textAlign="center"
-                w="full"
-                h="full"
-                zIndex={1}
-                color="white"
-              >
-                <Box mt="25vh">
-                  <Heading size="4xl">Jouw team data</Heading>
-                  <Text mt={4} fontSize="3xl">
-                    Direct inzicht in alle informatie
-                  </Text>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+          <LoginWithImage />
           <Flex
             flexDir="column"
             w="33.33%"
@@ -99,11 +80,29 @@ const LoginPage = () => {
             alignItems="center"
           >
             <Box maxW="400px" w="full">
+              <Heading as="h1" size="xl">
+                Inloggen
+              </Heading>
               <LoginForm
                 onSubmit={onSubmit}
                 initialValues={{ username: '', password: '' }}
               />
             </Box>
+            {showResendButton && (
+              <Text>
+                Heb je geen email ontvangen? Verstuur hem dan nogmaals{' '}
+                <Button
+                  textDecoration="underline"
+                  isLoading={loading}
+                  variant="link"
+                  onClick={handleResend}
+                  mt={8}
+                  colorScheme="secondary"
+                >
+                  hier
+                </Button>
+              </Text>
+            )}
           </Flex>
         </Flex>
       </Box>

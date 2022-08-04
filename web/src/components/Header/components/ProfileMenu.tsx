@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {
-  Avatar,
   Link,
   Menu,
   MenuButton,
@@ -10,13 +9,16 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
+import Avatar from 'avataaars'
 
 import { useAuth } from '@redwoodjs/auth'
 import { Link as RedwoodLink, routes } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/toast'
 
+import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar'
+
 const ProfileMenu = () => {
-  const { logOut } = useAuth()
+  const { logOut, currentUser } = useAuth()
 
   const handleLogout = async () => {
     try {
@@ -26,14 +28,22 @@ const ProfileMenu = () => {
       toast.error('Failed to logout')
     }
   }
+
   return (
     <Menu closeOnBlur>
       <MenuButton>
-        <Avatar
-          size="md"
-          name="Rowin" // TODO: Make this dynamic based on CurrentUser
-          src="https://gitlab.enrise.com/uploads/-/system/user/avatar/251/avatar.png?width=150"
-        />
+        {currentUser?.avatar?.avatarStyle ? (
+          <Avatar
+            style={{ width: '60px', height: '60px' }}
+            {...currentUser?.avatar}
+          />
+        ) : (
+          <Avatar
+            style={{ width: '60px', height: '60px' }}
+            avatarStyle="Circle"
+            {...generateRandomAvatarOptions()}
+          />
+        )}
       </MenuButton>
       <MenuList>
         <MenuGroup title="Pages">

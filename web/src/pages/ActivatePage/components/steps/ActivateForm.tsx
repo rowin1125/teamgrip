@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Box, Button, Heading } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
@@ -27,10 +27,11 @@ const ACTIVATE_USER = gql`
 
 type ActivateFormProps = {
   setActivateStep: (step: number) => void
+  handlePlayVideo: () => void
 }
 
 const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
-  const { logIn } = useAuth()
+  const { logIn, currentUser } = useAuth()
   const { token, email } = useParams()
   const decodedEmail = decodeURI(email)
 
@@ -46,8 +47,8 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
         password: data.password,
         token,
       })
-      if ((result.error as string).includes('Incorrect password')) {
-        toast.error('Incorrect password')
+      if ((result.error as string).includes('Username or password incorrect')) {
+        toast.error('Password incorrect')
         return
       }
 
@@ -59,12 +60,17 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
           password: data.password,
         })
         setActivateStep(1)
-        toast.success('OMG gelukt! Welkom bij de TeamStats familie ⚽️!')
+        toast.success('Account actief!')
       }
     } catch (error) {
       toast.error(error.message)
     }
   }
+
+  useEffect(() => {
+    if (currentUser?.verified) setActivateStep(1)
+  }, [currentUser, setActivateStep])
+
   return (
     <Formik
       initialValues={{
@@ -77,10 +83,10 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
       onSubmit={onSubmit}
     >
       <Box as={Form} w="full">
-        <Heading>Bijna klaar hoor!</Heading>
+        <Heading>Even dubbelchecken!</Heading>
         <ControlledInput
           id="password"
-          label="Bevestig je wachtwoord en activeer"
+          label="Bevestig je wachtwoord en activeer je account"
           placeholder="Jouw super geheime wachtwoord"
           type="password"
         />

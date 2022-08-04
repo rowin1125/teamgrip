@@ -34,6 +34,7 @@ model User {
   roles               Role         @default(USER)
   audits              Audit[]
   userProfile         UserProfile?
+  avatar              Avatar?
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @default(now()) @updatedAt
 }
@@ -55,4 +56,26 @@ model Audit {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Avatar {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  avatarStyle     String
+  topType         String
+  accessoriesType String
+  hatColor        String
+  hairColor       String
+  facialHairType  String
+  facialHairColor String
+  clotheType      String
+  clotheColor     String
+  graphicType     String
+  eyeType         String
+  eyebrowType     String
+  mouthType       String
+  skinColor       String
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
 }

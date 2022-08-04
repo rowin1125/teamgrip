@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Box, Button, Flex, Link } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
+import { Box, Button, Flex } from '@chakra-ui/react'
+import { Formik, Form, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
 import { routes } from '@redwoodjs/router'
@@ -11,14 +11,17 @@ import RedwoodLink from 'src/components/RedwoodLink'
 
 type SignUpFormProps = {
   initialValues: Record<string, unknown>
-  onSubmit: (values: Record<string, unknown>) => void
+  onSubmit: (
+    values: Record<string, unknown>,
+    actions: FormikHelpers<unknown>
+  ) => void
 }
 
 const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
   const validationSchema = Yup.object({
     username: Yup.string()
-      .email()
-      .required('Email moet wel een email zijn...')
+      .email('Email moet wel een email zijn...')
+      .required('Veld is verplicht')
       .min(4),
     password: Yup.string().min(
       6,
@@ -47,7 +50,7 @@ const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
 
           <Flex alignItems="center" justifyContent="space-between" mt={4}>
             <Button colorScheme="secondary" type="submit">
-              Registreer
+              Meld aan
             </Button>
             <Box>
               Heb je a een account?{' '}

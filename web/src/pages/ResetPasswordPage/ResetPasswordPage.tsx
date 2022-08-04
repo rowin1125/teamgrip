@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { Box, Flex, Heading } from '@chakra-ui/react'
 
 import { useAuth } from '@redwoodjs/auth'
-import {
-  Form,
-  Label,
-  PasswordField,
-  Submit,
-  FieldError,
-} from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
-import { toast, Toaster } from '@redwoodjs/web/toast'
+import { toast } from '@redwoodjs/web/toast'
+
+import ResetPasswordForm from './components/ResetPasswordForm'
+import ResetPasswordWithImage from './components/ResetPasswordWithImage'
 
 const ResetPasswordPage = ({ resetToken }) => {
+  const [showLoginLink, setShowLoginLink] = useState(false)
   const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } =
     useAuth()
   const [enabled, setEnabled] = useState(true)
@@ -36,11 +35,6 @@ const ResetPasswordPage = ({ resetToken }) => {
     validateToken()
   }, [resetToken, validateResetToken])
 
-  const passwordRef = useRef<HTMLInputElement>()
-  useEffect(() => {
-    passwordRef.current.focus()
-  }, [])
-
   const onSubmit = async (data) => {
     const response = await resetPassword({
       resetToken,
@@ -49,8 +43,11 @@ const ResetPasswordPage = ({ resetToken }) => {
 
     if (response.error) {
       toast.error(response.error)
+      if (response.error.includes('hetzelfde')) {
+        setShowLoginLink(true)
+      }
     } else {
-      toast.success('Password changed!')
+      toast.success('Wachtwoord aangepast')
       await reauthenticate()
       navigate(routes.login())
     }
@@ -58,61 +55,34 @@ const ResetPasswordPage = ({ resetToken }) => {
 
   return (
     <>
-      <MetaTags title="Reset Password" />
+      <MetaTags title="Wachtwoord resetten" />
 
-      <main className="rw-main">
-        <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
-        <div className="rw-scaffold rw-login-container">
-          <div className="rw-segment">
-            <header className="rw-segment-header">
-              <h2 className="rw-heading rw-heading-secondary">
-                Reset Password
-              </h2>
-            </header>
-
-            <div className="rw-segment-main">
-              <div className="rw-form-wrapper">
-                <Form onSubmit={onSubmit} className="rw-form-wrapper">
-                  <div className="text-left">
-                    <Label
-                      name="password"
-                      className="rw-label"
-                      errorClassName="rw-label rw-label-error"
-                    >
-                      New Password
-                    </Label>
-                    <PasswordField
-                      name="password"
-                      autoComplete="new-password"
-                      className="rw-input"
-                      errorClassName="rw-input rw-input-error"
-                      disabled={!enabled}
-                      ref={passwordRef}
-                      validation={{
-                        required: {
-                          value: true,
-                          message: 'Password is required',
-                        },
-                      }}
-                    />
-
-                    <FieldError name="password" className="rw-field-error" />
-                  </div>
-
-                  <div className="rw-button-group">
-                    <Submit
-                      className="rw-button rw-button-blue"
-                      disabled={!enabled}
-                    >
-                      Submit
-                    </Submit>
-                  </div>
-                </Form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
+      <Flex w="100vw" h="100vh">
+        <ResetPasswordWithImage />
+        <Flex
+          flexDir="column"
+          w="33.33%"
+          bg="primary.500"
+          color="white"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box maxW="400px" w="full">
+            <Heading as="h1" size="xl">
+              Reset wachtwoord
+            </Heading>
+            <ResetPasswordForm
+              disabled={!enabled}
+              showLoginLink={showLoginLink}
+              onSubmit={onSubmit}
+              initialValues={{
+                username: '',
+                password: '',
+              }}
+            />
+          </Box>
+        </Flex>
+      </Flex>
     </>
   )
 }

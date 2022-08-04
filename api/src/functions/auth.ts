@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import nanoid from 'nanoid'
+import { User } from 'types/graphql'
 
 import { DbAuthHandler } from '@redwoodjs/api'
 
 import { db } from 'src/lib/db'
-import { activateUserEmail } from 'src/services/users/users'
+import {
+  activateUserEmail,
+  forgotPasswordEmail,
+} from 'src/services/users/users'
 
 export const handler = async (event: any, context: any) => {
   const forgotPasswordOptions = {
@@ -20,7 +24,10 @@ export const handler = async (event: any, context: any) => {
     // You could use this return value to, for example, show the email
     // address in a toast message so the user will know it worked and where
     // to look for the email.
-    handler: (user: any) => {
+    handler: async (user: any) => {
+      const userdata = user as User
+      await forgotPasswordEmail({ user: userdata })
+
       return user
     },
 
@@ -31,8 +38,10 @@ export const handler = async (event: any, context: any) => {
       // for security reasons you may want to be vague here rather than expose
       // the fact that the email address wasn't found (prevents fishing for
       // valid email addresses)
-      usernameNotFound: 'Username not found',
-      // if the user somehow gets around client validation
+      // usernameNotFound: 'Username not found',
+      // // if the user somehow gets around client validation
+      // usernameRequired: 'Username is required',
+      usernameNotFound: 'Username incorrect',
       usernameRequired: 'Username is required',
     },
   }
@@ -59,11 +68,13 @@ export const handler = async (event: any, context: any) => {
 
     errors: {
       usernameOrPasswordMissing: 'Both username and password are required',
-      usernameNotFound: 'Username ${username} not found',
-      // For security reasons you may want to make this the same as the
-      // usernameNotFound error so that a malicious user can't use the error
-      // to narrow down if it's the username or password that's incorrect
-      incorrectPassword: 'Incorrect password for ${username}',
+      usernameNotFound: 'Username or password incorrect',
+      incorrectPassword: 'Username or password incorrect',
+      // usernameNotFound: 'Username ${username} not found',
+      // // For security reasons you may want to make this the same as the
+      // // usernameNotFound error so that a malicious user can't use the error
+      // // to narrow down if it's the username or password that's incorrect
+      // incorrectPassword: 'Incorrect password for ${username}',
     },
 
     // How long a user will remain logged in, in seconds
@@ -80,7 +91,7 @@ export const handler = async (event: any, context: any) => {
     },
 
     // If `false` then the new password MUST be different from the current one
-    allowReusedPassword: true,
+    allowReusedPassword: false,
 
     errors: {
       // the resetToken is valid, but expired
@@ -90,7 +101,8 @@ export const handler = async (event: any, context: any) => {
       // the resetToken was not present in the URL
       resetTokenRequired: 'resetToken is required',
       // new password is the same as the old password (apparently they did not forget it)
-      reusedPassword: 'Must choose a new password',
+      reusedPassword:
+        'Je nieuwe wachtwoord is hetzelfde als je oude wachtwoord .... Probeer anders even in te loggen',
     },
   }
 
@@ -146,7 +158,7 @@ export const handler = async (event: any, context: any) => {
     errors: {
       // `field` will be either "username" or "password"
       fieldMissing: '${field} is required',
-      usernameTaken: 'Username `${username}` already in use',
+      usernameTaken: 'Email `${username}` al in gebruik',
     },
   }
 
