@@ -22,7 +22,7 @@ export const activateUserEmail = async ({
   const html =
     'Welkom bij de TeamStats famile<br><br>' +
     'Laten we direct van start gaan!<br><br>' +
-    `<a href="http://localhost:8910/activeren?token=${token}&email=${encodedEmail}">Activeer je account</a>`
+    `<a href="${process.env.REDWOOD_ENV_VERCEL_URL}/activeren?token=${token}&email=${encodedEmail}">Activeer je account</a>`
 
   try {
     await sendEmail({ to: user.email, subject, html })
@@ -83,7 +83,7 @@ export const forgotPasswordEmail = async ({ user }: { user: User }) => {
   const html =
     'Oeps je bent je wachtwoord vergeten ...<br><br>' +
     'Maak je niet druk, druk op de link en je kan hem weer gewoon resetten.<br><br>' +
-    `<a href="http://localhost:8910/wachtwoord-resetten?resetToken=${user.resetToken}">Reset je wachtwoord</a>`
+    `<a href="${process.env.REDWOOD_ENV_VERCEL_URL}/wachtwoord-resetten?resetToken=${user.resetToken}">Reset je wachtwoord</a>`
 
   try {
     await sendEmail({ to: user.email, subject, html })
