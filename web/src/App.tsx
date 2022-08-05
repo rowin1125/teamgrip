@@ -9,8 +9,8 @@ import Routes from 'src/Routes'
 
 import { theme } from './lib/theme/theme'
 
-import './scaffold.css'
-import './index.css'
+import './scaffold.scss'
+import './index.scss'
 
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>

@@ -1,19 +1,23 @@
 import React from 'react'
 
-import { Box, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Center, Heading, Image, Text } from '@chakra-ui/react'
 
 import footballNightMan from '../../../components/Hero/images/footbal-night-man.jpg'
 
 const LoginWithImage = () => (
-  <Box w="66.66%" position="relative">
+  <Box
+    w={{ base: '100%', xl: '66.66%' }}
+    position="relative"
+    h={{ base: '50vh', xl: '100vh' }}
+  >
     <Box
       h="100%"
       bg="primary.500"
-      position="absolute"
+      position={{ base: 'relative', lg: 'absolute' }}
       top={0}
       left={0}
       right={0}
-      zIndex="-1"
+      zIndex="0"
     >
       <Image
         filter="auto"
@@ -46,12 +50,16 @@ const LoginWithImage = () => (
         zIndex={1}
         color="white"
       >
-        <Box mt="25vh">
-          <Heading size="4xl">Jouw team data</Heading>
-          <Text mt={4} fontSize="3xl">
-            Direct inzicht in alle informatie
-          </Text>
-        </Box>
+        <Center w="full" h="full">
+          <Box>
+            <Heading fontSize={{ base: '4xl', lg: '8xl' }}>
+              Jouw team data
+            </Heading>
+            <Text mt={4} fontSize={{ base: '2xl', lg: '4xl' }}>
+              Direct inzicht in alle informatie
+            </Text>
+          </Box>
+        </Center>
       </Box>
     </Box>
   </Box>

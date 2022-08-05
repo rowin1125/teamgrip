@@ -9,7 +9,7 @@ const Cavemen = () => {
     <Box overflow="hidden">
       <Box
         className="text"
-        color="primary.900"
+        color="primary.200"
         fontSize={{ base: '15rem', md: '30rem' }}
       >
         <p>404</p>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Center, Heading, Image, Text } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 
 import footballNightMan from '../../SignupPage/login-bg.jpg'
@@ -30,15 +30,19 @@ const AuthImageWithVideo = ({
   showWelcomeTitle,
 }: AuthImageWithVideoProps) => {
   return (
-    <Box w="66.66%" position="relative">
+    <Box
+      w={{ base: '100%', xl: '66.66%' }}
+      position="relative"
+      h={{ base: '40vh', xl: '100vh' }}
+    >
       <Box
         h="100%"
         bg="primary.500"
-        position="absolute"
+        position={{ base: 'relative', xl: 'absolute' }}
         top={0}
         left={0}
         right={0}
-        zIndex="-1"
+        zIndex="0"
       >
         <Image
           filter="auto"
@@ -50,7 +54,7 @@ const AuthImageWithVideo = ({
           h="full"
           zIndex={0}
         />
-        <motion.nav
+        <motion.div
           animate={videoShown ? 'show' : 'hide'}
           variants={variants}
           initial="hide"
@@ -69,7 +73,7 @@ const AuthImageWithVideo = ({
             zIndex={0}
             src="/deplay-teamstats.webm"
           />
-        </motion.nav>
+        </motion.div>
         <Box
           bg="primary.500"
           opacity={0.7}
@@ -92,32 +96,38 @@ const AuthImageWithVideo = ({
           zIndex={1}
           color="white"
         >
-          <motion.nav
+          <motion.div
             animate={showWelcomeTitle ? 'show' : 'hide'}
             variants={textVariants}
             initial="hide"
           >
-            <Box mt="25vh">
-              <Heading fontSize="8xl">Jouw eigen team</Heading>
-              <Text mt={4} fontSize="3xl">
-                Alle data binnen handbereik
-              </Text>
-            </Box>
-          </motion.nav>
-          <motion.nav
+            <Center w="full" h="full">
+              <Box>
+                <Heading fontSize={{ base: '4xl', xl: '8xl' }}>
+                  Jouw eigen team
+                </Heading>
+                <Text mt={4} fontSize={{ base: '2xl', xl: '4xl' }}>
+                  Alle data binnen handbereik
+                </Text>
+              </Box>
+            </Center>
+          </motion.div>
+          <motion.div
             animate={showGetStartedTitle ? 'show' : 'hide'}
             variants={textVariants}
             initial="hide"
           >
-            <Box mt="25vh">
-              <Heading color="secondary.500" fontSize="9xl">
-                Sky is the limit 🏆️
-              </Heading>
-              <Text mt={14} fontSize="5xl">
-                Dus maak nu je eigen team aan en ga van start
-              </Text>
-            </Box>
-          </motion.nav>
+            <Center w="full" h="full">
+              <Box>
+                <Heading fontSize={{ base: '4xl', xl: '8xl' }}>
+                  Sky is the limit 🏆️
+                </Heading>
+                <Text mt={4} fontSize={{ base: '2xl', xl: '4xl' }}>
+                  Dus maak nu je eigen team aan en ga van start
+                </Text>
+              </Box>
+            </Center>
+          </motion.div>
         </Box>
       </Box>
     </Box>

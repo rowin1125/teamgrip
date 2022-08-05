@@ -17,7 +17,7 @@ import CreateAvatar from './components/steps/Avatar/CreateAvatar'
 import UpdateUserInfoForm from './components/steps/UpdateUserInfoForm'
 
 const ActivatePage = () => {
-  const [activateStep, setActivateStep] = useState(0)
+  const [activateStep, setActivateStep] = useState(2)
   const [videoShown, setVideoShown] = useState(false)
   const [showWelcomeTitle, setShowWelcomeTitle] = useState(true)
   const [showGetStartedTitle, setShowGetStartedTitle] = useState(false)
@@ -45,9 +45,13 @@ const ActivatePage = () => {
 
   return (
     <>
-      <MetaTags title="Activate" description="Activate page" />
+      <MetaTags title="Activeer je account" description="Activate page" />
 
-      <Flex w="100vw" h="100vh">
+      <Flex
+        w="100vw"
+        h={{ base: '100%', xl: '100vh' }}
+        flexDirection={{ base: 'column', xl: 'row' }}
+      >
         <AuthImageWithVideo
           videoShown={videoShown}
           videoRef={videoRef}
@@ -56,19 +60,22 @@ const ActivatePage = () => {
         />
         <Flex
           flexDir="column"
-          w="33.33%"
+          w={{ base: '100%', xl: '33.33%' }}
           bg="primary.500"
           color="white"
           justifyContent="center"
           alignItems="center"
+          minH="calc(50vh - 80px)"
         >
           <FormProgress
             activePage={activateStep}
             amountOfPages={FormPages.length}
             mb={10}
-            px={10}
+            mt={{ base: 4, xl: 0 }}
+            pl={4}
+            stepsProps={{ responsive: false, activeStep: activateStep }}
           />
-          <Box maxW="500px" w="full">
+          <Box maxW="500px" w="full" p={4}>
             <Component
               setActivateStep={setActivateStep}
               handlePlayVideo={handlePlayVideo}

@@ -11,7 +11,7 @@ const Footer = ({ inverse }: FooterProps) => {
   return (
     <Flex
       as="footer"
-      position="absolute"
+      position="relative"
       bottom={0}
       left={0}
       right={0}

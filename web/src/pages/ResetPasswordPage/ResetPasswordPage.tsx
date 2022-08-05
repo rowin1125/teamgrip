@@ -57,17 +57,24 @@ const ResetPasswordPage = ({ resetToken }) => {
     <>
       <MetaTags title="Wachtwoord resetten" />
 
-      <Flex w="100vw" h="100vh">
+      <Flex
+        w="100vw"
+        h={{ base: '100%', xl: '100vh' }}
+        flexDirection={{ base: 'column', xl: 'row' }}
+      >
+        {' '}
         <ResetPasswordWithImage />
         <Flex
+          order={{ base: 1, xl: 0 }}
           flexDir="column"
-          w="33.33%"
+          w={{ base: '100%', xl: '33.33%' }}
           bg="primary.500"
           color="white"
           justifyContent="center"
           alignItems="center"
+          minH="calc(50vh - 80px)"
         >
-          <Box maxW="400px" w="full">
+          <Box maxW="400px" w="full" p={{ base: 4, xl: 0 }}>
             <Heading as="h1" size="xl">
               Reset wachtwoord
             </Heading>

@@ -1,20 +1,24 @@
 import React from 'react'
 
-import { Box, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Center, Heading, Image, Text } from '@chakra-ui/react'
 
 import fieldAtNights from './field-night.jpg'
 
 const ForgotPasswordWithImage = () => {
   return (
-    <Box w="66.66%" position="relative">
+    <Box
+      w={{ base: '100%', xl: '66.66%' }}
+      position="relative"
+      h={{ base: '50vh', xl: '100vh' }}
+    >
       <Box
         h="100%"
         bg="primary.500"
-        position="absolute"
+        position={{ base: 'relative', xl: 'absolute' }}
         top={0}
         left={0}
         right={0}
-        zIndex="-1"
+        zIndex="0"
       >
         <Image
           filter="auto"
@@ -47,12 +51,16 @@ const ForgotPasswordWithImage = () => {
           zIndex={1}
           color="white"
         >
-          <Box mt="25vh">
-            <Heading size="4xl">Geeft niets</Heading>
-            <Text mt={4} fontSize="3xl">
-              Zelfs de grooste talent vergeten wel eens wat
-            </Text>
-          </Box>
+          <Center w="full" h="full">
+            <Box>
+              <Heading fontSize={{ base: '4xl', xl: '8xl' }}>
+                Geeft niets
+              </Heading>
+              <Text mt={4} fontSize={{ base: '2xl', xl: '4xl' }}>
+                Zelfs de grooste talent vergeten wel eens wat
+              </Text>
+            </Box>
+          </Center>
         </Box>
       </Box>
     </Box>
