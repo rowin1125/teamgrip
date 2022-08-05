@@ -18,6 +18,7 @@ import LoginForm from './LoginForm'
 
 const LoginPage = () => {
   const [email, setEmail] = useState('')
+  const [loadingLogin, setLoadingLogin] = useState(false)
   const [showResendButton, setShowResendButton] = useState(false)
   const { isAuthenticated, logIn } = useAuth()
   const [resend, { loading }] = useMutation<
@@ -37,6 +38,7 @@ const LoginPage = () => {
   }, [isAuthenticated])
 
   const onSubmit = async (data) => {
+    setLoadingLogin(true)
     const response = await logIn({ ...data })
 
     if (response.message) {
@@ -51,6 +53,7 @@ const LoginPage = () => {
     } else {
       toast.success('Welcome back 🥳')
     }
+    setLoadingLogin(false)
   }
 
   const handleResend = async () =>
@@ -89,6 +92,7 @@ const LoginPage = () => {
               </Heading>
               <LoginForm
                 onSubmit={onSubmit}
+                loading={loadingLogin}
                 initialValues={{ username: '', password: '' }}
               />
             </Box>

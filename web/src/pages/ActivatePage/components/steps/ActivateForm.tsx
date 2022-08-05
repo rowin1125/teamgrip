@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Box, Button, Heading } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
@@ -31,6 +31,7 @@ type ActivateFormProps = {
 }
 
 const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
+  const [loadingLogin, setLoadingLogin] = useState(false)
   const { logIn, currentUser } = useAuth()
   const { token, email } = useParams()
   const decodedEmail = decodeURI(email)
@@ -42,6 +43,7 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
 
   const onSubmit = async (data: ActivateUserInput) => {
     try {
+      setLoadingLogin(true)
       const result = await logIn({
         username: decodedEmail,
         password: data.password,
@@ -49,6 +51,7 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
       })
       if ((result.error as string).includes('Username or password incorrect')) {
         toast.error('Password incorrect')
+        setLoadingLogin(false)
         return
       }
 
@@ -62,6 +65,7 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
         setActivateStep(1)
         toast.success('Account actief!')
       }
+      setLoadingLogin(false)
     } catch (error) {
       toast.error(error.message)
     }
@@ -94,7 +98,7 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
           colorScheme="secondary"
           type="submit"
           mt={4}
-          isLoading={loading}
+          isLoading={loading || loadingLogin}
         >
           Activeer
         </Button>

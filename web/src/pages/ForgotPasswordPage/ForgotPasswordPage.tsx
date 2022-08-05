@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Box, Flex, Heading } from '@chakra-ui/react'
 
@@ -11,6 +11,7 @@ import ForgotPasswordForm from './components/ForgotPasswordForm'
 import ForgotPasswordWithImage from './components/ForgotpasswordWithImage'
 
 const ForgotPasswordPage = () => {
+  const [loading, setLoading] = useState(false)
   const { isAuthenticated, forgotPassword } = useAuth()
 
   useEffect(() => {
@@ -20,11 +21,13 @@ const ForgotPasswordPage = () => {
   }, [isAuthenticated])
 
   const onSubmit = async (data) => {
+    setLoading(true)
     const response = await forgotPassword(data.username)
 
     if (response.error && !response?.error.includes('Username incorrect')) {
       // Prevent fishing, but still show the error when a valid error occurs
       toast.error(response.error)
+      setLoading(false)
       return
     }
     toast.success(
@@ -60,6 +63,7 @@ const ForgotPasswordPage = () => {
             </Heading>
             <ForgotPasswordForm
               onSubmit={onSubmit}
+              loading={loading}
               initialValues={{
                 username: '',
               }}

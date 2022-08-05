@@ -12,10 +12,12 @@ type ForgotPasswordFormProps = {
     values: Record<string, unknown>,
     actions: FormikHelpers<unknown>
   ) => void
+  loading: boolean
 }
 
 const ForgotPasswordForm = ({
   initialValues,
+  loading,
   onSubmit,
 }: ForgotPasswordFormProps) => {
   const validationSchema = Yup.object({
@@ -39,7 +41,7 @@ const ForgotPasswordForm = ({
           />
 
           <Flex alignItems="center" justifyContent="space-between" mt={4}>
-            <Button colorScheme="secondary" type="submit">
+            <Button colorScheme="secondary" type="submit" isLoading={loading}>
               Herstel je wachtwoord
             </Button>
           </Flex>

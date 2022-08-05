@@ -15,6 +15,7 @@ const ResetPasswordPage = ({ resetToken }) => {
   const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } =
     useAuth()
   const [enabled, setEnabled] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -23,6 +24,7 @@ const ResetPasswordPage = ({ resetToken }) => {
   }, [isAuthenticated])
 
   useEffect(() => {
+    setLoading(true)
     const validateToken = async () => {
       const response = await validateResetToken(resetToken)
       if (response.error) {
@@ -33,9 +35,11 @@ const ResetPasswordPage = ({ resetToken }) => {
       }
     }
     validateToken()
+    setLoading(false)
   }, [resetToken, validateResetToken])
 
   const onSubmit = async (data) => {
+    setLoading(true)
     const response = await resetPassword({
       resetToken,
       password: data.password,
@@ -51,6 +55,7 @@ const ResetPasswordPage = ({ resetToken }) => {
       await reauthenticate()
       navigate(routes.login())
     }
+    setLoading(false)
   }
 
   return (
@@ -62,7 +67,6 @@ const ResetPasswordPage = ({ resetToken }) => {
         h={{ base: '100%', xl: '100vh' }}
         flexDirection={{ base: 'column', xl: 'row' }}
       >
-        {' '}
         <ResetPasswordWithImage />
         <Flex
           order={{ base: 1, xl: 0 }}
@@ -82,6 +86,7 @@ const ResetPasswordPage = ({ resetToken }) => {
               disabled={!enabled}
               showLoginLink={showLoginLink}
               onSubmit={onSubmit}
+              loading={loading}
               initialValues={{
                 username: '',
                 password: '',

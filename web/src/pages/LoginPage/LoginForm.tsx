@@ -12,9 +12,10 @@ import RedwoodLink from 'src/components/RedwoodLink'
 type LoginFormProps = {
   initialValues: Record<string, unknown>
   onSubmit: (values: Record<string, unknown>) => Promise<void>
+  loading: boolean
 }
 
-const LoginForm = ({ initialValues, onSubmit }: LoginFormProps) => {
+const LoginForm = ({ initialValues, onSubmit, loading }: LoginFormProps) => {
   const validationSchema = Yup.object({
     username: Yup.string()
       .email('Email moet wel een email zijn...')
@@ -27,42 +28,36 @@ const LoginForm = ({ initialValues, onSubmit }: LoginFormProps) => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {() => (
-        <FormikForm>
-          <ControlledInput
-            id="username"
-            label="Username"
-            placeholder="ronaldo@gmail.nl"
-          />
-          <ControlledInput
-            id="password"
-            label="Password"
-            type="password"
-            placeholder="super geheim wachtwoord 🤫"
-            formControlProps={{ mb: 1 }}
-          />
-          <Flex alignItems="center" justifyContent="flex-end" mt={0}>
-            <Link
-              as={RedwoodLink}
-              color="gray.500"
-              to={routes.forgotPassword()}
-            >
-              Wachtwoord vergeten?
-            </Link>
-          </Flex>
-          <Flex alignItems="center" justifyContent="space-between" mt={4}>
-            <Button colorScheme="secondary" type="submit">
-              Login
-            </Button>
-            <Box>
-              Heb je nog geen account?{' '}
-              <RedwoodLink to={routes.signup()} className="rw-link">
-                Registeer
-              </RedwoodLink>
-            </Box>
-          </Flex>
-        </FormikForm>
-      )}
+      <FormikForm>
+        <ControlledInput
+          id="username"
+          label="Username"
+          placeholder="ronaldo@gmail.nl"
+        />
+        <ControlledInput
+          id="password"
+          label="Password"
+          type="password"
+          placeholder="super geheim wachtwoord 🤫"
+          formControlProps={{ mb: 1 }}
+        />
+        <Flex alignItems="center" justifyContent="flex-end" mt={0}>
+          <Link as={RedwoodLink} color="gray.500" to={routes.forgotPassword()}>
+            Wachtwoord vergeten?
+          </Link>
+        </Flex>
+        <Flex alignItems="center" justifyContent="space-between" mt={4}>
+          <Button colorScheme="secondary" type="submit" isLoading={loading}>
+            Login
+          </Button>
+          <Box>
+            Heb je nog geen account?{' '}
+            <RedwoodLink to={routes.signup()} className="rw-link">
+              Registeer
+            </RedwoodLink>
+          </Box>
+        </Flex>
+      </FormikForm>
     </Formik>
   )
 }

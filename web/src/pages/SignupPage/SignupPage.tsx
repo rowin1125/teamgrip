@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Box, Flex, Heading } from '@chakra-ui/react'
 
@@ -21,6 +21,7 @@ export const RESEND_ACTIVATE_USER = gql`
 
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -30,6 +31,7 @@ const SignupPage = () => {
   }, [isAuthenticated])
 
   const onSubmit = async (data, actions) => {
+    setLoading(true)
     const response = await signUp({ ...data })
 
     if (response.message) {
@@ -38,6 +40,7 @@ const SignupPage = () => {
     } else if (response.error) {
       toast.error(response.error)
     }
+    setLoading(false)
   }
 
   return (
@@ -64,6 +67,7 @@ const SignupPage = () => {
               Aanmelden
             </Heading>
             <SignUpForm
+              loading={loading}
               onSubmit={onSubmit}
               initialValues={{
                 username: '',

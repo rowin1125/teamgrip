@@ -15,6 +15,7 @@ type ResetPasswordFormProps = {
   ) => void
   disabled?: boolean
   showLoginLink?: boolean
+  loading?: boolean
 }
 
 const ResetPasswordForm = ({
@@ -22,6 +23,7 @@ const ResetPasswordForm = ({
   disabled,
   onSubmit,
   showLoginLink,
+  loading,
 }: ResetPasswordFormProps) => {
   const validationSchema = Yup.object({
     password: Yup.string().min(
@@ -45,7 +47,12 @@ const ResetPasswordForm = ({
         />
 
         <Flex alignItems="center" justifyContent="space-between" mt={4}>
-          <Button colorScheme="secondary" type="submit" isDisabled={disabled}>
+          <Button
+            colorScheme="secondary"
+            type="submit"
+            isDisabled={disabled}
+            isLoading={loading}
+          >
             Herstel je wachtwoord
           </Button>
           {showLoginLink && (

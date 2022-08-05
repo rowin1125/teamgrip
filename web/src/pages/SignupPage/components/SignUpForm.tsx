@@ -15,9 +15,10 @@ type SignUpFormProps = {
     values: Record<string, unknown>,
     actions: FormikHelpers<unknown>
   ) => void
+  loading: boolean
 }
 
-const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
+const SignUpForm = ({ initialValues, onSubmit, loading }: SignUpFormProps) => {
   const validationSchema = Yup.object({
     username: Yup.string()
       .email('Email moet wel een email zijn...')
@@ -49,7 +50,7 @@ const SignUpForm = ({ initialValues, onSubmit }: SignUpFormProps) => {
           />
 
           <Flex alignItems="center" justifyContent="space-between" mt={4}>
-            <Button colorScheme="secondary" type="submit">
+            <Button colorScheme="secondary" type="submit" isLoading={loading}>
               Meld aan
             </Button>
             <Box>
