@@ -72,7 +72,6 @@ const LoginPage = () => {
           h={{ base: '100%', xl: '100vh' }}
           flexDirection={{ base: 'column', xl: 'row' }}
         >
-          {' '}
           <LoginWithImage />
           <Flex
             order={{ base: 1, xl: 0 }}
@@ -81,6 +80,7 @@ const LoginPage = () => {
             bg="primary.500"
             color="white"
             justifyContent="center"
+            minH="calc(100vh - 300px - 80px)"
             alignItems="center"
           >
             <Box maxW="400px" w="full" p={{ base: 4, xl: 0 }}>

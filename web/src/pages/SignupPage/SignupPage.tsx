@@ -57,7 +57,7 @@ const SignupPage = () => {
           color="white"
           justifyContent="center"
           alignItems="center"
-          minH="calc(50vh - 80px)"
+          minH="calc(100vh - 300px - 80px)"
         >
           <Box maxW="400px" w="full" p={{ base: 4, xl: 0 }}>
             <Heading as="h1" size="xl">

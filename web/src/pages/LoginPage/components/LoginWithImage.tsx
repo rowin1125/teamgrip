@@ -8,7 +8,7 @@ const LoginWithImage = () => (
   <Box
     w={{ base: '100%', xl: '66.66%' }}
     position="relative"
-    h={{ base: '50vh', xl: '100vh' }}
+    h={{ base: '300px', xl: '100vh' }}
   >
     <Box
       h="100%"

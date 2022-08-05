@@ -17,7 +17,7 @@ import CreateAvatar from './components/steps/Avatar/CreateAvatar'
 import UpdateUserInfoForm from './components/steps/UpdateUserInfoForm'
 
 const ActivatePage = () => {
-  const [activateStep, setActivateStep] = useState(2)
+  const [activateStep, setActivateStep] = useState(0)
   const [videoShown, setVideoShown] = useState(false)
   const [showWelcomeTitle, setShowWelcomeTitle] = useState(true)
   const [showGetStartedTitle, setShowGetStartedTitle] = useState(false)
@@ -65,7 +65,7 @@ const ActivatePage = () => {
           color="white"
           justifyContent="center"
           alignItems="center"
-          minH="calc(50vh - 80px)"
+          minH="calc(100vh - 300px - 80px)"
         >
           <FormProgress
             activePage={activateStep}
