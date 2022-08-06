@@ -64,7 +64,7 @@ const ResetPasswordPage = ({ resetToken }) => {
 
       <Flex
         w="100vw"
-        h={{ base: '100%', xl: '100vh' }}
+        h={{ base: '100%', xl: 'calc(100vh - 80px)' }}
         flexDirection={{ base: 'column', xl: 'row' }}
       >
         <ResetPasswordWithImage />
