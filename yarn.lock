@@ -10556,7 +10556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.8":
+"combined-stream@npm:^1.0.6, combined-stream@npm:^1.0.8":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -10628,7 +10628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"component-emitter@npm:^1.2.1":
+"component-emitter@npm:^1.2.0, component-emitter@npm:^1.2.1":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
   checksum: 68774a0a3754fb6c0ba53c2e88886dfbd0c773931066abb1d7fd1b0c893b2a838d8f088ab4dca1f18cc1a4fc2e6932019eba3ded2d931b5ba2241ce40e93a24f
@@ -10812,6 +10812,13 @@ __metadata:
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: beab41fbd7c20175e3a2799ba948c1dcc71ef69f23fe14eeeff59fc09f50c517b0f77098db87dbb4c55da802f9d86ee86cdc1cd3efd87760341551838d53fca2
+  languageName: node
+  linkType: hard
+
+"cookiejar@npm:^2.1.0":
+  version: 2.1.3
+  resolution: "cookiejar@npm:2.1.3"
+  checksum: 32f4e2ee8156dc0c3674fbe03cf5b23560215c3cb6047dd37d37e7c7bfa77c7232fe26d3bc5108e846819f04393dfdf6a75f9b000165c49652d669ab2a23044e
   languageName: node
   linkType: hard
 
@@ -11531,7 +11538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.0.0, debug@npm:^3.2.7":
+"debug@npm:^3.0.0, debug@npm:^3.1.0, debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
   dependencies:
@@ -14133,6 +14140,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"form-data@npm:^2.3.1":
+  version: 2.5.1
+  resolution: "form-data@npm:2.5.1"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.6
+    mime-types: ^2.1.12
+  checksum: 7e8fb913b84a7ac04074781a18d0f94735bbe82815ff35348803331f6480956ff0035db5bcf15826edee09fe01e665cfac664678f1526646a6374ee13f960e56
+  languageName: node
+  linkType: hard
+
 "form-data@npm:^3.0.0":
   version: 3.0.1
   resolution: "form-data@npm:3.0.1"
@@ -14158,6 +14176,13 @@ __metadata:
     node-domexception: 1.0.0
     web-streams-polyfill: 4.0.0-beta.1
   checksum: 8fd70c642003b40ee23a77cc312a89c39ef27ccbf0d7fad57f157aeeab944c1fabd3402f7958de2c8694d1dbd1b273aefd8423eeaddc2ab442a45ba1d78f7f48
+  languageName: node
+  linkType: hard
+
+"formidable@npm:^1.1.1":
+  version: 1.2.6
+  resolution: "formidable@npm:1.2.6"
+  checksum: 9ebc45f434785051d4ecab28be3356c7a172a112119f5dd7aafc393ab7f6a6f3baa2446e5215ce21bf094c4c24dfb4bf483117d07961862e04ad11a25b9b577b
   languageName: node
   linkType: hard
 
@@ -18500,7 +18525,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"methods@npm:~1.1.2":
+"methods@npm:^1.1.1, methods@npm:~1.1.2":
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
   checksum: bdf7cc72ff0a33e3eede03708c08983c4d7a173f91348b4b1e4f47d4cdbf734433ad971e7d1e8c77247d9e5cd8adb81ea4c67b0a2db526b758b2233d7814b8b2
@@ -18573,7 +18598,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:1.6.0":
+"mime@npm:1.6.0, mime@npm:^1.4.1":
   version: 1.6.0
   resolution: "mime@npm:1.6.0"
   bin:
@@ -21195,7 +21220,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.11.0, qs@npm:^6.10.0":
+"qs@npm:6.11.0, qs@npm:^6.10.0, qs@npm:^6.5.1":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
   dependencies:
@@ -22938,6 +22963,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sib-api-v3-sdk@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "sib-api-v3-sdk@npm:8.4.0"
+  dependencies:
+    querystring: 0.2.0
+    superagent: 3.7.0
+  checksum: 3e925d190505d0791e383a489c80e7798f1ec2e1ff070b6032d2a049adf56e55aaf6df35a867aab6383889d62b9781eb5d83390d4956ad1f77d17dd0f0750cb5
+  languageName: node
+  linkType: hard
+
 "side-channel@npm:^1.0.4":
   version: 1.0.4
   resolution: "side-channel@npm:1.0.4"
@@ -23788,6 +23823,24 @@ __metadata:
   version: 4.0.13
   resolution: "stylis@npm:4.0.13"
   checksum: bd567c440b4f1acf8962b1b3aa7985c4e04d7badfe1e0f1c7ee2a60912de2718973850c524001a3d52f5fc9a0e3dcd204b8bd7e2d47d4934462e9f749fd9c7bc
+  languageName: node
+  linkType: hard
+
+"superagent@npm:3.7.0":
+  version: 3.7.0
+  resolution: "superagent@npm:3.7.0"
+  dependencies:
+    component-emitter: ^1.2.0
+    cookiejar: ^2.1.0
+    debug: ^3.1.0
+    extend: ^3.0.0
+    form-data: ^2.3.1
+    formidable: ^1.1.1
+    methods: ^1.1.1
+    mime: ^1.4.1
+    qs: ^6.5.1
+    readable-stream: ^2.0.5
+  checksum: f4cca0912ae3c4f15f6455bc18448ee357ddc95a8fd47db72db4be54554a2d6a1523fd56c0859244021793cd39a5017014a887960be1392145452f102e38fd79
   languageName: node
   linkType: hard
 
@@ -25480,6 +25533,7 @@ __metadata:
     react-select: ^5.4.0
     sass: ^1.54.2
     sass-loader: ^13.0.2
+    sib-api-v3-sdk: ^8.4.0
     yup: ^0.32.11
   languageName: unknown
   linkType: soft

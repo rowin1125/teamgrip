@@ -2,7 +2,7 @@ import nanoid from 'nanoid'
 import { MutationResolvers, User } from 'types/graphql'
 
 import { db } from 'src/lib/db'
-import { sendEmail } from 'src/lib/email'
+import { mailUser, sendEmail } from 'src/lib/email'
 
 export const activateUserEmail = async ({
   email,
@@ -18,7 +18,6 @@ export const activateUserEmail = async ({
 
   const subject = 'TeamStats - Aanmelding'
   const encodedEmail = encodeURIComponent(user.email)
-  console.log('process.env.VERCEL_URL', process.env.VERCEL_URL)
 
   const html =
     'Welkom bij de TeamStats famile<br><br>' +
@@ -26,7 +25,8 @@ export const activateUserEmail = async ({
     `<a href="${process.env.VERCEL_URL}/activeren?token=${token}&email=${encodedEmail}">Activeer je account</a>`
 
   try {
-    await sendEmail({ to: user.email, subject, html })
+    await mailUser()
+    // await sendEmail({ to: user.email, subject, html })
   } catch (error) {
     throw new Error(error.message)
   }

@@ -1,15 +1,49 @@
 import * as nodemailer from 'nodemailer'
 
+const Sib = require('sib-api-v3-sdk')
+
+export async function mailUser() {
+  const client = Sib.ApiClient.instance
+
+  const apiKey = client.authentications['api-key']
+  apiKey.apiKey = process.env.SENDINBLUE_API_KEY.toString()
+  const tranEmailApi = new Sib.TransactionalEmailsApi()
+
+  const sendSmtpEmailOptions = {
+    sender: {
+      email: 'rowinmol648@gmail.com',
+    },
+    to: [
+      {
+        email: 'rowinmol648@gmail.com',
+        name: 'Rowin Mol',
+      },
+    ],
+    templateId: 1,
+    params: {
+      firstname: 'Rowin',
+      activateUrl: 'https://www.google.com',
+    },
+  }
+
+  tranEmailApi
+    .sendTransacEmail(sendSmtpEmailOptions)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err.message)
+      console.log(err.status)
+    })
+}
+
 interface Options {
   to: string | string[]
   subject: string
   text?: string
   html: string
 }
-
 export async function sendEmail({ to, subject, text, html }: Options) {
-  console.log('Sending email to:', to)
-
   // create reusable transporter object using SendInBlue for SMTP
   const transporter = nodemailer.createTransport({
     host: 'smtp-relay.sendinblue.com',
