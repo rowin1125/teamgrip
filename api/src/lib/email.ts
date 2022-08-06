@@ -1,37 +1,45 @@
 import * as nodemailer from 'nodemailer'
+import * as Sib from 'sib-api-v3-sdk'
 
-const Sib = require('sib-api-v3-sdk')
+type MailToType = {
+  name: string
+  email: string
+}
+type MailSenderType = {
+  name: string
+  email: string
+}
+type MailUserOptions = {
+  sender?: MailSenderType
+  to: MailToType[]
+  templateId?: number
+  params?: Record<string, string>
+}
 
-export async function mailUser() {
+export async function mailUser(options: MailUserOptions) {
   const client = Sib.ApiClient.instance
 
   const apiKey = client.authentications['api-key']
   apiKey.apiKey = process.env.SENDINBLUE_API_KEY.toString()
   const tranEmailApi = new Sib.TransactionalEmailsApi()
 
-  const sendSmtpEmailOptions = {
-    sender: {
+  const emailOptions = {
+    ...options,
+    sender: options.sender ?? {
+      name: 'Rowin Mol',
       email: 'rowinmol648@gmail.com',
-    },
-    to: [
-      {
-        email: 'rowinmol648@gmail.com',
-        name: 'Rowin Mol',
-      },
-    ],
-    templateId: 1,
-    params: {
-      firstname: 'Rowin',
-      activateUrl: 'https://www.google.com',
     },
   }
 
   tranEmailApi
-    .sendTransacEmail(sendSmtpEmailOptions)
-    .then((res) => {
-      console.log(res)
+    .sendTransacEmail(emailOptions)
+    .then(() => {
+      emailOptions.to.forEach((mailTo) =>
+        console.log(`Email sent to ${mailTo.email}`)
+      )
     })
     .catch((err) => {
+      console.log('err', err)
       console.log(err.message)
       console.log(err.status)
     })

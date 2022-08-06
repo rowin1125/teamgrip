@@ -16,16 +16,22 @@ export const activateUserEmail = async ({
   })
   if (!user) throw new Error('User not found')
 
-  const subject = 'TeamStats - Aanmelding'
   const encodedEmail = encodeURIComponent(user.email)
 
-  const html =
-    'Welkom bij de TeamStats famile<br><br>' +
-    'Laten we direct van start gaan!<br><br>' +
-    `<a href="${process.env.VERCEL_URL}/activeren?token=${token}&email=${encodedEmail}">Activeer je account</a>`
-
   try {
-    await mailUser()
+    await mailUser({
+      to: [
+        {
+          name: encodedEmail,
+          email: user.email,
+        },
+      ],
+      templateId: 1,
+      params: {
+        activateUrl: `${process.env.VERCEL_URL}/activeren?token=${token}&email=${encodedEmail}`,
+        firstname: 'test',
+      },
+    })
     // await sendEmail({ to: user.email, subject, html })
   } catch (error) {
     throw new Error(error.message)
