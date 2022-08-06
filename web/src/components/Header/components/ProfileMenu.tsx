@@ -9,16 +9,15 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
-import Avatar from 'avataaars'
 
 import { useAuth } from '@redwoodjs/auth'
 import { Link as RedwoodLink, routes } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/toast'
 
-import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar'
+import Avatar from 'src/components/Avatar/Avatar'
 
 const ProfileMenu = () => {
-  const { logOut, currentUser } = useAuth()
+  const { logOut } = useAuth()
 
   const handleLogout = async () => {
     try {
@@ -32,18 +31,7 @@ const ProfileMenu = () => {
   return (
     <Menu closeOnBlur>
       <MenuButton>
-        {currentUser?.avatar?.avatarStyle ? (
-          <Avatar
-            style={{ width: '60px', height: '60px' }}
-            {...currentUser?.avatar}
-          />
-        ) : (
-          <Avatar
-            style={{ width: '60px', height: '60px' }}
-            avatarStyle="Circle"
-            {...generateRandomAvatarOptions()}
-          />
-        )}
+        <Avatar />
       </MenuButton>
       <MenuList>
         <MenuGroup title="Pages">
