@@ -19,7 +19,8 @@ const ResetPasswordPage = ({ resetToken }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(routes.home())
+      navigate(routes.app())
+      toast.error('Je bent al ingelogd')
     }
   }, [isAuthenticated])
 

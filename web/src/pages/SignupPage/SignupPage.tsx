@@ -26,7 +26,7 @@ const SignupPage = () => {
   useEffect(() => {
     if (isAuthenticated) {
       toast.error('Je bent al ingelogd 🤔')
-      navigate(routes.home())
+      navigate(routes.app())
     }
   }, [isAuthenticated])
 

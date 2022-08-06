@@ -7,7 +7,7 @@ import stadiumImage from './images/stadium.jpg'
 
 export type HeroProps = {
   type?: 'stadium' | 'football-night-man'
-  size?: 'sm' | 'md' | 'lg' | '1/2'
+  size?: 'sm' | 'md' | 'lg' | '1/2' | 'full'
 }
 
 const HERO_SIZES_MAP = {
@@ -15,6 +15,7 @@ const HERO_SIZES_MAP = {
   md: '414px',
   lg: '600px',
   '1/2': '50vh',
+  full: '100vh',
 }
 
 const Hero = ({ type = 'stadium', size = 'md' }: HeroProps) => {

@@ -48,7 +48,7 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
       if (currentUser?.avatar?.accessoriesType) {
         toast.error('Je hebt al een avatar, je wordt naar home geredirect 👋')
         await waitFor(3000)
-        navigate(routes.home())
+        navigate(routes.app())
         return
       }
       await createAvatar({

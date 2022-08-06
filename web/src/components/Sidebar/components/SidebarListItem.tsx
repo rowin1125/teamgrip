@@ -32,7 +32,7 @@ const ICON_MAP: Record<SidebarListItemProps['listItem'], IconType> = {
 const SidebarListItem = ({ listItem, href }: SidebarListItemProps) => {
   const { pathname } = useLocation()
 
-  const isHomepage = listItem === 'dashboard' && pathname === '/'
+  const isHomepage = listItem === 'dashboard' && pathname === '/app'
 
   const active = (pathname.includes(listItem) && !isHomepage) || isHomepage
 

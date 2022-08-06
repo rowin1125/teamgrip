@@ -37,7 +37,7 @@ const ActivatePage = () => {
 
     await waitFor(4000)
 
-    navigate(routes.home())
+    navigate(routes.app())
     toast.success('Welcome en ga direct aan de slag!')
   }
 
