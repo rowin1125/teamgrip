@@ -2,7 +2,7 @@ import nanoid from 'nanoid'
 import { MutationResolvers, User } from 'types/graphql'
 
 import { db } from 'src/lib/db'
-import { mailUser, sendEmail } from 'src/lib/email'
+import { mailUser } from 'src/lib/email'
 
 export const activateUserEmail = async ({
   email,
@@ -28,7 +28,7 @@ export const activateUserEmail = async ({
       ],
       templateId: 1,
       params: {
-        activateUrl: `${process.env.VERCEL_URL}/activeren?token=${token}&email=${encodedEmail}`,
+        activateUrl: `${process.env.FRONTEND_URL}/activeren?token=${token}&email=${encodedEmail}`,
         firstname: 'test',
       },
     })
@@ -85,15 +85,19 @@ export const resendActivateUser: MutationResolvers['resendActivateUser'] =
   }
 
 export const forgotPasswordEmail = async ({ user }: { user: User }) => {
-  const subject = 'TeamStats - Wachtwoord vergeten'
-
-  const html =
-    'Oeps je bent je wachtwoord vergeten ...<br><br>' +
-    'Maak je niet druk, druk op de link en je kan hem weer gewoon resetten.<br><br>' +
-    `<a href="${process.env.VERCEL_URL}/wachtwoord-resetten?resetToken=${user.resetToken}">Reset je wachtwoord</a>`
-
   try {
-    await sendEmail({ to: user.email, subject, html })
+    await mailUser({
+      to: [
+        {
+          name: user.email,
+          email: user.email,
+        },
+      ],
+      templateId: 2,
+      params: {
+        recoverUrl: `${process.env.FRONTEND_URL}/wachtwoord-resetten?resetToken=${user.resetToken}`,
+      },
+    })
   } catch (error) {
     throw new Error(error.message)
   }

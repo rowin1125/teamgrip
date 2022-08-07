@@ -21,25 +21,27 @@ const Avatar = () => {
           {...generateRandomAvatarOptions()}
         />
       )}
-      <Box
-        position="absolute"
-        bottom={-1}
-        right={-1}
-        bg="secondary.500"
-        color="white"
-        w="25px"
-        h="25px"
-        fontSize="10px"
-        fontWeight="bold"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        borderRadius={9999}
-        boxShadow="0px 0px 15px rgba(0, 0, 0, 0.85)"
-      >
-        <Box mr="1px">{currentUser?.userProfile.firstname.slice(0, 1)}</Box>
-        {currentUser?.userProfile.lastname.slice(0, 1)}
-      </Box>
+      {currentUser?.userProfile?.firstname && (
+        <Box
+          position="absolute"
+          bottom={-1}
+          right={-1}
+          bg="secondary.500"
+          color="white"
+          w="25px"
+          h="25px"
+          fontSize="10px"
+          fontWeight="bold"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          borderRadius={9999}
+          boxShadow="0px 0px 15px rgba(0, 0, 0, 0.85)"
+        >
+          <Box mr="1px">{currentUser?.userProfile?.firstname?.slice(0, 1)}</Box>
+          {currentUser?.userProfile?.lastname?.slice(0, 1)}
+        </Box>
+      )}
     </Box>
   )
 }
