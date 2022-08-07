@@ -31,7 +31,7 @@ services:
 - name: web-api
   type: web
   env: node
-  region: oregon
+  region: frankfurt
   buildCommand: yarn && yarn rw build api
   startCommand: yarn rw deploy render api
   envVars:
@@ -44,4 +44,4 @@ services:
 
 databases:
   - name: web-db
-    region: oregon
+    region: frankfurt
