@@ -5,18 +5,22 @@ import { useAuth } from '@redwoodjs/auth'
 
 import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar'
 
-const Avatar = () => {
+type AvatarProps = {
+  size?: string
+}
+
+const Avatar = ({ size = '60' }: AvatarProps) => {
   const { currentUser } = useAuth()
   return (
-    <Box position="relative">
+    <Box position="relative" maxW={size}>
       {currentUser?.avatar?.avatarStyle ? (
         <AvatarComponent
-          style={{ width: '60px', height: '60px' }}
+          style={{ width: size, height: size }}
           {...currentUser?.avatar}
         />
       ) : (
         <AvatarComponent
-          style={{ width: '60px', height: '60px' }}
+          style={{ width: size, height: size }}
           avatarStyle="Circle"
           {...generateRandomAvatarOptions()}
         />
@@ -28,9 +32,9 @@ const Avatar = () => {
           right={-1}
           bg="secondary.500"
           color="white"
-          w="25px"
-          h="25px"
-          fontSize="10px"
+          w={`${+size / 2.4}px`}
+          h={`${+size / 2.4}px`}
+          fontSize={`${+size / 6}px`}
           fontWeight="bold"
           display="flex"
           justifyContent="center"

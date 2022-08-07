@@ -11,6 +11,7 @@ const Routes = () => {
       <Private unauthenticated="login">
         <Set wrap={AppLayout}>
           <Route path="/app" page={AppPage} name="app" />
+          <Route path="/app/instellingen" page={SettingsPage} name="settings" />
         </Set>
       </Private>
       {/* AUTH */}

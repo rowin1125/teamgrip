@@ -1,40 +1,29 @@
 import React from 'react'
 
-import { Flex, Link, ListIcon, ListItem, Text } from '@chakra-ui/react'
-import { CgHomeAlt, CgOptions, CgProfile } from 'react-icons/cg'
-import { IoIosStats } from 'react-icons/io'
-import { IconType } from 'react-icons/lib'
-import { MdOutlineSpaceDashboard } from 'react-icons/md'
-import { RiTeamFill } from 'react-icons/ri'
+import { As, Flex, Link, ListIcon, ListItem, Text } from '@chakra-ui/react'
 
 import { useLocation, Link as RedwoodLink } from '@redwoodjs/router'
 
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+
 type SidebarListItemProps = {
-  listItem:
-    | 'dashboard'
-    | 'teams'
-    | 'clubs'
-    | 'scores'
-    | 'myProfile'
-    | 'settings'
+  listItem: string
   href: string
+  icon: As
 }
 
-const ICON_MAP: Record<SidebarListItemProps['listItem'], IconType> = {
-  dashboard: MdOutlineSpaceDashboard,
-  teams: RiTeamFill,
-  clubs: CgHomeAlt,
-  scores: IoIosStats,
-  myProfile: CgProfile,
-  settings: CgOptions,
-}
-
-const SidebarListItem = ({ listItem, href }: SidebarListItemProps) => {
+const SidebarListItem = ({
+  listItem,
+  href,
+  icon: Icon,
+}: SidebarListItemProps) => {
   const { pathname } = useLocation()
 
   const isHomepage = listItem === 'dashboard' && pathname === '/app'
 
-  const active = (pathname.includes(listItem) && !isHomepage) || isHomepage
+  const active =
+    (pathname.includes(listItem.toLocaleLowerCase()) && !isHomepage) ||
+    isHomepage
 
   return (
     <Link as={RedwoodLink} to={href}>
@@ -63,13 +52,13 @@ const SidebarListItem = ({ listItem, href }: SidebarListItemProps) => {
             rounded="lg"
           >
             <ListIcon
-              as={ICON_MAP[listItem]}
+              as={Icon}
               color={active ? 'white' : 'primary.500'}
               m={0}
             />
           </Flex>
-          <Text ml={4} fontWeight="bold">
-            {listItem}
+          <Text ml={4} fontWeight="bold" color="black">
+            {capitalizeText(listItem)}
           </Text>
         </Flex>
       </ListItem>

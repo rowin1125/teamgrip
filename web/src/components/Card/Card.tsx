@@ -10,11 +10,12 @@ type CardProps = {
 const Card = ({ children, noXPadding, ...rest }: CardProps) => (
   <Box
     px={noXPadding ? 0 : 8}
+    position="relative"
     bg="white"
     py={8}
-    rounded="3xl"
+    rounded="2xl"
     boxShadow="lg"
-    h="fit-content"
+    h="full"
     {...rest}
   >
     {children}

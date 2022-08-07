@@ -1,8 +1,12 @@
 import React from 'react'
 
 import { Box, Button, Divider, Flex, Image, List, Text } from '@chakra-ui/react'
+import { CgHomeAlt, CgProfile, CgOptions } from 'react-icons/cg'
+import { IoIosStats } from 'react-icons/io'
+import { MdOutlineSpaceDashboard } from 'react-icons/md'
+import { RiTeamFill } from 'react-icons/ri'
 
-import { Link } from '@redwoodjs/router'
+import { Link, routes } from '@redwoodjs/router'
 
 import SidebarListItem from './components/SidebarListItem'
 
@@ -25,15 +29,39 @@ const Sidebar = () => {
         <Divider w="80%" />
       </Flex>
       <List spacing={1} as="nav">
-        <SidebarListItem listItem="dashboard" href="/" />
-        <SidebarListItem listItem="teams" href="/teams" />
-        <SidebarListItem listItem="clubs" href="/clubs" />
-        <SidebarListItem listItem="scores" href="/scores" />
+        <SidebarListItem
+          listItem="dashboard"
+          href="/"
+          icon={MdOutlineSpaceDashboard}
+        />
+        <SidebarListItem
+          listItem="teams"
+          href={routes.app()}
+          icon={RiTeamFill}
+        />
+        <SidebarListItem
+          listItem="clubs"
+          href={routes.app()}
+          icon={CgHomeAlt}
+        />
+        <SidebarListItem
+          listItem="scores"
+          href={routes.app()}
+          icon={IoIosStats}
+        />
         <Text fontWeight="bold" pl={4} py={2} fontSize="xl">
-          Account settings
+          Account instellingen
         </Text>
-        <SidebarListItem listItem="myProfile" href="/my-profile" />
-        <SidebarListItem listItem="settings" href="/settings" />
+        <SidebarListItem
+          listItem="Mijn profiel"
+          href={routes.app()}
+          icon={CgProfile}
+        />
+        <SidebarListItem
+          listItem="Instellingen"
+          href={routes.settings()}
+          icon={CgOptions}
+        />
       </List>
       <Link to="/">
         <Button colorScheme="primary" w="full" my={2}>
