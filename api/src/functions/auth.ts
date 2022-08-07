@@ -131,6 +131,7 @@ export const handler = async (event: any, context: any) => {
       userAttributes,
     }: any) => {
       const token = nanoid()
+      // lol
       try {
         const user = await db.user.create({
           data: {
