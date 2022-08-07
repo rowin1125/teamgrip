@@ -19,6 +19,7 @@ export const activateUserEmail = async ({
   const encodedEmail = encodeURIComponent(user.email)
 
   try {
+    console.log('process.env.FRONTEND_URL', process.env.FRONTEND_URL)
     await mailUser({
       to: [
         {
