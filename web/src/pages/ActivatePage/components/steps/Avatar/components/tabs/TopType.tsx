@@ -32,7 +32,7 @@ const TopType = () => {
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-      <GridItem colSpan={2}>
+      <GridItem colSpan={{ base: 4, xl: 2 }}>
         <ControlledSelect
           m={0}
           id="topType"
@@ -45,7 +45,7 @@ const TopType = () => {
         />
       </GridItem>
       {!disableaccessoriesType && (
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="accessoriesType"
@@ -59,7 +59,7 @@ const TopType = () => {
         </GridItem>
       )}
       {!disableHairColor && (
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="hairColor"
@@ -74,7 +74,7 @@ const TopType = () => {
       )}
 
       {showHatColor && (
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="hatColor"
@@ -87,7 +87,7 @@ const TopType = () => {
           />
         </GridItem>
       )}
-      <GridItem colSpan={2}>
+      <GridItem colSpan={{ base: 4, xl: 2 }}>
         <ControlledSelect
           m={0}
           id="facialHairType"
@@ -100,7 +100,7 @@ const TopType = () => {
         />
       </GridItem>
       {!disableFacialHairColor && (
-        <GridItem colSpan={2}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="facialHairColor"

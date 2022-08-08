@@ -18,7 +18,7 @@ const ClotheType = () => {
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4}>
       {
-        <GridItem colSpan={4}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="clotheType"
@@ -32,7 +32,7 @@ const ClotheType = () => {
         </GridItem>
       }
       {!disableClotheColor && (
-        <GridItem colSpan={4}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="clotheColor"
@@ -46,7 +46,7 @@ const ClotheType = () => {
         </GridItem>
       )}
       {disableGraphic && (
-        <GridItem colSpan={4}>
+        <GridItem colSpan={{ base: 4, xl: 2 }}>
           <ControlledSelect
             m={0}
             id="graphicType"

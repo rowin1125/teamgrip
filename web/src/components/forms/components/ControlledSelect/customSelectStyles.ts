@@ -2,17 +2,20 @@
 export const customSelectStyles = {
   menu: (prevStyles: Record<string, unknown>) => ({
     ...prevStyles,
-    backgroundColor: '#242e42',
+    backgroundColor: '#F7FAFC',
+    color: 'black',
     zIndex: '3',
   }),
   option: (prevStyles: Record<string, unknown>, state: any) => {
     return {
       ...prevStyles,
+      backgroundColor: state.isSelected ? '#e5e6e8' : '#F7FAFC',
+      color: 'black',
       ':active': {
-        backgroundColor: state.isSelected ? '$242e42' : '#454d5e',
+        backgroundColor: state.isSelected ? '#E2E8F0' : '#F7FAFC',
       },
       ':hover': {
-        backgroundColor: '#0d121d',
+        backgroundColor: '#ddd',
       },
       cursor: 'pointer',
     }
@@ -20,15 +23,15 @@ export const customSelectStyles = {
   singleValue: (prevStyles: Record<string, unknown>) => {
     return {
       ...prevStyles,
-      color: 'white',
+      color: 'black',
     }
   },
   control: (prevStyles: Record<string, unknown>) => ({
     ...prevStyles,
-    backgroundColor: '#242e42',
+    backgroundColor: '#F7FAFC',
   }),
   input: (prevStyles: Record<string, unknown>) => ({
     ...prevStyles,
-    color: 'white',
+    color: 'black',
   }),
 }

@@ -75,7 +75,7 @@ const ActivatePage = () => {
             pl={4}
             stepsProps={{ responsive: false, activeStep: activateStep }}
           />
-          <Box maxW="500px" w="full" p={4}>
+          <Box maxW="700px" w="full" p={4}>
             <Component
               setActivateStep={setActivateStep}
               handlePlayVideo={handlePlayVideo}

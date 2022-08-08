@@ -10,7 +10,7 @@ import TopType from './tabs/TopType'
 const AvatarFormFields = () => {
   return (
     <>
-      <Tabs mt={8} variant="line" colorScheme="secondary">
+      <Tabs align="center" mt={8} variant="line" colorScheme="secondary">
         <TabList>
           <Tab>Bovenkant hoofd 🎩</Tab>
           <Tab>Kleding 👕</Tab>

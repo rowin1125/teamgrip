@@ -23,7 +23,11 @@ const AvatarSettings = () => {
               <Avatar size="200" />
             </Flex>
           </Box>
-          <Button as={RedwoodLink} to={routes.app()} mt={{ base: 8, xl: 0 }}>
+          <Button
+            as={RedwoodLink}
+            to={routes.updateAvatar()}
+            mt={{ base: 8, xl: 0 }}
+          >
             Wijzig avatar
           </Button>
         </Flex>

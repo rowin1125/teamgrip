@@ -8,7 +8,7 @@ import { avatarOptions } from '../../helpers/generateRandomAvatar'
 
 const FaceType = () => (
   <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-    <GridItem colSpan={4}>
+    <GridItem colSpan={{ base: 4, xl: 2 }}>
       <ControlledSelect
         m={0}
         id="eyeType"
@@ -21,7 +21,7 @@ const FaceType = () => (
       />
     </GridItem>
 
-    <GridItem colSpan={4}>
+    <GridItem colSpan={{ base: 4, xl: 2 }}>
       <ControlledSelect
         m={0}
         id="eyebrowType"
@@ -34,7 +34,7 @@ const FaceType = () => (
       />
     </GridItem>
 
-    <GridItem colSpan={4}>
+    <GridItem colSpan={{ base: 4, xl: 2 }}>
       <ControlledSelect
         m={0}
         id="mouthType"

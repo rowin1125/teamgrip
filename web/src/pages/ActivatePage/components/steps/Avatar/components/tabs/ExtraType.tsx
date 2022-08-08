@@ -8,7 +8,7 @@ import { avatarOptions } from '../../helpers/generateRandomAvatar'
 
 const ExtraType = () => (
   <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-    <GridItem colSpan={4}>
+    <GridItem colSpan={{ base: 4, xl: 2 }}>
       <ControlledSelect
         m={0}
         id="skinColor"

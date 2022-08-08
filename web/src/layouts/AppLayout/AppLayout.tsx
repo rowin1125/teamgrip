@@ -23,7 +23,7 @@ const AppLayout = ({ children }: AppLayoutProps) => {
         </div>
         <Flex flexDir="column" w="full">
           <Header />
-          <Box as="main" pl={{ xl: 8 }} px={{ base: 8 }} pr={{ xl: 0 }}>
+          <Box as="main" pl={{ xl: 8 }} px={{ xl: 8 }} pr={{ xl: 0 }}>
             {children}
           </Box>
         </Flex>

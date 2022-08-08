@@ -18,6 +18,7 @@ const SettingsPage = () => {
         templateRows="repeat(1, 1fr)"
         templateColumns="repeat(12, 1fr)"
         gap={{ base: 0, xl: 10 }}
+        px={{ base: 4, xl: 0 }}
       >
         <SettingsIntro />
         <GlobalSettings />

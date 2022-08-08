@@ -12,6 +12,7 @@ const Routes = () => {
         <Set wrap={AppLayout}>
           <Route path="/app" page={AppPage} name="app" />
           <Route path="/app/instellingen" page={SettingsPage} name="settings" />
+          <Route path="/app/instellingen/update-avatar" page={UpdateAvatarPage} name="updateAvatar" />
         </Set>
       </Private>
       {/* AUTH */}

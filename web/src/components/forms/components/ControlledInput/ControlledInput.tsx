@@ -61,6 +61,7 @@ const ControlledInput = ({
           colorScheme="messenger"
           id={id}
           type="text"
+          bg="gray.50"
           {...field}
           {...props}
         />
