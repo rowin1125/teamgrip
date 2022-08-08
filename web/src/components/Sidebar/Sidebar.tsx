@@ -35,7 +35,7 @@ const Sidebar = () => {
       <List spacing={1} as="nav">
         <SidebarListItem
           listItem="dashboard"
-          href="/"
+          href={routes.app()}
           icon={MdOutlineSpaceDashboard}
         />
         <SidebarListItem

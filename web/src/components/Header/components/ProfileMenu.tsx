@@ -44,7 +44,9 @@ const ProfileMenu = () => {
         <MenuDivider />
 
         <MenuGroup title="Personal">
-          <MenuItem>Mijn profiel</MenuItem>
+          <MenuItem as={RedwoodLink} to={routes.settings()}>
+            Mijn profiel
+          </MenuItem>
           <MenuItem onClick={handleLogout}>Log uit</MenuItem>
         </MenuGroup>
       </MenuList>
