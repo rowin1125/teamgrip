@@ -62,6 +62,7 @@ const ControlledInput = ({
           id={id}
           type="text"
           bg="gray.50"
+          color="black"
           {...field}
           {...props}
         />
