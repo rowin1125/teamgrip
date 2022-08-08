@@ -17,7 +17,7 @@ const Avatar = ({ size = '60' }: AvatarProps) => {
   const { id, ...avatarProperties } = currentUser.avatar
 
   return (
-    <Box position="relative" maxW={size}>
+    <Box position="relative" maxW={size} m={2}>
       {currentUser?.avatar?.avatarStyle ? (
         <AvatarComponent
           style={{ width: size, height: size }}
