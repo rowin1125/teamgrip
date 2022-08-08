@@ -13,6 +13,7 @@ const Routes = () => {
           <Route path="/app" page={AppPage} name="app" />
           <Route path="/app/instellingen" page={SettingsPage} name="settings" />
           <Route path="/app/instellingen/update-avatar" page={UpdateAvatarPage} name="updateAvatar" />
+          <Route path="/app/instellingen/update-user" page={UpdateUserPage} name="updateUser" />
         </Set>
       </Private>
       {/* AUTH */}

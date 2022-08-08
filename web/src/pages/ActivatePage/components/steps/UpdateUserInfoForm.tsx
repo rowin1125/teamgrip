@@ -7,6 +7,7 @@ import {
   UpdateUserProfileMutation,
   UpdateUserProfileInput,
 } from 'types/graphql'
+import * as Yup from 'yup'
 
 import { useAuth } from '@redwoodjs/auth'
 import { useMutation } from '@redwoodjs/web'
@@ -24,6 +25,10 @@ const UPDATE_USER_PROFILE = gql`
     }
   }
 `
+const validationSchema = Yup.object().shape({
+  firstname: Yup.string().required('Vul je voornaam in'),
+  lastname: Yup.string().required('Vul je achternaam in'),
+})
 
 type UpdateUserInfoFormProps = {
   setActivateStep: (step: number) => void
@@ -65,6 +70,7 @@ const UpdateUserInfoForm = ({ setActivateStep }: UpdateUserInfoFormProps) => {
         lastname: '',
       }}
       onSubmit={onSubmit}
+      validationSchema={validationSchema}
     >
       <Box as={Form} w="full">
         <Heading>Even wat administatie 📃</Heading>

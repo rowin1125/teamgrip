@@ -74,7 +74,11 @@ const ProfileSettings = () => {
               </GridItem>
             </Grid>
           </Box>
-          <Button as={RedwoodLink} to={routes.app()} mt={{ base: 8, xl: 0 }}>
+          <Button
+            as={RedwoodLink}
+            to={routes.updateUser()}
+            mt={{ base: 8, xl: 0 }}
+          >
             Wijzig profiel
           </Button>
         </Flex>
