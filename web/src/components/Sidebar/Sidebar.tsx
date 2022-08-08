@@ -8,6 +8,8 @@ import { RiTeamFill } from 'react-icons/ri'
 
 import { Link, routes } from '@redwoodjs/router'
 
+import RedwoodLink from '../RedwoodLink'
+
 import SidebarListItem from './components/SidebarListItem'
 
 const Sidebar = () => {
@@ -23,7 +25,9 @@ const Sidebar = () => {
       display={{ base: 'none', md: 'none', lg: 'block' }}
     >
       <Flex justifyContent="center" alignItems="center" mt={4}>
-        <Image h="100px" src="/TeamStats Logo.png" alt="Redwood" />
+        <RedwoodLink to={routes.app()}>
+          <Image h="100px" src="/TeamStats Logo.png" alt="Redwood" />
+        </RedwoodLink>
       </Flex>
       <Flex justifyContent="center" alignItems="center" pt={6} pb={6}>
         <Divider w="80%" />

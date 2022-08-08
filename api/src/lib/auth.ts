@@ -35,6 +35,7 @@ export const getCurrentUser = async (session) => {
       },
       avatar: {
         select: {
+          id: true,
           avatarStyle: true,
           topType: true,
           accessoriesType: true,

@@ -11,12 +11,17 @@ type AvatarProps = {
 
 const Avatar = ({ size = '60' }: AvatarProps) => {
   const { currentUser } = useAuth()
+  if (!currentUser) return null
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, ...avatarProperties } = currentUser.avatar
+
   return (
     <Box position="relative" maxW={size}>
       {currentUser?.avatar?.avatarStyle ? (
         <AvatarComponent
           style={{ width: size, height: size }}
-          {...currentUser?.avatar}
+          {...avatarProperties}
         />
       ) : (
         <AvatarComponent
