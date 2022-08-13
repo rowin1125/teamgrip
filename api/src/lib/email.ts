@@ -17,16 +17,13 @@ type MailUserOptions = {
 }
 
 export async function mailUser(options: MailUserOptions) {
-  console.log('setup client')
   const client = Sib.ApiClient.instance
 
-  console.log('setup APIKey')
   const apiKey = client.authentications['api-key']
   apiKey.apiKey = process.env.SENDINBLUE_API_KEY.toString()
-  console.log('setup transaction mail')
+
   const transEmailApi = new Sib.TransactionalEmailsApi()
 
-  console.log('setup sender')
   const emailOptions = {
     ...options,
     sender: options.sender ?? {
@@ -34,10 +31,8 @@ export async function mailUser(options: MailUserOptions) {
       email: 'rowinmol648@gmail.com',
     },
   }
-  console.log('emailOptions', emailOptions)
 
-  console.log('sending email')
-  transEmailApi
+  return transEmailApi
     .sendTransacEmail(emailOptions)
     .then(() => {
       emailOptions.to.forEach((mailTo) =>
@@ -49,7 +44,6 @@ export async function mailUser(options: MailUserOptions) {
       console.log(err.message)
       console.log(err.status)
     })
-  console.log('sending email done')
 }
 
 interface Options {
