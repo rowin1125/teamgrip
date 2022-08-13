@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { FieldInputProps, FieldMetaProps, useField } from 'formik'
-import Select from 'react-select'
+import Select, { Props } from 'react-select'
 
 import { customSelectStyles } from './customSelectStyles'
 
@@ -28,6 +28,7 @@ type ControlledSelectProps = SelectProps & {
     meta: FieldMetaProps<any>
   ) => void
   hiddenOptions?: Record<'id' | 'value', string | number>[]
+  reactSelectProps?: Props
 } & FormControlProps
 
 const ControlledSelect = ({
@@ -38,6 +39,7 @@ const ControlledSelect = ({
   options,
   onChangeCallback,
   hiddenOptions,
+  reactSelectProps,
   ...props
 }: ControlledSelectProps) => {
   const [searchInput, setSearchInput] = React.useState(false)
@@ -74,14 +76,12 @@ const ControlledSelect = ({
           instanceId={id}
           options={options}
           defaultValue={meta.initialValue}
-          placeholder={'custom placeholder component'}
           classNamePrefix="custom-select"
           value={{
             value: field.value,
             label: options.find((option) => option.value === field.value)
               ?.label,
           }}
-          onChange={handleOnChange}
           onBlur={() => setTouched(true)}
           onInputChange={(inputValue: string) => setSearchInput(!!inputValue)}
           borderColor={isInvalid ? 'red.500' : ''}
@@ -93,6 +93,9 @@ const ControlledSelect = ({
 
             return !!hiddenOptions.find((item) => item.value === option.value)
           }}
+          {...reactSelectProps}
+          placeholder={'custom placeholder component'}
+          onChange={handleOnChange}
         />
       </Box>
       {helperText && !isInvalid && (

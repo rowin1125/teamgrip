@@ -3,6 +3,9 @@
 const config = {
   rootDir: '../',
   preset: '@redwoodjs/testing/config/jest/web',
+  transform: {
+    '^.+\\.scss$': 'jest-scss-transform',
+  },
 }
 
 module.exports = config

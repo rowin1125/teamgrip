@@ -17035,6 +17035,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-scss-transform@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "jest-scss-transform@npm:1.0.3"
+  peerDependencies:
+    babel-jest: ^24.8.0
+  checksum: 682728d863febb02972707cdab1735ab0cd6773cb09d4e152e9c765e84c1a1e8f1585796d07815790139d578798cbef9c7c6fb3407fdb616f02ea87e4dbe2b3e
+  languageName: node
+  linkType: hard
+
 "jest-serializer@npm:^26.6.2":
   version: 26.6.2
   resolution: "jest-serializer@npm:26.6.2"
@@ -25526,6 +25535,7 @@ __metadata:
     chakra-ui-steps: ^1.7.3
     formik: ^2.2.9
     framer-motion: ^4
+    jest-scss-transform: ^1.0.3
     prop-types: 15.8.1
     react: 17.0.2
     react-dom: 17.0.2

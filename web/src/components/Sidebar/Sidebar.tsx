@@ -40,7 +40,7 @@ const Sidebar = () => {
         />
         <SidebarListItem
           listItem="Mijn team"
-          href={routes.app()}
+          href={routes.team()}
           icon={RiTeamFill}
         />
         <SidebarListItem

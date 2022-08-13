@@ -33,6 +33,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "jest-scss-transform": "^1.0.3",
     "sass": "^1.54.2",
     "sass-loader": "^13.0.2"
   }

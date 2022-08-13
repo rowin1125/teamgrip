@@ -24,6 +24,7 @@ type ControlledInputProps = {
   inputLeftAddonText?: string
   fullWidth?: boolean
   formControlProps?: FormControlProps
+  transformValue?: (value: string) => string
 } & InputProps
 
 const ControlledInput = ({
@@ -35,10 +36,19 @@ const ControlledInput = ({
   inputLeftAddonText,
   fullWidth = true,
   formControlProps,
+  transformValue,
   ...props
 }: ControlledInputProps) => {
-  const [field, meta] = useField(id)
+  const [{ onChange, ...field }, meta, { setValue }] = useField(id)
   const isInvalid = !!meta.error && meta.touched
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (transformValue) {
+      setValue(transformValue(e.target.value), true)
+      return
+    }
+    onChange(e)
+  }
 
   return (
     <FormControl
@@ -63,6 +73,7 @@ const ControlledInput = ({
           type="text"
           bg="gray.50"
           color="black"
+          onChange={handleOnChange}
           {...field}
           {...props}
         />
@@ -70,9 +81,7 @@ const ControlledInput = ({
           <InputRightAddon>{inputRightAddonText}</InputRightAddon>
         )}
       </InputGroup>
-      {helperText && !isInvalid && (
-        <FormHelperText>{helperText}</FormHelperText>
-      )}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
   )

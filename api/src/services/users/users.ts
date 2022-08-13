@@ -24,7 +24,6 @@ export const activateUserEmail = async ({
     'http://localhost:3000'
 
   try {
-    console.log('FRONTEND_URL', FRONTEND_URL)
     await mailUser({
       to: [
         {
