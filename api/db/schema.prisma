@@ -10,11 +10,11 @@ generator client {
 
 model Contact {
   id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   name      String
   email     String
   message   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
 }
 
 enum Role {
@@ -24,6 +24,8 @@ enum Role {
 
 model User {
   id                  String       @id @default(cuid())
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @default(now()) @updatedAt
   email               String       @unique
   hashedPassword      String?
   salt                String?
@@ -35,32 +37,32 @@ model User {
   audits              Audit[]
   userProfile         UserProfile?
   avatar              Avatar?
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @default(now()) @updatedAt
+  player              Player?
 }
 
 model UserProfile {
   id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   userId    String   @unique
   firstname String?
   lastname  String?
   user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Audit {
   id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   userId    String
   log       String
   user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Avatar {
   id              String   @id @default(cuid())
-  userId          String   @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
   avatarStyle     String
   topType         String
   accessoriesType String
@@ -75,7 +77,73 @@ model Avatar {
   eyebrowType     String
   mouthType       String
   skinColor       String
+  userId          String   @unique
   user            User     @relation(fields: [userId], references: [id])
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now()) @updatedAt
 }
+
+model Player {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  teamId    String?
+  team      Team?    @relation(fields: [teamId], references: [id])
+  Club      Club?    @relation(fields: [clubId], references: [id])
+  clubId    String?
+  // training        Training[]
+  // trainingsScores TrainingsScore[]
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  name      String
+  players   Player[]
+  club      Club?    @relation(fields: [clubId], references: [id])
+  clubId    String?
+  // Season    Season[]
+}
+
+model Club {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  name      String
+  teams     Team[]
+  players   Player[]
+}
+
+// model Training {
+//   id             String           @id @default(cuid())
+//   createdAt      DateTime         @default(now())
+//   updatedAt      DateTime         @default(now()) @updatedAt
+//   trainingsDate  DateTime
+//   trainingsScore TrainingsScore[]
+//   Season         Season?          @relation(fields: [seasonId], references: [id])
+//   seasonId       String?
+//   Player         Player?          @relation(fields: [playerId], references: [id])
+//   playerId       String?
+// }
+
+// model TrainingsScore {
+//   id         String    @id @default(cuid())
+//   Training   Training? @relation(fields: [trainingId], references: [id])
+//   trainingId String?
+//   score      Int
+//   createdAt  DateTime  @default(now())
+//   updatedAt  DateTime  @default(now()) @updatedAt
+//   Player     Player?   @relation(fields: [playerId], references: [id])
+//   playerId   String?
+// }
+
+// model Season {
+//   id        String     @id @default(cuid())
+//   createdAt DateTime   @default(now())
+//   updatedAt DateTime   @default(now()) @updatedAt
+//   name      String
+//   trainings Training[]
+//   Team      Team       @relation(fields: [teamId], references: [id])
+//   teamId    String
+// }

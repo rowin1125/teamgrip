@@ -8,6 +8,8 @@ import {
   Text,
 } from '@chakra-ui/react'
 
+import RedwoodLink from '../RedwoodLink'
+
 import { useGetBreadCrumbs } from './hooks/useGetBreadCrumbs'
 
 export type BreadCrumbsProps = {
@@ -20,17 +22,21 @@ const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
   return (
     <>
       <Breadcrumb spacing="8px" separator="/" color="gray.200">
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/app">{"Pagina's"}</BreadcrumbLink>
-        </BreadcrumbItem>
+        {breadCrumbs?.map((breadCrumb, index) => {
+          const isActive = breadCrumbs.length === index + 1
 
-        {breadCrumbs?.map((breadCrumb) => (
-          <BreadcrumbItem key={breadCrumb.href}>
-            <BreadcrumbLink href={breadCrumb.href}>
-              {breadCrumb.breadCrumb}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        ))}
+          return (
+            <BreadcrumbItem key={breadCrumb.href}>
+              <BreadcrumbLink
+                as={RedwoodLink}
+                to={breadCrumb.href}
+                isCurrentPage={isActive}
+              >
+                {breadCrumb.breadCrumb}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          )
+        })}
       </Breadcrumb>
       <Box mt={1}>
         <Text fontWeight="bold" color="white">

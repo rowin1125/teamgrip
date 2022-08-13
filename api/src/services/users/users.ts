@@ -18,8 +18,13 @@ export const activateUserEmail = async ({
 
   const encodedEmail = encodeURIComponent(user.email)
 
+  const FRONTEND_URL =
+    process.env.FRONTEND_URL ??
+    process.env.REDWOOD_ENV_VERCEL_URL ??
+    'http://localhost:3000'
+
   try {
-    console.log('process.env.FRONTEND_URL', process.env.FRONTEND_URL)
+    console.log('FRONTEND_URL', FRONTEND_URL)
     await mailUser({
       to: [
         {
@@ -29,13 +34,11 @@ export const activateUserEmail = async ({
       ],
       templateId: 1,
       params: {
-        activateUrl: `${process.env.FRONTEND_URL}/activeren?token=${token}&email=${encodedEmail}`,
-        firstname: 'test',
+        activateUrl: `${FRONTEND_URL}/activeren?token=${token}&email=${encodedEmail}`,
       },
     })
-    // await sendEmail({ to: user.email, subject, html })
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error)
   }
 
   return user
@@ -86,6 +89,10 @@ export const resendActivateUser: MutationResolvers['resendActivateUser'] =
   }
 
 export const forgotPasswordEmail = async ({ user }: { user: User }) => {
+  const FRONTEND_URL =
+    process.env.FRONTEND_URL ??
+    process.env.REDWOOD_ENV_VERCEL_URL ??
+    'http://localhost:3000'
   try {
     await mailUser({
       to: [
@@ -96,11 +103,11 @@ export const forgotPasswordEmail = async ({ user }: { user: User }) => {
       ],
       templateId: 2,
       params: {
-        recoverUrl: `${process.env.FRONTEND_URL}/wachtwoord-resetten?resetToken=${user.resetToken}`,
+        recoverUrl: `${FRONTEND_URL}/wachtwoord-resetten?resetToken=${user.resetToken}`,
       },
     })
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error)
   }
 
   return user

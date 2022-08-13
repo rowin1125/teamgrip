@@ -39,17 +39,17 @@ const Sidebar = () => {
           icon={MdOutlineSpaceDashboard}
         />
         <SidebarListItem
-          listItem="teams"
+          listItem="Mijn team"
           href={routes.app()}
           icon={RiTeamFill}
         />
         <SidebarListItem
-          listItem="clubs"
-          href={routes.app()}
+          listItem="mijn club"
+          href={routes.club()}
           icon={CgHomeAlt}
         />
         <SidebarListItem
-          listItem="scores"
+          listItem="Mijn scores"
           href={routes.app()}
           icon={IoIosStats}
         />

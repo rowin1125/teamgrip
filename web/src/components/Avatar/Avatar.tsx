@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react'
 import AvatarComponent from 'avataaars'
+import { Avatar as AdditionalAvatarProps } from 'types/graphql'
 
 import { useAuth } from '@redwoodjs/auth'
 
@@ -7,9 +8,15 @@ import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/s
 
 type AvatarProps = {
   size?: string
+  disableInitials?: boolean
+  additionalAvatarProps?: Partial<AdditionalAvatarProps>
 }
 
-const Avatar = ({ size = '60' }: AvatarProps) => {
+const Avatar = ({
+  size = '60',
+  disableInitials,
+  additionalAvatarProps,
+}: AvatarProps) => {
   const { currentUser } = useAuth()
   if (!currentUser) return null
 
@@ -22,15 +29,17 @@ const Avatar = ({ size = '60' }: AvatarProps) => {
         <AvatarComponent
           style={{ width: size, height: size }}
           {...avatarProperties}
+          {...additionalAvatarProps}
         />
       ) : (
         <AvatarComponent
           style={{ width: size, height: size }}
           avatarStyle="Circle"
           {...generateRandomAvatarOptions()}
+          {...additionalAvatarProps}
         />
       )}
-      {currentUser?.userProfile?.firstname && (
+      {!disableInitials && currentUser?.userProfile?.firstname && (
         <Box
           position="absolute"
           bottom={-1}

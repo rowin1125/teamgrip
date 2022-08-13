@@ -30,20 +30,6 @@ const Header = () => {
       <Flex justifyContent="space-between" alignItems="center">
         <Box>{showBreadCrumbs && <BreadCrumbs />}</Box>
         <Flex alignItems="center">
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <Icon as={CgSearch} color="white" />
-            </InputLeftElement>
-            <Input
-              type="tel"
-              placeholder="Zoek teams"
-              _placeholder={{
-                color: 'white',
-                opacity: 0.6,
-              }}
-              color="white"
-            />
-          </InputGroup>
           <StyledIconButton
             mx={8}
             aria-label="Notifications"

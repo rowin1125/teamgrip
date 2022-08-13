@@ -1,6 +1,8 @@
 import React from 'react'
 
 import {
+  Button,
+  Flex,
   Link,
   Menu,
   MenuButton,
@@ -11,13 +13,14 @@ import {
 } from '@chakra-ui/react'
 
 import { useAuth } from '@redwoodjs/auth'
-import { Link as RedwoodLink, routes } from '@redwoodjs/router'
+import { Link as RedwoodLink, routes, useLocation } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/toast'
 
 import Avatar from 'src/components/Avatar/Avatar'
 
 const ProfileMenu = () => {
   const { logOut } = useAuth()
+  const { pathname } = useLocation()
 
   const handleLogout = async () => {
     try {
@@ -28,29 +31,43 @@ const ProfileMenu = () => {
     }
   }
 
-  return (
-    <Menu closeOnBlur>
-      <MenuButton>
-        <Avatar />
-      </MenuButton>
-      <MenuList>
-        <MenuGroup title="Pages">
-          <MenuItem>
-            <Link to={routes.contact()} as={RedwoodLink}>
-              Contact
-            </Link>
-          </MenuItem>
-        </MenuGroup>
-        <MenuDivider />
+  const hideAppButton = !pathname.includes('app')
 
-        <MenuGroup title="Personal">
-          <MenuItem as={RedwoodLink} to={routes.settings()}>
-            Mijn profiel
-          </MenuItem>
-          <MenuItem onClick={handleLogout}>Log uit</MenuItem>
-        </MenuGroup>
-      </MenuList>
-    </Menu>
+  return (
+    <Flex alignItems="center">
+      {hideAppButton && (
+        <Button
+          as={RedwoodLink}
+          to={routes.app()}
+          mr={4}
+          colorScheme="secondary"
+        >
+          App
+        </Button>
+      )}
+      <Menu closeOnBlur>
+        <MenuButton>
+          <Avatar />
+        </MenuButton>
+        <MenuList>
+          <MenuGroup title="Pages">
+            <MenuItem>
+              <Link to={routes.contact()} as={RedwoodLink}>
+                Contact
+              </Link>
+            </MenuItem>
+          </MenuGroup>
+          <MenuDivider />
+
+          <MenuGroup title="Personal">
+            <MenuItem as={RedwoodLink} to={routes.settings()}>
+              Instellingen
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>Log uit</MenuItem>
+          </MenuGroup>
+        </MenuList>
+      </Menu>
+    </Flex>
   )
 }
 
