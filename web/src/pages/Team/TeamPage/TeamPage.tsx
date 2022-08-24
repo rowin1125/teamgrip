@@ -12,6 +12,7 @@ import { MetaTags, useQuery } from '@redwoodjs/web'
 import Card from 'src/components/Card/Card'
 import SortableTable from 'src/components/SortableTable'
 
+import InvitePlayersModal from './components/InvitePlayersModal'
 import TeamNotFoundMessage from './components/TeamNotFoundMessage'
 
 const FIND_TEAM_QUERY = gql`
@@ -96,7 +97,10 @@ const TeamPage = () => {
         >
           <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={1}>
             <Card>
-              <Heading fontSize="6xl">{data?.team?.name}</Heading>
+              <Flex justifyContent="space-between">
+                <Heading fontSize="6xl">{data?.team?.name}</Heading>
+                <InvitePlayersModal teamId={data?.team?.id} />
+              </Flex>
               <Flex>
                 <Text fontWeight="bold" mr={2}>
                   Beheerder:{' '}
