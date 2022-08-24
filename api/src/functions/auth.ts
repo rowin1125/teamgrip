@@ -5,6 +5,7 @@ import { User } from 'types/graphql'
 import { DbAuthHandler } from '@redwoodjs/api'
 
 import { db } from 'src/lib/db'
+import { createPlayer } from 'src/services/players/players'
 import {
   activateUserEmail,
   forgotPasswordEmail,
@@ -141,14 +142,19 @@ export const handler = async (event: any, context: any) => {
             verifiedToken: token,
             userProfile: {
               create: {
-                firstname: null,
-                lastname: null,
+                firstname: '',
+                lastname: '',
               },
             },
           },
         })
         if (!user) throw new Error('User not created')
         await activateUserEmail({ email: user.email, token })
+        await createPlayer({
+          input: {
+            userId: user.id,
+          },
+        })
       } catch (error) {
         throw new Error('Failed to sign up')
       }

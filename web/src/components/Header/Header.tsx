@@ -1,17 +1,6 @@
-import React from 'react'
-
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
-} from '@chakra-ui/react'
+import { Box, Button, Flex, Icon, IconButton } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { CgBell, CgSearch } from 'react-icons/cg'
+import { CgBell } from 'react-icons/cg'
 
 import { useAuth } from '@redwoodjs/auth'
 import { Link, routes, useLocation } from '@redwoodjs/router'

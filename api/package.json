@@ -9,6 +9,7 @@
     "nodemailer": "^6.7.7"
   },
   "devDependencies": {
+    "@ngneat/falso": "^6.1.0",
     "@types/nanoid": "2",
     "@types/nodemailer": "^6.4.4"
   }

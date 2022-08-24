@@ -5,13 +5,14 @@ import { Box, BoxProps } from '@chakra-ui/react'
 type CardProps = {
   children: React.ReactNode
   noXPadding?: boolean
+  bg?: BoxProps['bg']
 } & BoxProps
 
-const Card = ({ children, noXPadding, ...rest }: CardProps) => (
+const Card = ({ children, noXPadding, bg = 'white', ...rest }: CardProps) => (
   <Box
     px={noXPadding ? 0 : 8}
     position="relative"
-    bg="white"
+    bg={bg}
     py={8}
     rounded="2xl"
     boxShadow="lg"

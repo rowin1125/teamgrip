@@ -1,5 +1,9 @@
 import nanoid from 'nanoid'
-import { MutationResolvers, User } from 'types/graphql'
+import {
+  MutationResolvers,
+  User as UserType,
+  UserResolvers,
+} from 'types/graphql'
 
 import { db } from 'src/lib/db'
 import { mailUser } from 'src/lib/email'
@@ -87,7 +91,7 @@ export const resendActivateUser: MutationResolvers['resendActivateUser'] =
     return user
   }
 
-export const forgotPasswordEmail = async ({ user }: { user: User }) => {
+export const forgotPasswordEmail = async ({ user }: { user: UserType }) => {
   const FRONTEND_URL =
     process.env.FRONTEND_URL ??
     process.env.REDWOOD_ENV_VERCEL_URL ??
@@ -110,4 +114,13 @@ export const forgotPasswordEmail = async ({ user }: { user: User }) => {
   }
 
   return user
+}
+
+export const User: UserResolvers = {
+  userProfile: (_obj, { root }) =>
+    db.user.findUnique({ where: { id: root.id } }).userProfile(),
+  avatar: (_obj, { root }) =>
+    db.user.findUnique({ where: { id: root.id } }).avatar(),
+  player: (_obj, { root }) =>
+    db.user.findUnique({ where: { id: root.id } }).player(),
 }

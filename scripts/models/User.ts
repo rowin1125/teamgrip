@@ -1,3 +1,4 @@
+import { randLastName } from '@ngneat/falso'
 import type { Prisma } from '@prisma/client'
 import { db } from 'api/src/lib/db'
 
@@ -23,15 +24,6 @@ export const userFixedAvatar: Omit<Prisma.AvatarCreateArgs['data'], 'userId'> =
 
 export const users: Prisma.UserCreateArgs['data'][] = [
   {
-    email: 'rowinmol648@gmail.com',
-    roles: 'ADMIN',
-    avatar: {
-      create: {
-        ...userFixedAvatar,
-      },
-    },
-  },
-  {
     email: 'alice@example.com',
     roles: 'USER',
     avatar: {
@@ -51,6 +43,15 @@ export const users: Prisma.UserCreateArgs['data'][] = [
       },
     },
   },
+  {
+    email: 'rowinmol648@gmail.com',
+    roles: 'ADMIN',
+    avatar: {
+      create: {
+        ...userFixedAvatar,
+      },
+    },
+  },
 ]
 
 export const defaultUserProperties = {
@@ -59,6 +60,9 @@ export const defaultUserProperties = {
   salt: 'e2803df51c4dfe35f9dc9cb35630e69b',
   verified: true,
 }
+
+const createRandomNumber = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1)) + min
 
 export const createUsers = async () =>
   Promise.all(
@@ -72,9 +76,12 @@ export const createUsers = async () =>
             ...userCreateData,
             userProfile: {
               create: {
-                firstname: '',
-                lastname: '',
+                firstname: userCreateData.email.split('@')[0],
+                lastname: randLastName(),
               },
+            },
+            player: {
+              create: {},
             },
           },
         })
@@ -85,6 +92,20 @@ export const createUsers = async () =>
               userId: user.id,
             },
           })
+
+          if (user.email === 'mark@example.com') return user
+
+          const teamNumber = createRandomNumber(1, 30)
+          await db.team.create({
+            data: {
+              name: `Zaterdag-${teamNumber}`,
+              ownerId: user.id,
+              players: {
+                connect: [{ userId: user.id }],
+              },
+            },
+          })
+
           return user
         })
       console.log(record)

@@ -24,15 +24,18 @@
     "chakra-ui-steps": "^1.7.3",
     "formik": "^2.2.9",
     "framer-motion": "^4",
+    "nanoid": "^4.0.0",
     "prop-types": "15.8.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.4.0",
     "react-select": "^5.4.0",
+    "react-table": "^7.8.0",
     "sib-api-v3-sdk": "^8.4.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/react-table": "^7.7.12",
     "jest-scss-transform": "^1.0.3",
     "sass": "^1.54.2",
     "sass-loader": "^13.0.2"

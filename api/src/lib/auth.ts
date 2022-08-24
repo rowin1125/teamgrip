@@ -33,6 +33,12 @@ export const getCurrentUser = async (session) => {
           lastname: true,
         },
       },
+      player: {
+        select: {
+          id: true,
+          teamId: true,
+        },
+      },
       avatar: {
         select: {
           id: true,

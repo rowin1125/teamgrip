@@ -6,6 +6,8 @@ CREATE TABLE "Player" (
     "userId" TEXT NOT NULL,
     "teamId" TEXT,
     "clubId" TEXT,
+    "isCoach" BOOLEAN NOT NULL DEFAULT false,
+    "isActivePlayer" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Player_pkey" PRIMARY KEY ("id")
 );
@@ -17,6 +19,7 @@ CREATE TABLE "Team" (
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" TEXT NOT NULL,
     "clubId" TEXT,
+    "ownerId" TEXT NOT NULL,
 
     CONSTRAINT "Team_pkey" PRIMARY KEY ("id")
 );
@@ -34,6 +37,9 @@ CREATE TABLE "Club" (
 -- CreateIndex
 CREATE UNIQUE INDEX "Player_userId_key" ON "Player"("userId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Team_name_key" ON "Team"("name");
+
 -- AddForeignKey
 ALTER TABLE "Player" ADD CONSTRAINT "Player_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -42,6 +48,9 @@ ALTER TABLE "Player" ADD CONSTRAINT "Player_teamId_fkey" FOREIGN KEY ("teamId") 
 
 -- AddForeignKey
 ALTER TABLE "Player" ADD CONSTRAINT "Player_clubId_fkey" FOREIGN KEY ("clubId") REFERENCES "Club"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Team" ADD CONSTRAINT "Team_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Team" ADD CONSTRAINT "Team_clubId_fkey" FOREIGN KEY ("clubId") REFERENCES "Club"("id") ON DELETE SET NULL ON UPDATE CASCADE;

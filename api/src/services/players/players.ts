@@ -10,6 +10,32 @@ export const players: QueryResolvers['players'] = () => {
   return db.player.findMany()
 }
 
+export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
+  teamId,
+}) => {
+  return await db.player.findMany({
+    where: {
+      teamId,
+      AND: {
+        isActivePlayer: true,
+      },
+    },
+    include: {
+      user: {
+        include: {
+          userProfile: {
+            select: {
+              firstname: true,
+              lastname: true,
+            },
+          },
+          avatar: true,
+        },
+      },
+    },
+  })
+}
+
 export const player: QueryResolvers['player'] = ({ id }) => {
   return db.player.findUnique({
     where: { id },
@@ -43,6 +69,6 @@ export const Player: PlayerResolvers = {
     db.player.findUnique({ where: { id: root.id } }).user(),
   team: (_obj, { root }) =>
     db.player.findUnique({ where: { id: root.id } }).team(),
-  Club: (_obj, { root }) =>
-    db.player.findUnique({ where: { id: root.id } }).Club(),
+  club: (_obj, { root }) =>
+    db.player.findUnique({ where: { id: root.id } }).club(),
 }

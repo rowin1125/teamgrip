@@ -1,5 +1,7 @@
 import { Router, Route, Set, Private } from '@redwoodjs/router'
 
+import ClubsLayout from 'src/layouts/ClubsLayout'
+
 import AppLayout from './layouts/AppLayout/AppLayout'
 import AuthLayout from './layouts/AuthLayout/AuthLayout'
 import GeneralLayout from './layouts/GeneralLayout/GeneralLayout'
@@ -7,6 +9,14 @@ import GeneralLayout from './layouts/GeneralLayout/GeneralLayout'
 const Routes = () => {
   return (
     <Router>
+      <Private unauthenticated="home" roles={['ADMIN']}>
+        <Set wrap={ClubsLayout}>
+          <Route path="/app/admin/clubs/new" page={ClubNewClubPage} name="adminNewClub" />
+          <Route path="/app/admin/clubs/{id}/edit" page={ClubEditClubPage} name="adminEditClub" />
+          <Route path="/app/admin/clubs/{id}" page={ClubClubPage} name="adminClub" />
+          <Route path="/app/admin/clubs" page={ClubClubsPage} name="adminClubs" />
+        </Set>
+      </Private>
       {/* APP */}
       <Private unauthenticated="login">
         <Set wrap={AppLayout}>

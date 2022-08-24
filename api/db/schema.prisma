@@ -38,6 +38,7 @@ model User {
   userProfile         UserProfile?
   avatar              Avatar?
   player              Player?
+  team                Team[]
 }
 
 model UserProfile {
@@ -82,15 +83,17 @@ model Avatar {
 }
 
 model Player {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  teamId    String?
-  team      Team?    @relation(fields: [teamId], references: [id])
-  Club      Club?    @relation(fields: [clubId], references: [id])
-  clubId    String?
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now()) @updatedAt
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id])
+  teamId         String?
+  team           Team?    @relation(fields: [teamId], references: [id])
+  club           Club?    @relation(fields: [clubId], references: [id])
+  clubId         String?
+  isCoach        Boolean  @default(false)
+  isActivePlayer Boolean  @default(false)
   // training        Training[]
   // trainingsScores TrainingsScore[]
 }
@@ -99,10 +102,13 @@ model Team {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-  name      String
+  name      String   @unique
   players   Player[]
   club      Club?    @relation(fields: [clubId], references: [id])
   clubId    String?
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String
+
   // Season    Season[]
 }
 

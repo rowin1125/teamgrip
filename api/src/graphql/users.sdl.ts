@@ -1,6 +1,8 @@
 export const schema = gql`
   type User {
     id: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
     email: String!
     hashedPassword: String
     salt: String
@@ -9,8 +11,9 @@ export const schema = gql`
     verified: Boolean!
     verifiedToken: String
     roles: Role!
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    userProfile: UserProfile!
+    avatar: Avatar
+    player: Player
   }
 
   enum Role {

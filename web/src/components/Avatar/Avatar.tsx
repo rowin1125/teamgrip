@@ -56,8 +56,10 @@ const Avatar = ({
           borderRadius={9999}
           boxShadow="0px 0px 15px rgba(0, 0, 0, 0.85)"
         >
-          <Box mr="1px">{currentUser?.userProfile?.firstname?.slice(0, 1)}</Box>
-          {currentUser?.userProfile?.lastname?.slice(0, 1)}
+          <Box mr="1px">
+            {currentUser?.userProfile?.firstname?.slice(0, 1).toUpperCase()}
+          </Box>
+          {currentUser?.userProfile?.lastname?.slice(0, 1).toUpperCase()}
         </Box>
       )}
     </Box>

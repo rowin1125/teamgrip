@@ -7,25 +7,30 @@ export const schema = gql`
     user: User!
     teamId: String
     team: Team
-    Club: Club
+    club: Club
     clubId: String
   }
 
   type Query {
     players: [Player!]! @requireAuth
     player(id: String!): Player @requireAuth
+    playersForTeam(teamId: String!): [Player]! @skipAuth
   }
 
   input CreatePlayerInput {
     userId: String!
     teamId: String
     clubId: String
+    isCoach: Boolean
+    isActivePlayer: Boolean
   }
 
   input UpdatePlayerInput {
     userId: String
     teamId: String
     clubId: String
+    isCoach: Boolean
+    isActivePlayer: Boolean
   }
 
   type Mutation {

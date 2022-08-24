@@ -7,6 +7,8 @@ export const schema = gql`
     players: [Player]!
     club: Club
     clubId: String
+    owner: User
+    ownerId: String
   }
 
   type Query {
@@ -16,12 +18,16 @@ export const schema = gql`
 
   input CreateTeamInput {
     name: String!
-    clubId: String
+    clubId: String!
+    ownerId: String!
+    ownerIsPlayer: Boolean!
   }
 
   input UpdateTeamInput {
-    name: String
-    clubId: String
+    name: String!
+    clubId: String!
+    ownerId: String!
+    ownerIsPlayer: Boolean!
   }
 
   type Mutation {

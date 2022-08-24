@@ -1,71 +1,144 @@
+import { Button, Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
 import {
-  Grid,
-  GridItem,
-  Flex,
-  Box,
-  Heading,
-  Button,
-  Text,
-} from '@chakra-ui/react'
-import Avatar from 'avataaars'
+  FindTeamQuery,
+  FindTeamQueryVariables,
+  GetPlayersForTeamQuery,
+  GetPlayersForTeamQueryVariables,
+} from 'types/graphql'
 
-import { routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth'
+import { MetaTags, useQuery } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
+import SortableTable from 'src/components/SortableTable'
+
+import TeamNotFoundMessage from './components/TeamNotFoundMessage'
+
+const FIND_TEAM_QUERY = gql`
+  query FindTeamQuery($id: String!) {
+    team(id: $id) {
+      id
+      name
+      owner {
+        id
+        userProfile {
+          firstname
+          lastname
+        }
+      }
+      club {
+        name
+      }
+    }
+  }
+`
+
+const GET_PLAYERS_FOR_TEAM_QUERY = gql`
+  query GetPlayersForTeamQuery($teamId: String!) {
+    playersForTeam(teamId: $teamId) {
+      id
+      user {
+        id
+        userProfile {
+          firstname
+          lastname
+        }
+        avatar {
+          avatarStyle
+          topType
+          accessoriesType
+          hatColor
+          hairColor
+          facialHairType
+          facialHairColor
+          clotheType
+          clotheColor
+          graphicType
+          eyeType
+          eyebrowType
+          mouthType
+          skinColor
+        }
+      }
+    }
+  }
+`
 
 const TeamPage = () => {
+  const { currentUser } = useAuth()
+
+  const { data, loading } = useQuery<FindTeamQuery, FindTeamQueryVariables>(
+    FIND_TEAM_QUERY,
+    {
+      variables: { id: currentUser?.player?.teamId || '' },
+    }
+  )
+  const { data: playersData } = useQuery<
+    GetPlayersForTeamQuery,
+    GetPlayersForTeamQueryVariables
+  >(GET_PLAYERS_FOR_TEAM_QUERY, {
+    variables: { teamId: currentUser?.player?.teamId || '' },
+  })
+
+  const isPartOfTeam = !!data?.team?.id
+
   return (
     <>
       <MetaTags title="Team" description="Team page" />
 
-      <Grid gridTemplateColumns="repeat(12, 1fr)" gridGap={4}>
-        <GridItem colSpan={8}>
-          <Card>
-            <Flex justifyContent="space-between">
-              <Box>
-                <Heading mb={4}>Mijn Team</Heading>
-
-                <Text fontSize="xl">
-                  Je maakt nog geen onderdeel uit van een <strong>team</strong>.{' '}
+      {!loading && !isPartOfTeam ? (
+        <TeamNotFoundMessage />
+      ) : (
+        <Grid
+          templateColumns="repeat(2, 1fr)"
+          templateRows="repeat(4, 1fr)"
+          gap={10}
+        >
+          <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={1}>
+            <Card>
+              <Heading fontSize="6xl">{data?.team?.name}</Heading>
+              <Flex>
+                <Text fontWeight="bold" mr={2}>
+                  Beheerder:{' '}
                 </Text>
-                <Text fontSize="xl" mt={4}>
-                  Om onderdeel van een <strong>team</strong> te worden moet je
-                  of een uitnodiging accepteren of je eigen team bij een club
-                  starten
-                </Text>
-                <Flex>
-                  <Button
-                    as={RedwoodLink}
-                    mt={4}
-                    colorScheme="secondary"
-                    mr={4}
-                    to={routes.newTeam()}
-                  >
-                    Maak een team
-                  </Button>
-                </Flex>
-              </Box>
-
-              <Avatar
-                style={{ width: '200px', height: '200px' }}
-                avatarStyle="Transparent"
-                accessoriesType="Blank"
-                topType="ShortHairShortWaved"
-                hairColor="Brown"
-                facialHairType="BrownDark"
-                clotheType="Hoodie"
-                clotheColor="Black"
-                eyeType="Cry"
-                eyebrowType="SadConcerned"
-                mouthType="Sad"
-                skinColor="Tanned"
+                <Text>{data?.team?.owner.userProfile.firstname}</Text>
+                <Text>{data?.team?.owner.userProfile.lastname}</Text>
+              </Flex>
+            </Card>
+          </GridItem>
+          <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={4}>
+            <Card w="100%" bg="primary.500" color="white">
+              <Heading>Punten in team: {data?.team?.name}</Heading>
+              <SortableTable
+                entries={playersData?.playersForTeam.map((player, index) => {
+                  const topTree = {
+                    1: '🏆️',
+                    2: '🥈',
+                    3: '🥉',
+                  }
+                  const medal = topTree[index + 1]
+                  const position = medal
+                    ? `${medal} ${index + 1}`
+                    : ` ${index + 1}`
+                  return {
+                    positie: position,
+                    avatar: player.user.avatar,
+                    firstname: player.user.userProfile.firstname,
+                    lastname: player.user.userProfile.lastname,
+                    points: Math.floor(Math.random() * 100),
+                  }
+                })}
               />
-            </Flex>
-          </Card>
-        </GridItem>
-      </Grid>
+            </Card>
+          </GridItem>
+          <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={1}>
+            <Card>
+              <Heading>Seizoen</Heading>
+              <Button mt={4}>Start je seizoen</Button>
+            </Card>
+          </GridItem>
+        </Grid>
+      )}
     </>
   )
 }
