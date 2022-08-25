@@ -9,6 +9,7 @@ export const schema = gql`
     clubId: String
     owner: User
     ownerId: String
+    invitationToken: String
   }
 
   type Query {
@@ -34,5 +35,8 @@ export const schema = gql`
     createTeam(input: CreateTeamInput!): Team! @requireAuth
     updateTeam(id: String!, input: UpdateTeamInput!): Team! @requireAuth
     deleteTeam(id: String!): Team! @requireAuth
+
+    createInvitationToken(id: String!): Team! @requireAuth
+    deleteInvitationToken(id: String!): Team! @requireAuth
   }
 `

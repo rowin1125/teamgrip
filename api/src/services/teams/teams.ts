@@ -1,10 +1,11 @@
+import nanoid from 'nanoid'
 import type {
   QueryResolvers,
   MutationResolvers,
   TeamResolvers,
 } from 'types/graphql'
 
-import { context } from '@redwoodjs/graphql-server'
+import { context, UserInputError } from '@redwoodjs/graphql-server'
 
 import { db } from 'src/lib/db'
 
@@ -74,6 +75,56 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = ({ id }) => {
     where: { id },
   })
 }
+
+export const createInvitationToken: MutationResolvers['createInvitationToken'] =
+  async ({ id }) => {
+    const currentUser = context.currentUser
+
+    let team = await db.team.findUnique({ where: { id } })
+    if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`)
+
+    if (currentUser.id !== team.ownerId)
+      throw new UserInputError('Je bent niet de eigenaar van het team')
+
+    const invitationToken = nanoid()
+
+    try {
+      team = await db.team.update({
+        where: { id },
+        data: {
+          invitationToken,
+        },
+      })
+    } catch (error) {
+      throw new Error(error)
+    }
+
+    return team
+  }
+
+export const deleteInvitationToken: MutationResolvers['deleteInvitationToken'] =
+  async ({ id }) => {
+    const currentUser = context.currentUser
+
+    let team = await db.team.findUnique({ where: { id } })
+    if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`)
+
+    if (currentUser.id !== team.ownerId)
+      throw new UserInputError('Je bent niet de eigenaar van het team')
+
+    try {
+      team = await db.team.update({
+        where: { id },
+        data: {
+          invitationToken: null,
+        },
+      })
+    } catch (error) {
+      throw new Error(error)
+    }
+
+    return team
+  }
 
 export const Team: TeamResolvers = {
   players: (_obj, { root }) =>

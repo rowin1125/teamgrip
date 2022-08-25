@@ -10,13 +10,15 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
+  Heading,
 } from '@chakra-ui/react'
+import { FindTeamQuery } from 'types/graphql'
 
 import InvitePlayers from './InvitePlayers'
 
-type InvitePlayersModalProps = { teamId: string }
+type InvitePlayersModalProps = { team: FindTeamQuery['team'] }
 
-const InvitePlayersModal = ({ teamId }: InvitePlayersModalProps) => {
+const InvitePlayersModal = ({ team }: InvitePlayersModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
@@ -25,10 +27,12 @@ const InvitePlayersModal = ({ teamId }: InvitePlayersModalProps) => {
       <Modal isOpen={isOpen} onClose={onClose} size="4xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Nodig spelers</ModalHeader>
+          <ModalHeader>
+            <Heading>Nodig teamleden uit</Heading>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <InvitePlayers teamId={teamId} />
+            <InvitePlayers team={team} />
           </ModalBody>
 
           <ModalFooter>

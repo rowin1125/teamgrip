@@ -11,5 +11,8 @@ export const Heading: ComponentStyleConfig = {
     sm: { fontSize: '16px' },
     xs: { fontSize: '14px' },
   },
+  baseStyle: {
+    color: 'primary.500',
+  },
   defaultProps: { size: 'lg' },
 }

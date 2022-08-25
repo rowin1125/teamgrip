@@ -20,6 +20,7 @@ const FIND_TEAM_QUERY = gql`
     team(id: $id) {
       id
       name
+      invitationToken
       owner {
         id
         userProfile {
@@ -99,7 +100,7 @@ const TeamPage = () => {
             <Card>
               <Flex justifyContent="space-between">
                 <Heading fontSize="6xl">{data?.team?.name}</Heading>
-                <InvitePlayersModal teamId={data?.team?.id} />
+                <InvitePlayersModal team={data?.team} />
               </Flex>
               <Flex>
                 <Text fontWeight="bold" mr={2}>
