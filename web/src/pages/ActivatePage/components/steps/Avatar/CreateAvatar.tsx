@@ -138,7 +138,7 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
               flexDirection="column"
               alignItems="center"
             >
-              <Heading>Profiel compleet 🥳</Heading>
+              <Heading color="white">Profiel compleet 🥳</Heading>
               <Icon
                 as={BsCheckCircleFill}
                 fontSize="8xl"

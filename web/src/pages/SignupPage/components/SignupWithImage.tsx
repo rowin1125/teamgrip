@@ -53,10 +53,10 @@ const SignupWithImage = () => {
         >
           <Center w="full" h="full">
             <Box>
-              <Heading fontSize={{ base: '4xl', xl: '8xl' }}>
+              <Heading fontSize={{ base: '4xl', xl: '8xl' }} color="white">
                 Jouw eigen team
               </Heading>
-              <Text mt={4} fontSize={{ base: '2xl', xl: '4xl' }}>
+              <Text mt={4} fontSize={{ base: '2xl', xl: '4xl' }} color="white">
                 Alle data binnen handbereik
               </Text>
             </Box>

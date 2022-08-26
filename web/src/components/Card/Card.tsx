@@ -16,7 +16,6 @@ const Card = ({ children, noXPadding, bg = 'white', ...rest }: CardProps) => (
     py={8}
     rounded="2xl"
     boxShadow="lg"
-    h="full"
     {...rest}
   >
     {children}

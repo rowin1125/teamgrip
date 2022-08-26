@@ -87,7 +87,7 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
       onSubmit={onSubmit}
     >
       <Box as={Form} w="full">
-        <Heading>Even dubbelchecken!</Heading>
+        <Heading color="white">Even dubbelchecken!</Heading>
         <ControlledInput
           id="password"
           label="Bevestig je wachtwoord en activeer je account"

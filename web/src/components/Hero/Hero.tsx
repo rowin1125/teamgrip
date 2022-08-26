@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Image } from '@chakra-ui/react'
+import { Box, BoxProps, Image } from '@chakra-ui/react'
 
 import footballNightMan from './images/footbal-night-man.jpg'
 import stadiumImage from './images/stadium.jpg'
@@ -8,7 +8,7 @@ import stadiumImage from './images/stadium.jpg'
 export type HeroProps = {
   type?: 'stadium' | 'football-night-man'
   size?: 'sm' | 'md' | 'lg' | '1/2' | 'full'
-}
+} & BoxProps
 
 const HERO_SIZES_MAP = {
   sm: '200px',
@@ -18,7 +18,7 @@ const HERO_SIZES_MAP = {
   full: '100vh',
 }
 
-const Hero = ({ type = 'stadium', size = 'md' }: HeroProps) => {
+const Hero = ({ type = 'stadium', size = 'md', zIndex = '-1' }: HeroProps) => {
   const heightProperty = HERO_SIZES_MAP[size]
   let heroImage: string
 
@@ -38,7 +38,7 @@ const Hero = ({ type = 'stadium', size = 'md' }: HeroProps) => {
       top={0}
       left={0}
       right={0}
-      zIndex="-1"
+      zIndex={zIndex}
     >
       <Image
         filter="auto"

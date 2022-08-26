@@ -9,6 +9,7 @@ export const schema = gql`
     team: Team
     club: Club
     clubId: String
+    teamInvitation: String
   }
 
   type Query {
@@ -23,6 +24,7 @@ export const schema = gql`
     clubId: String
     isCoach: Boolean
     isActivePlayer: Boolean
+    teamInvitation: String
   }
 
   input UpdatePlayerInput {
@@ -31,6 +33,7 @@ export const schema = gql`
     clubId: String
     isCoach: Boolean
     isActivePlayer: Boolean
+    teamInvitation: String
   }
 
   type Mutation {

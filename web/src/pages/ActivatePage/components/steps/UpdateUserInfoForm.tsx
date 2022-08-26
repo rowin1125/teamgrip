@@ -73,7 +73,7 @@ const UpdateUserInfoForm = ({ setActivateStep }: UpdateUserInfoFormProps) => {
       validationSchema={validationSchema}
     >
       <Box as={Form} w="full">
-        <Heading>Even wat administatie 📃</Heading>
+        <Heading color="white">Even wat administatie 📃</Heading>
         <ControlledInput id="firstname" label="Voornaam" placeholder="Erling" />
         <ControlledInput
           id="lastname"

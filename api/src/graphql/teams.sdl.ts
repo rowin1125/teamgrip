@@ -15,6 +15,7 @@ export const schema = gql`
   type Query {
     teams: [Team!]! @requireAuth
     team(id: String!): Team @requireAuth
+    teamByInvitationToken(invitationToken: String!): Team @requireAuth
   }
 
   input CreateTeamInput {

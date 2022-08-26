@@ -13,9 +13,15 @@ type LoginFormProps = {
   initialValues: Record<string, unknown>
   onSubmit: (values: Record<string, unknown>) => Promise<void>
   loading: boolean
+  showSignUp?: boolean
 }
 
-const LoginForm = ({ initialValues, onSubmit, loading }: LoginFormProps) => {
+const LoginForm = ({
+  initialValues,
+  onSubmit,
+  loading,
+  showSignUp = true,
+}: LoginFormProps) => {
   const validationSchema = Yup.object({
     username: Yup.string()
       .email('Email moet wel een email zijn...')
@@ -31,7 +37,7 @@ const LoginForm = ({ initialValues, onSubmit, loading }: LoginFormProps) => {
       <FormikForm>
         <ControlledInput
           id="username"
-          label="Username"
+          label="Email"
           placeholder="ronaldo@gmail.nl"
         />
         <ControlledInput
@@ -50,12 +56,14 @@ const LoginForm = ({ initialValues, onSubmit, loading }: LoginFormProps) => {
           <Button colorScheme="secondary" type="submit" isLoading={loading}>
             Login
           </Button>
-          <Box>
-            Heb je nog geen account?{' '}
-            <RedwoodLink to={routes.signup()} className="rw-link">
-              Registeer
-            </RedwoodLink>
-          </Box>
+          {showSignUp && (
+            <Box>
+              Heb je nog geen account?{' '}
+              <RedwoodLink to={routes.signup()} className="rw-link">
+                Registeer
+              </RedwoodLink>
+            </Box>
+          )}
         </Flex>
       </FormikForm>
     </Formik>

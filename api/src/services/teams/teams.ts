@@ -22,6 +22,16 @@ export const team: QueryResolvers['team'] = ({ id }) => {
   })
 }
 
+export const teamByInvitationToken: QueryResolvers['teamByInvitationToken'] = ({
+  invitationToken,
+}) => {
+  return db.team.findFirst({
+    where: {
+      invitationToken,
+    },
+  })
+}
+
 export const createTeam: MutationResolvers['createTeam'] = async ({
   input: { ownerIsPlayer, ...input },
 }) => {

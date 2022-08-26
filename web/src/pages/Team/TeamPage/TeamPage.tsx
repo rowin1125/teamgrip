@@ -1,7 +1,5 @@
 import { Button, Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
 import {
-  FindTeamQuery,
-  FindTeamQueryVariables,
   GetPlayersForTeamQuery,
   GetPlayersForTeamQueryVariables,
 } from 'types/graphql'
@@ -11,29 +9,10 @@ import { MetaTags, useQuery } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
 import SortableTable from 'src/components/SortableTable'
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 
 import InvitePlayersModal from './components/InvitePlayersModal'
 import TeamNotFoundMessage from './components/TeamNotFoundMessage'
-
-const FIND_TEAM_QUERY = gql`
-  query FindTeamQuery($id: String!) {
-    team(id: $id) {
-      id
-      name
-      invitationToken
-      owner {
-        id
-        userProfile {
-          firstname
-          lastname
-        }
-      }
-      club {
-        name
-      }
-    }
-  }
-`
 
 const GET_PLAYERS_FOR_TEAM_QUERY = gql`
   query GetPlayersForTeamQuery($teamId: String!) {
@@ -68,13 +47,8 @@ const GET_PLAYERS_FOR_TEAM_QUERY = gql`
 
 const TeamPage = () => {
   const { currentUser } = useAuth()
+  const { team, loading } = useGetTeamById()
 
-  const { data, loading } = useQuery<FindTeamQuery, FindTeamQueryVariables>(
-    FIND_TEAM_QUERY,
-    {
-      variables: { id: currentUser?.player?.teamId || '' },
-    }
-  )
   const { data: playersData } = useQuery<
     GetPlayersForTeamQuery,
     GetPlayersForTeamQueryVariables
@@ -82,7 +56,7 @@ const TeamPage = () => {
     variables: { teamId: currentUser?.player?.teamId || '' },
   })
 
-  const isPartOfTeam = !!data?.team?.id
+  const isPartOfTeam = !!team?.id
 
   return (
     <>
@@ -99,21 +73,25 @@ const TeamPage = () => {
           <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={1}>
             <Card>
               <Flex justifyContent="space-between">
-                <Heading fontSize="6xl">{data?.team?.name}</Heading>
-                <InvitePlayersModal team={data?.team} />
+                <Heading fontSize="6xl">{team?.name}</Heading>
+                <InvitePlayersModal team={team} />
               </Flex>
               <Flex>
                 <Text fontWeight="bold" mr={2}>
                   Beheerder:{' '}
                 </Text>
-                <Text>{data?.team?.owner.userProfile.firstname}</Text>
-                <Text>{data?.team?.owner.userProfile.lastname}</Text>
+                <Text>{team?.owner.userProfile.firstname}</Text>
+                <Text>{team?.owner.userProfile.lastname}</Text>
+              </Flex>
+              <Flex>
+                <Text fontWeight="bold">Active uitnoding: </Text>
+                <Text ml={2}>{team?.invitationToken ? 'Ja' : 'Nee'}</Text>
               </Flex>
             </Card>
           </GridItem>
           <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={4}>
             <Card w="100%" bg="primary.500" color="white">
-              <Heading>Punten in team: {data?.team?.name}</Heading>
+              <Heading>Punten in team: {team?.name}</Heading>
               <SortableTable
                 entries={playersData?.playersForTeam.map((player, index) => {
                   const topTree = {

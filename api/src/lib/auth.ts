@@ -37,6 +37,7 @@ export const getCurrentUser = async (session) => {
         select: {
           id: true,
           teamId: true,
+          teamInvitation: true,
         },
       },
       avatar: {

@@ -86,6 +86,12 @@ export const createUsers = async () =>
           },
         })
         .then(async (user) => {
+          const club = await db.club.findFirst({
+            where: {
+              name: 'Zob',
+            },
+          })
+
           await db.avatar.create({
             data: {
               ...userData.avatar.create,
@@ -103,6 +109,7 @@ export const createUsers = async () =>
               players: {
                 connect: [{ userId: user.id }],
               },
+              clubId: club.id,
             },
           })
 

@@ -31,6 +31,7 @@ const Routes = () => {
       </Private>
       {/* AUTH */}
       <Set wrap={AuthLayout}>
+        <Route path="/app/team/join" page={TeamJoinTeamPage} name="joinTeam" />
         <Route path="/login" page={LoginPage} name="login" />
         <Route path="/aanmelden" page={SignupPage} name="signup" />
         <Route path="/wachtwoord-vergeten" page={ForgotPasswordPage} name="forgotPassword" />

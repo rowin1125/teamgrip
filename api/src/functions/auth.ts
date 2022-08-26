@@ -132,7 +132,7 @@ export const handler = async (event: any, context: any) => {
       userAttributes,
     }: any) => {
       const token = nanoid()
-      // lol
+
       try {
         const user = await db.user.create({
           data: {
@@ -153,9 +153,11 @@ export const handler = async (event: any, context: any) => {
         await createPlayer({
           input: {
             userId: user.id,
+            teamInvitation: userAttributes.invitationToken,
           },
         })
       } catch (error) {
+        console.log('error', error)
         throw new Error('Failed to sign up')
       }
 

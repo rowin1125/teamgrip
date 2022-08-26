@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 
 import { Box, Flex } from '@chakra-ui/react'
 
+import { useAuth } from '@redwoodjs/auth'
 import { navigate, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
@@ -17,6 +18,7 @@ import CreateAvatar from './components/steps/Avatar/CreateAvatar'
 import UpdateUserInfoForm from './components/steps/UpdateUserInfoForm'
 
 const ActivatePage = () => {
+  const { currentUser } = useAuth()
   const [activateStep, setActivateStep] = useState(0)
   const [videoShown, setVideoShown] = useState(false)
   const [showWelcomeTitle, setShowWelcomeTitle] = useState(true)
@@ -24,6 +26,8 @@ const ActivatePage = () => {
 
   const FormPages = [ActivateForm, UpdateUserInfoForm, CreateAvatar]
   const Component = FormPages[activateStep] ?? 'div'
+
+  const invitationToken = currentUser?.player?.teamInvitation
 
   const handlePlayVideo = async () => {
     setVideoShown(true)
@@ -37,7 +41,9 @@ const ActivatePage = () => {
 
     await waitFor(4000)
 
-    navigate(routes.app())
+    invitationToken
+      ? navigate(routes.joinTeam({ invitationToken }))
+      : navigate(routes.app())
     toast.success('Welcome en ga direct aan de slag!')
   }
 

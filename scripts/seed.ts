@@ -8,10 +8,10 @@ export default async () => {
       "\nRunning seeder in './scripts/seed.{js,ts}'\nMake sure to keep this up to date 🤠\n"
     )
 
-    // USER SEEDING
-    await createUsers()
     // ClUB SEED
     await createClub()
+    // USER SEEDING
+    await createUsers()
     // CREATE USER/PLAYER AND ASSIGN TO TEAM
     await createUsersAndConnectToTeam()
     console.log('Seeded successfully! 👨‍👩‍👦‍👦')

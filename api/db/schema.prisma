@@ -94,6 +94,7 @@ model Player {
   clubId         String?
   isCoach        Boolean  @default(false)
   isActivePlayer Boolean  @default(false)
+  teamInvitation String?
   // training        Training[]
   // trainingsScores TrainingsScore[]
 }
