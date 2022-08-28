@@ -1,82 +1,96 @@
-import React from 'react'
+import { useState } from 'react'
 
-import { Box, Button, Divider, Flex, Image, List, Text } from '@chakra-ui/react'
-import { CgHomeAlt, CgProfile, CgOptions } from 'react-icons/cg'
+import { Button, Flex, Icon, Image } from '@chakra-ui/react'
+import {
+  CgHomeAlt,
+  CgOptions,
+  CgProfile,
+  CgPushChevronLeft,
+  CgPushChevronRight,
+} from 'react-icons/cg'
 import { IoIosStats } from 'react-icons/io'
 import { MdOutlineSpaceDashboard } from 'react-icons/md'
 import { RiTeamFill } from 'react-icons/ri'
 
-import { Link, routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router'
 
-import RedwoodLink from '../RedwoodLink'
-
-import SidebarListItem from './components/SidebarListItem'
+import SidebarItem from './components/SidebarItem'
 
 const Sidebar = () => {
+  const [navOpen, toggleNav] = useState(true)
+
   return (
-    <Box
-      as="aside"
+    <Flex
+      pos="sticky"
+      left="0"
+      top={0}
+      h="100vh"
+      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+      flexDir="column"
+      justifyContent="space-between"
+      borderTopRightRadius="10px"
+      borderBottomRightRadius="10px"
       bg="white"
-      p={4}
-      rounded="3xl"
-      boxShadow="lg"
-      position="sticky"
-      top={8}
-      display={{ base: 'none', md: 'none', lg: 'block' }}
     >
-      <Flex justifyContent="center" alignItems="center" mt={4}>
-        <RedwoodLink to={routes.app()}>
-          <Image h="100px" src="/TeamStats Logo.png" alt="Redwood" />
-        </RedwoodLink>
-      </Flex>
-      <Flex justifyContent="center" alignItems="center" pt={6} pb={6}>
-        <Divider w="80%" />
-      </Flex>
-      <List spacing={1} as="nav">
-        <SidebarListItem
-          listItem="dashboard"
-          href={routes.app()}
+      <Flex flexDir="column" w="full" as="nav">
+        <Flex justifyContent="center" alignItems="center" py={6}>
+          <Image
+            src="/TeamStats Logo.png"
+            w={navOpen ? '100px' : '50px'}
+            my={navOpen ? 0 : 6}
+            h="auto"
+          />
+        </Flex>
+
+        <SidebarItem
+          navOpen={navOpen}
           icon={MdOutlineSpaceDashboard}
+          title="Dashboard"
+          to={routes.app()}
         />
-        <SidebarListItem
-          listItem="Mijn team"
-          href={routes.team()}
+        <SidebarItem
+          navOpen={navOpen}
           icon={RiTeamFill}
+          title="Team"
+          to={routes.team()}
         />
-        <SidebarListItem
-          listItem="mijn club"
-          href={routes.club()}
+        <SidebarItem
+          navOpen={navOpen}
           icon={CgHomeAlt}
+          title="Club"
+          to={routes.club()}
         />
-        <SidebarListItem
-          listItem="Mijn scores"
-          href={routes.app()}
+        <SidebarItem
+          navOpen={navOpen}
           icon={IoIosStats}
+          title="Mijn scores"
+          to={routes.app()}
         />
-        <Text fontWeight="bold" pl={4} py={2} fontSize="xl">
-          Account instellingen
-        </Text>
-        <SidebarListItem
-          listItem="Mijn profiel"
-          href={routes.app()}
+        <SidebarItem
+          navOpen={navOpen}
           icon={CgProfile}
+          title="Mijn profiel"
+          to={routes.settings()}
         />
-        <SidebarListItem
-          listItem="Instellingen"
-          href={routes.settings()}
+        <SidebarItem
+          navOpen={navOpen}
           icon={CgOptions}
+          title="Instellingen"
+          to={routes.settings()}
+          isLast
         />
-      </List>
-      <Link to="/">
-        <Button colorScheme="primary" w="full" my={2}>
-          Something
+      </Flex>
+
+      <Flex justifyContent="center" p={4}>
+        <Button
+          onClick={() => toggleNav(!navOpen)}
+          size="sm"
+          colorScheme="primary"
+        >
+          <Icon as={navOpen ? CgPushChevronLeft : CgPushChevronRight} />
         </Button>
-      </Link>
-      <Button colorScheme="secondary" w="full" mt={2}>
-        {/* This text will be either removed or replaced in the future so translating this doesnt make sense */}
-        Nog een actie
-      </Button>
-    </Box>
+      </Flex>
+    </Flex>
   )
 }
 
