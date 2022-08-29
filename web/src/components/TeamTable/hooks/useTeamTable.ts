@@ -4,11 +4,11 @@ import { Column, useSortBy, useTable } from 'react-table'
 
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
 
-export type TableEntriesType = Record<string, unknown>[] | undefined
-export type UseTableReturnType = Record<string, unknown>
+export type TeamTableEntriesType = Record<string, unknown>[] | undefined
+export type UseTeamTableReturnType = Record<string, unknown>
 
-export const useSortableTable = (
-  entries: TableEntriesType,
+export const useTeamTable = (
+  entries: TeamTableEntriesType,
   hiddenColumns: string[]
 ) => {
   const rawColumns: Record<'Header' | 'accessor', string>[] = []
@@ -32,10 +32,10 @@ export const useSortableTable = (
     () => rawColumns,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [entries]
-  ) as Column<UseTableReturnType>[]
+  ) as Column<UseTeamTableReturnType>[]
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<UseTableReturnType>({ columns, data }, useSortBy)
+    useTable<UseTeamTableReturnType>({ columns, data }, useSortBy)
 
   return {
     getTableProps,

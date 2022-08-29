@@ -1,4 +1,4 @@
-import { randLastName } from '@ngneat/falso'
+import { randLastName, randFirstName } from '@ngneat/falso'
 import type { Prisma } from '@prisma/client'
 import { db } from 'api/src/lib/db'
 
@@ -69,6 +69,10 @@ export const createUsers = async () =>
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { avatar, ...userCreateData } = userData
+      const firstname = userCreateData.email.includes('rowin')
+        ? 'Rowin'
+        : randFirstName()
+      const lastname = randLastName()
       const record = await db.user
         .create({
           data: {
@@ -76,12 +80,14 @@ export const createUsers = async () =>
             ...userCreateData,
             userProfile: {
               create: {
-                firstname: userCreateData.email.split('@')[0],
-                lastname: randLastName(),
+                firstname,
+                lastname,
               },
             },
             player: {
-              create: {},
+              create: {
+                displayName: `${firstname} ${lastname}`,
+              },
             },
           },
         })

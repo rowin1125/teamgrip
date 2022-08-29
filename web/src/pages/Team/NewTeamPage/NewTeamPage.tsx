@@ -35,9 +35,11 @@ const CREATE_TEAM_MUTATION = gql`
 `
 
 const NewTeamPage = () => {
-  const { currentUser } = useAuth()
+  const { currentUser, reauthenticate } = useAuth()
   const { data } = useQuery<FindClubs>(GET_CLUBS_QUERY)
-  const [createTeam, { loading }] = useMutation(CREATE_TEAM_MUTATION)
+  const [createTeam, { loading }] = useMutation(CREATE_TEAM_MUTATION, {
+    onCompleted: reauthenticate,
+  })
 
   const validationSchema = Yup.object().shape({
     clubId: Yup.string().required('Club is verplicht'),

@@ -3,13 +3,16 @@ export const schema = gql`
     id: String!
     createdAt: DateTime!
     updatedAt: DateTime!
-    userId: String!
-    user: User!
+    userId: String
+    user: User
     teamId: String
     team: Team
     club: Club
     clubId: String
     teamInvitation: String
+    ghostInvitation: String
+    displayName: String
+    isGhost: Boolean!
   }
 
   type Query {
@@ -19,25 +22,41 @@ export const schema = gql`
   }
 
   input CreatePlayerInput {
-    userId: String!
+    userId: String
     teamId: String
     clubId: String
-    isCoach: Boolean
     isActivePlayer: Boolean
     teamInvitation: String
+    ghostInvitation: String
+    displayName: String
+    isGhost: Boolean
   }
 
   input UpdatePlayerInput {
     userId: String
     teamId: String
     clubId: String
-    isCoach: Boolean
     isActivePlayer: Boolean
     teamInvitation: String
+    ghostInvitation: String
+    displayName: String
+    isGhost: Boolean
+  }
+
+  input CreateGhostPlayersInput {
+    players: [CreatePlayerInput]!
+    teamId: String!
+  }
+
+  type CreateManyPlayersReturnType {
+    count: Int!
   }
 
   type Mutation {
     createPlayer(input: CreatePlayerInput!): Player! @requireAuth
+    createManyPlayers(
+      input: CreateGhostPlayersInput!
+    ): CreateManyPlayersReturnType! @requireAuth
     updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @requireAuth
     deletePlayer(id: String!): Player! @requireAuth
   }

@@ -23,14 +23,17 @@ export const users: Prisma.UserCreateArgs['data'][] = [
 export const createUsersAndConnectToTeam = async () =>
   Promise.all(
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
+      const firstname = randFirstName()
+      const lastname = randLastName()
+
       const user = await db.user.create({
         data: {
           ...defaultUserProperties,
           ...userData,
           userProfile: {
             create: {
-              firstname: randFirstName(),
-              lastname: randLastName(),
+              firstname,
+              lastname,
             },
           },
         },
@@ -46,6 +49,7 @@ export const createUsersAndConnectToTeam = async () =>
       const club = await db.club.findFirst()
       const player = await db.player.create({
         data: {
+          displayName: `${firstname} ${lastname}`,
           isActivePlayer: true,
           user: {
             connect: {

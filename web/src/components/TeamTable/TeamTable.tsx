@@ -1,16 +1,16 @@
 import { Table } from '@chakra-ui/react'
 
-import TableBody from './components/TableBody'
-import TableHead from './components/TableHead'
-import { TableEntriesType, useSortableTable } from './hooks/useSortableTable'
+import TableBody from './components/TeamTableBody'
+import TableHead from './components/TeamTableHead'
+import { TeamTableEntriesType, useTeamTable } from './hooks/useTeamTable'
 
 export type TableLinkProps = {
   hrefPrefix: string
   buttonLabel: string
 }
 
-type SortableTableProps = {
-  entries?: TableEntriesType
+type TeamTableProps = {
+  entries?: TeamTableEntriesType
   isLoading?: boolean
   loadingProps?: {
     loadingColumns: number
@@ -19,9 +19,9 @@ type SortableTableProps = {
   hiddenColumns?: string[]
 }
 
-const SortableTable = ({ entries, hiddenColumns }: SortableTableProps) => {
+const TeamTable = ({ entries, hiddenColumns }: TeamTableProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
-    useSortableTable(entries, hiddenColumns)
+    useTeamTable(entries, hiddenColumns)
 
   return (
     <Table size="sm" {...getTableProps()} mt={10}>
@@ -34,4 +34,4 @@ const SortableTable = ({ entries, hiddenColumns }: SortableTableProps) => {
     </Table>
   )
 }
-export default SortableTable
+export default TeamTable

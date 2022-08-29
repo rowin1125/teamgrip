@@ -9,8 +9,10 @@ import { Link } from '@redwoodjs/router'
 
 type RedwoodLinkProps = { to: string } & ChakraLinkProps
 
-const RedwoodLink = ({ ...props }: RedwoodLinkProps) => {
-  return <ChakraLink as={Link} {...props}></ChakraLink>
-}
+const RedwoodLink = React.forwardRef<RedwoodLinkProps, any>(
+  ({ ...props }, ref) => {
+    return <ChakraLink ref={ref} as={Link} {...props}></ChakraLink>
+  }
+)
 
 export default RedwoodLink

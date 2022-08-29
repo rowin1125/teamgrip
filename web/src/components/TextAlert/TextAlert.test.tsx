@@ -1,14 +1,14 @@
 import { render } from 'src/lib/testing/test-utils'
 
-import TeamPage from './TeamPage'
+import TextAlert from './TextAlert'
 
 //   Improve this test with help from the Redwood Testing Doc:
-//   https://redwoodjs.com/docs/testing#testing-pages-layouts
+//    https://redwoodjs.com/docs/testing#testing-components
 
-describe('TeamPage', () => {
+describe('TextAlert', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<TeamPage />)
+      render(<TextAlert status="info">Hallo</TextAlert>)
     }).not.toThrow()
   })
 })

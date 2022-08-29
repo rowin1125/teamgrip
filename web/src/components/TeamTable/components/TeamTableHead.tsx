@@ -5,13 +5,13 @@ import { Box, Icon, Th, Thead, Tr } from '@chakra-ui/react'
 import { CgChevronDown, CgChevronUp } from 'react-icons/cg'
 import { HeaderGroup } from 'react-table'
 
-import { UseTableReturnType } from '../hooks/useSortableTable'
+import { UseTeamTableReturnType } from '../hooks/useTeamTable'
 
-type TableHeadProps = {
-  headerGroups: HeaderGroup<UseTableReturnType>[]
+type TeamTableProps = {
+  headerGroups: HeaderGroup<UseTeamTableReturnType>[]
 }
 
-const TableHead = ({ headerGroups }: TableHeadProps) => (
+const TeamTable = ({ headerGroups }: TeamTableProps) => (
   <Thead>
     {headerGroups.map((headerGroup) => (
       <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -40,4 +40,4 @@ const TableHead = ({ headerGroups }: TableHeadProps) => (
   </Thead>
 )
 
-export default TableHead
+export default TeamTable

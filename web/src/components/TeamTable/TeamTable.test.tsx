@@ -1,14 +1,14 @@
 import { render } from '@redwoodjs/testing/web'
 
-import SortableTable from './SortableTable'
+import TeamTable from './TeamTable'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
 
-describe('SortableTable', () => {
+describe('TeamTable', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<SortableTable />)
+      render(<TeamTable />)
     }).not.toThrow()
   })
 })

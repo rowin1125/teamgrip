@@ -48,6 +48,22 @@ export const createPlayer: MutationResolvers['createPlayer'] = ({ input }) => {
   })
 }
 
+export const createManyPlayers: MutationResolvers['createManyPlayers'] =
+  async ({ input }) => {
+    const playersData = input.players.map((player) => ({
+      displayName: player.displayName,
+      teamId: input.teamId,
+      isActivePlayer: true,
+      isGhost: true,
+    }))
+    const players = await db.player.createMany({
+      data: playersData,
+      skipDuplicates: true,
+    })
+
+    return players
+  }
+
 export const updatePlayer: MutationResolvers['updatePlayer'] = ({
   id,
   input,
