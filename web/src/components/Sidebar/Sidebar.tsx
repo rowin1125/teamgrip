@@ -1,6 +1,13 @@
 import { useState } from 'react'
 
-import { Button, Flex, Icon, Image } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Tooltip,
+  useEventListener,
+} from '@chakra-ui/react'
 import {
   CgHomeAlt,
   CgOptions,
@@ -16,8 +23,18 @@ import { routes } from '@redwoodjs/router'
 
 import SidebarItem from './components/SidebarItem'
 
+const ClOSE_SIDEBAR_KEYS = ['221', '[']
+
 const Sidebar = () => {
   const [navOpen, toggleNav] = useState(true)
+
+  const handler = ({ key }) => {
+    if (ClOSE_SIDEBAR_KEYS.includes(String(key))) {
+      toggleNav(!navOpen)
+    }
+  }
+
+  useEventListener('keydown', handler)
 
   return (
     <Flex
@@ -81,14 +98,31 @@ const Sidebar = () => {
         />
       </Flex>
 
-      <Flex justifyContent="center" p={4}>
-        <Button
-          onClick={() => toggleNav(!navOpen)}
-          size="sm"
-          colorScheme="primary"
+      <Flex w="full">
+        <Tooltip
+          label="Gebruik ` [ ` op je toetsenbord om de navigatie te openen of sluiten"
+          placement="top"
+          bg="primary.500"
+          color="white"
+          hasArrow
+          openDelay={600}
         >
-          <Icon as={navOpen ? CgPushChevronLeft : CgPushChevronRight} />
-        </Button>
+          <Button
+            w="full"
+            onClick={() => toggleNav(!navOpen)}
+            size="sm"
+            colorScheme="primary"
+            variant="ghost"
+            py={6}
+          >
+            {navOpen ? 'Sluiten' : ''}{' '}
+            <Icon
+              ml={navOpen ? 2 : 0}
+              as={navOpen ? CgPushChevronLeft : CgPushChevronRight}
+              fontSize="xl"
+            />
+          </Button>
+        </Tooltip>
       </Flex>
     </Flex>
   )

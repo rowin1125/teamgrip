@@ -78,6 +78,7 @@ const SidebarItem = ({
                 to={to}
                 my="12px"
                 colorScheme={active ? 'secondary' : 'primary'}
+                mx={1}
               >
                 <Icon as={icon} fontSize="md" />
               </Button>
