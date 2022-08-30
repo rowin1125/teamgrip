@@ -116,7 +116,10 @@ const NewTeamPage = () => {
                       transformValue={handleTeamNameTransformation}
                       helperText="Letop: De teamnaam mag alleen bestaan uit nummers, letters en dashes: Zaterdag-1, Zatedag-JO-17-2"
                     />
-                    <ControlledSwitch id="ownerIsPlayer">
+                    <ControlledSwitch
+                      id="ownerIsPlayer"
+                      helperText="Actieveer als je zelf als speler deelneemt aan de training / competitie van het team."
+                    >
                       Is speler van het team?
                     </ControlledSwitch>
                     <Button

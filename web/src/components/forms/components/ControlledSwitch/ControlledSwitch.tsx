@@ -3,6 +3,7 @@ import React from 'react'
 import {
   FormControl,
   FormControlProps,
+  FormHelperText,
   FormLabel,
   FormLabelProps,
   Switch,
@@ -14,6 +15,7 @@ type ControlledSwitchProps = {
   id: string
   switchProps?: SwitchProps
   labelProps?: FormLabelProps
+  helperText?: string
 } & FormControlProps
 
 const ControlledSwitch = ({
@@ -22,6 +24,7 @@ const ControlledSwitch = ({
   switchProps,
   labelProps,
   children,
+  helperText,
   ...rest
 }: ControlledSwitchProps) => {
   const [field, { error, touched }] = useField(id)
@@ -44,6 +47,7 @@ const ControlledSwitch = ({
       >
         {children}
       </Switch>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   )
 }

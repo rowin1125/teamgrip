@@ -9,9 +9,11 @@ import {
 } from '@chakra-ui/react'
 import Avatar from 'avataaars'
 
+import { routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
+import RedwoodLink from 'src/components/RedwoodLink'
 
 const ClubPage = () => {
   return (
@@ -36,7 +38,13 @@ const ClubPage = () => {
                   club.
                 </Text>
                 <Flex>
-                  <Button mt={4} colorScheme="secondary" mr={4}>
+                  <Button
+                    to={routes.newTeam()}
+                    as={RedwoodLink}
+                    mt={4}
+                    colorScheme="secondary"
+                    mr={4}
+                  >
                     Maak een team
                   </Button>
                   <Button mt={4}>Check je uitnodigingen</Button>
