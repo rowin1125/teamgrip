@@ -48,6 +48,7 @@ const Sidebar = () => {
       borderTopRightRadius="10px"
       borderBottomRightRadius="10px"
       bg="white"
+      display={{ base: 'none', xl: 'flex' }}
     >
       <Flex flexDir="column" w="full" as="nav">
         <Flex justifyContent="center" alignItems="center" py={6}>

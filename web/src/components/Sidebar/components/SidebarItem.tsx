@@ -55,8 +55,8 @@ const SidebarItem = ({
               w="full"
               bg={active ? 'primary.500' : ''}
               color={active ? 'white' : 'primary.500'}
-              borderRight={active ? '4px solid' : ''}
-              borderRightColor="secondary.500"
+              borderRight="4px solid"
+              borderRightColor={active ? 'secondary.500' : 'transparent'}
               borderRadius={0}
               _hover={{
                 bg: active ? 'primary.600' : 'primary.50',
