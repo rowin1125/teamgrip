@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import {
   Button,
   Flex,
@@ -21,12 +19,14 @@ import { RiTeamFill } from 'react-icons/ri'
 
 import { routes } from '@redwoodjs/router'
 
+import useLocalStorage from 'src/hooks/global/useLocalStorage'
+
 import SidebarItem from './components/SidebarItem'
 
 const ClOSE_SIDEBAR_KEYS = ['221', '[']
 
 const Sidebar = () => {
-  const [navOpen, toggleNav] = useState(true)
+  const [navOpen, toggleNav] = useLocalStorage('navOpen', true)
 
   const handler = ({ key }) => {
     if (ClOSE_SIDEBAR_KEYS.includes(String(key))) {
