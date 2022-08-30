@@ -30,7 +30,7 @@ const TextAlert = ({ children, status, ...props }: TextAlertProps) => {
   return (
     <Alert borderRadius="xl" status={status} {...props}>
       <Flex>
-        <Icon as={AlertIcon} fontSize="xl" mr={4} mt={4} />
+        <Icon as={AlertIcon} fontSize="xl" mr={4} />
         <Flex flexDir="column">{children}</Flex>
       </Flex>
     </Alert>

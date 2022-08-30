@@ -30,24 +30,6 @@ const TeamGeneralInformation = ({
     <Card>
       <Flex justifyContent="space-between">
         <Heading fontSize="6xl">{team?.name}</Heading>
-        <Flex>
-          <Button
-            mr={4}
-            colorScheme="secondary"
-            onClick={() => {
-              setCurrentTabIndex(2)
-              disclosure.onOpen()
-            }}
-          >
-            Maak ghost spelers aan
-          </Button>
-          <InvitePlayersModal
-            team={team}
-            {...disclosure}
-            defaultIndex={currentTabIndex}
-            setCurrentTabIndex={setCurrentTabIndex}
-          />
-        </Flex>
       </Flex>
       <Flex>
         <Text fontWeight="bold" mr={2}>
@@ -59,6 +41,24 @@ const TeamGeneralInformation = ({
       <Flex>
         <Text fontWeight="bold">Active uitnoding: </Text>
         <Text ml={2}>{team?.invitationToken ? 'Ja' : 'Nee'}</Text>
+      </Flex>
+      <Flex mt={8}>
+        <Button
+          mr={4}
+          colorScheme="secondary"
+          onClick={() => {
+            setCurrentTabIndex(1)
+            disclosure.onOpen()
+          }}
+        >
+          Maak ghost spelers aan
+        </Button>
+        <InvitePlayersModal
+          team={team}
+          {...disclosure}
+          defaultIndex={currentTabIndex}
+          setCurrentTabIndex={setCurrentTabIndex}
+        />
       </Flex>
     </Card>
   )

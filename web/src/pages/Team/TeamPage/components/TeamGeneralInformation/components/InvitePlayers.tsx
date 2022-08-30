@@ -1,11 +1,9 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import { FindTeamQuery } from 'types/graphql'
 
-import TextAlert from 'src/components/TextAlert/TextAlert'
-
+import ConnectGhostToUserInvite from './ModalTabs/ConnectGhostToUserInvite'
 import ControlTeamInviteTab from './ModalTabs/ControlTeamInviteTab'
 import InviteGhostTab from './ModalTabs/InviteGhostTab'
-import ValidateTeamInvitation from './ValidateTeamInvitation'
 
 type InvitePlayersProps = {
   team?: FindTeamQuery['team']
@@ -30,16 +28,7 @@ const InvitePlayers = ({ team, defaultIndex, onClose }: InvitePlayersProps) => {
           <InviteGhostTab team={team} onClose={onClose} />
         </TabPanel>
         <TabPanel>
-          <ValidateTeamInvitation team={team}>
-            <TextAlert status="info">
-              <Text>
-                <strong>Ghost spelers</strong> kunnen gekoppeld worden aan echte
-                spelers van je team. De unieke uitnodiging zorgt ervoor dat alle
-                punten en statistieken worden overgenomen bij het aanmelden van
-                het account.
-              </Text>
-            </TextAlert>
-          </ValidateTeamInvitation>
+          <ConnectGhostToUserInvite team={team} onClose={onClose} />
         </TabPanel>
       </TabPanels>
     </Tabs>

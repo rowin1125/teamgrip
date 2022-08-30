@@ -149,7 +149,11 @@ export const handler = async (event: any, context: any) => {
           },
         })
         if (!user) throw new Error('User not created')
-        await activateUserEmail({ email: user.email, token })
+        await activateUserEmail({
+          email: user.email,
+          token,
+          ghostInvitation: userAttributes.ghostInvitation,
+        })
         await createPlayer({
           input: {
             userId: user.id,

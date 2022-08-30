@@ -13,6 +13,7 @@ import ControlledInput from 'src/components/forms/components/ControlledInput'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import { FIND_TEAM_QUERY } from 'src/hooks/api/query/useGetTeamById'
 
 import { handleTeamNameTransformation } from './helpers/handleTeamnameTransformation/handleTeamnameTransformation'
 
@@ -39,6 +40,7 @@ const NewTeamPage = () => {
   const { data } = useQuery<FindClubs>(GET_CLUBS_QUERY)
   const [createTeam, { loading }] = useMutation(CREATE_TEAM_MUTATION, {
     onCompleted: reauthenticate,
+    refetchQueries: [FIND_TEAM_QUERY],
   })
 
   const validationSchema = Yup.object().shape({

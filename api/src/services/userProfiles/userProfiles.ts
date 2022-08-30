@@ -20,15 +20,24 @@ export const createUserProfile: MutationResolvers['createUserProfile'] = ({
   })
 }
 
-export const updateUserProfile: MutationResolvers['updateUserProfile'] = ({
-  id,
-  input,
-}) => {
-  return db.userProfile.update({
-    where: { userId: id },
-    data: input,
-  })
-}
+export const updateUserProfile: MutationResolvers['updateUserProfile'] =
+  async ({ id, input }) => {
+    const userProfile = await db.userProfile.update({
+      where: { userId: id },
+      data: input,
+    })
+
+    await db.player.update({
+      where: {
+        userId: id,
+      },
+      data: {
+        displayName: `${userProfile.firstname} ${userProfile.lastname}`,
+      },
+    })
+
+    return userProfile
+  }
 
 export const deleteUserProfile: MutationResolvers['deleteUserProfile'] = ({
   id,

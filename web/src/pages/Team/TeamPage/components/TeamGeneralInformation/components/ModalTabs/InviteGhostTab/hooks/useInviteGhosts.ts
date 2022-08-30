@@ -10,7 +10,7 @@ import { GET_PLAYERS_FOR_TEAM_QUERY } from 'src/pages/Team/TeamPage/hooks/useGet
 
 export const INVITE_GHOSTS_PLAYERS = gql`
   mutation InviteGhostsPlayersMutation($input: CreateGhostPlayersInput!) {
-    createManyPlayers(input: $input) {
+    createManyGhostPlayers(input: $input) {
       count
     }
   }
@@ -35,10 +35,10 @@ export const useInviteGhosts = () => {
     })
     if (!ghostPlayers.errors) {
       toast.success(
-        `${ghostPlayers.data?.createManyPlayers?.count} ghostspelers succesvol aangemaakt 👻`
+        `${ghostPlayers.data?.createManyGhostPlayers?.count} ghostspelers succesvol aangemaakt 👻`
       )
     }
-    return ghostPlayers.data?.createManyPlayers?.count
+    return ghostPlayers.data?.createManyGhostPlayers?.count
   }
 
   return {

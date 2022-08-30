@@ -5,7 +5,7 @@ import { useParams } from '@redwoodjs/router'
 import { toast } from '@redwoodjs/web/dist/toast'
 
 export const useUnAuthenticated = () => {
-  const { invitationToken } = useParams()
+  const { invitationToken, ghostInvitation } = useParams()
 
   const [loading, setLoading] = useState(false)
   const { logIn, signUp } = useAuth()
@@ -18,7 +18,7 @@ export const useUnAuthenticated = () => {
 
   const handleSignUp = async (data, actions) => {
     setLoading(true)
-    const response = await signUp({ ...data, invitationToken })
+    const response = await signUp({ ...data, invitationToken, ghostInvitation })
 
     if (response.message) {
       toast.success(response.message)

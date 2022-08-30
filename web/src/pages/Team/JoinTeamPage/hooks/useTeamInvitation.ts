@@ -1,4 +1,6 @@
 import {
+  PlayerJoinsTeamByGhostInvitation,
+  PlayerJoinsTeamByGhostInvitationVariables,
   UpdatePlayerMutation,
   UpdatePlayerMutationVariables,
 } from 'types/graphql'
@@ -14,6 +16,23 @@ const UPDATE_PLAYER_MUTATION = gql`
   ${PLAYER_FRAGMENT}
   mutation UpdatePlayerMutation($id: String!, $input: UpdatePlayerInput!) {
     updatePlayer(id: $id, input: $input) {
+      ...PlayerFragment
+    }
+  }
+`
+
+const PLAYER_JOINS_TEAM_BY_GHOST_INVITATION = gql`
+  ${PLAYER_FRAGMENT}
+  mutation PlayerJoinsTeamByGhostInvitation(
+    $id: String!
+    $ghostId: String!
+    $teamId: String!
+  ) {
+    playerJoinsTeamByGhostInvitation(
+      id: $id
+      ghostId: $ghostId
+      teamId: $teamId
+    ) {
       ...PlayerFragment
     }
   }
@@ -67,5 +86,39 @@ export const useTeamInvitation = () => {
     }
   }
 
-  return { handleJoinTeam, handleDeleteTeamInvitation, loading }
+  const [playerJoinsTeamByGhostInvitation, { loading: isGhostJoiningLoading }] =
+    useMutation<
+      PlayerJoinsTeamByGhostInvitation,
+      PlayerJoinsTeamByGhostInvitationVariables
+    >(PLAYER_JOINS_TEAM_BY_GHOST_INVITATION, {
+      onCompleted: reauthenticate,
+    })
+
+  const handleJoinTeamAsGhost = async (
+    playerId: string,
+    ghostId: string,
+    teamId: string
+  ) => {
+    try {
+      await playerJoinsTeamByGhostInvitation({
+        variables: {
+          id: playerId,
+          ghostId,
+          teamId,
+        },
+      })
+      toast.success('Gefeliciteerd, je bent onderdeel van het team')
+      navigate(routes.team())
+    } catch (error) {
+      console.error(error)
+      toast.error('Oeps er is iets fout gegaan 😢')
+    }
+  }
+
+  return {
+    handleJoinTeamAsGhost,
+    handleJoinTeam,
+    handleDeleteTeamInvitation,
+    loading: loading || isGhostJoiningLoading,
+  }
 }

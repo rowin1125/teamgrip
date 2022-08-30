@@ -8,5 +8,7 @@ export const PLAYER_FRAGMENT = gql`
     clubId
     teamInvitation
     ghostInvitation
+    displayName
+    isGhost
   }
 `

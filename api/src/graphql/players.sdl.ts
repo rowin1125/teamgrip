@@ -18,7 +18,9 @@ export const schema = gql`
   type Query {
     players: [Player!]! @requireAuth
     player(id: String!): Player @requireAuth
-    playersForTeam(teamId: String!): [Player]! @skipAuth
+    playersForTeam(teamId: String!): [Player]! @requireAuth
+    getGhostPlayersByTeamId(teamId: String!): [Player]! @requireAuth
+    getGhostPlayerByInvitation(ghostInvitation: String!): Player @requireAuth
   }
 
   input CreatePlayerInput {
@@ -48,15 +50,23 @@ export const schema = gql`
     teamId: String!
   }
 
-  type CreateManyPlayersReturnType {
+  type CreateManyGhostPlayersReturnType {
     count: Int!
   }
 
   type Mutation {
-    createPlayer(input: CreatePlayerInput!): Player! @requireAuth
-    createManyPlayers(
+    createManyGhostPlayers(
       input: CreateGhostPlayersInput!
-    ): CreateManyPlayersReturnType! @requireAuth
+    ): CreateManyGhostPlayersReturnType! @requireAuth
+    createGhostPlayerInvitation(id: String!): Player! @requireAuth
+    deleteGhostPlayerInvitation(id: String!): Player! @requireAuth
+    playerJoinsTeamByGhostInvitation(
+      id: String!
+      ghostId: String!
+      teamId: String!
+    ): Player! @requireAuth
+
+    createPlayer(input: CreatePlayerInput!): Player! @requireAuth
     updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @requireAuth
     deletePlayer(id: String!): Player! @requireAuth
   }

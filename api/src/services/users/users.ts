@@ -11,9 +11,11 @@ import { mailUser } from 'src/lib/email'
 export const activateUserEmail = async ({
   email,
   token,
+  ghostInvitation,
 }: {
   email: string
   token: string | null
+  ghostInvitation?: string
 }) => {
   const user = await db.user.findUnique({
     where: { email },
@@ -37,7 +39,9 @@ export const activateUserEmail = async ({
       ],
       templateId: 1,
       params: {
-        activateUrl: `${FRONTEND_URL}/activeren?token=${token}&email=${encodedEmail}`,
+        activateUrl: `${FRONTEND_URL}/activeren?token=${token}&email=${encodedEmail}${
+          ghostInvitation ? `&ghostInvitation=${ghostInvitation}` : ''
+        }`,
       },
     })
   } catch (error) {

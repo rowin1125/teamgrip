@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 
 import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
+import { navigate, routes, useParams } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
@@ -18,6 +18,7 @@ import CreateAvatar from './components/steps/Avatar/CreateAvatar'
 import UpdateUserInfoForm from './components/steps/UpdateUserInfoForm'
 
 const ActivatePage = () => {
+  const { ghostInvitation } = useParams()
   const { currentUser } = useAuth()
   const [activateStep, setActivateStep] = useState(0)
   const [videoShown, setVideoShown] = useState(false)
@@ -42,7 +43,7 @@ const ActivatePage = () => {
     await waitFor(4000)
 
     invitationToken
-      ? navigate(routes.joinTeam({ invitationToken }))
+      ? navigate(routes.joinTeam({ invitationToken, ghostInvitation }))
       : navigate(routes.app())
     toast.success('Welcome en ga direct aan de slag!')
   }

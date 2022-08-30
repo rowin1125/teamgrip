@@ -5,7 +5,7 @@ import { useQuery } from '@redwoodjs/web'
 
 import { TEAM_FRAGMENT } from 'src/graphql/fragments/TeamFragment'
 
-const FIND_TEAM_QUERY = gql`
+export const FIND_TEAM_QUERY = gql`
   ${TEAM_FRAGMENT}
   query FindTeamQuery($id: String!) {
     team(id: $id) {
@@ -16,14 +16,14 @@ const FIND_TEAM_QUERY = gql`
 
 export const useGetTeamById = () => {
   const { currentUser } = useAuth()
-  const teamId = currentUser.player.teamId
+  const teamId = currentUser?.player?.teamId
 
   if (!teamId) return { team: null }
 
   const { data, loading } = useQuery<FindTeamQuery, FindTeamQueryVariables>(
     FIND_TEAM_QUERY,
     {
-      variables: { id: teamId },
+      variables: { id: teamId || '' },
     }
   )
 
