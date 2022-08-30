@@ -74,15 +74,15 @@ const Sidebar = () => {
         />
         <SidebarItem
           navOpen={navOpen}
-          icon={CgHomeAlt}
-          title="Club"
-          to={routes.club()}
-        />
-        <SidebarItem
-          navOpen={navOpen}
           icon={IoIosStats}
           title="Mijn scores"
           to={routes.app()}
+        />
+        <SidebarItem
+          navOpen={navOpen}
+          icon={CgHomeAlt}
+          title="Club"
+          to={routes.club()}
         />
         <SidebarItem
           navOpen={navOpen}

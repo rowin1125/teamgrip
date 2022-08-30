@@ -46,7 +46,8 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
     },
   })
 
-  if (playerAlreadyPartOfTeam) throw Error('Je maakt al deel uit van een Team')
+  if (playerAlreadyPartOfTeam)
+    throw new UserInputError('Je maakt al deel uit van een Team')
 
   const createTeam = db.team.create({
     data: {
@@ -143,4 +144,6 @@ export const Team: TeamResolvers = {
     db.team.findUnique({ where: { id: root.id } }).club(),
   owner: (_obj, { root }) =>
     db.team.findUnique({ where: { id: root.id } }).owner(),
+  season: (_obj, { root }) =>
+    db.team.findUnique({ where: { id: root.id } }).season(),
 }

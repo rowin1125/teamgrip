@@ -13,5 +13,8 @@ export const TEAM_FRAGMENT = gql`
     club {
       name
     }
+    season {
+      name
+    }
   }
 `

@@ -132,7 +132,7 @@ export const createUsers = async () => {
             return user
           }
 
-          await db.team.create({
+          const team = await db.team.create({
             data: {
               name: teamName,
               ownerId: user.id,
@@ -143,9 +143,22 @@ export const createUsers = async () => {
             },
           })
 
+          await db.player.update({
+            where: {
+              userId: user.id,
+            },
+            data: {
+              playerType: 'STAFF',
+              team: {
+                connect: {
+                  id: team.id,
+                },
+              },
+            },
+          })
+
           return user
         })
-      console.log(record)
     })
   )
 

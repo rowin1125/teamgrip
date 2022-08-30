@@ -9,9 +9,10 @@ import { UseTeamTableReturnType } from '../hooks/useTeamTable'
 
 type TeamTableProps = {
   headerGroups: HeaderGroup<UseTeamTableReturnType>[]
+  theme: 'dark' | 'light'
 }
 
-const TeamTable = ({ headerGroups }: TeamTableProps) => (
+const TeamTable = ({ headerGroups, theme }: TeamTableProps) => (
   <Thead>
     {headerGroups.map((headerGroup) => (
       <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -21,7 +22,7 @@ const TeamTable = ({ headerGroups }: TeamTableProps) => (
             fontWeight="bold"
             fontSize="lg"
             textTransform="none"
-            color="white"
+            color={theme === 'dark' ? 'white' : 'primary.500'}
           >
             <Box as="span" display="flex">
               {column.render('Header')}

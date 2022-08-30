@@ -1,4 +1,4 @@
-import { Table } from '@chakra-ui/react'
+import { Table, TableProps } from '@chakra-ui/react'
 
 import TableBody from './components/TeamTableBody'
 import TableHead from './components/TeamTableHead'
@@ -17,15 +17,21 @@ type TeamTableProps = {
     loadingRows: number
   }
   hiddenColumns?: string[]
-}
+  theme?: 'dark' | 'light'
+} & TableProps
 
-const TeamTable = ({ entries, hiddenColumns }: TeamTableProps) => {
+const TeamTable = ({
+  entries,
+  hiddenColumns,
+  theme = 'light',
+  size = 'sm',
+}: TeamTableProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
     useTeamTable(entries, hiddenColumns)
 
   return (
-    <Table size="sm" {...getTableProps()} mt={10}>
-      <TableHead headerGroups={headerGroups} />
+    <Table size={size} {...getTableProps()} mt={10}>
+      <TableHead headerGroups={headerGroups} theme={theme} />
       <TableBody
         prepareRow={prepareRow}
         rows={rows}

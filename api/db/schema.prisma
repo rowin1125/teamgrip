@@ -34,7 +34,6 @@ model User {
   verified            Boolean      @default(false)
   verifiedToken       String?
   roles               Role         @default(USER)
-  audits              Audit[]
   userProfile         UserProfile?
   avatar              Avatar?
   player              Player?
@@ -48,15 +47,6 @@ model UserProfile {
   firstname String?
   lastname  String?
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-}
-
-model Audit {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    String
-  log       String
   user      User     @relation(fields: [userId], references: [id])
 }
 
@@ -82,23 +72,29 @@ model Avatar {
   user            User     @relation(fields: [userId], references: [id])
 }
 
+enum PlayerType {
+  PLAYER
+  STAFF
+}
+
 model Player {
-  id              String   @id @default(cuid())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now()) @updatedAt
-  userId          String?  @unique
-  user            User?    @relation(fields: [userId], references: [id])
+  id              String     @id @default(cuid())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @default(now()) @updatedAt
+  userId          String?    @unique
+  user            User?      @relation(fields: [userId], references: [id])
   teamId          String?
-  team            Team?    @relation(fields: [teamId], references: [id])
-  club            Club?    @relation(fields: [clubId], references: [id])
+  team            Team?      @relation(fields: [teamId], references: [id])
+  club            Club?      @relation(fields: [clubId], references: [id])
   clubId          String?
-  isActivePlayer  Boolean  @default(false)
+  playerType      PlayerType @default(PLAYER)
+  isActivePlayer  Boolean    @default(false)
   teamInvitation  String?
   ghostInvitation String?
   displayName     String?
-  isGhost         Boolean  @default(false)
-  // training        Training[]
-  // score Score[]
+  isGhost         Boolean    @default(false)
+  trainings       Training[]
+  scores          Score[]
 }
 
 model Team {
@@ -112,8 +108,7 @@ model Team {
   owner           User     @relation(fields: [ownerId], references: [id])
   ownerId         String
   invitationToken String?
-
-  // Season    Season[]
+  season          Season[]
 }
 
 model Club {
@@ -125,35 +120,43 @@ model Club {
   players   Player[]
 }
 
-// model Training {
-//   id             String           @id @default(cuid())
-//   createdAt      DateTime         @default(now())
-//   updatedAt      DateTime         @default(now()) @updatedAt
-//   trainingsDate  DateTime
-//   score          Score[]
-//   Season         Season?          @relation(fields: [seasonId], references: [id])
-//   seasonId       String?
-//   Player         Player?          @relation(fields: [playerId], references: [id])
-//   playerId       String?
-// }
+model Training {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+  trainingsDate DateTime
+  season        Season?  @relation(fields: [seasonId], references: [id])
+  seasonId      String?
+  players       Player[]
+  scores        Score[]
+}
 
-// model Score {
-//   id         String    @id @default(cuid())
-//   Training   Training? @relation(fields: [trainingId], references: [id])
-//   trainingId String?
-//   score      Int
-//   createdAt  DateTime  @default(now())
-//   updatedAt  DateTime  @default(now()) @updatedAt
-//   Player     Player?   @relation(fields: [playerId], references: [id])
-//   playerId   String?
-// }
+model Score {
+  id         String    @id @default(cuid())
+  points     Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) @updatedAt
+  type       ScoreType
+  season     Season    @relation(fields: [seasonId], references: [id])
+  seasonId   String
+  player     Player    @relation(fields: [playerId], references: [id])
+  playerId   String
+  training   Training  @relation(fields: [trainingId], references: [id])
+  trainingId String
+}
 
-// model Season {
-//   id        String     @id @default(cuid())
-//   createdAt DateTime   @default(now())
-//   updatedAt DateTime   @default(now()) @updatedAt
-//   name      String
-//   trainings Training[]
-//   Team      Team       @relation(fields: [teamId], references: [id])
-//   teamId    String
-// }
+enum ScoreType {
+  TRAINING
+}
+
+model Season {
+  id             String     @id @default(cuid())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @default(now()) @updatedAt
+  name           String
+  seasonTeamName String     @unique
+  team           Team       @relation(fields: [teamId], references: [id])
+  trainings      Training[]
+  scores         Score[]
+  teamId         String
+}

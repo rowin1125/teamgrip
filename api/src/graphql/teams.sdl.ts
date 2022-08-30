@@ -10,6 +10,7 @@ export const schema = gql`
     owner: User
     ownerId: String
     invitationToken: String
+    season: [Season]!
   }
 
   type Query {

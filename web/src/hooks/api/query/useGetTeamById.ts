@@ -18,8 +18,6 @@ export const useGetTeamById = () => {
   const { currentUser } = useAuth()
   const teamId = currentUser?.player?.teamId
 
-  if (!teamId) return { team: null }
-
   const { data, loading } = useQuery<FindTeamQuery, FindTeamQueryVariables>(
     FIND_TEAM_QUERY,
     {

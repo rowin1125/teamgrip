@@ -26,47 +26,50 @@ export const createUsersAndConnectToTeam = async () =>
       const firstname = randFirstName()
       const lastname = randLastName()
 
-      const user = await db.user.create({
-        data: {
-          ...defaultUserProperties,
-          ...userData,
-          userProfile: {
-            create: {
-              firstname,
-              lastname,
+      try {
+        const user = await db.user.create({
+          data: {
+            ...defaultUserProperties,
+            ...userData,
+            userProfile: {
+              create: {
+                firstname,
+                lastname,
+              },
             },
           },
-        },
-      })
-      const team = await db.team.findFirst({
-        where: {
-          owner: {
-            email: 'rowinmol648@gmail.com',
-          },
-        },
-      })
-      const club = await db.club.findFirst()
-      const player = await db.player.create({
-        data: {
-          displayName: `${firstname} ${lastname}`,
-          isActivePlayer: true,
-          user: {
-            connect: {
-              id: user.id,
+        })
+        const team = await db.team.findFirst({
+          where: {
+            owner: {
+              email: 'rowinmol648@gmail.com',
             },
           },
-          team: {
-            connect: {
-              id: team.id,
+        })
+        const club = await db.club.findFirst()
+        await db.player.create({
+          data: {
+            displayName: `${firstname} ${lastname}`,
+            isActivePlayer: true,
+            user: {
+              connect: {
+                id: user.id,
+              },
+            },
+            team: {
+              connect: {
+                id: team.id,
+              },
+            },
+            club: {
+              connect: {
+                id: club.id,
+              },
             },
           },
-          club: {
-            connect: {
-              id: club.id,
-            },
-          },
-        },
-      })
-      console.log('created player', player)
+        })
+      } catch (error) {
+        console.log(error)
+      }
     })
   )

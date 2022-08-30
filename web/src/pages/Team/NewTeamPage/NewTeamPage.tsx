@@ -1,76 +1,29 @@
-import { Grid, GridItem, Heading, Box, Button } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
-import { CreateTeamInput, FindClubs } from 'types/graphql'
+import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
 import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags, useMutation, useQuery } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
 import ControlledInput from 'src/components/forms/components/ControlledInput'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
-import { FIND_TEAM_QUERY } from 'src/hooks/api/query/useGetTeamById'
 
 import { handleTeamNameTransformation } from './helpers/handleTeamnameTransformation/handleTeamnameTransformation'
-
-const GET_CLUBS_QUERY = gql`
-  query GetClubsQuery {
-    clubs {
-      id
-      name
-    }
-  }
-`
-
-const CREATE_TEAM_MUTATION = gql`
-  mutation CreateTeamMutation($input: CreateTeamInput!) {
-    createTeam(input: $input) {
-      id
-      name
-    }
-  }
-`
+import { useCreateTeam } from './hooks/useCreateTeam'
+import { useGetClubs } from './hooks/useGetClubs'
 
 const NewTeamPage = () => {
-  const { currentUser, reauthenticate } = useAuth()
-  const { data } = useQuery<FindClubs>(GET_CLUBS_QUERY)
-  const [createTeam, { loading }] = useMutation(CREATE_TEAM_MUTATION, {
-    onCompleted: reauthenticate,
-    refetchQueries: [FIND_TEAM_QUERY],
-  })
+  const { currentUser } = useAuth()
+  const { clubs } = useGetClubs()
+  const { handleCreateTeam, loading } = useCreateTeam(clubs)
 
   const validationSchema = Yup.object().shape({
     clubId: Yup.string().required('Club is verplicht'),
     name: Yup.string().min(4).required('Naam is verplicht'),
   })
-
-  const handleSubmit = async (values: CreateTeamInput) => {
-    const teamNameContainsClubName = values.name
-      .toLowerCase()
-      .includes(
-        data.clubs
-          .find((club) => club.id === values.clubId)
-          ?.name?.toLowerCase()
-      )
-    if (teamNameContainsClubName) {
-      toast.error('Clubnaam mag niet in teamnaam zitten')
-      return
-    }
-
-    try {
-      const team = await createTeam({
-        variables: { input: values },
-      })
-      toast.success(`Team ${team.data.createTeam.name} aangemaakt`)
-      navigate(routes.team())
-    } catch (error) {
-      toast.error(error.message)
-    }
-  }
 
   return (
     <>
@@ -81,7 +34,7 @@ const NewTeamPage = () => {
           <Card>
             <Heading>Maak nu je eigen team aan 💪</Heading>
             <Formik
-              onSubmit={handleSubmit}
+              onSubmit={handleCreateTeam}
               initialValues={{
                 name: '',
                 clubId: '',
@@ -92,7 +45,7 @@ const NewTeamPage = () => {
             >
               {({ values }) => {
                 const { name, clubId } = values
-                const club = data?.clubs?.find((club) => club.id === clubId)
+                const club = clubs?.find((club) => club.id === clubId)
                 const customTeamName =
                   club &&
                   name &&
@@ -102,7 +55,7 @@ const NewTeamPage = () => {
                     <ControlledSelect
                       id="clubId"
                       label="Club"
-                      options={data?.clubs?.map(({ name, id }) => ({
+                      options={clubs?.map(({ name, id }) => ({
                         label: capitalizeText(name),
                         value: id,
                       }))}

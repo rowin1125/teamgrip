@@ -10,6 +10,7 @@ import {
 import { FindTeamQuery } from 'types/graphql'
 
 import Card from 'src/components/Card/Card'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import InvitePlayersModal from './components/InvitePlayersModal'
 
@@ -26,6 +27,7 @@ const TeamGeneralInformation = ({
   currentTabIndex,
   setCurrentTabIndex,
 }: TeamGeneralInformationProps) => {
+  const { isTeamStaff } = useTeamPlayerAuth()
   return (
     <Card>
       <Flex justifyContent="space-between">
@@ -42,24 +44,26 @@ const TeamGeneralInformation = ({
         <Text fontWeight="bold">Active uitnoding: </Text>
         <Text ml={2}>{team?.invitationToken ? 'Ja' : 'Nee'}</Text>
       </Flex>
-      <Flex mt={8}>
-        <Button
-          mr={4}
-          colorScheme="secondary"
-          onClick={() => {
-            setCurrentTabIndex(1)
-            disclosure.onOpen()
-          }}
-        >
-          Maak ghost spelers aan
-        </Button>
-        <InvitePlayersModal
-          team={team}
-          {...disclosure}
-          defaultIndex={currentTabIndex}
-          setCurrentTabIndex={setCurrentTabIndex}
-        />
-      </Flex>
+      {isTeamStaff && (
+        <Flex mt={8}>
+          <Button
+            mr={4}
+            colorScheme="secondary"
+            onClick={() => {
+              setCurrentTabIndex(1)
+              disclosure.onOpen()
+            }}
+          >
+            Maak ghost spelers aan
+          </Button>
+          <InvitePlayersModal
+            team={team}
+            {...disclosure}
+            defaultIndex={currentTabIndex}
+            setCurrentTabIndex={setCurrentTabIndex}
+          />
+        </Flex>
+      )}
     </Card>
   )
 }
