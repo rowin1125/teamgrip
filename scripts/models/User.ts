@@ -24,17 +24,7 @@ export const userFixedAvatar: Omit<Prisma.AvatarCreateArgs['data'], 'userId'> =
 
 export const users: Prisma.UserCreateArgs['data'][] = [
   {
-    email: 'alice@example.com',
-    roles: 'USER',
-    avatar: {
-      create: {
-        avatarStyle: 'Circle',
-        ...generateRandomAvatarOptions(),
-      },
-    },
-  },
-  {
-    email: 'mark@example.com',
+    email: 'user-owner-of-team-and-club@example.com',
     roles: 'USER',
     avatar: {
       create: {
@@ -52,6 +42,16 @@ export const users: Prisma.UserCreateArgs['data'][] = [
       },
     },
   },
+  {
+    email: 'user-member-of-team-and-club@gmail.com',
+    roles: 'USER',
+    avatar: {
+      create: {
+        avatarStyle: 'Circle',
+        ...generateRandomAvatarOptions(),
+      },
+    },
+  },
 ]
 
 export const defaultUserProperties = {
@@ -64,7 +64,7 @@ export const defaultUserProperties = {
 const createRandomNumber = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min
 
-export const createUsers = async () =>
+export const createUsers = async () => {
   Promise.all(
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -105,12 +105,36 @@ export const createUsers = async () =>
             },
           })
 
-          if (user.email === 'mark@example.com') return user
+          const teamName = `Zaterdag-${createRandomNumber(1, 30)}`
 
-          const teamNumber = createRandomNumber(1, 30)
+          if (user.email === 'user-member-of-team-and-club@gmail.com') {
+            const team = await db.team.findFirst({
+              where: {
+                owner: {
+                  email: 'rowinmol648@gmail.com',
+                },
+              },
+            })
+
+            await db.player.update({
+              where: {
+                userId: user.id,
+              },
+              data: {
+                isActivePlayer: true,
+                team: {
+                  connect: {
+                    id: team.id,
+                  },
+                },
+              },
+            })
+            return user
+          }
+
           await db.team.create({
             data: {
-              name: `Zaterdag-${teamNumber}`,
+              name: teamName,
               ownerId: user.id,
               players: {
                 connect: [{ userId: user.id }],
@@ -124,3 +148,28 @@ export const createUsers = async () =>
       console.log(record)
     })
   )
+
+  // Create user without Team
+  await db.user.create({
+    data: {
+      ...defaultUserProperties,
+      roles: 'USER',
+      email: 'user-no-team@gmail.com',
+      avatar: {
+        create: {
+          avatarStyle: 'Circle',
+          ...generateRandomAvatarOptions(),
+        },
+      },
+      userProfile: {
+        create: {
+          firstname: randFirstName(),
+          lastname: randLastName(),
+        },
+      },
+      player: {
+        create: {},
+      },
+    },
+  })
+}

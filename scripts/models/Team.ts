@@ -38,7 +38,6 @@ export const createUsersAndConnectToTeam = async () =>
           },
         },
       })
-      console.log('created user', user)
       const team = await db.team.findFirst({
         where: {
           owner: {
