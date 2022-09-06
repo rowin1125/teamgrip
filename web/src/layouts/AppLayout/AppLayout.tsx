@@ -17,7 +17,11 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
 
       <Hero type="football-night-man" />
-      <Flex justifyContent="space-between" pr={{ base: 0, xl: 8 }}>
+      <Flex
+        justifyContent="space-between"
+        mx={{ base: 8, xl: 0 }}
+        pr={{ base: 0, xl: 8 }}
+      >
         <Box position="relative">
           <Sidebar />
         </Box>

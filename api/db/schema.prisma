@@ -98,17 +98,19 @@ model Player {
 }
 
 model Team {
-  id              String   @id @default(cuid())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now()) @updatedAt
-  name            String   @unique
+  id              String     @id @default(cuid())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @default(now()) @updatedAt
+  name            String     @unique
   players         Player[]
-  club            Club?    @relation(fields: [clubId], references: [id])
+  club            Club?      @relation(fields: [clubId], references: [id])
   clubId          String?
-  owner           User     @relation(fields: [ownerId], references: [id])
+  owner           User       @relation(fields: [ownerId], references: [id])
   ownerId         String
   invitationToken String?
   season          Season[]
+  trainings       Training[]
+  scores          Score[]
 }
 
 model Club {
@@ -129,6 +131,8 @@ model Training {
   seasonId      String?
   players       Player[]
   scores        Score[]
+  team          Team     @relation(fields: [teamId], references: [id])
+  teamId        String
 }
 
 model Score {
@@ -141,8 +145,10 @@ model Score {
   seasonId   String
   player     Player    @relation(fields: [playerId], references: [id])
   playerId   String
-  training   Training  @relation(fields: [trainingId], references: [id])
+  training   Training  @relation(fields: [trainingId], references: [id], onDelete: Cascade)
   trainingId String
+  team       Team?     @relation(fields: [teamId], references: [id])
+  teamId     String?
 }
 
 enum ScoreType {

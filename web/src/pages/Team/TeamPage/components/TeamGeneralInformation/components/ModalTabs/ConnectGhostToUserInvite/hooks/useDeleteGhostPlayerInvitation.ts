@@ -27,7 +27,7 @@ export const useDeleteGhostPlayerInvitation = () => {
     },
   })
 
-  const handleCreateInvitation = async (id: string) => {
+  const handleDeleteGhostPlayerInvitation = async (id: string) => {
     const ghostPlayer = await deleteGhostPlayerInvitation({
       variables: { id },
     })
@@ -37,5 +37,5 @@ export const useDeleteGhostPlayerInvitation = () => {
     }
   }
 
-  return { handleCreateInvitation, loading, error }
+  return { handleDeleteGhostPlayerInvitation, loading, error }
 }

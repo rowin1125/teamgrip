@@ -11,6 +11,7 @@ export const schema = gql`
     ownerId: String
     invitationToken: String
     season: [Season]!
+    trainings: [Training]!
   }
 
   type Query {

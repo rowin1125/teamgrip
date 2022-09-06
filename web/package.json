@@ -22,6 +22,7 @@
     "@redwoodjs/web": "2.1.0",
     "avataaars": "^2.0.0",
     "chakra-ui-steps": "^1.7.3",
+    "date-fns": "^2.29.2",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "nanoid": "^4.0.0",

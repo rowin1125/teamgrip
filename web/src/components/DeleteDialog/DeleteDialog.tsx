@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {
   AlertDialog,
   AlertDialogBody,
@@ -8,29 +6,41 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
+  ButtonProps,
   Heading,
   Icon,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { BsTrash } from 'react-icons/bs'
 
-import { useDeleteInvitationToken } from '../hooks/useDeleteInvitationToken'
+type DeleteDialogType = {
+  onDelete: (id: string) => Promise<void>
+  loading?: boolean
+  id: string
+  children: React.ReactNode
+  buttonVariant?: ButtonProps['variant']
+  title: string
+}
 
-type DeleteTeamInvitationTokenDialogProps = { teamId: string }
-
-const DeleteTeamInvitationTokenDialog = ({
-  teamId,
-}: DeleteTeamInvitationTokenDialogProps) => {
+const DeleteDialog = ({
+  onDelete,
+  loading,
+  id,
+  children,
+  buttonVariant = 'solid',
+  title,
+}: DeleteDialogType) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
 
-  const { handleDeleteInvitationToken, loading } =
-    useDeleteInvitationToken(teamId)
+  const handleDelete = () => {
+    onDelete(id)
+    onClose()
+  }
 
   return (
     <>
-      <Button ml={4} colorScheme="red" onClick={onOpen}>
+      <Button ml={4} colorScheme="red" onClick={onOpen} variant={buttonVariant}>
         <Icon as={BsTrash} />
       </Button>
 
@@ -42,16 +52,10 @@ const DeleteTeamInvitationTokenDialog = ({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              <Heading>Uitnodiging intrekken</Heading>
+              <Heading>{title}</Heading>
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              <Text mb={2}>
-                De huidige uitnodiging is na het intrekken niet meer te
-                gebruiken.
-              </Text>
-              <Text>Weet je zeker dat je deze uitnodiging wilt intrekken?</Text>
-            </AlertDialogBody>
+            <AlertDialogBody>{children}</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
@@ -59,7 +63,7 @@ const DeleteTeamInvitationTokenDialog = ({
               </Button>
               <Button
                 colorScheme="red"
-                onClick={handleDeleteInvitationToken}
+                onClick={handleDelete}
                 ml={3}
                 isLoading={loading}
               >
@@ -73,4 +77,4 @@ const DeleteTeamInvitationTokenDialog = ({
   )
 }
 
-export default DeleteTeamInvitationTokenDialog
+export default DeleteDialog

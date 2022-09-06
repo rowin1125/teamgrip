@@ -21,10 +21,17 @@ const Routes = () => {
       <Private unauthenticated="login">
         <Set wrap={AppLayout}>
           <Route path="/app" page={AppPage} name="app" />
-          <Route path="/app/team" page={TeamTeamPage} name="team" />
           <Route path="/app/club" page={ClubPage} name="club" />
+          {/* TEAM */}
+          <Route path="/app/team" page={TeamTeamPage} name="team" />
           <Route path="/app/team/nieuw" page={TeamNewTeamPage} name="newTeam" />
+          {/* SEASONS */}
           <Route path="/app/team/{id}/season/nieuw" page={SeasonNewSeasonPage} name="newSeason" />
+          {/* TRAININGS */}
+          <Route path="/app/team/training/new-training" page={TrainingNewTrainingPage} name="newTraining" />
+          <Route path="/app/team/training/{id}" page={TrainingTrainingDetailPage} name="trainingDetail" />
+          <Route path="/app/team/training/{id}/update-training" page={TrainingTrainingUpdatePage} name="trainingUpdate" />
+          {/* INSTELLINGEN */}
           <Route path="/app/instellingen" page={SettingsPage} name="settings" />
           <Route path="/app/instellingen/update-avatar" page={UpdateAvatarPage} name="updateAvatar" />
           <Route path="/app/instellingen/update-user" page={UpdateUserPage} name="updateUser" />

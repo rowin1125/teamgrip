@@ -18,24 +18,43 @@ type TeamTableProps = {
   }
   hiddenColumns?: string[]
   theme?: 'dark' | 'light'
+  routes?: {
+    detail: (params?: any) => string
+    update: (params?: any) => string
+  }
+  showActions?: boolean
+  onDelete?: (id: string) => Promise<void>
 } & TableProps
 
 const TeamTable = ({
   entries,
   hiddenColumns,
-  theme = 'light',
+  theme = 'dark',
   size = 'sm',
+  routes,
+  onDelete,
+  showActions,
 }: TeamTableProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
-    useTeamTable(entries, hiddenColumns)
+    useTeamTable(entries)
 
   return (
     <Table size={size} {...getTableProps()} mt={10}>
-      <TableHead headerGroups={headerGroups} theme={theme} />
+      <TableHead
+        headerGroups={headerGroups}
+        theme={theme}
+        hiddenColumns={hiddenColumns}
+        showActions={showActions}
+      />
       <TableBody
+        routes={routes}
+        theme={theme}
         prepareRow={prepareRow}
         rows={rows}
         getTableBodyProps={getTableBodyProps}
+        hiddenColumns={hiddenColumns}
+        showActions={showActions}
+        onDelete={onDelete}
       />
     </Table>
   )

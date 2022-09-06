@@ -1,32 +1,24 @@
-import React from "react";
-
 import {
   Box,
   FormControl,
+  FormControlProps,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
   FormLabelProps,
-  IconButton,
-} from "@chakra-ui/react";
-import { SingleDatepicker } from "chakra-dayzed-datepicker";
-import { useField } from "formik";
-import { CgClose } from "react-icons/cg";
-
-import {
-  datePickerDateConfig,
-  datePickerStylesConfig,
-} from "./datePickerStylesConfig";
-
-import useTranslation from "@/hooks/useTranslation";
+  Input,
+  InputProps,
+} from '@chakra-ui/react'
+import { useField } from 'formik'
 
 type ControlledDatePickerProps = {
-  label: string;
-  helperText?: string;
-  id: string;
-  inline?: boolean;
-  labelProps?: FormLabelProps;
-};
+  label: string
+  helperText?: string
+  id: string
+  inline?: boolean
+  labelProps?: FormLabelProps
+  inputProps?: InputProps
+} & FormControlProps
 
 const ControlledDatePicker = ({
   id,
@@ -34,35 +26,37 @@ const ControlledDatePicker = ({
   helperText,
   labelProps,
   inline = false,
+  inputProps,
+  ...props
 }: ControlledDatePickerProps) => {
-  const { t } = useTranslation();
-  const [field, meta, { setValue }] = useField(id);
-  const isInvalid = !!meta.error && !!meta.touched;
+  const [field, meta] = useField(id)
+  const isInvalid = !!meta.error && !!meta.touched
 
   return (
-    <FormControl isInvalid={isInvalid} maxW={80}>
-      <Box display={inline ? "inline" : "flex"} alignItems="center">
-        <FormLabel htmlFor={id} {...labelProps}>
+    <FormControl isInvalid={isInvalid} maxW="250px" w="full" {...props}>
+      <Box
+        display={inline ? 'inline' : 'flex'}
+        alignItems="center"
+        width="fulls"
+      >
+        <FormLabel
+          htmlFor={id}
+          {...labelProps}
+          display="flex"
+          fontWeight="bold"
+        >
           {label}
         </FormLabel>
 
-        <Box position="relative">
-          <SingleDatepicker
-            name={id}
-            date={field.value}
-            onDateChange={setValue}
-            propsConfigs={datePickerStylesConfig}
-            configs={datePickerDateConfig(t)}
+        <Box position="relative" w="full">
+          <Input
+            placeholder="Select Date and Time"
+            type="date"
             id={id}
-          />
-          <IconButton
-            position="absolute"
-            right="0px"
-            icon={<CgClose color="gray" />}
-            variant="ghost"
-            aria-label="Clear date"
-            onClick={() => setValue("", false)}
-            zIndex={1}
+            width="250px"
+            {...inputProps}
+            size="md"
+            {...field}
           />
         </Box>
       </Box>
@@ -71,7 +65,7 @@ const ControlledDatePicker = ({
       )}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
-  );
-};
+  )
+}
 
-export default ControlledDatePicker;
+export default ControlledDatePicker

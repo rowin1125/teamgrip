@@ -14,6 +14,7 @@ export const TEAM_FRAGMENT = gql`
       name
     }
     season {
+      id
       name
     }
   }

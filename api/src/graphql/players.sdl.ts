@@ -13,6 +13,12 @@ export const schema = gql`
     ghostInvitation: String
     displayName: String
     isGhost: Boolean!
+    trainings: [Training]!
+    scores: [Score]!
+  }
+
+  extend type Player {
+    totalScore: Int
   }
 
   type Query {
@@ -21,6 +27,7 @@ export const schema = gql`
     playersForTeam(teamId: String!): [Player]! @requireAuth
     getGhostPlayersByTeamId(teamId: String!): [Player]! @requireAuth
     getGhostPlayerByInvitation(ghostInvitation: String!): Player @requireAuth
+    getPlayersAndScoresByTeamId(teamId: String!): [Player]! @requireAuth
   }
 
   input CreatePlayerInput {

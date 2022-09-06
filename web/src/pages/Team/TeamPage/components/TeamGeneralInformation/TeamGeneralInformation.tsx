@@ -37,8 +37,10 @@ const TeamGeneralInformation = ({
         <Text fontWeight="bold" mr={2}>
           Beheerder:{' '}
         </Text>
-        <Text>{team?.owner.userProfile.firstname}</Text>
-        <Text>{team?.owner.userProfile.lastname}</Text>
+        <Text>
+          {team?.owner.userProfile.firstname} {team?.owner.userProfile.lastname}
+        </Text>
+        <Text></Text>
       </Flex>
       <Flex>
         <Text fontWeight="bold">Active uitnoding: </Text>

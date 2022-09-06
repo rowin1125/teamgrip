@@ -16,7 +16,7 @@ export const DELETE_INVITATION_TOKEN = gql`
   }
 `
 
-export const useDeleteInvitationToken = (teamId: string) => {
+export const useDeleteInvitationToken = () => {
   const [deleteInvationToken, { loading, error }] = useMutation<
     DeleteInvitationTokenMutation,
     DeleteInvitationTokenMutationVariables
@@ -26,7 +26,7 @@ export const useDeleteInvitationToken = (teamId: string) => {
     },
   })
 
-  const handleDeleteInvitationToken = async () => {
+  const handleDeleteInvitationToken = async (teamId: string) => {
     const deleteInvitationResult = await deleteInvationToken({
       variables: { id: teamId },
     })

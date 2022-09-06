@@ -3,6 +3,7 @@ import type { Prisma } from '@prisma/client'
 import { db } from 'api/src/lib/db'
 
 import { generateRandomAvatarOptions } from '../helpers/generateRandomAvatar'
+import { waitFor } from '../seed'
 
 export const userFixedAvatar: Omit<Prisma.AvatarCreateArgs['data'], 'userId'> =
   {
@@ -24,21 +25,21 @@ export const userFixedAvatar: Omit<Prisma.AvatarCreateArgs['data'], 'userId'> =
 
 export const users: Prisma.UserCreateArgs['data'][] = [
   {
+    email: 'rowinmol648@gmail.com',
+    roles: 'ADMIN',
+    avatar: {
+      create: {
+        ...userFixedAvatar,
+      },
+    },
+  },
+  {
     email: 'user-owner-of-team-and-club@example.com',
     roles: 'USER',
     avatar: {
       create: {
         avatarStyle: 'Circle',
         ...generateRandomAvatarOptions(),
-      },
-    },
-  },
-  {
-    email: 'rowinmol648@gmail.com',
-    roles: 'ADMIN',
-    avatar: {
-      create: {
-        ...userFixedAvatar,
       },
     },
   },
@@ -73,7 +74,7 @@ export const createUsers = async () => {
         ? 'Rowin'
         : randFirstName()
       const lastname = randLastName()
-      const record = await db.user
+      await db.user
         .create({
           data: {
             ...defaultUserProperties,
@@ -142,6 +143,8 @@ export const createUsers = async () => {
               clubId: club.id,
             },
           })
+
+          await waitFor(2000)
 
           await db.player.update({
             where: {

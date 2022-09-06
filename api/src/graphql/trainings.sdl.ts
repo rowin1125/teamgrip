@@ -7,26 +7,34 @@ export const schema = gql`
     season: Season
     seasonId: String
     players: [Player]!
-    score: [Score]!
+    scores: [Score]!
+    team: Team
+    teamId: String
   }
 
   type Query {
     trainings: [Training!]! @requireAuth
     training(id: String!): Training @requireAuth
+    trainingByTeamId(id: String!): [Training]! @requireAuth
   }
 
   input CreateTrainingInput {
     trainingsDate: DateTime!
-    seasonId: String
+    seasonId: String!
+    teamId: String!
   }
 
   input UpdateTrainingInput {
     trainingsDate: DateTime
-    seasonId: String
+    seasonId: String!
+    teamId: String!
   }
 
   type Mutation {
-    createTraining(input: CreateTrainingInput!): Training! @requireAuth
+    createTraining(
+      input: CreateTrainingInput!
+      scores: [CreateScoreInput]!
+    ): Training! @requireAuth
     updateTraining(id: String!, input: UpdateTrainingInput!): Training!
       @requireAuth
     deleteTraining(id: String!): Training! @requireAuth

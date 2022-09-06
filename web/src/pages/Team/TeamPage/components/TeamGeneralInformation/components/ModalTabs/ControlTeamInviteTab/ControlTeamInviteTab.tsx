@@ -14,9 +14,10 @@ import { MdContentCopy } from 'react-icons/md'
 import { TbCheck } from 'react-icons/tb'
 import { FindTeamQuery } from 'types/graphql'
 
+import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
 import TextAlert from 'src/components/TextAlert/TextAlert'
+import { useDeleteInvitationToken } from 'src/pages/Team/TeamPage/hooks/useDeleteInvitationToken'
 
-import DeleteTeamInvitationTokenDialog from '../../../../DeleteTeamInvitationTokenDialog'
 import ValidateTeamInvitation from '../../ValidateTeamInvitation'
 
 type ControlTeamInviteTabProps = {
@@ -26,6 +27,8 @@ type ControlTeamInviteTabProps = {
 const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
   const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}`
   const { hasCopied, onCopy } = useClipboard(inviteUrl)
+
+  const { handleDeleteInvitationToken, loading } = useDeleteInvitationToken()
   return (
     <ValidateTeamInvitation team={team}>
       <TextAlert status="warning">
@@ -53,7 +56,17 @@ const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
             <Icon as={MdContentCopy} color="white" />
           )}
         </Button>
-        <DeleteTeamInvitationTokenDialog teamId={team.id} />
+        <DeleteDialog
+          loading={loading}
+          id={team.id}
+          onDelete={handleDeleteInvitationToken}
+          title="De huidige uitnodiging is na het intrekken niet meer te gebruiken"
+        >
+          <Text mb={2}>
+            De huidige uitnodiging is na het intrekken niet meer te gebruiken.
+          </Text>
+          <Text>Weet je zeker dat je deze uitnodiging wilt intrekken?</Text>
+        </DeleteDialog>
       </Flex>
       <ButtonGroup mt={4}>
         <Button

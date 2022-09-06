@@ -1,7 +1,7 @@
 export const schema = gql`
   type Score {
     id: String!
-    score: Int!
+    points: Int!
     createdAt: DateTime!
     updatedAt: DateTime!
     type: ScoreType!
@@ -23,19 +23,21 @@ export const schema = gql`
   }
 
   input CreateScoreInput {
-    score: Int!
+    points: Int!
     type: ScoreType!
     seasonId: String!
     playerId: String!
     trainingId: String!
+    teamId: String!
   }
 
   input UpdateScoreInput {
-    score: Int
+    points: Int
     type: ScoreType
     seasonId: String
     playerId: String
     trainingId: String
+    teamId: String!
   }
 
   type Mutation {

@@ -3,9 +3,14 @@ import type {
   QueryResolvers,
   MutationResolvers,
   PlayerResolvers,
+  Player as PlayerType,
+  User,
+  Avatar,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
+
+import { mergePlayersAndScores } from './helpers/mergePlayersAndScores'
 
 export const players: QueryResolvers['players'] = () => {
   return db.player.findMany()
@@ -22,6 +27,7 @@ export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
       },
     },
     include: {
+      scores: true,
       user: {
         include: {
           userProfile: {
@@ -35,6 +41,46 @@ export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
       },
     },
   })
+}
+
+export const getPlayersAndScoresByTeamId = async ({
+  teamId,
+}): Promise<PlayerType[]> => {
+  const playersWithoutScores = await db.player.findMany({
+    where: {
+      teamId,
+      AND: {
+        isActivePlayer: true,
+      },
+    },
+    include: {
+      user: {
+        include: {
+          avatar: true,
+        },
+      },
+    },
+  })
+
+  const scores = await db.score.groupBy({
+    by: ['playerId'],
+    _sum: {
+      points: true,
+    },
+    orderBy: {
+      _sum: {
+        points: 'asc',
+      },
+    },
+    where: {
+      teamId,
+    },
+  })
+  const players = mergePlayersAndScores(playersWithoutScores, scores)
+
+  return players.sort(
+    (playerA, playerB) => playerB.totalScore - playerA.totalScore
+  )
 }
 
 export const getGhostPlayersByTeamId: QueryResolvers['getGhostPlayersByTeamId'] =

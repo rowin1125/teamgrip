@@ -11,6 +11,7 @@ export const GET_PLAYERS_FOR_TEAM_QUERY = gql`
     playersForTeam(teamId: $teamId) {
       id
       displayName
+      teamId
       user {
         id
         avatar {

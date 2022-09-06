@@ -36,6 +36,7 @@ const ControlledInput = ({
   inputLeftAddonText,
   fullWidth = true,
   formControlProps,
+  maxW,
   transformValue,
   ...props
 }: ControlledInputProps) => {
@@ -54,7 +55,7 @@ const ControlledInput = ({
     <FormControl
       isInvalid={isInvalid}
       mb={8}
-      maxW={fullWidth ? null : 80}
+      maxW={maxW || (fullWidth ? null : 80)}
       w="full"
       {...formControlProps}
     >

@@ -6,9 +6,11 @@ import { MdContentCopy } from 'react-icons/md'
 import { TbCheck } from 'react-icons/tb'
 import { FindTeamQuery, GetGhostPlayersForTeamQuery } from 'types/graphql'
 
-import { useCreateGhostPlayerInvitation } from '../hooks/useCreateGhostPlayerInvitation'
+import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
+import TextAlert from 'src/components/TextAlert/TextAlert'
 
-import DeleteplayerGhostInvitationDialog from './DeleteplayerGhostInvitationDialog'
+import { useCreateGhostPlayerInvitation } from '../hooks/useCreateGhostPlayerInvitation'
+import { useDeleteGhostPlayerInvitation } from '../hooks/useDeleteGhostPlayerInvitation'
 
 type GhostPlayerUniqueInviteProps = {
   team?: FindTeamQuery['team']
@@ -25,6 +27,8 @@ const GhostPlayerUniqueInvite = ({
   const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}&ghostInvitation=${ghost?.ghostInvitation}`
 
   const { hasCopied, onCopy } = useClipboard(inviteUrl)
+  const { handleDeleteGhostPlayerInvitation, loading: deleteLoading } =
+    useDeleteGhostPlayerInvitation()
 
   return (
     <Flex my={4} w={{ base: 'full' }}>
@@ -75,7 +79,17 @@ const GhostPlayerUniqueInvite = ({
           >
             <Icon as={BsWhatsapp} />
           </Button>
-          <DeleteplayerGhostInvitationDialog ghost={ghost} />
+          <DeleteDialog
+            onDelete={handleDeleteGhostPlayerInvitation}
+            id={ghost.id}
+            loading={deleteLoading}
+            title="Uitnodiging intrekken"
+          >
+            <TextAlert status="warning" mb={4}>
+              De huidige uitnodiging is na het intrekken niet meer te gebruiken.
+            </TextAlert>
+            <Text>Weet je zeker dat je deze uitnodiging wilt intrekken?</Text>
+          </DeleteDialog>
         </>
       ) : (
         <Button

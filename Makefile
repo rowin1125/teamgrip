@@ -19,13 +19,14 @@ docker-run-alpine = docker run --rm -u $$(id -u):$$(id -g) -v `pwd`:/app -w /app
 do-db-reset:
 	@docker-compose down -v
 	@docker-compose up -d
-	@yarn rw prisma db push
+	@yarn rw prisma migrate deploy
 	@yarn rw prisma db seed
 
 do-db-reset-and-create-migration:
 	@docker-compose down -v
 	@docker-compose up -d
 	@yarn rw prisma migrate dev
+	@yarn rw prisma migrate deploy
 	@yarn rw prisma db seed
 
 do-seed:

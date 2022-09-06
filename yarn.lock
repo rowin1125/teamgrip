@@ -11607,7 +11607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.0.1, date-fns@npm:^2.16.1":
+"date-fns@npm:^2.0.1, date-fns@npm:^2.16.1, date-fns@npm:^2.29.2":
   version: 2.29.2
   resolution: "date-fns@npm:2.29.2"
   checksum: 731880219eb69f53ab8bdaf6b77eb6ac7e26478319d5e08d0d1bc663e8addc7ddabce8050fd385a735d448c48224789442d31d18313060f5d9a77db80132f935
@@ -25698,6 +25698,7 @@ __metadata:
     "@types/react-table": ^7.7.12
     avataaars: ^2.0.0
     chakra-ui-steps: ^1.7.3
+    date-fns: ^2.29.2
     formik: ^2.2.9
     framer-motion: ^4
     jest-scss-transform: ^1.0.3

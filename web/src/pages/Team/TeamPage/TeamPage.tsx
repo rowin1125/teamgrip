@@ -1,9 +1,7 @@
 import { useState } from 'react'
 
 import {
-  Box,
   Button,
-  Flex,
   Grid,
   GridItem,
   Heading,
@@ -15,13 +13,13 @@ import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
 import RedwoodLink from 'src/components/RedwoodLink'
-import TeamTable from 'src/components/TeamTable'
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import TeamGeneralInformation from './components/TeamGeneralInformation'
 import TeamList from './components/TeamList/TeamList'
 import TeamNotFoundMessage from './components/TeamNotFoundMessage/TeamNotFoundMessage'
+import TeamTrainings from './components/TeamTrainings/TeamTrainings'
 
 const TeamPage = () => {
   const { isTeamStaff } = useTeamPlayerAuth()
@@ -76,23 +74,7 @@ const TeamPage = () => {
           </GridItem>
         )}
         <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
-          <Card>
-            <Flex justifyContent="space-between">
-              <Heading>Recente trainingen voor {team?.name}</Heading>
-              <Button colorScheme="secondary">Registreer training</Button>
-            </Flex>
-            <Box mt={8}>
-              <TeamTable
-                size="md"
-                entries={['1', '2', '3', '4'].map((training) => ({
-                  id: training,
-                  deelnemers: Math.floor(Math.random() * 20),
-                  displayName: Math.floor(Math.random() * 100),
-                  datum: new Date().toTimeString(),
-                }))}
-              />
-            </Box>
-          </Card>
+          <TeamTrainings team={team} />
         </GridItem>
       </Grid>
     </>

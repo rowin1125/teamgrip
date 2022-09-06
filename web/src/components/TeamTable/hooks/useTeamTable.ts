@@ -7,16 +7,12 @@ import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitaliz
 export type TeamTableEntriesType = Record<string, unknown>[] | undefined
 export type UseTeamTableReturnType = Record<string, unknown>
 
-export const useTeamTable = (
-  entries: TeamTableEntriesType,
-  hiddenColumns: string[]
-) => {
+export const useTeamTable = (entries: TeamTableEntriesType) => {
   const rawColumns: Record<'Header' | 'accessor', string>[] = []
 
   for (const dataRow of entries || []) {
     const keys = Object.keys(dataRow)
     keys.forEach((key) => {
-      if (hiddenColumns?.includes(key)) return
       if (rawColumns.find((header) => header.accessor === key)) return
       if (key === '__typename') return
 

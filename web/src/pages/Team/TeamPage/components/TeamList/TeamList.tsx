@@ -14,7 +14,7 @@ import { FindTeamQuery } from 'types/graphql'
 import Card from 'src/components/Card/Card'
 import TeamTable from 'src/components/TeamTable'
 
-import { useGetPlayersForTeam } from '../../hooks/useGetPlayersForTeam'
+import { useGetPlayersAndScoresByTeamId } from '../../hooks/useGetPlayersAndScoresByTeamId'
 
 type TeamListProps = {
   team: FindTeamQuery['team']
@@ -23,29 +23,20 @@ type TeamListProps = {
 }
 
 const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
-  const { playersData } = useGetPlayersForTeam()
+  const { playersWithTotalScore } = useGetPlayersAndScoresByTeamId()
 
   return (
     <Card w="100%" bg="primary.500" color="white">
-      {playersData?.playersForTeam?.length > 0 ? (
+      {playersWithTotalScore?.length > 0 ? (
         <>
           <Heading color="white">Punten in team: {team?.name}</Heading>
           <TeamTable
-            entries={playersData?.playersForTeam.map((player, index) => {
-              const topTree = {
-                1: '🏆️',
-                2: '🥈',
-                3: '🥉',
-              }
-              const medal = topTree[index + 1]
-              const position = medal ? `${medal} ${index + 1}` : ` ${index + 1}`
-              return {
-                positie: position,
-                avatar: player?.user?.avatar,
-                displayName: player.displayName,
-                points: Math.floor(Math.random() * 100),
-              }
-            })}
+            entries={playersWithTotalScore?.map((player, index) => ({
+              Rank: index + 1,
+              Avatar: player?.user?.avatar,
+              Naam: player.displayName,
+              Punten: player.totalScore,
+            }))}
           />
         </>
       ) : (
