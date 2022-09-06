@@ -19,8 +19,8 @@ const AppLayout = ({ children }: AppLayoutProps) => {
       <Hero type="football-night-man" />
       <Flex
         justifyContent="space-between"
-        mx={{ base: 8, xl: 0 }}
-        pr={{ base: 0, xl: 8 }}
+        mx={{ base: 4, xl: 0 }}
+        pr={{ base: 0, xl: 4 }}
       >
         <Box position="relative">
           <Sidebar />

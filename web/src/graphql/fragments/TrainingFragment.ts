@@ -6,16 +6,26 @@ export const TRAINING_FRAGMENT = gql`
     trainingsDate
     season {
       name
+      id
     }
     players {
       id
+      displayName
     }
     scores {
+      id
       points
       player {
         displayName
+        id
       }
     }
     teamId
+    team {
+      id
+      season {
+        id
+      }
+    }
   }
 `

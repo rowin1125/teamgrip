@@ -14,16 +14,18 @@ export const mergePlayersAndScores = (
   players: any,
   scores: ScoreGroupByType
 ): Player[] => {
-  return players.reduce((prev, curr) => {
-    const playerTotalScore = scores.find((score) => score.playerId === curr.id)
-
-    if (!playerTotalScore?.playerId) return prev
+  return players.reduce((accPlayerArray, currentPlayer) => {
+    const playerTotalScore = scores.find(
+      (score) => score.playerId === currentPlayer.id
+    )
+    if (!playerTotalScore?.playerId)
+      return [...accPlayerArray, { ...currentPlayer, totalScore: 0 }]
 
     const playerWithScore = {
-      ...curr,
+      ...currentPlayer,
       totalScore: playerTotalScore?._sum?.points || 0,
     }
 
-    return [...prev, playerWithScore]
+    return [...accPlayerArray, playerWithScore]
   }, [])
 }

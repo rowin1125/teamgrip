@@ -35,8 +35,11 @@ export const schema = gql`
       input: CreateTrainingInput!
       scores: [CreateScoreInput]!
     ): Training! @requireAuth
-    updateTraining(id: String!, input: UpdateTrainingInput!): Training!
-      @requireAuth
+    updateTraining(
+      id: String!
+      input: UpdateTrainingInput!
+      scores: [CreateScoreInput]!
+    ): Training! @requireAuth
     deleteTraining(id: String!): Training! @requireAuth
   }
 `

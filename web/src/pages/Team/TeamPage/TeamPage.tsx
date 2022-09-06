@@ -74,7 +74,7 @@ const TeamPage = () => {
           </GridItem>
         )}
         <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
-          <TeamTrainings team={team} />
+          <TeamTrainings />
         </GridItem>
       </Grid>
     </>

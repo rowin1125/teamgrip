@@ -5,43 +5,66 @@ import { FieldArray, useFormikContext } from 'formik'
 import {
   CreateScoreInput,
   CreateTrainingInput,
+  FindTeamQuery,
   GetPlayersForTeamQuery,
+  GetTrainingByIdQuery,
 } from 'types/graphql'
+
+import { toast } from '@redwoodjs/web/dist/toast'
 
 import { scoreBlueprint } from '../hooks/useCreateTraining'
 
 import ScoreFieldArrayBenchPlayers from './ScoreFieldArrayBenchPlayers'
 import ScoreFieldArrayRow from './ScoreFieldArrayRow'
 
-type CreateScoreFieldArrayInputsProps = {
-  players: GetPlayersForTeamQuery['playersForTeam']
+type FormikValues = CreateTrainingInput & {
+  scores: CreateScoreInput[]
 }
 
-type FormikValues = {
-  input: CreateTrainingInput
-  scores: CreateScoreInput[]
+type CreateScoreFieldArrayInputsProps = {
+  players?:
+    | GetPlayersForTeamQuery['playersForTeam']
+    | GetTrainingByIdQuery['training']['players']
+  team?: FindTeamQuery['team'] | GetTrainingByIdQuery['training']['team']
 }
 
 const CreateScoreFieldArrayInputs = ({
   players,
+  team,
 }: CreateScoreFieldArrayInputsProps) => {
   const { values } = useFormikContext<FormikValues>()
-  const [benchPlayers, setBenchPlayers] = useState<
-    GetPlayersForTeamQuery['playersForTeam']
-  >([])
+
+  const initialBenchPlayers = players
+    .filter((player) => {
+      const playerScore = values.scores.find(
+        (score) => score.playerId === player.id
+      )
+      // eslint-disable-next-line no-prototype-builtins
+      return !playerScore?.hasOwnProperty('playerId')
+    })
+    .map((player) => ({
+      __typename: player.__typename,
+      displayName: player.displayName,
+      id: player.id,
+    }))
+  const [benchPlayers, setBenchPlayers] = useState(initialBenchPlayers)
 
   return (
     <FieldArray
       name="scores"
       render={({ push, remove }) => {
-        const handleRemove = (
-          currentPlayer: GetPlayersForTeamQuery['playersForTeam'][0],
-          index: number
-        ) => {
+        const defaultTeamSeasonId = team?.season.filter((season) =>
+          season.name.includes(new Date().getFullYear().toString())
+        )?.[0].id
+
+        const handleRemove = (currentPlayer, index: number) => {
           setBenchPlayers((prevBenchPlayers) => [
             ...prevBenchPlayers,
             currentPlayer,
           ])
+          toast.success('Speler naar op afwezig', {
+            duration: 2000,
+          })
           remove(index)
         }
 
@@ -50,7 +73,16 @@ const CreateScoreFieldArrayInputs = ({
             (benchPlayer) => benchPlayer.id !== playerId
           )
           setBenchPlayers([...filteredPlayers])
-          push({ ...scoreBlueprint, playerId })
+          toast.success('Speler neemt deel aan de training', {
+            duration: 2000,
+          })
+
+          push({
+            ...scoreBlueprint,
+            playerId,
+            teamId: team.id,
+            seasonId: values.seasonId || defaultTeamSeasonId || '',
+          })
         }
 
         const playersScoreArray = values?.scores?.sort((a, b) => {
@@ -61,7 +93,7 @@ const CreateScoreFieldArrayInputs = ({
             (player) => player.id === b.playerId
           ) as GetPlayersForTeamQuery['playersForTeam'][0]
 
-          return playerA.displayName.localeCompare(playerB.displayName)
+          return playerA?.displayName.localeCompare(playerB?.displayName)
         })
 
         return (

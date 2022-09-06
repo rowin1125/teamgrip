@@ -30,7 +30,7 @@ const Routes = () => {
           {/* TRAININGS */}
           <Route path="/app/team/training/new-training" page={TrainingNewTrainingPage} name="newTraining" />
           <Route path="/app/team/training/{id}" page={TrainingTrainingDetailPage} name="trainingDetail" />
-          <Route path="/app/team/training/{id}/update-training" page={TrainingTrainingUpdatePage} name="trainingUpdate" />
+          <Route path="/app/team/training/{id}/update-training" page={TrainingUpdateTrainingPage} name="updateTraining" />
           {/* INSTELLINGEN */}
           <Route path="/app/instellingen" page={SettingsPage} name="settings" />
           <Route path="/app/instellingen/update-avatar" page={UpdateAvatarPage} name="updateAvatar" />

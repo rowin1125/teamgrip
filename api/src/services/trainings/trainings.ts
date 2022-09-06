@@ -63,14 +63,30 @@ export const createTraining: MutationResolvers['createTraining'] = async ({
   }
 }
 
-export const updateTraining: MutationResolvers['updateTraining'] = ({
+export const updateTraining: MutationResolvers['updateTraining'] = async ({
   id,
   input,
+  scores,
 }) => {
-  return db.training.update({
-    data: input,
+  const trainingResult = await db.training.update({
     where: { id },
+    data: {
+      ...input,
+      scores: {
+        deleteMany: {},
+      },
+    },
   })
+  const scoreData: CreateScoreInput[] = scores.map((score) => ({
+    ...score,
+    trainingId: trainingResult.id,
+  }))
+
+  await db.score.createMany({
+    data: scoreData,
+  })
+
+  return trainingResult
 }
 
 export const deleteTraining: MutationResolvers['deleteTraining'] = ({ id }) => {

@@ -58,9 +58,12 @@ const ScoreFieldArrayRow = ({
       gap={4}
       key={players[index].displayName}
     >
-      <GridItem colSpan={9}>
-        <Flex>
-          <Flex mt={6} mr={6}>
+      <GridItem colSpan={{ base: 12, xl: 9 }}>
+        <Flex
+          flexDirection={{ base: 'column', xl: 'row' }}
+          mb={{ base: 8, xl: 0 }}
+        >
+          <Flex mt={6} mr={6} display={{ base: 'none', xl: 'flex' }}>
             <Button colorScheme="red" onClick={handleMinusPoints}>
               <Icon as={FaMinus} />{' '}
               <Text color="white" position="relative" top="2px">
@@ -73,10 +76,21 @@ const ScoreFieldArrayRow = ({
             labelProps={{ m: 0 }}
             id={`scores.${index}.points`}
             mr={2}
-            maxW="200px"
+            maxW={{ base: 'full', xl: '200px' }}
             type="number"
+            formControlProps={{
+              mb: { base: 2, xl: 8 },
+            }}
           />
-          <Flex pt={6} ml={4}>
+          <Flex pt={{ base: 0, xl: 6 }} ml={{ base: 0, xl: 4 }}>
+            <Flex mr={6} display={{ base: 'flex', xl: 'none' }}>
+              <Button colorScheme="red" onClick={handleMinusPoints}>
+                <Icon as={FaMinus} />{' '}
+                <Text color="white" position="relative" top="2px">
+                  25
+                </Text>
+              </Button>
+            </Flex>
             <Button colorScheme="green" onClick={handleAddPoints}>
               <Icon as={FaPlus} />{' '}
               <Text color="white" position="relative" top="2px">

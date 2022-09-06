@@ -33,7 +33,7 @@ const ControlledDatePicker = ({
   const isInvalid = !!meta.error && !!meta.touched
 
   return (
-    <FormControl isInvalid={isInvalid} maxW="250px" w="full" {...props}>
+    <FormControl isInvalid={isInvalid} w="full" {...props}>
       <Box
         display={inline ? 'inline' : 'flex'}
         alignItems="center"
@@ -53,7 +53,6 @@ const ControlledDatePicker = ({
             placeholder="Select Date and Time"
             type="date"
             id={id}
-            width="250px"
             {...inputProps}
             size="md"
             {...field}

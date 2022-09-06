@@ -56,7 +56,7 @@ export const useCreateTraining = ({
     const { scores, ...input } = values
 
     try {
-      const training = await createTraining({
+      await createTraining({
         variables: {
           input: {
             ...input,

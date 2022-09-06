@@ -26,7 +26,7 @@ const TeamTrainings = () => {
     return {
       id: training.id,
       datum: format(new Date(training.trainingsDate), 'dd-MM-yyyy'),
-      deelnemers: training.players.length,
+      deelnemers: training.scores.length,
       'Top speler': bestPlayerOfTraining?.player?.displayName,
       season: training.season.name,
     }
@@ -52,7 +52,7 @@ const TeamTrainings = () => {
           hiddenColumns={['id']}
           routes={{
             detail: routes.trainingDetail,
-            update: routes.trainingUpdate,
+            update: routes.updateTraining,
           }}
           onDelete={handleDeleteTrainingById}
           showActions
