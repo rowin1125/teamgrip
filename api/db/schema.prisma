@@ -153,6 +153,8 @@ model Score {
 
 enum ScoreType {
   TRAINING
+  TOP_TRAINING
+  GAME
 }
 
 model Season {

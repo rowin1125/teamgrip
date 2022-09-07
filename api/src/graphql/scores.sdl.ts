@@ -15,6 +15,8 @@ export const schema = gql`
 
   enum ScoreType {
     TRAINING
+    TOP_TRAINING
+    GAME
   }
 
   type Query {

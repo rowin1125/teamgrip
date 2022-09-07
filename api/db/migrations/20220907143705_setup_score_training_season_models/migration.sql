@@ -8,7 +8,7 @@
 CREATE TYPE "PlayerType" AS ENUM ('PLAYER', 'STAFF');
 
 -- CreateEnum
-CREATE TYPE "ScoreType" AS ENUM ('TRAINING');
+CREATE TYPE "ScoreType" AS ENUM ('TRAINING', 'TOP_TRAINING', 'GAME');
 
 -- DropForeignKey
 ALTER TABLE "Audit" DROP CONSTRAINT "Audit_userId_fkey";

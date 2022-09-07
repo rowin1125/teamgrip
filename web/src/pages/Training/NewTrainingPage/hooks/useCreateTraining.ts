@@ -53,7 +53,8 @@ export const useCreateTraining = ({
   >(CREATE_TRAINING_MUTATION)
 
   const handleCreateTraining = async (values) => {
-    const { scores, ...input } = values
+    const { scores, topTrainingScores, ...input } = values
+    const allScores = [...scores, ...topTrainingScores]
 
     try {
       await createTraining({
@@ -62,7 +63,7 @@ export const useCreateTraining = ({
             ...input,
             trainingsDate: new Date(input.trainingsDate),
           },
-          scores: scores,
+          scores: allScores,
         },
       })
       toast.success(`Training aangemaakt`)
@@ -91,10 +92,41 @@ export const useCreateTraining = ({
       teamId: currentUser?.player?.teamId,
     })) || []
 
+  const initialTopTrainingScores: CreateScoreInput[] = [
+    {
+      ...scoreBlueprint,
+      playerId: '',
+      type: 'TOP_TRAINING',
+      points: 50,
+      seasonId: defaultTeamSeasonId,
+      teamId: team?.id,
+      trainingId: '',
+    },
+    {
+      ...scoreBlueprint,
+      playerId: '',
+      type: 'TOP_TRAINING',
+      points: 50,
+      seasonId: defaultTeamSeasonId,
+      teamId: team?.id,
+      trainingId: '',
+    },
+    {
+      ...scoreBlueprint,
+      playerId: '',
+      type: 'TOP_TRAINING',
+      points: 50,
+      seasonId: defaultTeamSeasonId,
+      teamId: team?.id,
+      trainingId: '',
+    },
+  ]
+
   return {
     handleCreateTraining,
     createTrainingLoading,
     initialScoresInputValues,
     defaultTeamSeasonId,
+    initialTopTrainingScores,
   }
 }

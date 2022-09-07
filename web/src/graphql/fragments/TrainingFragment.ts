@@ -15,6 +15,7 @@ export const TRAINING_FRAGMENT = gql`
     scores {
       id
       points
+      type
       player {
         displayName
         id

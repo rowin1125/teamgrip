@@ -20,6 +20,13 @@ const UpdateTrainingPage = () => {
 
   if (trainingLoading || loading) return null
 
+  const regularScores = training?.scores.filter(
+    (score) => score.type === 'TRAINING'
+  )
+  const topTrainingScores = training?.scores.filter(
+    (score) => score.type === 'TOP_TRAINING'
+  )
+
   return (
     <>
       <MetaTags
@@ -40,13 +47,21 @@ const UpdateTrainingPage = () => {
                 ),
                 seasonId: training?.season.id,
                 teamId: training?.teamId,
-                scores: training?.scores.map((score) => ({
+                scores: regularScores.map((score) => ({
                   playerId: score.player.id,
                   seasonId: training.season.id,
                   points: score.points,
                   teamId: team?.id,
                   trainingId: '',
                   type: 'TRAINING',
+                })),
+                topTrainingScores: topTrainingScores.map((score) => ({
+                  playerId: score.player.id,
+                  seasonId: training.season.id,
+                  points: score.points,
+                  teamId: team?.id,
+                  trainingId: '',
+                  type: 'TOP_TRAINING',
                 })),
               }}
               type="new"

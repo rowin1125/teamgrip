@@ -33,11 +33,16 @@ export const useUpdateTrainingById = (id: string) => {
     UpdateTrainingMutation,
     UpdateTrainingMutationVariables
   >(UPDATE_TRAINING_BY_ID_MUTATION, {
-    refetchQueries: [GET_TRAININGS_BY_TEAM_QUERY],
+    refetchQueries: [
+      {
+        query: GET_TRAININGS_BY_TEAM_QUERY,
+      },
+    ],
   })
 
   const handleUpdateTraining = async (values) => {
-    const { scores, ...input } = values
+    const { scores, topTrainingScores, ...input } = values
+    const allScores = [...scores, ...topTrainingScores]
 
     try {
       await updateTraining({
@@ -47,7 +52,7 @@ export const useUpdateTrainingById = (id: string) => {
             ...input,
             trainingsDate: new Date(input.trainingsDate),
           },
-          scores: scores,
+          scores: allScores,
         },
       })
       toast.success(`Training aangepast`)

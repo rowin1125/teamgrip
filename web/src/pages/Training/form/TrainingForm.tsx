@@ -1,7 +1,5 @@
-import React from 'react'
-
 import { Box, Button, Flex, Text } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
+import { Form, Formik } from 'formik'
 import {
   FindTeamQuery,
   GetPlayersForTeamQuery,
@@ -9,8 +7,11 @@ import {
 } from 'types/graphql'
 import * as Yup from 'yup'
 
+import { routes } from '@redwoodjs/router'
+
 import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
+import RedwoodLink from 'src/components/RedwoodLink'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
 
 import CreateScoreFieldArrayInputs from '../NewTrainingPage/components/CreateScoreFieldArrayInputs'
@@ -41,6 +42,17 @@ const validationSchema = Yup.object({
   trainingsDate: Yup.string().required(),
   seasonId: Yup.string().required(),
   teamId: Yup.string().required(),
+  topTrainingScores: Yup.array().of(
+    Yup.object().shape({
+      id: Yup.string(),
+      playerId: Yup.string().required('Geef een geldige speler op'),
+      points: Yup.number().required('Geef een geldige score op'),
+      seasonId: Yup.string().required(),
+      trainingId: Yup.string(),
+      type: Yup.string().required(),
+      teamId: Yup.string().required(),
+    })
+  ),
 })
 
 const TrainingForm = ({
@@ -88,11 +100,19 @@ const TrainingForm = ({
           bottom="0px"
           w="full"
           alignItems="center"
+          flexDir={{ base: 'column', xl: 'row' }}
         >
-          <Button colorScheme="secondary" type="submit" isLoading={loading}>
-            {type === 'new' ? 'Opslaan' : 'Wijzig'}
-          </Button>
-          <Text ml={4}>Registreer een training en zie de scores updaten</Text>
+          <Flex>
+            <Button as={RedwoodLink} to={routes.team()} variant="link" mr={4}>
+              Annuleer
+            </Button>
+            <Button colorScheme="secondary" type="submit" isLoading={loading}>
+              {type === 'new' ? 'Opslaan' : 'Wijzig'}
+            </Button>
+          </Flex>
+          <Text display={{ base: 'none', xl: 'block' }} ml={4}>
+            Registreer een training en zie de scores updaten
+          </Text>
         </Flex>
       </Box>
     </Formik>

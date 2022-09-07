@@ -20,6 +20,7 @@ const NewTrainingPage = () => {
     createTrainingLoading,
     initialScoresInputValues,
     defaultTeamSeasonId,
+    initialTopTrainingScores,
   } = useCreateTraining({
     playersData,
     team,
@@ -42,6 +43,7 @@ const NewTrainingPage = () => {
                 seasonId: defaultTeamSeasonId,
                 teamId: team.id,
                 scores: initialScoresInputValues,
+                topTrainingScores: initialTopTrainingScores,
               }}
               type="new"
               onSubmit={handleCreateTraining}
