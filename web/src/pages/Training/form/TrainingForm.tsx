@@ -91,6 +91,7 @@ const TrainingForm = ({
         <CreateScoreFieldArrayInputs players={players} team={team} />
 
         <Flex
+          zIndex={1}
           borderTop="1px"
           borderColor="gray.300"
           pt={6}
