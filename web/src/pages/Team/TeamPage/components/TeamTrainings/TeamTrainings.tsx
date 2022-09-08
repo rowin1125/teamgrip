@@ -8,6 +8,7 @@ import { routes } from '@redwoodjs/router'
 import Card from 'src/components/Card/Card'
 import RedwoodLink from 'src/components/RedwoodLink'
 import TeamTable from 'src/components/TeamTable'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import { useDeleteTrainingById } from './hooks/useDeleteTrainingById'
 import { useGetTrainingsByTeam } from './hooks/useGetTrainingsByTeam'
@@ -15,6 +16,7 @@ import { useGetTrainingsByTeam } from './hooks/useGetTrainingsByTeam'
 const TeamTrainings = () => {
   const { trainings } = useGetTrainingsByTeam()
   const { handleDeleteTrainingById } = useDeleteTrainingById()
+  const { isTeamStaff } = useTeamPlayerAuth()
 
   const trainingEntries = trainings?.map((training) => {
     const bestPlayerOfTraining = training?.scores?.slice()?.sort((a, b) => {
@@ -36,13 +38,15 @@ const TeamTrainings = () => {
     <Card>
       <Flex justifyContent="space-between">
         <Heading>Recente trainingen</Heading>
-        <Button
-          colorScheme="secondary"
-          as={RedwoodLink}
-          to={routes.newTraining()}
-        >
-          Registreer training
-        </Button>
+        {isTeamStaff && (
+          <Button
+            colorScheme="secondary"
+            as={RedwoodLink}
+            to={routes.newTraining()}
+          >
+            Registreer training
+          </Button>
+        )}
       </Flex>
       <Box mt={8} overflowX="auto">
         <TeamTable

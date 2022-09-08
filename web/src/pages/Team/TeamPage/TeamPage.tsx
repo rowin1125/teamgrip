@@ -1,20 +1,12 @@
 import { useState } from 'react'
 
-import {
-  Button,
-  Grid,
-  GridItem,
-  Heading,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Grid, GridItem, useDisclosure } from '@chakra-ui/react'
 
-import { routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
-import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+
+import SeasonLockWrapper from '../../../components/LockWrappers/SeasonLockWrapper/SeasonLockWrapper'
 
 import TeamGeneralInformation from './components/TeamGeneralInformation'
 import TeamList from './components/TeamList/TeamList'
@@ -22,7 +14,6 @@ import TeamNotFoundMessage from './components/TeamNotFoundMessage/TeamNotFoundMe
 import TeamTrainings from './components/TeamTrainings/TeamTrainings'
 
 const TeamPage = () => {
-  const { isTeamStaff } = useTeamPlayerAuth()
   const { team, loading } = useGetTeamById()
   const disclosure = useDisclosure()
   const [currentTabIndex, setCurrentTabIndex] = useState(0)
@@ -57,24 +48,10 @@ const TeamPage = () => {
             setCurrentTabIndex={setCurrentTabIndex}
           />
         </GridItem>
-        {isTeamStaff && team?.season?.length < 1 && (
-          <GridItem colSpan={{ base: 2, xl: 1 }} rowSpan={1}>
-            <Card>
-              <Heading>Seizoen</Heading>
-              {!!team?.id && (
-                <Button
-                  as={RedwoodLink}
-                  to={routes.newSeason({ id: team?.id })}
-                  mt={4}
-                >
-                  Start je seizoen
-                </Button>
-              )}
-            </Card>
-          </GridItem>
-        )}
         <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
-          <TeamTrainings />
+          <SeasonLockWrapper>
+            <TeamTrainings />
+          </SeasonLockWrapper>
         </GridItem>
       </Grid>
     </>

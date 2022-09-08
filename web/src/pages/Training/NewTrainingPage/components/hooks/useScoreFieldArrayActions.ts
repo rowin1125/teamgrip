@@ -36,7 +36,7 @@ export const useScoreFieldArrayActions = ({
 
   const defaultTeamSeasonId = team?.season.filter((season) =>
     season.name.includes(new Date().getFullYear().toString())
-  )?.[0].id
+  )?.[0]?.id
 
   const handleRemove = (currentPlayer, index: number) => {
     setBenchPlayers((prevBenchPlayers) => [...prevBenchPlayers, currentPlayer])

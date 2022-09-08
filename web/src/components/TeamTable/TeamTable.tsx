@@ -1,5 +1,6 @@
 import { Table, TableProps } from '@chakra-ui/react'
 
+import NoEntries from './components/NoEntries'
 import TableBody from './components/TeamTableBody'
 import TableHead from './components/TeamTableHead'
 import { TeamTableEntriesType, useTeamTable } from './hooks/useTeamTable'
@@ -37,6 +38,8 @@ const TeamTable = ({
 }: TeamTableProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
     useTeamTable(entries)
+
+  if (!entries || rows.length === 0) return <NoEntries />
 
   return (
     <Table size={size} {...getTableProps()} mt={10}>

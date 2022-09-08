@@ -74,14 +74,23 @@ export const useCreateTraining = ({
   }
 
   useEffect(() => {
+    if (team && team.season?.length === 0) {
+      toast.error(
+        'Je moet eerst een seizoen aanmaken voor je een training kan aanmaken'
+      )
+      navigate(routes.team())
+    }
+  }, [team])
+
+  useEffect(() => {
     if (isTeamStaff) return
 
     toast.error('Je hebt geen toegang voor deze pagina')
     navigate(routes.team())
   }, [currentUser, isTeamStaff])
 
-  const defaultTeamSeasonId = team?.season.filter((season) =>
-    season.name.includes(new Date().getFullYear().toString())
+  const defaultTeamSeasonId = team?.season?.filter((season) =>
+    season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
 
   const initialScoresInputValues: CreateScoreInput[] =
