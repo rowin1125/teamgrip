@@ -5,6 +5,8 @@ import { Box, Icon, Th, Thead, Tr } from '@chakra-ui/react'
 import { CgChevronDown, CgChevronUp } from 'react-icons/cg'
 import { HeaderGroup } from 'react-table'
 
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+
 import { UseTeamTableReturnType } from '../hooks/useTeamTable'
 
 type TeamTableProps = {
@@ -51,14 +53,16 @@ const TeamTable = ({
           )
         })}
         {showActions && (
-          <Th
-            fontWeight="bold"
-            fontSize="lg"
-            textTransform="none"
-            color={theme === 'dark' ? 'white' : 'primary.500'}
-          >
-            Acties
-          </Th>
+          <PlayerIsStaffWrapper>
+            <Th
+              fontWeight="bold"
+              fontSize="lg"
+              textTransform="none"
+              color={theme === 'dark' ? 'white' : 'primary.500'}
+            >
+              Acties
+            </Th>
+          </PlayerIsStaffWrapper>
         )}
       </Tr>
     ))}

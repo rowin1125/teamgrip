@@ -6,7 +6,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 
-import SeasonLockWrapper from '../../../components/LockWrappers/SeasonLockWrapper/SeasonLockWrapper'
+import SeasonLockWrapper from '../../../components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 
 import TeamGeneralInformation from './components/TeamGeneralInformation'
 import TeamList from './components/TeamList/TeamList'

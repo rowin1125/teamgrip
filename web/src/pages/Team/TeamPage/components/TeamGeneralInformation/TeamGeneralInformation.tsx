@@ -10,7 +10,7 @@ import {
 import { FindTeamQuery } from 'types/graphql'
 
 import Card from 'src/components/Card/Card'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
 
 import InvitePlayersModal from './components/InvitePlayersModal'
 
@@ -27,7 +27,6 @@ const TeamGeneralInformation = ({
   currentTabIndex,
   setCurrentTabIndex,
 }: TeamGeneralInformationProps) => {
-  const { isTeamStaff } = useTeamPlayerAuth()
   return (
     <Card>
       <Flex justifyContent="space-between">
@@ -46,7 +45,7 @@ const TeamGeneralInformation = ({
         <Text fontWeight="bold">Active uitnoding: </Text>
         <Text ml={2}>{team?.invitationToken ? 'Ja' : 'Nee'}</Text>
       </Flex>
-      {isTeamStaff && (
+      <PlayerIsStaffWrapper>
         <Flex mt={8}>
           <Button
             mr={4}
@@ -65,7 +64,7 @@ const TeamGeneralInformation = ({
             setCurrentTabIndex={setCurrentTabIndex}
           />
         </Flex>
-      )}
+      </PlayerIsStaffWrapper>
     </Card>
   )
 }

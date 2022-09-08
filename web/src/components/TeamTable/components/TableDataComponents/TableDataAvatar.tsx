@@ -9,21 +9,28 @@ import { UseTeamTableReturnType } from '../../hooks/useTeamTable'
 
 type TableDataAvatarProps = {
   cell: Cell<UseTeamTableReturnType, any>
+  size?: 'sm' | 'md' | 'lg'
 }
 
-const TableDataAvatar = ({ cell }: TableDataAvatarProps) => {
+const TableDataAvatar = ({ cell, size }: TableDataAvatarProps) => {
   const { __typename, ...avatarProps } = cell.value || {}
+
+  const sizes = {
+    sm: 37.5,
+    md: 50,
+    lg: 67.5,
+  }
 
   return (
     <>
       {cell.value ? (
         <Avatar
-          style={{ width: 50, height: 50 }}
+          style={{ width: sizes[size], height: sizes[size] }}
           avatarStyle="Circle"
           {...avatarProps}
         />
       ) : (
-        <GhostAvatar w="50px" h="50px" />
+        <GhostAvatar w={sizes[size]} h={sizes[size]} />
       )}
     </>
   )

@@ -10,7 +10,7 @@ export type TableLinkProps = {
   buttonLabel: string
 }
 
-type TeamTableProps = {
+type TeamTableProps = Omit<TableProps, 'size'> & {
   entries?: TeamTableEntriesType
   isLoading?: boolean
   loadingProps?: {
@@ -25,13 +25,14 @@ type TeamTableProps = {
   }
   showActions?: boolean
   onDelete?: (id: string) => Promise<void>
-} & TableProps
+  size?: 'sm' | 'md' | 'lg'
+}
 
 const TeamTable = ({
   entries,
   hiddenColumns,
   theme = 'dark',
-  size = 'sm',
+  size = 'md',
   routes,
   onDelete,
   showActions,
@@ -50,6 +51,7 @@ const TeamTable = ({
         showActions={showActions}
       />
       <TableBody
+        size={size}
         routes={routes}
         theme={theme}
         prepareRow={prepareRow}

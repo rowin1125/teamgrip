@@ -3,6 +3,8 @@
 import { Tbody, Td, Tr } from '@chakra-ui/react'
 import { Row, TableBodyPropGetter, TableCommonProps } from 'react-table'
 
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+
 import { UseTeamTableReturnType } from '../hooks/useTeamTable'
 
 import TableDataMachine from './TableDataMachine'
@@ -22,6 +24,7 @@ type TeamTableBodyProps = {
   hiddenColumns?: string[]
   showActions?: boolean
   theme?: 'dark' | 'light'
+  size?: 'sm' | 'md' | 'lg'
 }
 
 const TeamTableBody = ({
@@ -32,6 +35,7 @@ const TeamTableBody = ({
   getTableBodyProps,
   showActions,
   onDelete,
+  size,
 }: TeamTableBodyProps) => {
   return (
     <Tbody {...getTableBodyProps()}>
@@ -47,16 +51,19 @@ const TeamTableBody = ({
                 row={row}
                 hiddenColumns={hiddenColumns}
                 routes={routes}
+                size={size}
               />
             ))}
             {showActions && (
-              <Td>
-                <TeamTableActionButtons
-                  routes={routes}
-                  id={row.values?.id}
-                  onDelete={onDelete}
-                />
-              </Td>
+              <PlayerIsStaffWrapper>
+                <Td>
+                  <TeamTableActionButtons
+                    routes={routes}
+                    id={row.values?.id}
+                    onDelete={onDelete}
+                  />
+                </Td>
+              </PlayerIsStaffWrapper>
             )}
           </Tr>
         )

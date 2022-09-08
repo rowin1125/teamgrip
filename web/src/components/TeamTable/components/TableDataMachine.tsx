@@ -19,6 +19,7 @@ type TableDataMachineProps = {
   }
   row: Row<UseTeamTableReturnType>
   hiddenColumns?: string[]
+  size?: 'sm' | 'md' | 'lg'
 }
 
 const TableDataMachine = ({
@@ -26,6 +27,7 @@ const TableDataMachine = ({
   routes,
   row,
   hiddenColumns,
+  size,
 }: TableDataMachineProps) => {
   const headerTitle = cell.column.Header.toString().toLocaleLowerCase()
   if (hiddenColumns && hiddenColumns.includes(headerTitle)) return null
@@ -53,7 +55,7 @@ const TableDataMachine = ({
   return (
     <Td {...cell.getCellProps()}>
       <Box as={TdChildComponent} {...tdChildProps}>
-        <TableDataComponent cell={cell} />
+        <TableDataComponent cell={cell} size={size} />
       </Box>
     </Td>
   )

@@ -4,7 +4,6 @@ import { Box, Button, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
-import { useAuth } from '@redwoodjs/auth'
 import { navigate, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
@@ -14,20 +13,21 @@ import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import TextAlert from 'src/components/TextAlert/TextAlert'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import { useCreateSeason } from './hooks/useCreateSeason'
 
 const NewSeasonPage = () => {
-  const { currentUser } = useAuth()
+  const { currentUser, isTeamStaff } = useTeamPlayerAuth()
   const { team } = useGetTeamById()
   const { handleCreateSeason, seasonLoading } = useCreateSeason(team)
 
   useEffect(() => {
-    if (currentUser?.player?.playerType === 'STAFF') return
+    if (isTeamStaff) return
 
     toast.error('Je hebt geen toegang voor deze pagina')
     navigate(routes.team())
-  }, [currentUser])
+  }, [currentUser, isTeamStaff])
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(4).required('Naam is verplicht'),

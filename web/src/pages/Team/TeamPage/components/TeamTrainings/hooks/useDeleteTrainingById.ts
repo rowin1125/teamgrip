@@ -28,8 +28,12 @@ export const useDeleteTrainingById = () => {
       toast.error(error.message)
     },
     refetchQueries: [
-      GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
-      GET_TRAININGS_BY_TEAM_QUERY,
+      {
+        query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
+      },
+      {
+        query: GET_TRAININGS_BY_TEAM_QUERY,
+      },
     ],
   })
 

@@ -4,8 +4,6 @@ import type {
   MutationResolvers,
   PlayerResolvers,
   Player as PlayerType,
-  User,
-  Avatar,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -159,28 +157,40 @@ export const deleteGhostPlayerInvitation: MutationResolvers['deleteGhostPlayerIn
 
 export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTeamByGhostInvitation'] =
   async ({ id, ghostId, teamId }) => {
-    // TODO: In the future migrate over the Scores from ghost to user
-    // const ghostPlayer = await db.player.findUnique({ where: { id: ghostId } })
+    const currentPlayer = await db.player.findUnique({ where: { id: id } })
     const team = await db.team.findUnique({ where: { id: teamId } })
 
-    const deleteGhostPlayer = db.player.delete({
-      where: { id: ghostId },
+    const deleteCurrentPlayerFromUser = db.player.delete({
+      where: {
+        id,
+      },
     })
 
-    const updatePlayerWithGhostData = db.player.update({
-      where: { id },
+    const newCurrentUserPlayer = db.player.update({
+      where: { id: ghostId },
       data: {
-        clubId: team.clubId,
-        teamId,
+        user: {
+          connect: {
+            id: context.currentUser.id,
+          },
+        },
+
+        club: {
+          connect: {
+            id: team.clubId,
+          },
+        },
         isActivePlayer: true,
+        teamInvitation: null,
         ghostInvitation: null,
+        displayName: currentPlayer.displayName,
         isGhost: false,
       },
     })
 
     const updatePlayersResult = await db.$transaction([
-      deleteGhostPlayer,
-      updatePlayerWithGhostData,
+      deleteCurrentPlayerFromUser,
+      newCurrentUserPlayer,
     ])
 
     return updatePlayersResult[1]

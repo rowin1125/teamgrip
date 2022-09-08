@@ -51,7 +51,7 @@ const TeamTrainings = () => {
       <Box mt={8} overflowX="auto">
         <TeamTable
           theme="light"
-          size="md"
+          size="sm"
           entries={trainingEntries}
           hiddenColumns={['id']}
           routes={{

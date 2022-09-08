@@ -31,7 +31,12 @@ export const useInviteGhosts = () => {
       variables: {
         input: input,
       },
-      refetchQueries: [GET_PLAYERS_FOR_TEAM_QUERY],
+      refetchQueries: [
+        {
+          query: GET_PLAYERS_FOR_TEAM_QUERY,
+          variables: { teamId: input.teamId },
+        },
+      ],
     })
     if (!ghostPlayers.errors) {
       toast.success(
