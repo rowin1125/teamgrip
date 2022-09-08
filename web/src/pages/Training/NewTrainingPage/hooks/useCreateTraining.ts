@@ -82,7 +82,7 @@ export const useCreateTraining = ({
 
   const defaultTeamSeasonId = team?.season.filter((season) =>
     season.name.includes(new Date().getFullYear().toString())
-  )?.[0].id
+  )?.[0]?.id
 
   const initialScoresInputValues: CreateScoreInput[] =
     playersData?.playersForTeam.map((player) => ({

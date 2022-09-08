@@ -66,6 +66,7 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
     },
     data: {
       isActivePlayer: ownerIsPlayer,
+      playerType: 'STAFF',
     },
   })
 

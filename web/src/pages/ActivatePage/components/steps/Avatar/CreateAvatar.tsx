@@ -117,6 +117,7 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
                         ml={4}
                         onClick={handleRandomValues}
                         colorScheme="secondary"
+                        variant="outline"
                         isLoading={loading}
                       >
                         Random

@@ -116,6 +116,7 @@ export const createUsers = async () => {
                 },
               },
             })
+            await waitFor(4000, 'waiting..... ⌛️')
 
             await db.player.update({
               where: {

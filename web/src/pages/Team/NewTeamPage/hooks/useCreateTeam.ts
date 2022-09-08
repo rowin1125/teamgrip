@@ -28,7 +28,11 @@ export const useCreateTeam = (clubs) => {
     CreateTeamMutationVariables
   >(CREATE_TEAM_MUTATION, {
     onCompleted: reauthenticate,
-    refetchQueries: [FIND_TEAM_QUERY],
+    refetchQueries: [
+      {
+        query: FIND_TEAM_QUERY,
+      },
+    ],
   })
 
   const handleCreateTeam = async (values: CreateTeamInput) => {
