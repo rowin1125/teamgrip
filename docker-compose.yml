@@ -9,3 +9,12 @@ services:
       POSTGRES_USER: rowin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: teamstasts_development
+
+networks:
+  default:
+    name: teamstats
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.69.0/24
