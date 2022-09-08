@@ -3,10 +3,10 @@ export const handleTeamNameTransformation = (value: string) => {
     .replaceAll(' ', '-')
     .replace(/[^a-z0-9 -]/gi, '')
     .replaceAll(/[0-9]/gi, (matchedValue) => {
-      const value = Number(matchedValue)
-      const isNumber = typeof value === 'number'
+      const lastCharLetter = value[value.length - 2]
+      const lastCharIsLetter = /[a-z]/gi.test(lastCharLetter)
 
-      return isNumber ? matchedValue : `-${matchedValue}`
+      return !lastCharIsLetter ? matchedValue : `-${matchedValue}`
     })
 
   const sanitizedValue = transformedValue.replaceAll('--', '-')
