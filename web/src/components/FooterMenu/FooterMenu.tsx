@@ -11,14 +11,22 @@ import { routes } from '@redwoodjs/router'
 import FooterDrawer from './components/FooterDrawer'
 import FooterMenuItem from './components/FooterMenuItem'
 
+export const footerMenuHeight = '70px'
+
 const FooterMenu = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
-  const menuHeight = '70px'
 
   return (
-    <Box mt={menuHeight} display={{ base: 'block', xl: 'none' }}>
-      <Box h={menuHeight} w="full" bg="primary.800" position="fixed" bottom={0}>
+    <Box mt={footerMenuHeight} display={{ base: 'block', xl: 'none' }}>
+      <Box
+        h={footerMenuHeight}
+        w="full"
+        bg="primary.800"
+        position="fixed"
+        zIndex={9999}
+        bottom={0}
+      >
         <Flex justifyContent="space-around" alignItems="center" h="full">
           <FooterMenuItem
             title="Dashboard"

@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 
 import { routes } from '@redwoodjs/router'
 
+import { footerMenuHeight } from 'src/components/FooterMenu/FooterMenu'
 import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import RedwoodLink from 'src/components/RedwoodLink'
@@ -98,7 +99,7 @@ const TrainingForm = ({
           pb={6}
           bg="white"
           position="sticky"
-          bottom="0px"
+          bottom={{ base: `calc(${footerMenuHeight})`, xl: '0px' }}
           w="full"
           alignItems="center"
           flexDir={{ base: 'column', xl: 'row' }}

@@ -106,7 +106,9 @@ const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
         </DrawerBody>
 
         <DrawerFooter boxShadow="5px -30px 21px #242e42" zIndex={4}>
-          <Button colorScheme="secondary">Sluiten</Button>
+          <Button colorScheme="secondary" onClick={onClose}>
+            Sluiten
+          </Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
