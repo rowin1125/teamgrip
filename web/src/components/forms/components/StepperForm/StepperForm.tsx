@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-import { Heading } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import { Heading } from '@chakra-ui/react'
+import { Form, Formik } from 'formik'
 
-import { FormContext } from "./FormContext/FormContext";
-import { useStepperForm } from "./hooks/useStepperForm";
-import FormControls from "./FormControls";
+import Card from 'src/components/Card/Card'
 
-import FormProgress from "@/components/backoffice/forms/components/FormProgress";
-import Card from "@/components/shared/Card";
+import FormProgress from '../FormProgress'
+
+import { FormContext } from './FormContext/FormContext'
+import FormControls from './FormControls'
+import { useStepperForm } from './hooks/useStepperForm'
 
 type StepperFormProps = {
-  onSubmit: (values: Record<string, unknown>) => void;
-  pagesConfig: StepperForm.FormConfigType;
-  initialValues?: Record<string, unknown>;
-  pageProps?: Record<string, unknown>;
-};
+  onSubmit: (values: Record<string, unknown>) => void
+  pagesConfig: StepperForm.FormConfigType
+  initialValues?: Record<string, unknown>
+  pageProps?: Record<string, unknown>
+}
 
 const StepperForm = ({
   pagesConfig: { pages },
@@ -24,7 +25,7 @@ const StepperForm = ({
   pageProps,
 }: StepperFormProps) => {
   const [validationSchema, setValidationSchema] =
-    useState<StepperForm.FormValidationSchemaType>();
+    useState<StepperForm.FormValidationSchemaType>()
 
   const {
     activePageConfig,
@@ -39,9 +40,9 @@ const StepperForm = ({
     pages,
     onSubmit,
     initialValues,
-  });
+  })
 
-  const FormPage = activePageConfig.default;
+  const FormPage = activePageConfig.default
 
   return (
     <FormContext.Provider
@@ -75,7 +76,7 @@ const StepperForm = ({
         </>
       </Formik>
     </FormContext.Provider>
-  );
-};
+  )
+}
 
-export default StepperForm;
+export default StepperForm

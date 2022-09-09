@@ -48,8 +48,8 @@ const Routes = () => {
       </Set>
       {/* PAGES */}
       <Set wrap={GeneralLayout}>
+        <Route path="/" page={HomePage} name="home" prerender />
         <Route path="/over" page={AboutPage} name="about" />
-        <Route path="/" page={HomePage} name="home" />
         <Route path="/contact" page={ContactPage} name="contact" />
       </Set>
 

@@ -1,20 +1,7 @@
-import {
-  Button,
-  Flex,
-  Icon,
-  Image,
-  Tooltip,
-  useEventListener,
-} from '@chakra-ui/react'
-import {
-  CgHomeAlt,
-  CgOptions,
-  CgProfile,
-  CgPushChevronLeft,
-  CgPushChevronRight,
-} from 'react-icons/cg'
+import { Flex, Image, useEventListener } from '@chakra-ui/react'
+import { CgHomeAlt, CgOptions, CgProfile } from 'react-icons/cg'
 import { IoIosStats } from 'react-icons/io'
-import { MdOutlineSpaceDashboard } from 'react-icons/md'
+import { MdFormatListBulleted, MdOutlineSpaceDashboard } from 'react-icons/md'
 import { RiTeamFill } from 'react-icons/ri'
 
 import { routes } from '@redwoodjs/router'
@@ -22,6 +9,8 @@ import { routes } from '@redwoodjs/router'
 import useLocalStorage from 'src/hooks/global/useLocalStorage'
 
 import SidebarItem from './components/SidebarItem'
+import SidebarItemChild from './components/SidebarItemChild'
+import SidebarToggle from './components/SidebarToggle'
 
 const ClOSE_SIDEBAR_KEYS = ['221', '[']
 
@@ -49,6 +38,7 @@ const Sidebar = () => {
       borderBottomRightRadius="10px"
       bg="white"
       display={{ base: 'none', xl: 'flex' }}
+      zIndex={4}
     >
       <Flex flexDir="column" w="full" as="nav">
         <Flex justifyContent="center" alignItems="center" py={6}>
@@ -71,7 +61,14 @@ const Sidebar = () => {
           icon={RiTeamFill}
           title="Team"
           to={routes.team()}
-        />
+        >
+          <SidebarItemChild icon={MdFormatListBulleted} to={routes.team()}>
+            Overzicht
+          </SidebarItemChild>
+          <SidebarItemChild icon={CgOptions} divider={false} to={routes.team()}>
+            Instellingen
+          </SidebarItemChild>
+        </SidebarItem>
         <SidebarItem
           navOpen={navOpen}
           icon={IoIosStats}
@@ -99,32 +96,7 @@ const Sidebar = () => {
         />
       </Flex>
 
-      <Flex w="full">
-        <Tooltip
-          label="Gebruik ` [ ` op je toetsenbord om de navigatie te openen of sluiten"
-          placement="top"
-          bg="primary.500"
-          color="white"
-          hasArrow
-          openDelay={600}
-        >
-          <Button
-            w="full"
-            onClick={() => toggleNav(!navOpen)}
-            size="sm"
-            colorScheme="primary"
-            variant="ghost"
-            py={6}
-          >
-            {navOpen ? 'Sluiten' : ''}{' '}
-            <Icon
-              ml={navOpen ? 2 : 0}
-              as={navOpen ? CgPushChevronLeft : CgPushChevronRight}
-              fontSize="xl"
-            />
-          </Button>
-        </Tooltip>
-      </Flex>
+      <SidebarToggle navOpen={navOpen} toggleNav={toggleNav} />
     </Flex>
   )
 }

@@ -1,9 +1,10 @@
-import { As, Box, Button, Flex, Icon, Tooltip } from '@chakra-ui/react'
-import { CgChevronRight } from 'react-icons/cg'
+import { As, ChakraProps, useDisclosure } from '@chakra-ui/react'
 
 import { useLocation } from '@redwoodjs/router'
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import SidebarItemClosed from './SidebarItemClosed'
+import SidebarItemOpen from './SidebarItemOpen'
+import SidebarItemWrapper from './SidebarItemWrapper'
 
 type SidebarItemProps = {
   title: string
@@ -11,7 +12,8 @@ type SidebarItemProps = {
   navOpen: boolean
   to: string
   isLast?: boolean
-}
+  children?: React.ReactNode
+} & ChakraProps
 
 const SidebarItem = ({
   icon,
@@ -19,73 +21,45 @@ const SidebarItem = ({
   navOpen,
   to,
   isLast,
+  children,
 }: SidebarItemProps) => {
   const { pathname } = useLocation()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const isHomepage =
     title.toLocaleLowerCase() === 'dashboard' && pathname === '/app'
   const active =
     (pathname.includes(title.toLocaleLowerCase()) && !isHomepage) || isHomepage
 
+  const hasChildren = !!children
   return (
     <>
-      <Tooltip
-        isDisabled={navOpen}
-        label={title}
-        placement="auto"
-        bg="secondary.500"
-        color="white"
-        hasArrow
+      <SidebarItemWrapper
+        hasChildren={hasChildren}
+        isLast={isLast}
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+        parentChildren={children}
       >
-        <Box
-          borderTop="1px"
-          borderColor="gray.200"
-          borderBottom={isLast ? '1px solid #E2E8F0' : '0px'} // gray.200
-          py={0}
-        >
-          {navOpen ? (
-            <Button
-              as={RedwoodLink}
-              to={to}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              px={4}
-              py={8}
-              w="full"
-              bg={active ? 'primary.500' : ''}
-              color={active ? 'white' : 'primary.500'}
-              borderRight="4px solid"
-              borderRightColor={active ? 'secondary.500' : 'transparent'}
-              borderRadius={0}
-              _hover={{
-                bg: active ? 'primary.600' : 'primary.50',
-              }}
-              _active={{
-                bg: active ? 'primary.800' : 'primary.100',
-              }}
-            >
-              <Flex alignItems="center">
-                <Icon as={icon} mr={4} />
-                {title}
-              </Flex>
-              <Icon as={CgChevronRight} ml={4} />
-            </Button>
-          ) : (
-            <Flex justifyContent="center">
-              <Button
-                as={RedwoodLink}
-                to={to}
-                my="12px"
-                colorScheme={active ? 'secondary' : 'primary'}
-                mx={1}
-              >
-                <Icon as={icon} fontSize="md" />
-              </Button>
-            </Flex>
-          )}
-        </Box>
-      </Tooltip>
+        {navOpen ? (
+          <SidebarItemOpen
+            to={to}
+            title={title}
+            icon={icon}
+            active={active}
+            hasChildren={hasChildren}
+          />
+        ) : (
+          <SidebarItemClosed
+            active={active}
+            icon={icon}
+            title={title}
+            navOpen={navOpen}
+            to={to}
+          />
+        )}
+      </SidebarItemWrapper>
     </>
   )
 }
