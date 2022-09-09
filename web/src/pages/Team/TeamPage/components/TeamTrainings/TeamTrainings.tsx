@@ -28,7 +28,7 @@ const TeamTrainings = () => {
     return {
       id: training.id,
       datum: format(new Date(training.trainingsDate), 'dd-MM-yyyy'),
-      deelnemers: training.scores.length,
+      aantal: training.scores.length,
       'Top speler': bestPlayerOfTraining?.player?.displayName,
       season: training.season.name,
     }
@@ -36,19 +36,23 @@ const TeamTrainings = () => {
 
   return (
     <Card>
-      <Flex justifyContent="space-between">
+      <Flex
+        justifyContent="space-between"
+        flexDirection={{ base: 'column', xl: 'row' }}
+      >
         <Heading>Recente trainingen</Heading>
         {isTeamStaff && (
           <Button
             colorScheme="secondary"
             as={RedwoodLink}
             to={routes.newTraining()}
+            mt={{ base: 4, xl: 0 }}
           >
             Registreer training
           </Button>
         )}
       </Flex>
-      <Box mt={8} overflowX="auto">
+      <Box overflowX="auto">
         <TeamTable
           theme="light"
           size="sm"

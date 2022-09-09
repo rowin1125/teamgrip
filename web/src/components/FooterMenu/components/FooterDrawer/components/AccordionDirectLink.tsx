@@ -1,0 +1,47 @@
+import React from 'react'
+
+import { Box, BoxProps, Button, Icon, Text } from '@chakra-ui/react'
+import { IconType } from 'react-icons/lib'
+
+import RedwoodLink from 'src/components/RedwoodLink'
+
+type AccordionDirectLinkProps = {
+  to: string
+  children: React.ReactNode
+  nested?: boolean
+  icon: IconType
+  onClose: () => void
+} & BoxProps
+
+const AccordionDirectLink = ({
+  to,
+  children,
+  nested,
+  icon: IconComponent,
+  onClose,
+  ...props
+}: AccordionDirectLinkProps) => (
+  <Box
+    borderColor={nested ? '' : 'gray.100'}
+    borderTop={nested ? '' : '1px'}
+    py={nested ? 0 : 2}
+    onClick={onClose}
+    {...props}
+  >
+    <Button
+      py={nested ? 0 : 2}
+      as={RedwoodLink}
+      to={to}
+      display="flex"
+      alignItems="center"
+      justifyContent="flex-start"
+    >
+      <Icon as={IconComponent} fontSize="lg" color="white" mr={4} />
+      <Text fontWeight="bold" fontSize="lg" color="white">
+        {children}
+      </Text>
+    </Button>
+  </Box>
+)
+
+export default AccordionDirectLink

@@ -46,9 +46,10 @@ const TeamGeneralInformation = ({
         <Text ml={2}>{team?.invitationToken ? 'Ja' : 'Nee'}</Text>
       </Flex>
       <PlayerIsStaffWrapper>
-        <Flex mt={8}>
+        <Flex mt={8} flexDirection={{ base: 'column', xl: 'row' }}>
           <Button
-            mr={4}
+            mr={{ base: 0, xl: 4 }}
+            mb={{ base: 4, xl: 0 }}
             colorScheme="secondary"
             onClick={() => {
               setCurrentTabIndex(1)

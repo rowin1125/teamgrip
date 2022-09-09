@@ -26,16 +26,17 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
   const { playersWithTotalScore } = useGetPlayersAndScoresByTeamId()
 
   return (
-    <Card w="100%" bg="primary.500" color="white">
+    <Card w="100%" bg="primary.500" color="white" overflowX="auto">
       {playersWithTotalScore?.length > 0 ? (
         <>
           <Heading color="white">Punten in team: {team?.name}</Heading>
           <TeamTable
+            size="sm"
             entries={playersWithTotalScore?.map((player, index) => ({
               Rank: index + 1,
-              Avatar: player?.user?.avatar,
-              Naam: player.displayName,
               Punten: player.totalScore,
+              Naam: player.displayName,
+              Avatar: player?.user?.avatar,
             }))}
           />
         </>
