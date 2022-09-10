@@ -1,5 +1,6 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { FaArrowDown } from 'react-icons/fa'
 import {
   FindTeamQuery,
   GetPlayersForTeamQuery,
@@ -9,7 +10,6 @@ import * as Yup from 'yup'
 
 import { routes } from '@redwoodjs/router'
 
-import { footerMenuHeight } from 'src/components/FooterMenu/FooterMenu'
 import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import RedwoodLink from 'src/components/RedwoodLink'
@@ -91,18 +91,30 @@ const TrainingForm = ({
         </Box>
         <CreateScoreFieldArrayInputs players={players} team={team} />
 
+        <Box
+          position="fixed"
+          bottom={20}
+          zIndex={10}
+          right={4}
+          display={{ base: 'block', xl: 'none' }}
+        >
+          <Button colorScheme="secondary" as="a" href="#save-form">
+            <Icon as={FaArrowDown} />
+          </Button>
+        </Box>
+
         <Flex
+          id="save-form"
           zIndex={1}
           borderTop="1px"
           borderColor="gray.300"
           pt={6}
           pb={6}
           bg="white"
-          position="sticky"
-          bottom={{ base: `calc(${footerMenuHeight})`, xl: '0px' }}
+          position={{ base: 'relative', xl: 'sticky' }}
+          bottom={0}
           w="full"
           alignItems="center"
-          flexDir={{ base: 'column', xl: 'row' }}
         >
           <Flex>
             <Button as={RedwoodLink} to={routes.team()} variant="link" mr={4}>
