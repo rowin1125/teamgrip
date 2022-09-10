@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Flex, Button, Icon } from '@chakra-ui/react'
+import { Flex, Button, Icon, IconProps } from '@chakra-ui/react'
 
 import RedwoodLink from 'src/components/RedwoodLink'
 
@@ -10,12 +10,13 @@ type SidebarItemClosedProps = {
   active: boolean
   to: string
   icon: React.ElementType
+  iconProps?: IconProps
 }
 
 const SidebarItemClosed = ({
   active,
   icon,
-
+  iconProps,
   to,
 }: SidebarItemClosedProps) => {
   return (
@@ -27,7 +28,7 @@ const SidebarItemClosed = ({
         colorScheme={active ? 'secondary' : 'primary'}
         mx={1}
       >
-        <Icon as={icon} fontSize="md" />
+        <Icon as={icon} fontSize="md" {...iconProps} />
       </Button>
     </Flex>
   )

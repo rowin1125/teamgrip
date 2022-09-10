@@ -1,20 +1,24 @@
 import React, { forwardRef } from 'react'
 
-import { Button, ButtonProps, Icon } from '@chakra-ui/react'
+import { Button, ButtonProps, Icon, IconProps } from '@chakra-ui/react'
 import { IconType } from 'react-icons'
 
 import { useLocation } from '@redwoodjs/router'
 
 import RedwoodLink from 'src/components/RedwoodLink'
 
+import FooterMenuItemWrapper from './FooterMenuItemWrapper'
+
 type FooterMenuItemProps = {
   icon: IconType
   to?: string
   title: string
+  iconProps?: IconProps
+  children?: React.ReactNode
 } & ButtonProps
 
 export const FooterMenuItem = forwardRef<FooterMenuItemProps, any>(
-  ({ icon: IconComponent, to, title, ...props }, ref) => {
+  ({ icon: IconComponent, to, title, iconProps, children, ...props }, ref) => {
     const { pathname } = useLocation()
 
     const isHomepage =
@@ -23,18 +27,25 @@ export const FooterMenuItem = forwardRef<FooterMenuItemProps, any>(
       (pathname.includes(title.toLocaleLowerCase()) && !isHomepage) ||
       isHomepage
 
+    const hasChildren = !!children
+
     return (
-      <Button
-        as={to ? RedwoodLink : 'button'}
-        {...(to && { to })}
-        my="12px"
-        colorScheme={active ? 'secondary' : 'primary'}
-        mx={1}
-        ref={ref}
-        {...props}
+      <FooterMenuItemWrapper
+        parentChildren={children}
+        hasChildren={hasChildren}
       >
-        <Icon as={IconComponent} fontSize="lg" color="white" />
-      </Button>
+        <Button
+          as={to ? RedwoodLink : 'button'}
+          {...(to && { to })}
+          my="12px"
+          colorScheme={active ? 'secondary' : 'primary'}
+          mx={1}
+          ref={ref}
+          {...props}
+        >
+          <Icon as={IconComponent} fontSize="lg" color="white" {...iconProps} />
+        </Button>
+      </FooterMenuItemWrapper>
     )
   }
 )

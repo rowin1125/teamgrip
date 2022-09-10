@@ -1,3 +1,5 @@
+import { Flex } from '@chakra-ui/react'
+
 import { MetaTags } from '@redwoodjs/web'
 
 import PlayerCard from 'src/components/PlayerCard/PlayerCard'
@@ -7,7 +9,9 @@ const AppPage = () => {
     <>
       <MetaTags title="App" description="App page" />
 
-      <PlayerCard />
+      <Flex justifyContent="center">
+        <PlayerCard />
+      </Flex>
     </>
   )
 }

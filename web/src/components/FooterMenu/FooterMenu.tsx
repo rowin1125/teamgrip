@@ -1,15 +1,15 @@
 import React from 'react'
 
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
-import { AiOutlineDashboard } from 'react-icons/ai'
-import { CgHomeAlt, CgProfile } from 'react-icons/cg'
+import { CgHomeAlt, CgOptions, CgProfile } from 'react-icons/cg'
 import { MdFormatListBulleted } from 'react-icons/md'
-import { RiTeamFill } from 'react-icons/ri'
+import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 
 import { routes } from '@redwoodjs/router'
 
 import FooterDrawer from './components/FooterDrawer'
 import FooterMenuItem from './components/FooterMenuItem'
+import FooterMenuItemChild from './components/FooterMenuItemChild'
 
 export const footerMenuHeight = '70px'
 
@@ -30,10 +30,24 @@ const FooterMenu = () => {
         <Flex justifyContent="space-around" alignItems="center" h="full">
           <FooterMenuItem
             title="Dashboard"
-            icon={AiOutlineDashboard}
+            icon={RiDashboard3Line}
             to={routes.app()}
+            iconProps={{
+              fontSize: 'xl',
+            }}
           />
-          <FooterMenuItem title="Team" icon={RiTeamFill} to={routes.team()} />
+          <FooterMenuItem title="Team" icon={RiTeamFill}>
+            <FooterMenuItemChild to={routes.team()} icon={RiTeamFill}>
+              Overzicht
+            </FooterMenuItemChild>
+            <FooterMenuItemChild
+              to={routes.team()}
+              icon={CgOptions}
+              divider={false}
+            >
+              Instellingen
+            </FooterMenuItemChild>
+          </FooterMenuItem>
           <FooterMenuItem title="Club" icon={CgHomeAlt} to={routes.club()} />
           <FooterMenuItem
             title="Profiel"

@@ -1,4 +1,4 @@
-import { As, ChakraProps, useDisclosure } from '@chakra-ui/react'
+import { As, ChakraProps, IconProps, useDisclosure } from '@chakra-ui/react'
 
 import { useLocation } from '@redwoodjs/router'
 
@@ -13,6 +13,7 @@ type SidebarItemProps = {
   to: string
   isLast?: boolean
   children?: React.ReactNode
+  iconProps?: IconProps
 } & ChakraProps
 
 const SidebarItem = ({
@@ -22,6 +23,7 @@ const SidebarItem = ({
   to,
   isLast,
   children,
+  iconProps,
 }: SidebarItemProps) => {
   const { pathname } = useLocation()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -49,6 +51,7 @@ const SidebarItem = ({
             icon={icon}
             active={active}
             hasChildren={hasChildren}
+            iconProps={iconProps}
           />
         ) : (
           <SidebarItemClosed
@@ -57,6 +60,7 @@ const SidebarItem = ({
             title={title}
             navOpen={navOpen}
             to={to}
+            iconProps={iconProps}
           />
         )}
       </SidebarItemWrapper>

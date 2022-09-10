@@ -1,9 +1,8 @@
 import { Flex, Image, useEventListener } from '@chakra-ui/react'
-import { AiOutlineDashboard } from 'react-icons/ai'
 import { CgHomeAlt, CgOptions, CgProfile } from 'react-icons/cg'
 import { IoIosStats } from 'react-icons/io'
 import { MdFormatListBulleted } from 'react-icons/md'
-import { RiTeamFill } from 'react-icons/ri'
+import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 
 import { routes } from '@redwoodjs/router'
 
@@ -53,7 +52,11 @@ const Sidebar = () => {
 
         <SidebarItem
           navOpen={navOpen}
-          icon={AiOutlineDashboard}
+          icon={RiDashboard3Line}
+          iconProps={{
+            fontSize: 'xl',
+            mr: '10px',
+          }}
           title="Dashboard"
           to={routes.app()}
         />

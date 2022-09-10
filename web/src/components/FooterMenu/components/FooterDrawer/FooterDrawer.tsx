@@ -11,11 +11,10 @@ import {
   DrawerFooter,
   DrawerOverlay,
 } from '@chakra-ui/react'
-import { AiOutlineDashboard } from 'react-icons/ai'
 import { CgHomeAlt, CgOptions } from 'react-icons/cg'
 import { IoIosStats } from 'react-icons/io'
 import { MdFormatListBulleted } from 'react-icons/md'
-import { RiTeamFill } from 'react-icons/ri'
+import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 import { TbHome } from 'react-icons/tb'
 
 import { routes } from '@redwoodjs/router'
@@ -56,7 +55,10 @@ const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
               <AccordionDirectLink
                 onClose={onClose}
                 to={routes.app()}
-                icon={AiOutlineDashboard}
+                icon={RiDashboard3Line}
+                iconProps={{
+                  fontSize: 'xl',
+                }}
               >
                 Dashboard
               </AccordionDirectLink>

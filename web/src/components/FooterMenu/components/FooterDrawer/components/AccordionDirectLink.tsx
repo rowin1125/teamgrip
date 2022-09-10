@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, BoxProps, Button, Icon, Text } from '@chakra-ui/react'
+import { Box, BoxProps, Button, Icon, IconProps, Text } from '@chakra-ui/react'
 import { IconType } from 'react-icons/lib'
 
 import RedwoodLink from 'src/components/RedwoodLink'
@@ -11,6 +11,7 @@ type AccordionDirectLinkProps = {
   nested?: boolean
   icon: IconType
   onClose: () => void
+  iconProps?: IconProps
 } & BoxProps
 
 const AccordionDirectLink = ({
@@ -19,6 +20,7 @@ const AccordionDirectLink = ({
   nested,
   icon: IconComponent,
   onClose,
+  iconProps,
   ...props
 }: AccordionDirectLinkProps) => (
   <Box
@@ -36,7 +38,13 @@ const AccordionDirectLink = ({
       alignItems="center"
       justifyContent="flex-start"
     >
-      <Icon as={IconComponent} fontSize="lg" color="white" mr={4} />
+      <Icon
+        as={IconComponent}
+        fontSize="lg"
+        color="white"
+        mr={4}
+        {...iconProps}
+      />
       <Text fontWeight="bold" fontSize="lg" color="white">
         {children}
       </Text>

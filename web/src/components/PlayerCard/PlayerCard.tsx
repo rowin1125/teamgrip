@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 
 import { useAuth } from '@redwoodjs/auth'
 
@@ -11,7 +11,7 @@ import './PLayerCard.scss'
 const PlayerCard = () => {
   const { currentUser } = useAuth()
   return (
-    <div>
+    <Box transform={{ base: 'scale(0.7)', xl: 'none' }}>
       {/* *** fut-player-card ****/}
       <div className="fut-player-card">
         {/* Player Card Top*/}
@@ -67,7 +67,7 @@ const PlayerCard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   )
 }
 

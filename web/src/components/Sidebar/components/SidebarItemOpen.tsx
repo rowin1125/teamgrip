@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, Flex, Icon } from '@chakra-ui/react'
+import { Button, Flex, Icon, IconProps } from '@chakra-ui/react'
 import { CgChevronRight } from 'react-icons/cg'
 import { RiMenuUnfoldLine } from 'react-icons/ri'
 
@@ -12,6 +12,7 @@ type SidebarItemOpenProps = {
   icon: React.ElementType
   active: boolean
   hasChildren: boolean
+  iconProps?: IconProps
 }
 
 const SidebarItemOpen = ({
@@ -19,6 +20,7 @@ const SidebarItemOpen = ({
   title,
   icon,
   active,
+  iconProps,
   hasChildren,
 }: SidebarItemOpenProps) => {
   return (
@@ -44,7 +46,7 @@ const SidebarItemOpen = ({
       }}
     >
       <Flex alignItems="center">
-        <Icon as={icon} mr={4} />
+        <Icon as={icon} mr={4} {...iconProps} />
         {title}
       </Flex>
       {hasChildren ? (
