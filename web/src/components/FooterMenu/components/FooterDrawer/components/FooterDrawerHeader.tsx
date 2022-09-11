@@ -9,9 +9,9 @@ const FooterDrawerHeader = () => (
     alignItems="center"
     flexDir="column"
   >
-    <Image src="/TeamStats Logo.png" w={'100px'} h="auto" />
+    <Image src="/TeamGrip Logo.png" w={'100px'} h="auto" />
     <Heading mt={4} fontSize="4xl" color="white">
-      TeamStats
+      TeamGrip
     </Heading>
   </DrawerHeader>
 )

@@ -70,9 +70,9 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
         <TextAlert status="info">
           <Text>
             <strong>Ghost spelers</strong> zijn spelers zonder een actief
-            account bij <strong>TeamStats</strong>. Gebruik ghost spelers om
-            zelf al je team samen te stellen zonder dat speler zelf al een
-            account nodig hebben.
+            account bij <strong>TeamGrip</strong>. Gebruik ghost spelers om zelf
+            al je team samen te stellen zonder dat speler zelf al een account
+            nodig hebben.
           </Text>
           <Text mt={4}>
             Je kunt later echte spelers koppelen aan de ghost accounts zodat

@@ -43,7 +43,7 @@ const Sidebar = () => {
       <Flex flexDir="column" w="full" as="nav">
         <Flex justifyContent="center" alignItems="center" py={6}>
           <Image
-            src="/TeamStats Logo.png"
+            src="/TeamGrip Logo.png"
             w={navOpen ? '100px' : '50px'}
             my={navOpen ? 0 : 6}
             h="auto"

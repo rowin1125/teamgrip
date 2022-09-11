@@ -6,7 +6,7 @@
 # https://redwoodjs.com/docs/app-configuration-redwood-toml
 
 [web]
-  title = "TeamStats"
+  title = "TeamGrip"
   port = 8910
   apiUrl = "${API_URL}"
   includeEnvironmentVariables = [

@@ -12,7 +12,7 @@ services:
 
 networks:
   default:
-    name: teamstats
+    name: teamgrip
     driver: bridge
     ipam:
       driver: default

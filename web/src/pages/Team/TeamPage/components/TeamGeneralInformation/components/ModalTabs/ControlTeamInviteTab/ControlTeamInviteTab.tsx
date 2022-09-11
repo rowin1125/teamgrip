@@ -72,7 +72,7 @@ const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
         <Button
           as="a"
           target="_blank"
-          href={`https://api.whatsapp.com/send?text=TeamStats:+Je+ben+uitgenodigd+om+een+team+te+joinen.+Bekijk+nu+je+uitnodiging:+${encodeURI(
+          href={`https://api.whatsapp.com/send?text=TeamGrip:+Je+ben+uitgenodigd+om+een+team+te+joinen.+Bekijk+nu+je+uitnodiging:+${encodeURI(
             inviteUrl
           )}`}
           colorScheme="whatsapp"

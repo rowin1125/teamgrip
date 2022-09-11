@@ -41,7 +41,7 @@ const UnAuthenticatedJoin = () => {
           />
         </TabPanel>
         <TabPanel>
-          <Heading color="white">Join de TeamStats fam </Heading>
+          <Heading color="white">Join de TeamGrip fam </Heading>
           <Text mt={4}>En sluit daarna direct aan bij je nieuwe team</Text>
           <SignUpForm
             onSubmit={handleSignUp}

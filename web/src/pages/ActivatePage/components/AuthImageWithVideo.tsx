@@ -71,7 +71,7 @@ const AuthImageWithVideo = ({
             autoPlay
             muted
             zIndex={0}
-            src="/deplay-teamstats.webm"
+            src="/deplay-teamgrip.webm"
           />
         </motion.div>
         <Box

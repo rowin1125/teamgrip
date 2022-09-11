@@ -66,7 +66,7 @@ export async function sendEmail({ to, subject, text, html }: Options) {
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: 'Rowin van TeamStats < rowinmol648@gmail.com',
+    from: 'Rowin van TeamGrip < rowinmol648@gmail.com',
     to: Array.isArray(to) ? to : [to], // list of receivers
     subject, // Subject line
     text, // plain text body

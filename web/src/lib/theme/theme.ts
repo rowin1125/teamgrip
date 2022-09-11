@@ -24,4 +24,4 @@ export const theme = extendTheme({
   },
 })
 
-export type TeamStatsTheme = typeof theme
+export type TeamGripTheme = typeof theme

@@ -12,7 +12,7 @@ const SettingsPage = () => {
     <>
       <MetaTags
         title="Instellingen"
-        description="Regel jouw instellingen voor TeamStats"
+        description="Regel jouw instellingen voor TeamGrip"
       />
       <Grid
         templateRows="repeat(1, 1fr)"

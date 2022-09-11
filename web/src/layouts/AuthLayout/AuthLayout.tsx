@@ -22,9 +22,9 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           to={routes.home()}
           alignItems="center"
         >
-          <Image h="80px" src="/TeamStats Logo.png" alt="Redwood" />
+          <Image h="80px" src="/TeamGrip Logo.png" alt="Redwood" />
           <Heading size="lg" color="white" pl={4}>
-            TeamsStats
+            TeamGrip
           </Heading>
         </Link>
       </Flex>
