@@ -95,6 +95,7 @@ model Player {
   isGhost         Boolean    @default(false)
   trainings       Training[]
   scores          Score[]
+  games           Game[]
 }
 
 model Team {
@@ -111,6 +112,7 @@ model Team {
   season          Season[]
   trainings       Training[]
   scores          Score[]
+  games           Game[]
 }
 
 model Club {
@@ -135,6 +137,19 @@ model Training {
   teamId        String
 }
 
+model Game {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  gameDate  DateTime
+  season    Season?  @relation(fields: [seasonId], references: [id])
+  seasonId  String?
+  players   Player[]
+  scores    Score[]
+  team      Team     @relation(fields: [teamId], references: [id])
+  teamId    String
+}
+
 model Score {
   id         String    @id @default(cuid())
   points     Int
@@ -145,16 +160,19 @@ model Score {
   seasonId   String
   player     Player    @relation(fields: [playerId], references: [id])
   playerId   String
-  training   Training  @relation(fields: [trainingId], references: [id], onDelete: Cascade)
-  trainingId String
+  training   Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  trainingId String?
   team       Team?     @relation(fields: [teamId], references: [id])
   teamId     String?
+  game       Game?     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  gameId     String?
 }
 
 enum ScoreType {
   TRAINING
   TOP_TRAINING
   GAME
+  TOP_GAME
 }
 
 model Season {
@@ -167,4 +185,5 @@ model Season {
   trainings      Training[]
   scores         Score[]
   teamId         String
+  games          Game[]
 }

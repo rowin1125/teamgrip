@@ -15,6 +15,7 @@ export const schema = gql`
     isGhost: Boolean!
     trainings: [Training]!
     scores: [Score]!
+    games: [Game]!
   }
 
   extend type Player {

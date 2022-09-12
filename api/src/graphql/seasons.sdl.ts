@@ -5,10 +5,11 @@ export const schema = gql`
     updatedAt: DateTime!
     name: String!
     seasonTeamName: String!
-    trainings: [Training]!
     score: [Score]!
     team: Team!
     teamId: String!
+    trainings: [Training]!
+    games: [Game]!
   }
 
   type Query {

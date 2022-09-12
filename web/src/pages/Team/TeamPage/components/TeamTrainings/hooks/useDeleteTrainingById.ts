@@ -4,6 +4,7 @@ import {
   Training,
 } from 'types/graphql'
 
+import { useAuth } from '@redwoodjs/auth'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 
@@ -20,6 +21,7 @@ export const DELETE_TRAINING_BY_ID = gql`
 `
 
 export const useDeleteTrainingById = () => {
+  const { currentUser } = useAuth()
   const [deleteTraining, { loading, error }] = useMutation<
     DeleteTrainingById,
     DeleteTrainingByIdVariables
@@ -30,9 +32,11 @@ export const useDeleteTrainingById = () => {
     refetchQueries: [
       {
         query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
+        variables: { teamId: currentUser?.player?.teamId || '' },
       },
       {
         query: GET_TRAININGS_BY_TEAM_QUERY,
+        variables: { id: currentUser?.player?.teamId || '' },
       },
     ],
   })

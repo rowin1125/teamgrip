@@ -8,6 +8,7 @@ import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 
 import SeasonLockWrapper from '../../../components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 
+import TeamGames from './components/TeamGames/TeamGames'
 import TeamGeneralInformation from './components/TeamGeneralInformation'
 import TeamList from './components/TeamList/TeamList'
 import TeamNotFoundMessage from './components/TeamNotFoundMessage/TeamNotFoundMessage'
@@ -51,6 +52,11 @@ const TeamPage = () => {
         <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
           <SeasonLockWrapper>
             <TeamTrainings />
+          </SeasonLockWrapper>
+        </GridItem>
+        <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
+          <SeasonLockWrapper>
+            <TeamGames />
           </SeasonLockWrapper>
         </GridItem>
       </Grid>

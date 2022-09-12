@@ -36,6 +36,7 @@ export const useUpdateTrainingById = (id: string) => {
     refetchQueries: [
       {
         query: GET_TRAININGS_BY_TEAM_QUERY,
+        variables: { id: currentUser?.player?.teamId || '' },
       },
     ],
   })

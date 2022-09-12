@@ -9,14 +9,17 @@ export const schema = gql`
     seasonId: String!
     player: Player!
     playerId: String!
-    training: Training!
-    trainingId: String!
+    training: Training
+    trainingId: String
+    game: Game
+    gameId: String
   }
 
   enum ScoreType {
     TRAINING
     TOP_TRAINING
     GAME
+    TOP_GAME
   }
 
   type Query {
@@ -29,17 +32,19 @@ export const schema = gql`
     type: ScoreType!
     seasonId: String!
     playerId: String!
-    trainingId: String!
+    trainingId: String
     teamId: String!
+    gameId: String
   }
 
   input UpdateScoreInput {
-    points: Int
-    type: ScoreType
-    seasonId: String
-    playerId: String
+    points: Int!
+    type: ScoreType!
+    seasonId: String!
+    playerId: String!
     trainingId: String
-    teamId: String!
+    gameId: String!
+    teamId: String
   }
 
   type Mutation {

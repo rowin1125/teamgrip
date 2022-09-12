@@ -4,7 +4,7 @@ import { HiOutlineDocumentSearch } from 'react-icons/hi'
 const NoEntries = () => {
   return (
     <Flex justifyContent="center" alignItems="center" h={40}>
-      <Text fontSize="xl">Geen gegeven gevonden</Text>{' '}
+      <Text fontSize="xl">Geen gegevens gevonden</Text>{' '}
       <Icon as={HiOutlineDocumentSearch} fontSize="5xl" ml={4} />
     </Flex>
   )
