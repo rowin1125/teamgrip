@@ -167,6 +167,8 @@ export const createUsers = async () => {
   )
 
   // Create user without Team
+  const firstname = randFirstName()
+  const lastname = randLastName()
   await db.user.create({
     data: {
       ...defaultUserProperties,
@@ -180,12 +182,14 @@ export const createUsers = async () => {
       },
       userProfile: {
         create: {
-          firstname: randFirstName(),
-          lastname: randLastName(),
+          firstname: firstname,
+          lastname: lastname,
         },
       },
       player: {
-        create: {},
+        create: {
+          displayName: `${firstname} ${lastname}`,
+        },
       },
     },
   })

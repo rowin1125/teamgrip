@@ -50,7 +50,13 @@ export const useScoreFieldArrayActions = ({
       )
       const newTopTrainingScores = [
         ...filteredTopTraining,
-        { ...scoreBlueprint, playerId: '', type: 'TOP_TRAINING' },
+        {
+          ...scoreBlueprint,
+          playerId: '',
+          type: 'TOP_TRAINING',
+          seasonId: values.seasonId || defaultTeamSeasonId || '',
+          teamId: values.teamId || team?.id || '',
+        },
       ]
       setFieldValue('topTrainingScores', newTopTrainingScores)
     }

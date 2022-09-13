@@ -28,7 +28,8 @@ const TeamTrainings = () => {
     return {
       id: training.id,
       datum: format(new Date(training.trainingsDate), 'dd-MM-yyyy'),
-      aantal: training.scores.length,
+      aantal: training.scores.filter((score) => score.type === 'TRAINING')
+        .length,
       'Top speler': bestPlayerOfTraining?.player?.displayName,
       season: training.season.name,
     }

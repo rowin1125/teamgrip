@@ -16,7 +16,11 @@ export const createUserProfile: MutationResolvers['createUserProfile'] = ({
   input,
 }) => {
   return db.userProfile.create({
-    data: input,
+    data: {
+      ...input,
+      firstname: input.firstname.toLocaleLowerCase(),
+      lastname: input.lastname.toLocaleLowerCase(),
+    },
   })
 }
 
@@ -24,7 +28,11 @@ export const updateUserProfile: MutationResolvers['updateUserProfile'] =
   async ({ id, input }) => {
     const userProfile = await db.userProfile.update({
       where: { userId: id },
-      data: input,
+      data: {
+        ...input,
+        firstname: input.firstname.toLocaleLowerCase(),
+        lastname: input.lastname.toLocaleLowerCase(),
+      },
     })
 
     await db.player.update({
