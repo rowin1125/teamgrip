@@ -12,10 +12,16 @@ export const schema = gql`
     teamInvitation: String
     ghostInvitation: String
     displayName: String
+    playerType: PlayerType
     isGhost: Boolean!
     trainings: [Training]!
     scores: [Score]!
     games: [Game]!
+  }
+
+  enum PlayerType {
+    PLAYER
+    STAFF
   }
 
   extend type Player {

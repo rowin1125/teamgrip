@@ -37,7 +37,9 @@ export const schema = gql`
 
   type Mutation {
     createTeam(input: CreateTeamInput!): Team! @requireAuth
-    updateTeam(id: String!, input: UpdateTeamInput!): Team! @requireAuth
+    updateTeam(id: String!, input: UpdateTeamInput!): Team!
+      @requireAuth
+      @isTeamOwner
     deleteTeam(id: String!): Team! @requireAuth
 
     createInvitationToken(id: String!): Team! @requireAuth @isTeamOwner

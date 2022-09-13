@@ -25,6 +25,8 @@ const Routes = () => {
           {/* TEAM */}
           <Route path="/app/team" page={TeamTeamPage} name="team" />
           <Route path="/app/team/nieuw" page={TeamNewTeamPage} name="newTeam" />
+          <Route path="/app/team/{id}/update-team" page={TeamUpdateTeamPage} name="updateTeam" />
+          <Route path="/app/team/team-settings" page={TeamTeamSettingsPage} name="teamSettings" />
           {/* SEASONS */}
           <Route path="/app/team/{id}/season/nieuw" page={SeasonNewSeasonPage} name="newSeason" />
           {/* TRAININGS */}

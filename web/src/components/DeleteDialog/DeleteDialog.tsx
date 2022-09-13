@@ -9,6 +9,7 @@ import {
   ButtonProps,
   Heading,
   Icon,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { BsTrash } from 'react-icons/bs'
@@ -20,6 +21,8 @@ type DeleteDialogType = {
   children: React.ReactNode
   buttonVariant?: ButtonProps['variant']
   title: string
+  buttonLabel?: string
+  buttonProps?: ButtonProps
 }
 
 const DeleteDialog = ({
@@ -29,6 +32,8 @@ const DeleteDialog = ({
   children,
   buttonVariant = 'solid',
   title,
+  buttonLabel,
+  buttonProps,
 }: DeleteDialogType) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
@@ -40,7 +45,18 @@ const DeleteDialog = ({
 
   return (
     <>
-      <Button ml={4} colorScheme="red" onClick={onOpen} variant={buttonVariant}>
+      <Button
+        ml={4}
+        colorScheme="red"
+        onClick={onOpen}
+        variant={buttonVariant}
+        {...buttonProps}
+      >
+        {buttonLabel && (
+          <Text color="white" mr={4}>
+            {buttonLabel}
+          </Text>
+        )}
         <Icon as={BsTrash} />
       </Button>
 

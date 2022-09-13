@@ -18,6 +18,7 @@ export const team: QueryResolvers['team'] = ({ id }) => {
     where: { id },
     include: {
       club: true,
+      players: true,
     },
   })
 }
@@ -75,17 +76,61 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
   return result[0]
 }
 
-export const updateTeam: MutationResolvers['updateTeam'] = ({ id, input }) => {
-  return db.team.update({
-    data: input,
+export const updateTeam: MutationResolvers['updateTeam'] = async ({
+  id,
+  input,
+}) => {
+  const { ownerIsPlayer, ...data } = input
+  const teamResult = await db.team.update({
+    data,
     where: { id },
   })
+
+  await db.player.update({
+    where: {
+      userId: teamResult.ownerId,
+    },
+    data: {
+      isActivePlayer: ownerIsPlayer,
+    },
+  })
+
+  return teamResult
 }
 
-export const deleteTeam: MutationResolvers['deleteTeam'] = ({ id }) => {
-  return db.team.delete({
+export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
+  const deletedTeam = await db.team.delete({
     where: { id },
   })
+
+  await db.player.deleteMany({
+    where: {
+      teamId: id,
+      AND: {
+        isGhost: true,
+      },
+    },
+  })
+
+  await db.player.updateMany({
+    where: {
+      teamId: id,
+    },
+    data: {
+      teamId: null,
+    },
+  })
+
+  await db.player.update({
+    where: {
+      userId: context.currentUser.id,
+    },
+    data: {
+      playerType: 'PLAYER',
+    },
+  })
+
+  return deletedTeam
 }
 
 export const createInvitationToken: MutationResolvers['createInvitationToken'] =

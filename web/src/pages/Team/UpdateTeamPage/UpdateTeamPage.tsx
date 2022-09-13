@@ -1,5 +1,5 @@
-import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
+import { Grid, GridItem, Heading, Box, Button } from '@chakra-ui/react'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 
 import { useAuth } from '@redwoodjs/auth'
@@ -10,36 +10,43 @@ import ControlledInput from 'src/components/forms/components/ControlledInput'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 
-import { handleTeamNameTransformation } from './helpers/handleTeamnameTransformation/handleTeamnameTransformation'
-import { useCreateTeam } from './hooks/useCreateTeam'
-import { useGetClubs } from './hooks/useGetClubs'
+import { handleTeamNameTransformation } from '../NewTeamPage/helpers/handleTeamnameTransformation/handleTeamnameTransformation'
+import { useGetClubs } from '../NewTeamPage/hooks/useGetClubs'
 
-const NewTeamPage = () => {
-  const { currentUser } = useAuth()
+import { useUpdateTeam } from './hooks/useUpdateTeam'
+
+const UpdateTeamPage = () => {
+  const { currentUser, loading: authLoading } = useAuth()
   const { clubs } = useGetClubs()
-  const { handleCreateTeam, loading } = useCreateTeam(clubs)
+  const { team, loading } = useGetTeamById()
+  const { handleUpdateTeam, updateTeamLoading } = useUpdateTeam(clubs)
 
   const validationSchema = Yup.object().shape({
     clubId: Yup.string().required('Club is verplicht'),
     name: Yup.string().min(4).required('Naam is verplicht'),
   })
+  if (loading || authLoading) return null
 
   return (
     <>
-      <MetaTags title="Nieuwe team" description="NewTeam page" />
+      <MetaTags
+        title="Update je team"
+        description="Update de gegevens van je team"
+      />
 
       <Grid templateColumns="repeat(3, 1fr)" gap={{ xl: 10 }}>
         <GridItem colSpan={{ base: 3, xl: 2 }}>
           <Card>
             <Heading>Maak nu je eigen team aan 💪</Heading>
             <Formik
-              onSubmit={handleCreateTeam}
+              onSubmit={handleUpdateTeam}
               initialValues={{
-                name: '',
-                clubId: '',
+                name: team.name,
+                clubId: team.club.id,
                 ownerId: currentUser?.id,
-                ownerIsPlayer: false,
+                ownerIsPlayer: currentUser?.player.isActivePlayer,
               }}
               validationSchema={validationSchema}
             >
@@ -79,9 +86,9 @@ const NewTeamPage = () => {
                       mt={8}
                       colorScheme="secondary"
                       type="submit"
-                      isLoading={loading}
+                      isLoading={updateTeamLoading}
                     >
-                      Maak {customTeamName ? customTeamName : 'team'} aan
+                      Update {customTeamName ? customTeamName : 'team'}
                     </Button>
                   </Box>
                 )
@@ -94,4 +101,4 @@ const NewTeamPage = () => {
   )
 }
 
-export default NewTeamPage
+export default UpdateTeamPage

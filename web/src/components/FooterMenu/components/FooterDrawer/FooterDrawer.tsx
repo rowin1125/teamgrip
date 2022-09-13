@@ -76,7 +76,7 @@ const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
                 <AccordionDirectLink
                   onClose={onClose}
                   nested
-                  to={routes.team()}
+                  to={routes.teamSettings()}
                   icon={CgOptions}
                 >
                   Instellingen

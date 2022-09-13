@@ -12,10 +12,15 @@ export const TEAM_FRAGMENT = gql`
     }
     club {
       name
+      id
     }
     season {
       id
       name
+    }
+    players {
+      id
+      playerType
     }
   }
 `

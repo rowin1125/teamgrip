@@ -47,7 +47,7 @@ model UserProfile {
   firstname String?
   lastname  String?
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Avatar {
@@ -82,7 +82,7 @@ model Player {
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @default(now()) @updatedAt
   userId          String?    @unique
-  user            User?      @relation(fields: [userId], references: [id])
+  user            User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   teamId          String?
   team            Team?      @relation(fields: [teamId], references: [id])
   club            Club?      @relation(fields: [clubId], references: [id])
@@ -104,9 +104,9 @@ model Team {
   updatedAt       DateTime   @default(now()) @updatedAt
   name            String     @unique
   players         Player[]
-  club            Club?      @relation(fields: [clubId], references: [id])
+  club            Club?      @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId          String?
-  owner           User       @relation(fields: [ownerId], references: [id])
+  owner           User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId         String
   invitationToken String?
   season          Season[]
@@ -129,11 +129,11 @@ model Training {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now()) @updatedAt
   trainingsDate DateTime
-  season        Season?  @relation(fields: [seasonId], references: [id])
+  season        Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId      String?
   players       Player[]
   scores        Score[]
-  team          Team     @relation(fields: [teamId], references: [id])
+  team          Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId        String
 }
 
@@ -142,11 +142,11 @@ model Game {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   gameDate  DateTime
-  season    Season?  @relation(fields: [seasonId], references: [id])
+  season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId  String?
   players   Player[]
   scores    Score[]
-  team      Team     @relation(fields: [teamId], references: [id])
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId    String
 }
 
@@ -156,9 +156,9 @@ model Score {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @default(now()) @updatedAt
   type       ScoreType
-  season     Season    @relation(fields: [seasonId], references: [id])
+  season     Season    @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId   String
-  player     Player    @relation(fields: [playerId], references: [id])
+  player     Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
   playerId   String
   training   Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
   trainingId String?
@@ -181,7 +181,7 @@ model Season {
   updatedAt      DateTime   @default(now()) @updatedAt
   name           String
   seasonTeamName String     @unique
-  team           Team       @relation(fields: [teamId], references: [id])
+  team           Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
   trainings      Training[]
   scores         Score[]
   teamId         String

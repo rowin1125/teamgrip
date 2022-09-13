@@ -41,7 +41,7 @@ const FooterMenu = () => {
               Overzicht
             </FooterMenuItemChild>
             <FooterMenuItemChild
-              to={routes.team()}
+              to={routes.teamSettings()}
               icon={CgOptions}
               divider={false}
             >

@@ -75,7 +75,7 @@ const Sidebar = () => {
             <SidebarItemChild
               icon={CgOptions}
               divider={false}
-              to={routes.team()}
+              to={routes.teamSettings()}
             >
               Instellingen
             </SidebarItemChild>
