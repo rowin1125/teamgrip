@@ -47,10 +47,7 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
   const handleSubmit = async (values, actions) => {
     try {
       const playerCountCreated = await handleInviteGhostsPlayers(values)
-      if (!playerCountCreated) {
-        toast.error('Niet genoeg aantal spelers aangemaakt...')
-        return
-      }
+      if (!playerCountCreated) return
 
       actions.resetForm()
       onClose()

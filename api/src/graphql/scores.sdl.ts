@@ -48,8 +48,10 @@ export const schema = gql`
   }
 
   type Mutation {
-    createScore(input: CreateScoreInput!): Score! @requireAuth
-    updateScore(id: String!, input: UpdateScoreInput!): Score! @requireAuth
-    deleteScore(id: String!): Score! @requireAuth
+    createScore(input: CreateScoreInput!): Score! @requireAuth @isTeamOwner
+    updateScore(id: String!, input: UpdateScoreInput!): Score!
+      @requireAuth
+      @isTeamOwner
+    deleteScore(id: String!): Score! @requireAuth @isTeamOwner
   }
 `

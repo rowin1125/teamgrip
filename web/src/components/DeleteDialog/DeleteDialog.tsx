@@ -64,7 +64,7 @@ const DeleteDialog = ({
               <Button
                 colorScheme="red"
                 onClick={handleDelete}
-                ml={3}
+                ml={4}
                 isLoading={loading}
               >
                 Weg ermee

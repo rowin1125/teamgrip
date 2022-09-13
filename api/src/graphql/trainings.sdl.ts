@@ -34,12 +34,12 @@ export const schema = gql`
     createTraining(
       input: CreateTrainingInput!
       scores: [CreateScoreInput]!
-    ): Training! @requireAuth
+    ): Training! @requireAuth @isTeamOwner
     updateTraining(
       id: String!
       input: UpdateTrainingInput!
       scores: [CreateScoreInput]!
-    ): Training! @requireAuth
-    deleteTraining(id: String!): Training! @requireAuth
+    ): Training! @requireAuth @isTeamOwner
+    deleteTraining(id: String!): Training! @requireAuth @isTeamOwner
   }
 `

@@ -44,11 +44,11 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
       )}
       <Button
         ml={4}
-        colorScheme={hasGhostPlayer ? 'orange' : 'primary'}
+        colorScheme={hasGhostPlayer ? 'orange' : 'secondary'}
         isLoading={loading}
         onClick={() => handleJoinTeam(currentUser?.player?.id, team?.id)}
       >
-        Join het team normaal
+        Join het team
       </Button>
 
       {hasGhostPlayer && (

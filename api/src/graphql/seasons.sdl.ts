@@ -30,7 +30,10 @@ export const schema = gql`
   type Mutation {
     createSeason(input: CreateSeasonInput!, teamId: String!): Season!
       @requireAuth
-    updateSeason(id: String!, input: UpdateSeasonInput!): Season! @requireAuth
-    deleteSeason(id: String!): Season! @requireAuth
+      @isTeamOwner
+    updateSeason(id: String!, input: UpdateSeasonInput!): Season!
+      @requireAuth
+      @isTeamOwner
+    deleteSeason(id: String!): Season! @requireAuth @isTeamOwner
   }
 `

@@ -69,7 +69,7 @@ const GhostPlayerUniqueInvite = ({
             )}
           </Button>
           <Button
-            mx={4}
+            ml={4}
             as="a"
             target="_blank"
             href={`https://api.whatsapp.com/send?text=TeamGrip:+Je+ben+uitgenodigd+om+een+team+te+joinen.+Bekijk+nu+je+uitnodiging:+${encodeURI(

@@ -65,9 +65,9 @@ export const schema = gql`
   type Mutation {
     createManyGhostPlayers(
       input: CreateGhostPlayersInput!
-    ): CreateManyGhostPlayersReturnType! @requireAuth
-    createGhostPlayerInvitation(id: String!): Player! @requireAuth
-    deleteGhostPlayerInvitation(id: String!): Player! @requireAuth
+    ): CreateManyGhostPlayersReturnType! @requireAuth @isTeamOwner
+    createGhostPlayerInvitation(id: String!): Player! @requireAuth @isTeamOwner
+    deleteGhostPlayerInvitation(id: String!): Player! @requireAuth @isTeamOwner
     playerJoinsTeamByGhostInvitation(
       id: String!
       ghostId: String!

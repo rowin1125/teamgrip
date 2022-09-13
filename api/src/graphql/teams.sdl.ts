@@ -40,7 +40,7 @@ export const schema = gql`
     updateTeam(id: String!, input: UpdateTeamInput!): Team! @requireAuth
     deleteTeam(id: String!): Team! @requireAuth
 
-    createInvitationToken(id: String!): Team! @requireAuth
-    deleteInvitationToken(id: String!): Team! @requireAuth
+    createInvitationToken(id: String!): Team! @requireAuth @isTeamOwner
+    deleteInvitationToken(id: String!): Team! @requireAuth @isTeamOwner
   }
 `

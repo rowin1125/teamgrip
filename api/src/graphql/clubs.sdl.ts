@@ -23,7 +23,8 @@ export const schema = gql`
 
   type Mutation {
     createClub(input: CreateClubInput!): Club! @requireAuth(roles: ["ADMIN"])
-    updateClub(id: String!, input: UpdateClubInput!): Club! @requireAuth
-    deleteClub(id: String!): Club! @requireAuth
+    updateClub(id: String!, input: UpdateClubInput!): Club!
+      @requireAuth(roles: ["ADMIN"])
+    deleteClub(id: String!): Club! @requireAuth(roles: ["ADMIN"])
   }
 `

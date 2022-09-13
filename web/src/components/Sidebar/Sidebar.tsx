@@ -7,6 +7,7 @@ import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 import { routes } from '@redwoodjs/router'
 
 import useLocalStorage from 'src/hooks/global/useLocalStorage'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import SidebarItem from './components/SidebarItem'
 import SidebarItemChild from './components/SidebarItemChild'
@@ -16,6 +17,7 @@ const ClOSE_SIDEBAR_KEYS = ['221', '[']
 
 const Sidebar = () => {
   const [navOpen, toggleNav] = useLocalStorage('navOpen', true)
+  const { isTeamStaff } = useTeamPlayerAuth()
 
   const handler = ({ key }) => {
     if (ClOSE_SIDEBAR_KEYS.includes(String(key))) {
@@ -69,9 +71,15 @@ const Sidebar = () => {
           <SidebarItemChild icon={MdFormatListBulleted} to={routes.team()}>
             Overzicht
           </SidebarItemChild>
-          <SidebarItemChild icon={CgOptions} divider={false} to={routes.team()}>
-            Instellingen
-          </SidebarItemChild>
+          {isTeamStaff && (
+            <SidebarItemChild
+              icon={CgOptions}
+              divider={false}
+              to={routes.team()}
+            >
+              Instellingen
+            </SidebarItemChild>
+          )}
         </SidebarItem>
         <SidebarItem
           navOpen={navOpen}
