@@ -18,7 +18,7 @@ const TableDataAvatar = ({ cell, size }: TableDataAvatarProps) => {
   const sizes = {
     sm: 37.5,
     md: 50,
-    lg: 67.5,
+    lg: 60,
   }
 
   return (

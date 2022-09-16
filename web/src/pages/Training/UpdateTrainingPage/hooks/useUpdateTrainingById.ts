@@ -57,7 +57,7 @@ export const useUpdateTrainingById = (id: string) => {
         },
       })
       toast.success(`Training aangepast`)
-      navigate(routes.team())
+      navigate(routes.trainingDetail({ id }))
     } catch (error) {
       toast.error(error.message)
     }

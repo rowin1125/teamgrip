@@ -1,4 +1,7 @@
+import { AVATAR_FRAGMENT } from './AvatarFragment'
+
 export const TRAINING_FRAGMENT = gql`
+  ${AVATAR_FRAGMENT}
   fragment TrainingFragment on Training {
     id
     createdAt
@@ -19,11 +22,15 @@ export const TRAINING_FRAGMENT = gql`
       player {
         displayName
         id
+        user {
+          ...AvatarFragment
+        }
       }
     }
     teamId
     team {
       id
+      name
       season {
         id
       }

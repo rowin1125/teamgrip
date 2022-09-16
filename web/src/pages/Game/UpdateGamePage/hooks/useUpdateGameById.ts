@@ -57,7 +57,7 @@ export const useUpdateGameById = (id: string) => {
         },
       })
       toast.success(`Wedstrijd aangepast`)
-      navigate(routes.team())
+      navigate(routes.gameDetail({ id }))
     } catch (error) {
       toast.error(error.message)
     }

@@ -57,7 +57,7 @@ export const useCreateTraining = ({
     const allScores = [...scores, ...topTrainingScores]
 
     try {
-      await createTraining({
+      const training = await createTraining({
         variables: {
           input: {
             ...input,
@@ -67,7 +67,7 @@ export const useCreateTraining = ({
         },
       })
       toast.success(`Training aangemaakt`)
-      navigate(routes.team())
+      navigate(routes.trainingDetail({ id: training.data?.createTraining.id }))
     } catch (error) {
       toast.error(error.message)
     }

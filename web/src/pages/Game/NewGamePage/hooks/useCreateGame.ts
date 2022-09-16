@@ -54,7 +54,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
     const allScores = [...scores, ...topGameScores]
 
     try {
-      await createGame({
+      const game = await createGame({
         variables: {
           input: {
             ...input,
@@ -64,7 +64,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
         },
       })
       toast.success(`Wedstrijd aangemaakt`)
-      navigate(routes.team())
+      navigate(routes.gameDetail({ id: game?.data?.createGame.id }))
     } catch (error) {
       toast.error(error.message)
     }

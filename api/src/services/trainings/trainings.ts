@@ -16,6 +16,9 @@ export const trainings: QueryResolvers['trainings'] = () => {
 export const training: QueryResolvers['training'] = ({ id }) => {
   return db.training.findUnique({
     where: { id },
+    include: {
+      team: true,
+    },
   })
 }
 

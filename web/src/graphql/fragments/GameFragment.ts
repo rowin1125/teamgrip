@@ -1,4 +1,7 @@
+import { AVATAR_FRAGMENT } from './AvatarFragment'
+
 export const GAME_FRAGMENT = gql`
+  ${AVATAR_FRAGMENT}
   fragment GameFragment on Game {
     id
     createdAt
@@ -19,11 +22,15 @@ export const GAME_FRAGMENT = gql`
       player {
         displayName
         id
+        user {
+          ...AvatarFragment
+        }
       }
     }
     teamId
     team {
       id
+      name
       season {
         id
       }
