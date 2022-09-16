@@ -9,19 +9,19 @@ import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaf
 
 import { UseTeamTableReturnType } from '../hooks/useTeamTable'
 
-type TeamTableProps = {
+type TeamTableHeadProps = {
   headerGroups: HeaderGroup<UseTeamTableReturnType>[]
   theme: 'dark' | 'light'
   hiddenColumns?: string[]
   showActions?: boolean
 }
 
-const TeamTable = ({
+const TeamTableHead = ({
   headerGroups,
   theme,
   hiddenColumns,
   showActions,
-}: TeamTableProps) => (
+}: TeamTableHeadProps) => (
   <Thead>
     {headerGroups.map((headerGroup) => (
       <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -69,4 +69,4 @@ const TeamTable = ({
   </Thead>
 )
 
-export default TeamTable
+export default TeamTableHead

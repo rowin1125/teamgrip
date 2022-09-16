@@ -52,6 +52,7 @@ const ControlledSelect = ({
   }
 
   if (!options) return null
+
   return (
     <FormControl isInvalid={isInvalid} mb={8} {...props}>
       <FormLabel fontWeight="bold" htmlFor={id}>

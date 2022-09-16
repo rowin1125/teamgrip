@@ -46,6 +46,7 @@ export const schema = gql`
     ghostInvitation: String
     displayName: String
     isGhost: Boolean
+    playerType: PlayerType
   }
 
   input UpdatePlayerInput {
@@ -57,6 +58,7 @@ export const schema = gql`
     ghostInvitation: String
     displayName: String
     isGhost: Boolean
+    playerType: PlayerType
   }
 
   input CreateGhostPlayersInput {

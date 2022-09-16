@@ -30,8 +30,14 @@ export const useTeamTable = (entries: TeamTableEntriesType) => {
     [entries]
   ) as Column<UseTeamTableReturnType>[]
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<UseTeamTableReturnType>({ columns, data }, useSortBy)
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setSortBy,
+  } = useTable<UseTeamTableReturnType>({ columns, data }, useSortBy)
 
   return {
     getTableProps,
@@ -39,5 +45,6 @@ export const useTeamTable = (entries: TeamTableEntriesType) => {
     headerGroups,
     rows,
     prepareRow,
+    setSortBy,
   }
 }

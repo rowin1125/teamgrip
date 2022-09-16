@@ -23,6 +23,33 @@ export const team: QueryResolvers['team'] = ({ id }) => {
   })
 }
 
+export const teamExtraDetails: QueryResolvers['teamExtraDetails'] = ({
+  id,
+}) => {
+  return db.team.findFirst({
+    where: { id },
+    include: {
+      club: true,
+      players: {
+        include: {
+          games: {
+            include: {
+              _count: true,
+            },
+          },
+          trainings: {
+            include: {
+              _count: true,
+            },
+          },
+        },
+      },
+      games: true,
+      trainings: true,
+    },
+  })
+}
+
 export const teamByInvitationToken: QueryResolvers['teamByInvitationToken'] = ({
   invitationToken,
 }) => {
