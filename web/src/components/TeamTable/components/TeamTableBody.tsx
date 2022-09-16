@@ -17,8 +17,8 @@ type TeamTableBodyProps = {
     propGetter?: TableBodyPropGetter<UseTeamTableReturnType> | undefined
   ) => TableCommonProps
   routes?: {
-    detail: (params?: any) => string
-    update: (params?: any) => string
+    detail?: (params?: any) => string
+    update?: (params?: any) => string
   }
   onDelete?: (id: string) => Promise<void>
   hiddenColumns?: string[]

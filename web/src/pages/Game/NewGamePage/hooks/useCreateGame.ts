@@ -70,9 +70,11 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
     }
   }
 
-  const defaultTeamSeasonId = team?.season?.filter((season) =>
+  const seasonMatchesThisYear = team?.season?.filter((season) =>
     season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
+
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0].id
 
   useEffect(() => {
     if (team && team.season?.length === 0) {
@@ -93,7 +95,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
   const initialScoresInputValues: CreateScoreInput[] =
     playersData?.playersForTeam.map((player) => ({
       ...scoreBlueprint,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       playerId: player.id,
       teamId: currentUser?.player?.teamId,
     })) || []
@@ -104,7 +106,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
       playerId: '',
       type: 'TOP_GAME',
       points: 50,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       teamId: team?.id,
       gameId: '',
     },
@@ -113,7 +115,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
       playerId: '',
       type: 'TOP_GAME',
       points: 50,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       teamId: team?.id,
       gameId: '',
     },
@@ -122,14 +124,14 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
       playerId: '',
       type: 'TOP_GAME',
       points: 50,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       teamId: team?.id,
       gameId: '',
     },
   ]
 
   return {
-    defaultTeamSeasonId,
+    defaultTeamSeasonId: defaultSeasonId,
     initialScoresInputValues,
     initialTopGameScores,
     handleCreateGame,

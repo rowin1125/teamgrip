@@ -32,7 +32,7 @@ export const useCreateSeason = (team: FindTeamQuery['team']) => {
           teamId: team?.id,
           input: {
             ...values,
-            seasonTeamName: `${team?.name}-${values.name}`,
+            seasonTeamName: `${team?.club.name}-${team?.name}-${values.name}`,
           },
         },
       })

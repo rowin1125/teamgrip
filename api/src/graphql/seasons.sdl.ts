@@ -5,7 +5,7 @@ export const schema = gql`
     updatedAt: DateTime!
     name: String!
     seasonTeamName: String!
-    score: [Score]!
+    scores: [Score]!
     team: Team!
     teamId: String!
     trainings: [Training]!
@@ -15,6 +15,7 @@ export const schema = gql`
   type Query {
     seasons: [Season!]! @requireAuth
     season(id: String!): Season @requireAuth
+    seasonsByTeamId(teamId: String!): [Season]! @requireAuth
   }
 
   input CreateSeasonInput {

@@ -14,8 +14,8 @@ import TableDataRank from './TableDataComponents/TableDataRank'
 type TableDataMachineProps = {
   cell: Cell<UseTeamTableReturnType, any>
   routes?: {
-    detail: (params?: any) => string
-    update: (params?: any) => string
+    detail?: (params?: any) => string
+    update?: (params?: any) => string
   }
   row: Row<UseTeamTableReturnType>
   hiddenColumns?: string[]

@@ -20,8 +20,8 @@ type TeamTableProps = Omit<TableProps, 'size'> & {
   hiddenColumns?: string[]
   theme?: 'dark' | 'light'
   routes?: {
-    detail: (params?: any) => string
-    update: (params?: any) => string
+    detail?: (params?: any) => string
+    update?: (params?: any) => string
   }
   showActions?: boolean
   onDelete?: (id: string) => Promise<void>

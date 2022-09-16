@@ -12,15 +12,16 @@ import Card from 'src/components/Card/Card'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import TextAlert from 'src/components/TextAlert/TextAlert'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
-import { useCreateSeason } from './hooks/useCreateSeason'
+import { useGetSeasonById } from './hooks/useGetSeasonById'
+import { useUpdateSeasonById } from './hooks/useUpdateSeasonById'
 
-const NewSeasonPage = () => {
+const UpdateSeasonPage = () => {
   const { currentUser, isTeamStaff } = useTeamPlayerAuth()
-  const { team } = useGetTeamById()
-  const { handleCreateSeason, seasonLoading } = useCreateSeason(team)
+  const { season, seasonLoading } = useGetSeasonById()
+  const { handleUpdateSeason, handleUpdateSeasonLoading } =
+    useUpdateSeasonById()
 
   useEffect(() => {
     if (isTeamStaff) return
@@ -33,26 +34,27 @@ const NewSeasonPage = () => {
     name: Yup.string().min(4).required('Naam is verplicht'),
   })
 
+  if (!season || seasonLoading) return null
+
   return (
     <>
-      <MetaTags title="Nieuw seizoen" description="Start een nieuw seizoen" />
+      <MetaTags title="Update jouw seizoen" description="UpdateSeason page" />
 
       <Grid templateColumns="repeat(3, 1fr)" gap={{ xl: 10 }}>
         <GridItem colSpan={{ base: 3, xl: 2 }}>
           <Card>
-            <Heading>Start een nieuw seizoen 🗓️</Heading>
-            <TextAlert my={8} status="info">
+            <Heading>Update het seizoen: {season?.name} 🗓️</Heading>
+            <TextAlert my={8} status="warning">
               <Text>
-                Alle gegeven worden opgeslagen aan de hand van een{' '}
-                <strong>seizoen</strong>. Let dus goed op dat je maar 1 seizoen
-                actief hebt staan.
+                Alle score / trainingen / wedstrijd die aan dit seizoen zullen
+                overgezet worden naar het nieuwe seizoen. Let dus goed op!
               </Text>
             </TextAlert>
             <Formik
-              onSubmit={handleCreateSeason}
+              onSubmit={handleUpdateSeason}
               initialValues={{
-                name: '',
-                seasonTeamName: '',
+                name: season?.name,
+                seasonTeamName: season?.name,
               }}
               validationSchema={validationSchema}
             >
@@ -75,9 +77,9 @@ const NewSeasonPage = () => {
                   mt={4}
                   colorScheme="secondary"
                   type="submit"
-                  isLoading={seasonLoading}
+                  isLoading={handleUpdateSeasonLoading}
                 >
-                  Start seizoen
+                  Update seizoen
                 </Button>
               </Box>
             </Formik>
@@ -88,4 +90,4 @@ const NewSeasonPage = () => {
   )
 }
 
-export default NewSeasonPage
+export default UpdateSeasonPage

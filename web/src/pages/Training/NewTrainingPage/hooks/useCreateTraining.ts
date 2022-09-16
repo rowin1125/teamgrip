@@ -89,14 +89,16 @@ export const useCreateTraining = ({
     navigate(routes.team())
   }, [currentUser, isTeamStaff])
 
-  const defaultTeamSeasonId = team?.season?.filter((season) =>
+  const seasonMatchesThisYear = team?.season?.filter((season) =>
     season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
+
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0].id
 
   const initialScoresInputValues: CreateScoreInput[] =
     playersData?.playersForTeam.map((player) => ({
       ...scoreBlueprint,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       playerId: player.id,
       teamId: currentUser?.player?.teamId,
     })) || []
@@ -107,7 +109,7 @@ export const useCreateTraining = ({
       playerId: '',
       type: 'TOP_TRAINING',
       points: 50,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       teamId: team?.id,
       trainingId: '',
     },
@@ -116,7 +118,7 @@ export const useCreateTraining = ({
       playerId: '',
       type: 'TOP_TRAINING',
       points: 50,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       teamId: team?.id,
       trainingId: '',
     },
@@ -125,7 +127,7 @@ export const useCreateTraining = ({
       playerId: '',
       type: 'TOP_TRAINING',
       points: 50,
-      seasonId: defaultTeamSeasonId,
+      seasonId: defaultSeasonId,
       teamId: team?.id,
       trainingId: '',
     },
@@ -135,7 +137,7 @@ export const useCreateTraining = ({
     handleCreateTraining,
     createTrainingLoading,
     initialScoresInputValues,
-    defaultTeamSeasonId,
+    defaultTeamSeasonId: defaultSeasonId,
     initialTopTrainingScores,
   }
 }

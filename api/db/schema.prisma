@@ -156,7 +156,7 @@ model Score {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @default(now()) @updatedAt
   type       ScoreType
-  season     Season    @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  season     Season    @relation(fields: [seasonId], references: [id])
   seasonId   String
   player     Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
   playerId   String
@@ -182,8 +182,8 @@ model Season {
   name           String
   seasonTeamName String     @unique
   team           Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId         String
   trainings      Training[]
   scores         Score[]
-  teamId         String
   games          Game[]
 }

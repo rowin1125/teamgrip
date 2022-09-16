@@ -13,6 +13,7 @@ export const schema = gql`
     trainingId: String
     game: Game
     gameId: String
+    _count: Int
   }
 
   enum ScoreType {

@@ -55,10 +55,6 @@ const Sidebar = () => {
         <SidebarItem
           navOpen={navOpen}
           icon={RiDashboard3Line}
-          iconProps={{
-            fontSize: 'xl',
-            mr: '10px',
-          }}
           title="Dashboard"
           to={routes.app()}
         />

@@ -4,6 +4,8 @@ import type {
   SeasonResolvers,
 } from 'types/graphql'
 
+import { UserInputError } from '@redwoodjs/graphql-server'
+
 import { db } from 'src/lib/db'
 
 export const seasons: QueryResolvers['seasons'] = () => {
@@ -16,16 +18,48 @@ export const season: QueryResolvers['season'] = ({ id }) => {
   })
 }
 
-export const createSeason: MutationResolvers['createSeason'] = ({
+export const seasonsByTeamId: QueryResolvers['seasonsByTeamId'] = ({
+  teamId,
+}) => {
+  return db.season.findMany({
+    where: { teamId },
+    include: {
+      trainings: {
+        select: {
+          id: true,
+        },
+      },
+      games: {
+        select: {
+          id: true,
+        },
+      },
+      scores: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  })
+}
+
+export const createSeason: MutationResolvers['createSeason'] = async ({
   input,
   teamId,
 }) => {
-  return db.season.create({
-    data: {
-      ...input,
-      teamId,
-    },
-  })
+  try {
+    const season = await db.season.create({
+      data: {
+        ...input,
+        teamId,
+      },
+    })
+    return season
+  } catch (error) {
+    if (error.code === 'P2002') throw new UserInputError('Seizoen bestaat al')
+
+    throw new UserInputError('Er is iets misgegaan')
+  }
 }
 
 export const updateSeason: MutationResolvers['updateSeason'] = ({
@@ -38,15 +72,32 @@ export const updateSeason: MutationResolvers['updateSeason'] = ({
   })
 }
 
-export const deleteSeason: MutationResolvers['deleteSeason'] = ({ id }) => {
-  return db.season.delete({
-    where: { id },
-  })
+export const deleteSeason: MutationResolvers['deleteSeason'] = async ({
+  id,
+}) => {
+  try {
+    const deleteSeason = db.season.delete({
+      where: { id },
+    })
+    const deleteScoresForSeason = db.score.deleteMany({
+      where: { seasonId: id },
+    })
+
+    const [, deleteSeasonRes] = await db.$transaction([
+      deleteScoresForSeason,
+      deleteSeason,
+    ])
+
+    return deleteSeasonRes
+  } catch (error) {
+    console.log(error)
+    throw new UserInputError('Er is iets misgegaan')
+  }
 }
 
 export const Season: SeasonResolvers = {
   trainings: (_obj, { root }) =>
     db.season.findUnique({ where: { id: root.id } }).trainings(),
-  score: (_obj, { root }) =>
+  scores: (_obj, { root }) =>
     db.season.findUnique({ where: { id: root.id } }).scores(),
 }

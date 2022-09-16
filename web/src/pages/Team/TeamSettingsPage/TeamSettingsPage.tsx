@@ -24,6 +24,7 @@ import TeamNotFoundMessage from '../TeamPage/components/TeamNotFoundMessage'
 
 import GlobalTeamSettings from './tabs/GlobalTeamSettings/GlobalTeamSettings'
 import TeamPlayerSettings from './tabs/TeamPlayerSettings'
+import TeamSeasonSettings from './tabs/TeamSeasonSettings'
 
 const TeamSettingsPage = () => {
   const { team, loading } = useGetTeamById()
@@ -58,7 +59,7 @@ const TeamSettingsPage = () => {
       <Grid templateColumns="repeat(4, 1fr)" templateRows="auto" gap={10}>
         <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
           <Heading as="h1" size="2xl" color="white">
-            Teamsettings
+            Team settings
           </Heading>
         </GridItem>
         <GridItem colSpan={{ base: 4, xl: 4 }} rowSpan={1}>
@@ -84,9 +85,7 @@ const TeamSettingsPage = () => {
                   <TeamPlayerSettings />
                 </TabPanel>
                 <TabPanel>
-                  <Heading as="h2" size="lg" mt={8}>
-                    Beheer jouw seizoenen
-                  </Heading>
+                  <TeamSeasonSettings />
                 </TabPanel>
               </TabPanels>
             </Tabs>

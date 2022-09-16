@@ -10,8 +10,8 @@ import TextAlert from 'src/components/TextAlert/TextAlert'
 type TeamTableActionButtonsProps = {
   theme?: 'dark' | 'light'
   routes?: {
-    detail: (params?: any) => string
-    update: (params?: any) => string
+    detail?: (params?: any) => string
+    update?: (params?: any) => string
   }
   id: string
   onDelete?: (id: string) => Promise<void>
@@ -32,21 +32,22 @@ const TeamTableActionButtons = ({
       >
         <Icon as={AiOutlineEdit} />
       </Button>
-      <DeleteDialog
-        onDelete={onDelete}
-        id={id}
-        title="Training verwijderen"
-        buttonVariant="ghost"
-      >
-        <TextAlert status="warning">
-          <i>Weet je zeker dat je dit wilt verwijderen?</i>
-        </TextAlert>
-        <Text mt={4}>
-          Bij het drukken op <strong>delete</strong> zal dit item met alle
-          bijbehorende gegevens worden verwijderd!
-        </Text>
-      </DeleteDialog>
-      <Button variant="ghost" colorScheme="red"></Button>
+      {onDelete && (
+        <DeleteDialog
+          onDelete={onDelete}
+          id={id}
+          title="Onderdeel verwijderen"
+          buttonVariant="ghost"
+        >
+          <TextAlert status="warning">
+            <i>Weet je zeker dat je dit wilt verwijderen?</i>
+          </TextAlert>
+          <Text mt={4}>
+            Bij het drukken op <strong>delete</strong> zal dit item met alle
+            bijbehorende gegevens worden verwijderd!
+          </Text>
+        </DeleteDialog>
+      )}
     </Flex>
   )
 }

@@ -7,7 +7,7 @@ export const SEASON_FRAGMENT = gql`
     trainings {
       id
     }
-    score {
+    scores {
       id
     }
   }

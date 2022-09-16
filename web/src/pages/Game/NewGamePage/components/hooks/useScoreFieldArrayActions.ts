@@ -34,9 +34,11 @@ export const useScoreFieldArrayActions = ({
 
   const [benchPlayers, setBenchPlayers] = useState(initialBenchPlayers)
 
-  const defaultTeamSeasonId = team?.season.filter((season) =>
-    season.name.includes(new Date().getFullYear().toString())
+  const seasonMatchesThisYear = team?.season?.filter((season) =>
+    season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
+
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0].id
 
   const handleRemove = (currentPlayer, index: number) => {
     setBenchPlayers((prevBenchPlayers) => [...prevBenchPlayers, currentPlayer])
@@ -44,7 +46,7 @@ export const useScoreFieldArrayActions = ({
     const topPlayer = values.topGameScores.find(
       (score) => currentPlayer.id === score.playerId
     )
-    if (topPlayer.playerId) {
+    if (topPlayer?.playerId) {
       const filteredTopGame = values.topGameScores.filter(
         (score) => score.playerId !== currentPlayer.id
       )
@@ -54,7 +56,7 @@ export const useScoreFieldArrayActions = ({
           ...scoreBlueprint,
           playerId: '',
           type: 'TOP_GAME',
-          seasonId: values.seasonId || defaultTeamSeasonId || '',
+          seasonId: values.seasonId || defaultSeasonId || '',
           teamId: values.teamId || team?.id || '',
         },
       ]
@@ -80,7 +82,7 @@ export const useScoreFieldArrayActions = ({
       ...scoreBlueprint,
       playerId,
       teamId: team.id,
-      seasonId: values.seasonId || defaultTeamSeasonId || '',
+      seasonId: values.seasonId || defaultSeasonId || '',
     })
   }
 
