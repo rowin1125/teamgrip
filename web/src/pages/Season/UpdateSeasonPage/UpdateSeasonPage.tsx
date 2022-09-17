@@ -10,6 +10,7 @@ import { toast } from '@redwoodjs/web/dist/toast'
 
 import Card from 'src/components/Card/Card'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
+import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch'
 import TextAlert from 'src/components/TextAlert/TextAlert'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
@@ -55,6 +56,7 @@ const UpdateSeasonPage = () => {
               initialValues={{
                 name: season?.name,
                 seasonTeamName: season?.name,
+                active: season.active,
               }}
               validationSchema={validationSchema}
             >
@@ -72,6 +74,14 @@ const UpdateSeasonPage = () => {
                   placeholder="Selecteer"
                   reactSelectProps={{ isClearable: true }}
                 />
+
+                <ControlledSwitch
+                  id="active"
+                  label="Status"
+                  helperText="Alleen actieve seizoen kun je gebruiken voor het aanmaken van wedstrijden en trainingen"
+                >
+                  Seizoen is actief?
+                </ControlledSwitch>
 
                 <Button
                   mt={4}

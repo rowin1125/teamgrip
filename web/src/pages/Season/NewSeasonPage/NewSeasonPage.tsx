@@ -10,6 +10,7 @@ import { toast } from '@redwoodjs/web/dist/toast'
 
 import Card from 'src/components/Card/Card'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
+import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch'
 import TextAlert from 'src/components/TextAlert/TextAlert'
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
@@ -31,6 +32,7 @@ const NewSeasonPage = () => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().min(4).required('Naam is verplicht'),
+    active: Yup.boolean().required('Actief is verplicht'),
   })
 
   return (
@@ -53,6 +55,7 @@ const NewSeasonPage = () => {
               initialValues={{
                 name: '',
                 seasonTeamName: '',
+                active: false,
               }}
               validationSchema={validationSchema}
             >
@@ -70,6 +73,14 @@ const NewSeasonPage = () => {
                   placeholder="Selecteer"
                   reactSelectProps={{ isClearable: true }}
                 />
+
+                <ControlledSwitch
+                  id="active"
+                  label="Status"
+                  helperText="Alleen actieve seizoen kun je gebruiken voor het aanmaken van wedstrijden en trainingen"
+                >
+                  Seizoen is actief?
+                </ControlledSwitch>
 
                 <Button
                   mt={4}

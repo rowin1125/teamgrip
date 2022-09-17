@@ -48,6 +48,17 @@ export const createSeason: MutationResolvers['createSeason'] = async ({
   teamId,
 }) => {
   try {
+    const seasonActive = await db.season.findFirst({
+      where: {
+        teamId,
+        active: true,
+      },
+    })
+
+    if (seasonActive && input.active) {
+      throw new UserInputError('Er is al een actief seizoen')
+    }
+
     const season = await db.season.create({
       data: {
         ...input,
@@ -57,15 +68,26 @@ export const createSeason: MutationResolvers['createSeason'] = async ({
     return season
   } catch (error) {
     if (error.code === 'P2002') throw new UserInputError('Seizoen bestaat al')
-
+    if (error.message) throw new UserInputError(error.message)
     throw new UserInputError('Er is iets misgegaan')
   }
 }
 
-export const updateSeason: MutationResolvers['updateSeason'] = ({
+export const updateSeason: MutationResolvers['updateSeason'] = async ({
   id,
   input,
+  teamId,
 }) => {
+  const seasonActive = await db.season.findFirst({
+    where: {
+      teamId: teamId,
+      active: true,
+    },
+  })
+
+  if (seasonActive && seasonActive.id !== id && input.active) {
+    throw new UserInputError('Er is al een actief seizoen')
+  }
   return db.season.update({
     data: input,
     where: { id },

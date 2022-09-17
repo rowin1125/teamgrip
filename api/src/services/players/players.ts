@@ -72,6 +72,9 @@ export const getPlayersAndScoresByTeamId = async ({
     },
     where: {
       teamId,
+      season: {
+        active: true,
+      },
     },
   })
   const players = mergePlayersAndScores(playersWithoutScores, scores)

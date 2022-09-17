@@ -180,6 +180,7 @@ model Season {
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @default(now()) @updatedAt
   name           String
+  active         Boolean    @default(false)
   seasonTeamName String     @unique
   team           Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId         String

@@ -28,6 +28,9 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
   return db.training.findMany({
     where: {
       teamId: id,
+      season: {
+        active: true,
+      },
     },
     orderBy: {
       trainingsDate: 'desc',

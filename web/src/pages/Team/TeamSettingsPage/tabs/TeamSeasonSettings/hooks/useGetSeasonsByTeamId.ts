@@ -11,6 +11,7 @@ export const GET_SEASON_BY_TEAM_ID_QUERY = gql`
     seasonsByTeamId(teamId: $teamId) {
       id
       name
+      active
       trainings {
         id
       }

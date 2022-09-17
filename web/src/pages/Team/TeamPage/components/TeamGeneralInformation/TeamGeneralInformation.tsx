@@ -1,15 +1,10 @@
 import React from 'react'
 
-import {
-  Flex,
-  Heading,
-  Button,
-  UseDisclosureProps,
-  Text,
-} from '@chakra-ui/react'
+import { Flex, Heading, Button, UseDisclosureProps } from '@chakra-ui/react'
 import { FindTeamQuery } from 'types/graphql'
 
 import Card from 'src/components/Card/Card'
+import DataDisplay from 'src/components/DataDisplay/DataDisplay'
 import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
 
 import InvitePlayersModal from './components/InvitePlayersModal'
@@ -27,24 +22,23 @@ const TeamGeneralInformation = ({
   currentTabIndex,
   setCurrentTabIndex,
 }: TeamGeneralInformationProps) => {
+  const activeSeason = team?.season?.find((s) => s.active)
+
   return (
     <Card>
       <Flex justifyContent="space-between">
         <Heading fontSize="6xl">{team?.name}</Heading>
       </Flex>
-      <Flex>
-        <Text fontWeight="bold" mr={2}>
-          Beheerder:{' '}
-        </Text>
-        <Text>
-          {team?.owner.userProfile.firstname} {team?.owner.userProfile.lastname}
-        </Text>
-        <Text></Text>
-      </Flex>
-      <Flex>
-        <Text fontWeight="bold">Active uitnoding: </Text>
-        <Text ml={2}>{team?.invitationToken ? 'Ja' : 'Nee'}</Text>
-      </Flex>
+      <DataDisplay
+        entry={{
+          Beheerder: `${team?.owner.userProfile.firstname} ${team?.owner.userProfile.lastname}`,
+          Club: team?.club?.name,
+          'Actieve uitnodiging': team?.invitationToken ? 'Ja' : 'Nee',
+          'Actief seizoen': activeSeason?.name || 'Geen',
+          'Aantal spelers': team?.players.length,
+        }}
+      />
+
       <PlayerIsStaffWrapper>
         <Flex mt={8} flexDirection={{ base: 'column', xl: 'row' }}>
           <Button

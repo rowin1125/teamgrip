@@ -25,6 +25,9 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
   return db.game.findMany({
     where: {
       teamId: id,
+      season: {
+        active: true,
+      },
     },
     orderBy: {
       gameDate: 'desc',

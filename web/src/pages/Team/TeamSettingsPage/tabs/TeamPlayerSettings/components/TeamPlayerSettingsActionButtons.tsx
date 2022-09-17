@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react'
 
+import { useAuth } from '@redwoodjs/auth'
+
 import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
 import TextAlert from 'src/components/TextAlert/TextAlert'
 
@@ -18,7 +20,9 @@ const TeamPlayerSettingsActionButtons = ({
   onDelete,
   entries,
 }: TeamPlayerSettingsActionButtonsProps) => {
+  const { currentUser } = useAuth()
   const { onClose, onOpen, isOpen } = useDisclosure()
+  const rowIsOwner = row.id === currentUser?.player.id
 
   return (
     <Flex>
@@ -28,8 +32,12 @@ const TeamPlayerSettingsActionButtons = ({
         onOpen={onOpen}
         entries={entries}
         row={row}
+        rowIsOwner={rowIsOwner}
       />
       <DeleteDialog
+        buttonProps={{
+          isDisabled: rowIsOwner,
+        }}
         buttonVariant={'outline'}
         onDelete={onDelete}
         id={row.id}

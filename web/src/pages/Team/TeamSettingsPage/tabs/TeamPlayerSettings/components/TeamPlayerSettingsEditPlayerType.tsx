@@ -24,6 +24,7 @@ import { useUpdatePlayerById } from '../hooks/useUpdatePlayerById'
 type TeamPlayerSettingsEditPlayerTypeProps = UseDisclosureProps & {
   entries?: Record<string, any>[]
   row: Record<string, any>
+  rowIsOwner?: boolean
 }
 
 const validationSchema = Yup.object().shape({
@@ -36,6 +37,7 @@ const TeamPlayerSettingsEditPlayerType = ({
   onOpen,
   entries,
   row,
+  rowIsOwner,
 }: TeamPlayerSettingsEditPlayerTypeProps) => {
   const { handleUpdatePlayer, handleUpdatePlayerLoading } = useUpdatePlayerById(
     {
@@ -54,7 +56,12 @@ const TeamPlayerSettingsEditPlayerType = ({
 
   return (
     <>
-      <Button ml={4} colorScheme="orange" onClick={onOpen}>
+      <Button
+        ml={4}
+        colorScheme="orange"
+        onClick={onOpen}
+        isDisabled={rowIsOwner}
+      >
         <Icon as={AiOutlineEdit} />
       </Button>
 

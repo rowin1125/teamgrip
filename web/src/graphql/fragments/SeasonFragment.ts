@@ -4,6 +4,7 @@ export const SEASON_FRAGMENT = gql`
     createdAt
     updatedAt
     name
+    active
     trainings {
       id
     }

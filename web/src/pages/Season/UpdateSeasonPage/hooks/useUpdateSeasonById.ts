@@ -13,8 +13,12 @@ import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 
 export const UPDATE_SEASON_BY_ID_MUTATION = gql`
   ${SEASON_FRAGMENT}
-  mutation UpdateSeasonByIdMutation($id: String!, $input: UpdateSeasonInput!) {
-    updateSeason(id: $id, input: $input) {
+  mutation UpdateSeasonByIdMutation(
+    $id: String!
+    $input: UpdateSeasonInput!
+    $teamId: String!
+  ) {
+    updateSeason(id: $id, input: $input, teamId: $teamId) {
       ...SeasonFragment
     }
   }
@@ -35,6 +39,7 @@ export const useUpdateSeasonById = () => {
       const season = await updateSeason({
         variables: {
           id: id || '',
+          teamId: team?.id,
           input: {
             ...values,
             seasonTeamName: uniqueName,
@@ -43,7 +48,7 @@ export const useUpdateSeasonById = () => {
       })
 
       toast.success(`Seizoen ${season.data.updateSeason.name} aangepast`)
-      navigate(routes.team())
+      navigate(routes.teamSettings())
     } catch (error) {
       console.log(error)
       toast.error(error.message)
