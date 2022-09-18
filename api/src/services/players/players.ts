@@ -83,6 +83,56 @@ export const getPlayersAndScoresByTeamId = async ({
     (playerA, playerB) => playerB.totalScore - playerA.totalScore
   )
 }
+export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] =
+  async ({ teamId }) => {
+    const playerWithoutScores = await db.player.findFirst({
+      where: {
+        teamId,
+        id: context.currentUser.player.id,
+      },
+      include: {
+        scores: {
+          where: {
+            playerId: context.currentUser.player.id,
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+          take: 1,
+        },
+      },
+    })
+    const activeSeason = await db.season.findFirst({
+      where: {
+        active: true,
+        teamId,
+      },
+    })
+
+    const score = await db.score.aggregate({
+      _sum: {
+        points: true,
+      },
+      _avg: {
+        points: true,
+      },
+      where: {
+        season: {
+          active: true,
+        },
+        playerId: context.currentUser.player.id,
+      },
+    })
+
+    const playerWithScore = {
+      ...playerWithoutScores,
+      totalScore: score?._sum?.points ?? 0,
+      avgScore: score?._avg?.points ?? 0,
+      activeSeason,
+    }
+
+    return playerWithScore
+  }
 
 export const getGhostPlayersByTeamId: QueryResolvers['getGhostPlayersByTeamId'] =
   async ({ teamId }) => {

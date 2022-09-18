@@ -5,11 +5,18 @@ import { useAuth } from '@redwoodjs/auth'
 import Avatar from '../Avatar/Avatar'
 
 import dutchFlag from './dutch-flag.png'
+import { useGetPlayerScoresByTeamId } from './hooks/useGetPlayerScoresByTeamId'
 
 import './PLayerCard.scss'
 
 const PlayerCard = () => {
   const { currentUser } = useAuth()
+  const { playerWithTotalScore, playerWithTotalScoreLoading } =
+    useGetPlayerScoresByTeamId()
+
+  if (playerWithTotalScoreLoading) return null
+  if (!playerWithTotalScore) return null
+
   return (
     <Box transform={{ base: 'scale(0.7)', xl: 'none' }}>
       {/* *** fut-player-card ****/}
@@ -51,16 +58,27 @@ const PlayerCard = () => {
             <div className="player-features">
               <div className="player-features-col">
                 <span>
-                  <div className="player-feature-value">250</div>
+                  <div className="player-feature-value">
+                    {playerWithTotalScore.totalScore}
+                  </div>
                   <div className="player-feature-title">Punten totaal</div>
                 </span>
                 <span>
-                  <div className="player-feature-value">150</div>
+                  <div className="player-feature-value">
+                    {playerWithTotalScore.avgScore}
+                  </div>
                   <div className="player-feature-title">Gemiddeld</div>
                 </span>
                 <span>
-                  <div className="player-feature-value">200</div>
+                  <div className="player-feature-value">
+                    {playerWithTotalScore.scores?.[0].points || 0}
+                  </div>
                   <div className="player-feature-title">Laatste score</div>
+                </span>
+                <span>
+                  <div className="player-feature-title">
+                    {playerWithTotalScore.activeSeason.name}
+                  </div>
                 </span>
               </div>
             </div>

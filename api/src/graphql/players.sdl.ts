@@ -25,7 +25,9 @@ export const schema = gql`
   }
 
   extend type Player {
-    totalScore: Int
+    totalScore: Float
+    avgScore: Float
+    activeSeason: Season
   }
 
   type Query {
@@ -35,6 +37,7 @@ export const schema = gql`
     getGhostPlayersByTeamId(teamId: String!): [Player]! @requireAuth
     getGhostPlayerByInvitation(ghostInvitation: String!): Player @requireAuth
     getPlayersAndScoresByTeamId(teamId: String!): [Player]! @requireAuth
+    getPlayerScoresByTeamId(teamId: String!): Player @requireAuth
   }
 
   input CreatePlayerInput {
