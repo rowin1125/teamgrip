@@ -89,12 +89,7 @@ const Sidebar = () => {
           title="Club"
           to={routes.club()}
         />
-        <SidebarItem
-          navOpen={navOpen}
-          icon={CgProfile}
-          title="Mijn profiel"
-          to={routes.settings()}
-        />
+
         <SidebarItem
           navOpen={navOpen}
           icon={CgOptions}

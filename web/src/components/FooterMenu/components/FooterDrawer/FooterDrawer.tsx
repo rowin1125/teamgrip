@@ -12,12 +12,13 @@ import {
   DrawerOverlay,
 } from '@chakra-ui/react'
 import { CgHomeAlt, CgOptions } from 'react-icons/cg'
-import { IoIosStats } from 'react-icons/io'
 import { MdFormatListBulleted } from 'react-icons/md'
 import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 import { TbHome } from 'react-icons/tb'
 
 import { routes } from '@redwoodjs/router'
+
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import AccordionDirectLink from './components/AccordionDirectLink'
 import AccordionWithNestedLinks from './components/AccordionWithNestedLinks'
@@ -30,6 +31,8 @@ type FooterDrawerProps = {
 }
 
 const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
+  const { isTeamStaff } = useTeamPlayerAuth()
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -63,32 +66,39 @@ const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
                 Dashboard
               </AccordionDirectLink>
 
-              <AccordionWithNestedLinks icon={RiTeamFill}>
-                <AccordionDirectLink
-                  onClose={onClose}
-                  nested
-                  to={routes.team()}
-                  icon={MdFormatListBulleted}
-                >
-                  Overzicht
-                </AccordionDirectLink>
+              {isTeamStaff ? (
+                <AccordionWithNestedLinks icon={RiTeamFill}>
+                  <AccordionDirectLink
+                    onClose={onClose}
+                    nested
+                    to={routes.team()}
+                    icon={MdFormatListBulleted}
+                  >
+                    Overzicht
+                  </AccordionDirectLink>
 
+                  <AccordionDirectLink
+                    onClose={onClose}
+                    nested
+                    to={routes.teamSettings()}
+                    icon={CgOptions}
+                  >
+                    Instellingen
+                  </AccordionDirectLink>
+                </AccordionWithNestedLinks>
+              ) : (
                 <AccordionDirectLink
                   onClose={onClose}
-                  nested
-                  to={routes.teamSettings()}
-                  icon={CgOptions}
+                  to={routes.team()}
+                  icon={RiTeamFill}
+                  iconProps={{
+                    fontSize: 'xl',
+                  }}
                 >
-                  Instellingen
+                  Team
                 </AccordionDirectLink>
-              </AccordionWithNestedLinks>
-              <AccordionDirectLink
-                onClose={onClose}
-                to={routes.app()}
-                icon={IoIosStats}
-              >
-                Mijn scores
-              </AccordionDirectLink>
+              )}
+
               <AccordionDirectLink
                 onClose={onClose}
                 to={routes.club()}

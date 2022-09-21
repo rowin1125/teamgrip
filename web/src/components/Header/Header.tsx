@@ -15,7 +15,7 @@ const Header = () => {
   const showBreadCrumbs = pathname.includes('app')
 
   return (
-    <Box as="header" w="full" pl={8} pb={4} mb={10}>
+    <Box as="header" w="full" pl={8} pb={4}>
       <Flex justifyContent="space-between" alignItems="center">
         <Box>{showBreadCrumbs && <BreadCrumbs />}</Box>
         <Flex alignItems="center">

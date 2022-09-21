@@ -1,20 +1,20 @@
-import { Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 
 import { MetaTags } from '@redwoodjs/web'
 
-import PlayerCard from 'src/components/PlayerCard/PlayerCard'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
-import PlayerRecentGames from './components/PlayerRecentGames'
-import PlayerRecentTrainings from './components/PlayerRecentTrainings'
-import TopTeamPlayers from './components/TopTeamPlayers'
+import PlayerDashboard from './components/PlayerDashboard'
+import StaffDashboard from './components/StaffDashboard'
 
 const AppPage = () => {
-  const { team } = useGetTeamById()
-
+  const { isTeamStaff, isTeamPlayer } = useTeamPlayerAuth()
   return (
     <>
-      <MetaTags title="App" description="App page" />
+      <MetaTags
+        title="Dashboard"
+        description="Dashboard overzicht van jouw gegevens binnen het team"
+      />
 
       <Grid
         templateColumns="repeat(12, 1fr)"
@@ -22,36 +22,8 @@ const AppPage = () => {
         gap={{ base: 0, xl: 10 }}
         rowGap={{ base: 10 }}
       >
-        <GridItem colSpan={{ base: 12 }} rowSpan={1}>
-          <Heading as="h1" size="2xl" color="white">
-            Jouw dashboard
-          </Heading>
-          {team && (
-            <Heading as="h1" size="lg" color="white" mt={4}>
-              {team.club.name} - {team.name}
-            </Heading>
-          )}
-        </GridItem>
-        <GridItem
-          colSpan={{ base: 12, xl: 5 }}
-          rowSpan={1}
-          justifySelf="center"
-        >
-          <PlayerCard />
-        </GridItem>
-        <GridItem colSpan={{ base: 12, xl: 7 }} rowSpan={1}>
-          <PlayerRecentTrainings />
-        </GridItem>
-        <GridItem
-          colSpan={{ base: 12, xl: 5 }}
-          rowSpan={1}
-          order={{ base: 10, xl: 'unset' }}
-        >
-          <TopTeamPlayers amount={10} />
-        </GridItem>
-        <GridItem colSpan={{ base: 12, xl: 7 }} rowSpan={1}>
-          <PlayerRecentGames />
-        </GridItem>
+        {isTeamPlayer && <PlayerDashboard />}
+        {isTeamStaff && <StaffDashboard />}
       </Grid>
     </>
   )

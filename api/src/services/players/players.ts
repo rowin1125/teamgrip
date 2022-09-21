@@ -82,6 +82,7 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
 
     return sortedPLayers
   }
+
 export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] =
   async ({ teamId }) => {
     const playerWithoutScores = await db.player.findFirst({
@@ -131,6 +132,36 @@ export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] 
     }
 
     return playerWithScore
+  }
+
+export const getPlayersPresenceByTeamId: QueryResolvers['getPlayersPresenceByTeamId'] =
+  async ({ teamId }) => {
+    const players = await db.player.findMany({
+      where: {
+        teamId,
+        AND: {
+          isActivePlayer: true,
+        },
+      },
+      include: {
+        trainings: {
+          where: {
+            season: {
+              active: true,
+            },
+          },
+        },
+        games: {
+          where: {
+            season: {
+              active: true,
+            },
+          },
+        },
+      },
+    })
+
+    return players
   }
 
 export const getGhostPlayersByTeamId: QueryResolvers['getGhostPlayersByTeamId'] =

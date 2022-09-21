@@ -40,6 +40,7 @@ export const schema = gql`
     getPlayersAndScoresByTeamId(teamId: String!, limit: Int): [Player]!
       @requireAuth
     getPlayerScoresByTeamId(teamId: String!): Player @requireAuth
+    getPlayersPresenceByTeamId(teamId: String!): [Player]! @requireAuth
   }
 
   input CreatePlayerInput {

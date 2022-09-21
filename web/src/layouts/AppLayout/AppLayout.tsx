@@ -6,6 +6,7 @@ import Footer from 'src/components/Footer/Footer'
 import FooterMenu from 'src/components/FooterMenu/FooterMenu'
 import Header from 'src/components/Header/Header'
 import Hero from 'src/components/Hero/Hero'
+import NoSeasonAlert from 'src/components/NoSeasonAlert/NoSeasonAlert'
 import Sidebar from 'src/components/Sidebar/Sidebar'
 
 type AppLayoutProps = {
@@ -27,6 +28,7 @@ const AppLayout = ({ children }: AppLayoutProps) => (
       </Box>
       <Flex flexDir="column" w="full" pt={8}>
         <Header />
+        <NoSeasonAlert />
         <Box as="main" pl={{ xl: 8 }} px={{ xl: 8 }} pr={{ xl: 0 }}>
           {children}
         </Box>

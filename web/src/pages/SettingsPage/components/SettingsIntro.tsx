@@ -24,7 +24,7 @@ const SettingsIntro = () => {
       flexGrow={{ xl: 1 }}
       mb={{ base: 10, xl: 0 }}
     >
-      <Card bg="rgba(255, 255, 255, 0.70)" h="full">
+      <Card h="full">
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
           justifyContent="space-between"
