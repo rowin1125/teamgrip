@@ -1,6 +1,5 @@
 import { Flex, Image, useEventListener } from '@chakra-ui/react'
-import { CgHomeAlt, CgOptions, CgProfile } from 'react-icons/cg'
-import { IoIosStats } from 'react-icons/io'
+import { CgHomeAlt, CgOptions } from 'react-icons/cg'
 import { MdFormatListBulleted } from 'react-icons/md'
 import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 
@@ -77,12 +76,12 @@ const Sidebar = () => {
             </SidebarItemChild>
           )}
         </SidebarItem>
-        <SidebarItem
+        {/* <SidebarItem
           navOpen={navOpen}
           icon={IoIosStats}
           title="Mijn scores"
           to={routes.app()}
-        />
+        /> */}
         <SidebarItem
           navOpen={navOpen}
           icon={CgHomeAlt}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Box, Flex, useDisclosure } from '@chakra-ui/react'
-import { CgHomeAlt, CgOptions, CgProfile } from 'react-icons/cg'
+import { CgHomeAlt, CgOptions } from 'react-icons/cg'
 import { MdFormatListBulleted } from 'react-icons/md'
 import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 
@@ -50,14 +50,14 @@ const FooterMenu = () => {
           </FooterMenuItem>
           <FooterMenuItem title="Club" icon={CgHomeAlt} to={routes.club()} />
           <FooterMenuItem
-            title="Profiel"
-            icon={CgProfile}
+            title="Instellingen"
+            icon={CgOptions}
             to={routes.settings()}
           />
           <FooterMenuItem
             ref={btnRef}
             onClick={onOpen}
-            title="Instellingen"
+            title="Menu"
             icon={MdFormatListBulleted}
           />
         </Flex>
