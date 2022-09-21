@@ -1,5 +1,4 @@
 import { Prisma } from '@prisma/client'
-import { Player } from 'types/graphql'
 
 type ScoreGroupByType = (Prisma.PickArray<
   Prisma.ScoreGroupByOutputType,
@@ -13,7 +12,7 @@ type ScoreGroupByType = (Prisma.PickArray<
 export const mergePlayersAndScores = (
   players: any,
   scores: ScoreGroupByType
-): Player[] => {
+) => {
   return players.reduce((accPlayerArray, currentPlayer) => {
     const playerTotalScore = scores.find(
       (score) => score.playerId === currentPlayer.id

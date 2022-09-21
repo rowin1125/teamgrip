@@ -16,6 +16,7 @@ export const schema = gql`
     games: [Game!]! @requireAuth
     game(id: String!): Game @requireAuth
     gamesByTeamId(id: String!): [Game]! @requireAuth
+    getRecentGames(playerId: String!, limit: Int!): [Game!]! @requireAuth
   }
 
   input CreateGameInput {

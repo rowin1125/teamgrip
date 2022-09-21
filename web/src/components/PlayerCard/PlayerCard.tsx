@@ -18,7 +18,7 @@ const PlayerCard = () => {
   if (!playerWithTotalScore) return null
 
   return (
-    <Box transform={{ base: 'scale(0.7)', xl: 'none' }}>
+    <Box transform={{ base: 'scale(0.9)', xl: 'none' }}>
       {/* *** fut-player-card ****/}
       <div className="fut-player-card">
         {/* Player Card Top*/}
@@ -27,9 +27,10 @@ const PlayerCard = () => {
             <div className="player-rating">
               <span>97</span>
             </div>
-            <div className="player-position">
+            {/* Implement when playerStats are added */}
+            {/* <div className="player-position">
               <span>RW</span>
-            </div>
+            </div> */}
             <div className="player-nation">
               <img src={dutchFlag} alt="Argentina" draggable="false" />
             </div>
@@ -71,13 +72,13 @@ const PlayerCard = () => {
                 </span>
                 <span>
                   <div className="player-feature-value">
-                    {playerWithTotalScore.scores?.[0].points || 0}
+                    {playerWithTotalScore?.scores?.[0]?.points || 0}
                   </div>
                   <div className="player-feature-title">Laatste score</div>
                 </span>
                 <span>
                   <div className="player-feature-title">
-                    {playerWithTotalScore.activeSeason.name}
+                    {playerWithTotalScore?.activeSeason?.name}
                   </div>
                 </span>
               </div>

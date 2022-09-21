@@ -3,7 +3,6 @@ import type {
   QueryResolvers,
   MutationResolvers,
   PlayerResolvers,
-  Player as PlayerType,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -41,48 +40,48 @@ export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
   })
 }
 
-export const getPlayersAndScoresByTeamId = async ({
-  teamId,
-}): Promise<PlayerType[]> => {
-  const playersWithoutScores = await db.player.findMany({
-    where: {
-      teamId,
-      AND: {
-        isActivePlayer: true,
-      },
-    },
-    include: {
-      user: {
-        include: {
-          avatar: true,
+export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByTeamId'] =
+  async ({ teamId, limit }) => {
+    const playersWithoutScores = await db.player.findMany({
+      where: {
+        teamId,
+        AND: {
+          isActivePlayer: true,
         },
       },
-    },
-  })
+      include: {
+        user: {
+          include: {
+            avatar: true,
+          },
+        },
+      },
+    })
 
-  const scores = await db.score.groupBy({
-    by: ['playerId'],
-    _sum: {
-      points: true,
-    },
-    orderBy: {
+    const scores = await db.score.groupBy({
+      by: ['playerId'],
       _sum: {
-        points: 'asc',
+        points: true,
       },
-    },
-    where: {
-      teamId,
-      season: {
-        active: true,
+      orderBy: {
+        _sum: {
+          points: 'asc',
+        },
       },
-    },
-  })
-  const players = mergePlayersAndScores(playersWithoutScores, scores)
+      where: {
+        teamId,
+        season: {
+          active: true,
+        },
+      },
+    })
+    const players = mergePlayersAndScores(playersWithoutScores, scores)
+    const sortedPLayers = players.sort((a, b) => b.totalScore - a.totalScore)
 
-  return players.sort(
-    (playerA, playerB) => playerB.totalScore - playerA.totalScore
-  )
-}
+    if (limit) return sortedPLayers.slice(0, limit)
+
+    return sortedPLayers
+  }
 export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] =
   async ({ teamId }) => {
     const playerWithoutScores = await db.player.findFirst({

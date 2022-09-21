@@ -38,6 +38,33 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
   })
 }
 
+export const getRecentTrainings: QueryResolvers['getRecentTrainings'] = async ({
+  playerId,
+  limit,
+}) => {
+  const trainings = await db.training.findMany({
+    where: {
+      players: {
+        some: {
+          id: playerId,
+        },
+      },
+      season: {
+        active: true,
+      },
+    },
+    include: {
+      scores: true,
+    },
+    orderBy: {
+      trainingsDate: 'desc',
+    },
+    take: limit,
+  })
+
+  return trainings
+}
+
 export const createTraining: MutationResolvers['createTraining'] = async ({
   input,
   scores,

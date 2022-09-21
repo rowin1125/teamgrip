@@ -16,6 +16,8 @@ export const schema = gql`
     trainings: [Training!]! @requireAuth
     training(id: String!): Training @requireAuth
     trainingByTeamId(id: String!): [Training]! @requireAuth
+    getRecentTrainings(playerId: String!, limit: Int!): [Training!]!
+      @requireAuth
   }
 
   input CreateTrainingInput {

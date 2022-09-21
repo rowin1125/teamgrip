@@ -7,8 +7,8 @@ import { useAuth } from '@redwoodjs/auth'
 import { useQuery } from '@redwoodjs/web'
 
 export const GET_PLAYERS_AND_SCORES_BY_TEAM_ID = gql`
-  query GetPlayersAndScoresByTeamId($teamId: String!) {
-    getPlayersAndScoresByTeamId(teamId: $teamId) {
+  query GetPlayersAndScoresByTeamId($teamId: String!, $limit: Int) {
+    getPlayersAndScoresByTeamId(teamId: $teamId, limit: $limit) {
       id
       totalScore
       displayName
@@ -34,14 +34,14 @@ export const GET_PLAYERS_AND_SCORES_BY_TEAM_ID = gql`
   }
 `
 
-export const useGetPlayersAndScoresByTeamId = () => {
+export const useGetPlayersAndScoresByTeamId = (amount?: number) => {
   const { currentUser } = useAuth()
 
   const { data: playersWithTotalScore, loading } = useQuery<
     GetPlayersAndScoresByTeamId,
     GetPlayersAndScoresByTeamIdVariables
   >(GET_PLAYERS_AND_SCORES_BY_TEAM_ID, {
-    variables: { teamId: currentUser?.player?.teamId || '' },
+    variables: { teamId: currentUser?.player?.teamId || '', limit: amount },
   })
 
   return {

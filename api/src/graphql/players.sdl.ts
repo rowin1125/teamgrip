@@ -14,6 +14,7 @@ export const schema = gql`
     displayName: String
     playerType: PlayerType
     isGhost: Boolean!
+    isActivePlayer: Boolean!
     trainings: [Training]!
     scores: [Score]!
     games: [Game]!
@@ -36,7 +37,8 @@ export const schema = gql`
     playersForTeam(teamId: String!): [Player]! @requireAuth
     getGhostPlayersByTeamId(teamId: String!): [Player]! @requireAuth
     getGhostPlayerByInvitation(ghostInvitation: String!): Player @requireAuth
-    getPlayersAndScoresByTeamId(teamId: String!): [Player]! @requireAuth
+    getPlayersAndScoresByTeamId(teamId: String!, limit: Int): [Player]!
+      @requireAuth
     getPlayerScoresByTeamId(teamId: String!): Player @requireAuth
   }
 

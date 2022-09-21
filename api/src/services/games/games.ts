@@ -35,6 +35,33 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
   })
 }
 
+export const getRecentGames: QueryResolvers['getRecentGames'] = async ({
+  playerId,
+  limit,
+}) => {
+  const games = await db.game.findMany({
+    where: {
+      players: {
+        some: {
+          id: playerId,
+        },
+      },
+      season: {
+        active: true,
+      },
+    },
+    include: {
+      scores: true,
+    },
+    orderBy: {
+      gameDate: 'desc',
+    },
+    take: limit,
+  })
+
+  return games
+}
+
 export const createGame: MutationResolvers['createGame'] = async ({
   input,
   scores,
