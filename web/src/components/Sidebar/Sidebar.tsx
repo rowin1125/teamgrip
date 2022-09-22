@@ -16,7 +16,7 @@ const ClOSE_SIDEBAR_KEYS = ['221', '[']
 
 const Sidebar = () => {
   const [navOpen, toggleNav] = useLocalStorage('navOpen', true)
-  const { isTeamStaff } = useTeamPlayerAuth()
+  const { isTeamStaff, isTeamPlayer } = useTeamPlayerAuth()
 
   const handler = ({ key }) => {
     if (ClOSE_SIDEBAR_KEYS.includes(String(key))) {
@@ -57,16 +57,24 @@ const Sidebar = () => {
           title="Dashboard"
           to={routes.app()}
         />
-        <SidebarItem
-          navOpen={navOpen}
-          icon={RiTeamFill}
-          title="Team"
-          to={routes.team()}
-        >
-          <SidebarItemChild icon={MdFormatListBulleted} to={routes.team()}>
-            Overzicht
-          </SidebarItemChild>
-          {isTeamStaff && (
+        {isTeamPlayer && (
+          <SidebarItem
+            navOpen={navOpen}
+            icon={RiTeamFill}
+            title="Team"
+            to={routes.team()}
+          />
+        )}
+        {isTeamStaff && (
+          <SidebarItem
+            navOpen={navOpen}
+            icon={RiTeamFill}
+            title="Team"
+            to={routes.team()}
+          >
+            <SidebarItemChild icon={MdFormatListBulleted} to={routes.team()}>
+              Overzicht
+            </SidebarItemChild>
             <SidebarItemChild
               icon={CgOptions}
               divider={false}
@@ -74,8 +82,8 @@ const Sidebar = () => {
             >
               Instellingen
             </SidebarItemChild>
-          )}
-        </SidebarItem>
+          </SidebarItem>
+        )}
         {/* <SidebarItem
           navOpen={navOpen}
           icon={IoIosStats}

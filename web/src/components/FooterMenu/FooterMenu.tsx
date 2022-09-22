@@ -7,6 +7,8 @@ import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
 
 import { routes } from '@redwoodjs/router'
 
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+
 import FooterDrawer from './components/FooterDrawer'
 import FooterMenuItem from './components/FooterMenuItem'
 import FooterMenuItemChild from './components/FooterMenuItemChild'
@@ -14,6 +16,7 @@ import FooterMenuItemChild from './components/FooterMenuItemChild'
 export const footerMenuHeight = '70px'
 
 const FooterMenu = () => {
+  const { isTeamPlayer, isTeamStaff } = useTeamPlayerAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
 
@@ -36,18 +39,23 @@ const FooterMenu = () => {
               fontSize: 'xl',
             }}
           />
-          <FooterMenuItem title="Team" icon={RiTeamFill}>
-            <FooterMenuItemChild to={routes.team()} icon={RiTeamFill}>
-              Overzicht
-            </FooterMenuItemChild>
-            <FooterMenuItemChild
-              to={routes.teamSettings()}
-              icon={CgOptions}
-              divider={false}
-            >
-              Instellingen
-            </FooterMenuItemChild>
-          </FooterMenuItem>
+          {isTeamPlayer && (
+            <FooterMenuItem title="Team" icon={RiTeamFill} to={routes.team()} />
+          )}
+          {isTeamStaff && (
+            <FooterMenuItem title="Team" icon={RiTeamFill}>
+              <FooterMenuItemChild to={routes.team()} icon={RiTeamFill}>
+                Overzicht
+              </FooterMenuItemChild>
+              <FooterMenuItemChild
+                to={routes.teamSettings()}
+                icon={CgOptions}
+                divider={false}
+              >
+                Instellingen
+              </FooterMenuItemChild>
+            </FooterMenuItem>
+          )}
           <FooterMenuItem title="Club" icon={CgHomeAlt} to={routes.club()} />
           <FooterMenuItem
             title="Instellingen"
