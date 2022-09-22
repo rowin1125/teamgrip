@@ -3,6 +3,7 @@ import React from 'react'
 import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
 
 import Card from 'src/components/Card/Card'
+import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import GamePresence from './components/GamePresence'
@@ -32,10 +33,12 @@ const TeamPresence = () => {
               <Heading color="white">Training aanwezigheid</Heading>
 
               <Box mt={8}>
-                <TrainingPresence
-                  teamPresence={teamPresence}
-                  isLoading={teamPresenceLoading}
-                />
+                <SeasonLockWrapper>
+                  <TrainingPresence
+                    teamPresence={teamPresence}
+                    isLoading={teamPresenceLoading}
+                  />
+                </SeasonLockWrapper>
               </Box>
             </Card>
           </GridItem>
@@ -47,10 +50,12 @@ const TeamPresence = () => {
               <Heading color="white">Wedstrijd aanwezigheid</Heading>
 
               <Box mt={8}>
-                <GamePresence
-                  teamPresence={teamPresence}
-                  isLoading={teamPresenceLoading}
-                />
+                <SeasonLockWrapper>
+                  <GamePresence
+                    teamPresence={teamPresence}
+                    isLoading={teamPresenceLoading}
+                  />
+                </SeasonLockWrapper>
               </Box>
             </Card>
           </GridItem>

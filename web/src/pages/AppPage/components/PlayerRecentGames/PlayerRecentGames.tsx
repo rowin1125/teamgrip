@@ -85,13 +85,17 @@ const PlayerRecentGames = () => {
     ],
   }
 
+  const somePlayerHasRecentGames = recentGames.some(
+    (game) => game.scores.length
+  )
+
   return (
     <Card bg="primary.500" color="white">
       <Heading color="white" mb={8}>
         Recente punten wedstrijden
       </Heading>
       <ChartHasDataWrapper
-        entries={recentGames}
+        hasEntries={somePlayerHasRecentGames}
         isLoading={loading}
         to={routes.newGame({
           id: currentUser?.player.teamId,

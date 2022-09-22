@@ -85,13 +85,17 @@ const PlayerRecentTrainings = () => {
     ],
   }
 
+  const somePlayerHasRecentTrainings = recentTrainings.some(
+    (training) => training.scores.length > 0
+  )
+
   return (
     <Card bg="primary.500" color="white">
       <Heading color="white" mb={8}>
         Recente punten trainingen
       </Heading>
       <ChartHasDataWrapper
-        entries={recentTrainings}
+        hasEntries={somePlayerHasRecentTrainings}
         isLoading={loading}
         to={routes.newTraining({
           id: currentUser?.player.teamId,

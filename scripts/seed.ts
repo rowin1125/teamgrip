@@ -19,7 +19,7 @@ export default async () => {
     // USER SEEDING
     await createUsers()
     // CREATE USER/PLAYER AND ASSIGN TO TEAM
-    await waitFor(5000, 'Waiting for 5sec because JS is tooooo fast 🚀')
+    await waitFor(5000, 'Seeeeeeeding 💦 🚀')
     await createUsersAndConnectToTeam()
     console.log('Seeded successfully! 👨‍👩‍👦‍👦')
   } catch (error) {

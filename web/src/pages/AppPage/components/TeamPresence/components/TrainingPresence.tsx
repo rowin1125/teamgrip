@@ -62,9 +62,13 @@ const TrainingPresence = ({
     ],
   }
 
+  const somePlayerHasTrainings = teamPresence.some(
+    (player) => player.trainings.length > 0
+  )
+
   return (
     <ChartHasDataWrapper
-      entries={teamPresence}
+      hasEntries={somePlayerHasTrainings}
       isLoading={isLoading}
       to={routes.newTraining({
         id: currentUser?.player.teamId,

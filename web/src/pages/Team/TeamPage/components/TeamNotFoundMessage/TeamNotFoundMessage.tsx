@@ -17,7 +17,15 @@ import { navigate, routes } from '@redwoodjs/router'
 import Card from 'src/components/Card/Card'
 import RedwoodLink from 'src/components/RedwoodLink'
 
-const TeamNotFoundMessage = () => {
+type TeamNotFoundMessageProps = {
+  title: string
+  type?: 'team' | 'club'
+}
+
+const TeamNotFoundMessage = ({
+  title,
+  type = 'team',
+}: TeamNotFoundMessageProps) => {
   const { currentUser } = useAuth()
   const invitationToken = currentUser?.player?.teamInvitation
 
@@ -27,15 +35,16 @@ const TeamNotFoundMessage = () => {
         <Card>
           <Flex justifyContent="space-between">
             <Box>
-              <Heading mb={4}>Mijn Team</Heading>
+              <Heading mb={4}>{title}</Heading>
 
               <Text>
-                Je maakt nog geen onderdeel uit van een <strong>team</strong>.{' '}
+                Je maakt nog geen onderdeel uit van een <strong>{type}</strong>.{' '}
               </Text>
 
               <Text mt={4}>
-                Om onderdeel van een <strong>team</strong> te worden moet je of
-                een uitnodiging accepteren of je eigen team bij een club starten
+                Om onderdeel van een <strong>{type}</strong> te worden moet je
+                of een uitnodiging accepteren of je eigen team bij een club
+                starten
               </Text>
 
               {invitationToken && (
@@ -54,7 +63,11 @@ const TeamNotFoundMessage = () => {
                     Bekijk uitnodiging
                   </Button>
                 )}
-                <Button as={RedwoodLink} ml={4} to={routes.newTeam()}>
+                <Button
+                  as={RedwoodLink}
+                  ml={invitationToken ? 4 : 0}
+                  to={routes.newTeam()}
+                >
                   Maak een eigen team
                 </Button>
               </Flex>

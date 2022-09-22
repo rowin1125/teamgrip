@@ -62,7 +62,7 @@ export const data = {
 
 type ChartHasDataWrapperProps = {
   children: JSX.Element
-  entries: any[]
+  hasEntries: boolean
   isLoading: boolean
   to: string
   buttonText: string
@@ -71,18 +71,17 @@ type ChartHasDataWrapperProps = {
 
 const ChartHasDataWrapper = ({
   children,
-  entries,
+  hasEntries,
   isLoading,
   buttonText,
   title,
   to,
 }: ChartHasDataWrapperProps) => {
   const { isTeamStaff } = useTeamPlayerAuth()
-  if (!entries) return null
 
-  if (entries.length > 0) return children
+  if (hasEntries) return children
 
-  const showLock = !isLoading && entries?.length === 0
+  const showLock = !isLoading && !hasEntries
 
   return (
     <Box position="relative">

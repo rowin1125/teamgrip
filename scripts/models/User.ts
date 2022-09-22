@@ -34,7 +34,7 @@ export const users: Prisma.UserCreateArgs['data'][] = [
     },
   },
   {
-    email: 'user-owner-of-team-and-club@example.com',
+    email: 'user-owner-of-team-and-club@gmail.com',
     roles: 'USER',
     avatar: {
       create: {
@@ -109,7 +109,7 @@ export const createUsers = async () => {
           const teamName = `Zaterdag-${createRandomNumber(1, 30)}`
 
           if (user.email === 'user-member-of-team-and-club@gmail.com') {
-            const team = await db.team.findFirst({
+            const firstTeam = await db.team.findFirst({
               where: {
                 owner: {
                   email: 'rowinmol648@gmail.com',
@@ -126,7 +126,7 @@ export const createUsers = async () => {
                 isActivePlayer: true,
                 team: {
                   connect: {
-                    id: team.id,
+                    id: firstTeam.id,
                   },
                 },
               },
@@ -145,8 +145,6 @@ export const createUsers = async () => {
             },
           })
 
-          await waitFor(2000)
-
           await db.player.update({
             where: {
               userId: user.id,
@@ -158,6 +156,13 @@ export const createUsers = async () => {
                   id: team.id,
                 },
               },
+            },
+          })
+
+          await db.player.updateMany({
+            where: {},
+            data: {
+              clubId: club.id,
             },
           })
 

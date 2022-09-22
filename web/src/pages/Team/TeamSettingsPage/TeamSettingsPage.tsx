@@ -46,7 +46,7 @@ const TeamSettingsPage = () => {
           title="Team settings"
           description="Bekijk en beheer je team instellingen"
         />
-        <TeamNotFoundMessage />
+        <TeamNotFoundMessage title="Mijn settings" />
       </>
     )
 

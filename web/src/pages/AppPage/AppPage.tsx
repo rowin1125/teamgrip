@@ -7,6 +7,8 @@ import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapp
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
+import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage'
+
 import PlayerRecentGames from './components/PlayerRecentGames'
 import PlayerRecentTrainings from './components/PlayerRecentTrainings'
 import TeamPresence from './components/TeamPresence'
@@ -15,6 +17,17 @@ import TopTeamPlayers from './components/TopTeamPlayers'
 const AppPage = () => {
   const { team } = useGetTeamById()
   const { isActivePlayer } = useTeamPlayerAuth()
+
+  if (!team?.id)
+    return (
+      <>
+        <MetaTags
+          title="Dashboard"
+          description="Dashboard overzicht van jouw gegevens binnen het team"
+        />
+        <TeamNotFoundMessage title="Mijn Dashboard" />
+      </>
+    )
 
   return (
     <>

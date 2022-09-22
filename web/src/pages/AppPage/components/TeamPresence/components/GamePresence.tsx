@@ -59,9 +59,13 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
     ],
   }
 
+  const somePlayerHasGames = teamPresence.some(
+    (player) => player.games.length > 0
+  )
+
   return (
     <ChartHasDataWrapper
-      entries={teamPresence}
+      hasEntries={somePlayerHasGames}
       isLoading={isLoading}
       to={routes.newGame({
         id: currentUser?.player.teamId,

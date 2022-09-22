@@ -25,7 +25,7 @@ const TeamPage = () => {
     return (
       <>
         <MetaTags title="Team" description="Team page" />
-        <TeamNotFoundMessage />
+        <TeamNotFoundMessage title="Mijn team" />
       </>
     )
 
