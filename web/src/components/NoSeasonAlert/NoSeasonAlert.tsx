@@ -1,4 +1,4 @@
-import { Button, Text } from '@chakra-ui/react'
+import { Box, Button, Text } from '@chakra-ui/react'
 
 import { routes } from '@redwoodjs/router'
 
@@ -17,20 +17,22 @@ const NoSeasonAlert = () => {
   if (someSeasonActive) return null
 
   return (
-    <TextAlert status="error" m={10} mb={10}>
-      <Text>
-        Er is op dit moment nog geen actief seizoen.{' '}
-        <Button
-          as={RedwoodLink}
-          to={routes.teamSettings()}
-          variant="link"
-          textDecor="underline"
-        >
-          Activeer
-        </Button>{' '}
-        een seizoen om data zichtbaar te maken
-      </Text>
-    </TextAlert>
+    <Box mx={10}>
+      <TextAlert status="error" mb={10}>
+        <Text>
+          Er is op dit moment nog geen actief seizoen.{' '}
+          <Button
+            as={RedwoodLink}
+            to={routes.teamSettings()}
+            variant="link"
+            textDecor="underline"
+          >
+            Activeer
+          </Button>{' '}
+          een seizoen om data zichtbaar te maken
+        </Text>
+      </TextAlert>
+    </Box>
   )
 }
 

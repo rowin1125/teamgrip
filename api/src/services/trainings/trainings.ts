@@ -74,8 +74,6 @@ export const createTraining: MutationResolvers['createTraining'] = async ({
   })
 
   if (!team) throw new UserInputError('Team niet gevonden')
-  if (team.ownerId !== context.currentUser.id)
-    throw new UserInputError('Niet toegestaan, je bent geen team owner')
 
   try {
     const trainingResult = await db.training.create({
@@ -114,18 +112,22 @@ export const updateTraining: MutationResolvers['updateTraining'] = async ({
   })
 
   if (!team) throw new UserInputError('Team niet gevonden')
-  if (team.ownerId !== context.currentUser.id)
-    throw new UserInputError('Niet toegestaan, je bent geen team owner')
 
   const trainingResult = await db.training.update({
     where: { id },
     data: {
       ...input,
+      players: {
+        connect: scores.map((score) => ({
+          id: score.playerId,
+        })),
+      },
       scores: {
         deleteMany: {},
       },
     },
   })
+
   const scoreData: CreateScoreInput[] = scores.map((score) => ({
     ...score,
     trainingId: trainingResult.id,
