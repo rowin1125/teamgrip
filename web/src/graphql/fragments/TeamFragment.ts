@@ -3,6 +3,7 @@ export const TEAM_FRAGMENT = gql`
     id
     name
     invitationToken
+    clubTeamName
     owner {
       id
       userProfile {

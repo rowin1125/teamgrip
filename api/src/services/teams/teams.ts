@@ -63,66 +63,78 @@ export const teamByInvitationToken: QueryResolvers['teamByInvitationToken'] = ({
 export const createTeam: MutationResolvers['createTeam'] = async ({
   input: { ownerIsPlayer, ...input },
 }) => {
-  const currentUser = context.currentUser
-  const playerAlreadyPartOfTeam = await db.team.findFirst({
-    where: {
-      players: {
-        some: {
-          userId: currentUser.id,
+  try {
+    const currentUser = context.currentUser
+    const playerAlreadyPartOfTeam = await db.team.findFirst({
+      where: {
+        players: {
+          some: {
+            userId: currentUser.id,
+          },
         },
       },
-    },
-  })
+    })
 
-  if (playerAlreadyPartOfTeam)
-    throw new UserInputError('Je maakt al deel uit van een Team')
+    if (playerAlreadyPartOfTeam)
+      throw new UserInputError('Je maakt al deel uit van een Team')
 
-  const createTeam = db.team.create({
-    data: {
-      ...input,
-      players: {
-        connect: {
-          userId: currentUser.id,
+    const createTeam = db.team.create({
+      data: {
+        ...input,
+        players: {
+          connect: {
+            userId: currentUser.id,
+          },
         },
       },
-    },
-  })
+    })
 
-  const playerUpdate = db.player.update({
-    where: {
-      userId: currentUser.id,
-    },
-    data: {
-      isActivePlayer: ownerIsPlayer,
-      playerType: 'STAFF',
-    },
-  })
+    const playerUpdate = db.player.update({
+      where: {
+        userId: currentUser.id,
+      },
+      data: {
+        isActivePlayer: ownerIsPlayer,
+        playerType: 'STAFF',
+      },
+    })
 
-  const result = await db.$transaction([createTeam, playerUpdate])
+    const result = await db.$transaction([createTeam, playerUpdate])
 
-  return result[0]
+    return result[0]
+  } catch (error) {
+    if (error.code === 'P2002') throw new UserInputError('Team bestaat al')
+    if (error.message) throw new UserInputError(error.message)
+    throw new UserInputError('Er is iets misgegaan')
+  }
 }
 
 export const updateTeam: MutationResolvers['updateTeam'] = async ({
   id,
   input,
 }) => {
-  const { ownerIsPlayer, ...data } = input
-  const teamResult = await db.team.update({
-    data,
-    where: { id },
-  })
+  try {
+    const { ownerIsPlayer, ...data } = input
+    const teamResult = await db.team.update({
+      data,
+      where: { id },
+    })
 
-  await db.player.update({
-    where: {
-      userId: teamResult.ownerId,
-    },
-    data: {
-      isActivePlayer: ownerIsPlayer,
-    },
-  })
+    await db.player.update({
+      where: {
+        userId: teamResult.ownerId,
+      },
+      data: {
+        isActivePlayer: ownerIsPlayer,
+      },
+    })
 
-  return teamResult
+    return teamResult
+  } catch (error) {
+    if (error.code === 'P2002') throw new UserInputError('Team bestaat al')
+    if (error.message) throw new UserInputError(error.message)
+    throw new UserInputError('Er is iets misgegaan')
+  }
 }
 
 export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {

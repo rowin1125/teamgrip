@@ -102,7 +102,8 @@ model Team {
   id              String     @id @default(cuid())
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @default(now()) @updatedAt
-  name            String     @unique
+  name            String
+  clubTeamName    String     @unique @default(cuid())
   players         Player[]
   club            Club?      @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId          String?

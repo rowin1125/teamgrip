@@ -33,18 +33,20 @@ export const useUpdateTeam = (clubs) => {
   })
 
   const handleUpdateTeam = async (input: UpdateTeamInput) => {
-    const teamNameContainsClubName = input.name
-      .toLowerCase()
-      .includes(
-        clubs.find((club) => club.id === input.clubId)?.name?.toLowerCase()
-      )
+    const clubName = clubs
+      .find((club) => club.id === input.clubId)
+      ?.name?.toLowerCase()
+    const teamNameContainsClubName = input.name.toLowerCase().includes(clubName)
     if (teamNameContainsClubName) {
       toast.error('Clubnaam mag niet in teamnaam zitten')
       return
     }
     const variables = {
       id: currentUser?.player?.teamId,
-      input,
+      input: {
+        ...input,
+        clubTeamName: `${clubName}-${input.name}`,
+      },
     }
 
     const updateTeamById = await updateTeam({

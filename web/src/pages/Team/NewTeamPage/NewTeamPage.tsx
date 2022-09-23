@@ -40,6 +40,7 @@ const NewTeamPage = () => {
                 clubId: '',
                 ownerId: currentUser?.id,
                 ownerIsPlayer: false,
+                clubTeamName: '',
               }}
               validationSchema={validationSchema}
             >

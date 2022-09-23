@@ -4,6 +4,7 @@ export const schema = gql`
     createdAt: DateTime!
     updatedAt: DateTime!
     name: String!
+    clubTeamName: String!
     players: [Player]!
     club: Club
     clubId: String
@@ -24,6 +25,7 @@ export const schema = gql`
 
   input CreateTeamInput {
     name: String!
+    clubTeamName: String!
     clubId: String!
     ownerId: String!
     ownerIsPlayer: Boolean!
@@ -31,6 +33,7 @@ export const schema = gql`
 
   input UpdateTeamInput {
     name: String!
+    clubTeamName: String!
     clubId: String!
     ownerId: String!
     ownerIsPlayer: Boolean!

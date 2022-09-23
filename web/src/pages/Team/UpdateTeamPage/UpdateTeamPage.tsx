@@ -47,6 +47,7 @@ const UpdateTeamPage = () => {
                 clubId: team.club.id,
                 ownerId: currentUser?.id,
                 ownerIsPlayer: currentUser?.player.isActivePlayer,
+                clubTeamName: team.clubTeamName,
               }}
               validationSchema={validationSchema}
             >

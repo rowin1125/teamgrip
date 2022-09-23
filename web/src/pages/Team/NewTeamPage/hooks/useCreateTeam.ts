@@ -41,11 +41,12 @@ export const useCreateTeam = (clubs) => {
   })
 
   const handleCreateTeam = async (values: CreateTeamInput) => {
+    const clubName = clubs
+      .find((club) => club.id === values.clubId)
+      ?.name?.toLowerCase()
     const teamNameContainsClubName = values.name
       .toLowerCase()
-      .includes(
-        clubs.find((club) => club.id === values.clubId)?.name?.toLowerCase()
-      )
+      .includes(clubName)
     if (teamNameContainsClubName) {
       toast.error('Clubnaam mag niet in teamnaam zitten')
       return
@@ -53,7 +54,12 @@ export const useCreateTeam = (clubs) => {
 
     try {
       const team = await createTeam({
-        variables: { input: values },
+        variables: {
+          input: {
+            ...values,
+            clubTeamName: `${clubName}-${values.name}`,
+          },
+        },
       })
       toast.success(`Team ${team.data.createTeam.name} aangemaakt`)
       navigate(routes.team())

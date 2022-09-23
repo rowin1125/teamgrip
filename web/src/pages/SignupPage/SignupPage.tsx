@@ -63,7 +63,7 @@ const SignupPage = () => {
           minH="calc(100vh - 300px - 80px)"
         >
           <Box maxW="400px" w="full" p={{ base: 4, xl: 0 }}>
-            <Heading as="h1" size="xl">
+            <Heading as="h1" size="xl" color="white">
               Aanmelden
             </Heading>
             <SignUpForm
