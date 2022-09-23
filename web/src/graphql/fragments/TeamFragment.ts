@@ -21,6 +21,8 @@ export const TEAM_FRAGMENT = gql`
     }
     players {
       id
+      displayName
+      isActivePlayer
       playerType
     }
   }

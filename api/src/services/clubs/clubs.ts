@@ -10,10 +10,21 @@ export const clubs: QueryResolvers['clubs'] = () => {
   return db.club.findMany()
 }
 
-export const club: QueryResolvers['club'] = ({ id }) => {
-  return db.club.findUnique({
+export const club: QueryResolvers['club'] = async ({ id }) => {
+  const club = await db.club.findUnique({
     where: { id },
+    include: {
+      teams: {
+        include: {
+          season: true,
+          trainings: true,
+          games: true,
+        },
+      },
+    },
   })
+
+  return club
 }
 
 export const createClub: MutationResolvers['createClub'] = ({ input }) => {

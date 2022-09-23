@@ -22,7 +22,7 @@ type GameFormProps = {
   initialValues: Record<string, any>
   type: 'new' | 'edit'
   loading: boolean
-  team?: FindTeamQuery['team'] | GetGameByIdQuery['game']['team']
+  team?: FindTeamQuery['team']
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']

@@ -30,7 +30,7 @@ const TableDataAvatar = ({ cell, size }: TableDataAvatarProps) => {
           {...avatarProps}
         />
       ) : (
-        <GhostAvatar w={sizes[size]} h={sizes[size]} />
+        <GhostAvatar w={`${sizes[size]}px`} h={`${sizes[size]}px`} />
       )}
     </>
   )

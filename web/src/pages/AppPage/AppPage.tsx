@@ -15,10 +15,10 @@ import TeamPresence from './components/TeamPresence'
 import TopTeamPlayers from './components/TopTeamPlayers'
 
 const AppPage = () => {
-  const { team } = useGetTeamById()
+  const { team, loading } = useGetTeamById()
   const { isActivePlayer } = useTeamPlayerAuth()
 
-  if (!team?.id)
+  if (!team?.id && !loading)
     return (
       <>
         <MetaTags

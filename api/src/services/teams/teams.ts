@@ -219,4 +219,8 @@ export const Team: TeamResolvers = {
     db.team.findUnique({ where: { id: root.id } }).owner(),
   season: (_obj, { root }) =>
     db.team.findUnique({ where: { id: root.id } }).season(),
+  trainings: (_obj, { root }) =>
+    db.team.findUnique({ where: { id: root.id } }).trainings(),
+  games: (_obj, { root }) =>
+    db.team.findUnique({ where: { id: root.id } }).games(),
 }

@@ -20,7 +20,7 @@ type UseScoreFieldArrayActionsType = {
     | GetTrainingByIdQuery['training']['players']
   push: (obj: any) => void
   remove: <T>(index: number) => T
-  team?: FindTeamQuery['team'] | GetTrainingByIdQuery['training']['team']
+  team?: FindTeamQuery['team']
 }
 
 export const useScoreFieldArrayActions = ({
@@ -30,8 +30,7 @@ export const useScoreFieldArrayActions = ({
   remove,
 }: UseScoreFieldArrayActionsType) => {
   const { values, setFieldValue } = useFormikContext<ScoreFormValues>()
-  const { initialBenchPlayers } = useGetInitialBenchPlayers(players)
-
+  const { initialBenchPlayers } = useGetInitialBenchPlayers(players, team)
   const [benchPlayers, setBenchPlayers] = useState(initialBenchPlayers)
 
   const seasonMatchesThisYear = team?.season?.filter((season) =>
@@ -46,19 +45,27 @@ export const useScoreFieldArrayActions = ({
     const topPlayer = values.topTrainingScores.find(
       (score) => currentPlayer.id === score.playerId
     )
+
     if (topPlayer?.playerId) {
       const filteredTopTraining = values.topTrainingScores.filter(
         (score) => score.playerId !== currentPlayer.id
       )
+      const playerPresentInTopTraining = values.topTrainingScores.filter(
+        (score) => score.playerId === currentPlayer.id
+      )
+      const playerPresentAmount = playerPresentInTopTraining?.length ?? 0
+
       const newTopTrainingScores = [
         ...filteredTopTraining,
-        {
-          ...scoreBlueprint,
-          playerId: '',
-          type: 'TOP_TRAINING',
-          seasonId: values.seasonId || defaultSeasonId || '',
-          teamId: values.teamId || team?.id || '',
-        },
+        ...Array(playerPresentAmount)
+          .fill(null)
+          .map(() => ({
+            ...scoreBlueprint,
+            playerId: '',
+            type: 'TOP_TRAINING',
+            seasonId: values.seasonId || defaultSeasonId || '',
+            teamId: values.teamId || team?.id || '',
+          })),
       ]
       setFieldValue('topTrainingScores', newTopTrainingScores)
     }

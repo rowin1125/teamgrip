@@ -1,87 +1,84 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Text,
-} from '@chakra-ui/react'
-import Avatar from 'avataaars'
+import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
 
-import { routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
+import DataDisplay from 'src/components/DataDisplay/DataDisplay'
+import TeamTable from 'src/components/TeamTable'
+
+import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage'
+
+import { useGetClubById } from './hooks/useGetClubById'
 
 const ClubPage = () => {
+  const { club, clubLoading } = useGetClubById()
+
+  if (!club?.id && !clubLoading)
+    return (
+      <>
+        <MetaTags title="Mijn Club" description="Club page" />
+        <TeamNotFoundMessage title="Mijn Club" type="club" />
+      </>
+    )
+
+  const totalAmountOfGames = club?.teams?.reduce(
+    (acc, team) => acc + team?.games?.length,
+    0
+  )
+  const totalAmountOfTrainings = club?.teams?.reduce(
+    (acc, team) => acc + team?.trainings?.length,
+    0
+  )
   return (
     <>
       <MetaTags title="Mijn Club" description="Club page" />
+      <Grid
+        templateColumns="repeat(12, 1fr)"
+        templateRows="auto"
+        gap={{ base: 0, xl: 10 }}
+        rowGap={{ base: 10 }}
+      >
+        <GridItem colSpan={{ base: 12 }} rowSpan={1}>
+          <Heading as="h1" size="2xl" color="white">
+            Club dashboard {club?.name}
+          </Heading>
+        </GridItem>
+        <GridItem colSpan={{ base: 12, xl: 4 }}>
+          <Card position="sticky" top={10}>
+            <Heading as="h1" size="lg" mb={8}>
+              Mijn Club
+            </Heading>
 
-      {/* <PlayerCard /> */}
-      <Grid gridTemplateColumns="repeat(12, 1fr)" gridGap={4}>
+            <DataDisplay
+              entry={{
+                'Club naam': club?.name,
+                'Aantal teams': club?.teams?.length,
+                'Aantal leden': club?.players?.length,
+                'Totaal aantal trainingen': totalAmountOfTrainings,
+                'Totaal aantal wedstrijden': totalAmountOfGames,
+              }}
+            />
+          </Card>
+        </GridItem>
         <GridItem colSpan={{ base: 12, xl: 8 }}>
-          <Card>
-            <Flex
-              justifyContent="space-between"
-              flexDir={{ base: 'column', xl: 'row' }}
-            >
-              <Box order={{ base: 2, xl: 0 }}>
-                <Heading display={{ base: 'none', xl: 'block' }} mb={4}>
-                  Mijn Club
-                </Heading>
+          <Card bg="primary.500" color="white">
+            <Heading as="h1" size="lg" color="white">
+              Team bij {club?.name}
+            </Heading>
 
-                <Text fontSize="xl">
-                  Je maakt nog geen onderdeel uit van een club.{' '}
-                </Text>
-                <Text fontSize="xl" mt={4}>
-                  Om onderdeel van een <strong>club</strong> te worden moet je
-                  deel uitmaken van een <strong>team</strong>. Zorg dat je een
-                  uitnodiging krijgt van een team of start je eigen team bij een
-                  club.
-                </Text>
-                <Flex
-                  flexDirection={{ base: 'column', xl: 'row' }}
-                  mt={{ base: 4, xl: 0 }}
-                >
-                  <Button
-                    to={routes.newTeam()}
-                    as={RedwoodLink}
-                    mt={{ base: 0, xl: 4 }}
-                    colorScheme="secondary"
-                    mr={{ base: 0, xl: 4 }}
-                  >
-                    Maak een team
-                  </Button>
-                  <Button mt={4}>Check je uitnodigingen</Button>
-                </Flex>
-              </Box>
-
-              <Box order={{ base: 0, xl: 2 }}>
-                <Heading display={{ base: 'block', xl: 'none' }} mb={4}>
-                  Mijn Club
-                </Heading>
-
-                <Flex justifyContent="center" mb={4}>
-                  <Avatar
-                    style={{ width: '200px', height: '200px' }}
-                    avatarStyle="Transparent"
-                    accessoriesType="Blank"
-                    topType="ShortHairShortWaved"
-                    hairColor="Brown"
-                    facialHairType="BrownDark"
-                    clotheType="Hoodie"
-                    clotheColor="Black"
-                    eyeType="Cry"
-                    eyebrowType="SadConcerned"
-                    mouthType="Sad"
-                    skinColor="Tanned"
-                  />
-                </Flex>
-              </Box>
-            </Flex>
+            <Box overflowX="auto">
+              <TeamTable
+                entries={club?.teams.map((team) => {
+                  return {
+                    name: team.name,
+                    'Team eigenaar': `${team.owner?.userProfile.firstname} ${team.owner?.userProfile.lastname}`,
+                    'Aantal spelers': team.players.length,
+                    'Aantal wedstrijden': team.games.length,
+                    'Aantal trainingen': team.trainings.length,
+                  }
+                })}
+              />
+            </Box>
           </Card>
         </GridItem>
       </Grid>

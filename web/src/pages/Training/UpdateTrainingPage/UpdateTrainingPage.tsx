@@ -52,7 +52,7 @@ const UpdateTrainingPage = () => {
                   seasonId: training.season.id,
                   points: score.points,
                   teamId: team?.id,
-                  trainingId: '',
+                  trainingId: training?.id,
                   type: 'TRAINING',
                 })),
                 topTrainingScores: topTrainingScores.map((score) => ({
@@ -60,7 +60,7 @@ const UpdateTrainingPage = () => {
                   seasonId: training.season.id,
                   points: score.points,
                   teamId: team?.id,
-                  trainingId: '',
+                  trainingId: training?.id,
                   type: 'TOP_TRAINING',
                 })),
               }}
@@ -68,7 +68,7 @@ const UpdateTrainingPage = () => {
               onSubmit={handleUpdateTraining}
               loading={trainingLoading || updateTrainingLoading}
               team={team}
-              players={training?.players}
+              players={team?.players.filter((player) => player.isActivePlayer)}
             />
           </Card>
         </GridItem>

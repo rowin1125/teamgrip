@@ -100,12 +100,14 @@ const TrainingDetailPage = () => {
             </Heading>
             <TeamTable
               size="lg"
-              entries={topTrainingScores?.map((score, index) => ({
-                Rank: index + 1,
-                Naam: score.player.displayName,
-                Avatar: score.player?.user?.avatar,
-                Punten: score.points,
-              }))}
+              entries={topTrainingScores
+                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                .map((score, index) => ({
+                  Rank: index + 1,
+                  Naam: score.player.displayName,
+                  Avatar: score.player?.user?.avatar,
+                  Punten: score.points,
+                }))}
             />
           </Card>
           <Card w="100%" overflowX="auto" mt={10}>
@@ -114,12 +116,14 @@ const TrainingDetailPage = () => {
             </Heading>
             <TeamTable
               size="lg"
-              entries={regularTrainingScores?.map((score, index) => ({
-                Rank: index + 1,
-                Naam: score.player.displayName,
-                Avatar: score.player?.user?.avatar,
-                Punten: score.points,
-              }))}
+              entries={regularTrainingScores
+                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                .map((score, index) => ({
+                  Rank: index + 1,
+                  Naam: score.player.displayName,
+                  Avatar: score.player?.user?.avatar,
+                  Punten: score.points,
+                }))}
             />
           </Card>
         </GridItem>

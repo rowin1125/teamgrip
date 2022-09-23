@@ -20,7 +20,7 @@ type UseScoreFieldArrayActionsType = {
     | GetGameByIdQuery['game']['players']
   push: (obj: any) => void
   remove: <T>(index: number) => T
-  team?: FindTeamQuery['team'] | GetGameByIdQuery['game']['team']
+  team?: FindTeamQuery['team']
 }
 
 export const useScoreFieldArrayActions = ({
@@ -30,7 +30,7 @@ export const useScoreFieldArrayActions = ({
   remove,
 }: UseScoreFieldArrayActionsType) => {
   const { values, setFieldValue } = useFormikContext<ScoreFormValues>()
-  const { initialBenchPlayers } = useGetInitialBenchPlayers(players)
+  const { initialBenchPlayers } = useGetInitialBenchPlayers(players, team)
 
   const [benchPlayers, setBenchPlayers] = useState(initialBenchPlayers)
 
@@ -46,19 +46,26 @@ export const useScoreFieldArrayActions = ({
     const topPlayer = values.topGameScores.find(
       (score) => currentPlayer.id === score.playerId
     )
+
     if (topPlayer?.playerId) {
       const filteredTopGame = values.topGameScores.filter(
         (score) => score.playerId !== currentPlayer.id
       )
+      const playerPresentInTopGame = values.topGameScores.filter(
+        (score) => score.playerId === currentPlayer.id
+      )
+      const playerPresentAmount = playerPresentInTopGame?.length ?? 0
       const newTopGameScores = [
         ...filteredTopGame,
-        {
-          ...scoreBlueprint,
-          playerId: '',
-          type: 'TOP_GAME',
-          seasonId: values.seasonId || defaultSeasonId || '',
-          teamId: values.teamId || team?.id || '',
-        },
+        ...Array(playerPresentAmount)
+          .fill(scoreBlueprint)
+          .map(() => ({
+            ...scoreBlueprint,
+            playerId: '',
+            type: 'TOP_GAME',
+            seasonId: values.seasonId || defaultSeasonId || '',
+            teamId: values.teamId || team?.id || '',
+          })),
       ]
       setFieldValue('topGameScores', newTopGameScores)
     }

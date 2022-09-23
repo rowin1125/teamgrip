@@ -22,7 +22,7 @@ type TrainingFormProps = {
   initialValues: Record<string, any>
   type: 'new' | 'edit'
   loading: boolean
-  team?: FindTeamQuery['team'] | GetTrainingByIdQuery['training']['team']
+  team?: FindTeamQuery['team']
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetTrainingByIdQuery['training']['players']

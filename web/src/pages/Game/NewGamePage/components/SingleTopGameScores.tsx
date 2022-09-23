@@ -1,10 +1,6 @@
 import React from 'react'
 
-import {
-  CreateScoreInput,
-  GetGameByIdQuery,
-  GetPlayersForTeamQuery,
-} from 'types/graphql'
+import { GetGameByIdQuery, GetPlayersForTeamQuery } from 'types/graphql'
 
 import ControlledInput from 'src/components/forms/components/ControlledInput'
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
@@ -15,27 +11,18 @@ type SingleTopGameScoresProps = {
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']
-  playersScoreArray: CreateScoreInput[]
 }
 
-const SingleTopGameScores = ({
-  index,
-  playersScoreArray,
-  players,
-}: SingleTopGameScoresProps) => (
+const SingleTopGameScores = ({ index, players }: SingleTopGameScoresProps) => (
   <>
     <ControlledSelect
       mb={2}
       id={`topGameScores.${index}.playerId`}
       label="Selecteer een speler"
-      options={playersScoreArray.map((option) => {
-        const player = players.find((player) => player.id === option.playerId)
-
-        return {
-          label: capitalizeText(player.displayName),
-          value: option?.playerId,
-        }
-      })}
+      options={players.map((option) => ({
+        label: capitalizeText(option.displayName),
+        value: option?.id,
+      }))}
       placeholder="Selecteer"
       reactSelectProps={{ isClearable: true }}
     />

@@ -6,7 +6,7 @@ import {
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 
-import { GET_PLAYERS_FOR_TEAM_QUERY } from 'src/pages/Team/TeamPage/hooks/useGetPlayersForTeam'
+import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId'
 
 export const INVITE_GHOSTS_PLAYERS = gql`
   mutation InviteGhostsPlayersMutation($input: CreateGhostPlayersInput!) {
@@ -33,7 +33,7 @@ export const useInviteGhosts = () => {
       },
       refetchQueries: [
         {
-          query: GET_PLAYERS_FOR_TEAM_QUERY,
+          query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
           variables: { teamId: input.teamId },
         },
       ],

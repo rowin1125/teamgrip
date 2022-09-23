@@ -18,7 +18,7 @@ type SingleScoreFieldProps = {
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetTrainingByIdQuery['training']['players']
-  team?: FindTeamQuery['team'] | GetTrainingByIdQuery['training']['team']
+  team?: FindTeamQuery['team']
 }
 
 const SingleScoreField = ({
@@ -49,7 +49,6 @@ const SingleScoreField = ({
           return (
             <SingleTopTrainingScores
               key={`topTrainingScores.${index}.playerId`}
-              playersScoreArray={playersScoreArray}
               players={players}
               index={index}
             />

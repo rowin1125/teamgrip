@@ -18,7 +18,7 @@ type CreateScoreFieldArrayInputsProps = {
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']
-  team?: FindTeamQuery['team'] | GetGameByIdQuery['game']['team']
+  team?: FindTeamQuery['team']
 }
 
 const CreateScoreFieldArrayInputs = ({

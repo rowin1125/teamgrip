@@ -63,7 +63,7 @@ const UpdateGamePage = () => {
               onSubmit={handleUpdateGame}
               loading={gameLoading || handleUpdateGameLoading}
               team={team}
-              players={game?.players}
+              players={team?.players.filter((player) => player.isActivePlayer)}
             />
           </Card>
         </GridItem>
