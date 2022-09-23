@@ -126,10 +126,6 @@ export const updateTeam: MutationResolvers['updateTeam'] = async ({
 }
 
 export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
-  const deletedTeam = await db.team.delete({
-    where: { id },
-  })
-
   await db.player.deleteMany({
     where: {
       teamId: id,
@@ -137,6 +133,10 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
         isGhost: true,
       },
     },
+  })
+
+  const deletedTeam = await db.team.delete({
+    where: { id },
   })
 
   await db.player.updateMany({
