@@ -18,7 +18,12 @@ const JoinTeamPage = () => {
       <Box h="calc(100vh - 80px)">
         <Hero zIndex={0} size="full" />
         <Flex justifyContent="center" alignItems="center" w="full" h="full">
-          <Card w={{ base: 'full', xl: '50%' }} bg="primary.500" color="white">
+          <Card
+            w={{ base: 'full', xl: '50%' }}
+            maxW={{ xl: '800px' }}
+            bg="primary.500"
+            color="white"
+          >
             {isAuthenticated ? (
               <AcceptTeamInvitation />
             ) : (

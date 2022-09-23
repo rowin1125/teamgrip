@@ -55,7 +55,7 @@ const TeamGames = () => {
       <Box overflowX="auto">
         <TeamTable
           theme="light"
-          size="sm"
+          size={isTeamStaff ? 'sm' : 'md'}
           entries={gameEntries}
           hiddenColumns={['id']}
           routes={{

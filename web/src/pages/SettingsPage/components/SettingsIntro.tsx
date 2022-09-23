@@ -12,8 +12,10 @@ import {
 import { GiLaurelsTrophy } from 'react-icons/gi'
 
 import { useAuth } from '@redwoodjs/auth'
+import { routes } from '@redwoodjs/router'
 
 import Card from 'src/components/Card/Card'
+import RedwoodLink from 'src/components/RedwoodLink'
 
 const SettingsIntro = () => {
   const { currentUser } = useAuth()
@@ -51,11 +53,21 @@ const SettingsIntro = () => {
             mt={{ base: 8, xl: 0 }}
             flexDirection={{ base: 'column', xl: 'row' }}
           >
-            <Button mb={{ base: 4, xl: 0 }}>Mijn scores</Button>
-            <Button mb={{ base: 4, xl: 0 }} variant="outline" mx={{ xl: 10 }}>
+            <Button
+              as={RedwoodLink}
+              to={routes.club()}
+              mb={{ base: 4, xl: 0 }}
+              variant="outline"
+              mx={{ xl: 10 }}
+            >
               Mijn club
             </Button>
-            <Button mb={{ base: 4, xl: 0 }} variant="outline">
+            <Button
+              as={RedwoodLink}
+              to={routes.team()}
+              mb={{ base: 4, xl: 0 }}
+              variant="outline"
+            >
               Mijn team
             </Button>
           </Flex>

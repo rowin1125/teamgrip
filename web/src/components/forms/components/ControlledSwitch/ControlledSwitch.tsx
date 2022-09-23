@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {
+  Flex,
   FormControl,
   FormControlProps,
   FormHelperText,
@@ -8,6 +9,7 @@ import {
   FormLabelProps,
   Switch,
   SwitchProps,
+  Text,
 } from '@chakra-ui/react'
 import { useField } from 'formik'
 
@@ -36,17 +38,19 @@ const ControlledSwitch = ({
           {label}
         </FormLabel>
       )}
-      <Switch
-        {...field}
-        id={id}
-        isInvalid={!!error && touched}
-        isChecked={field.value}
-        display="flex"
-        alignItems="center"
-        {...switchProps}
-      >
-        {children}
-      </Switch>
+      <Flex alignItems="center">
+        <Switch
+          {...field}
+          id={id}
+          isInvalid={!!error && touched}
+          isChecked={field.value}
+          mt={0}
+          {...switchProps}
+        />
+        <Text fontSize="md" ml={4}>
+          {children}
+        </Text>
+      </Flex>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   )

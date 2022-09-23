@@ -3,15 +3,17 @@ import { Box, Button, Text } from '@chakra-ui/react'
 import { routes } from '@redwoodjs/router'
 
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 import RedwoodLink from '../RedwoodLink'
 import TextAlert from '../TextAlert/TextAlert'
 
 const NoSeasonAlert = () => {
+  const { isTeamStaff } = useTeamPlayerAuth()
   const { team, loading } = useGetTeamById()
   if (loading) return null
-
   if (!team?.id) return null
+  if (!isTeamStaff) return null
 
   const someSeasonActive = team?.season.some((season) => season.active)
   if (someSeasonActive) return null
