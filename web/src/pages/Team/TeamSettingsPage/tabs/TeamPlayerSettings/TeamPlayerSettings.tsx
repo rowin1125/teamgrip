@@ -1,10 +1,12 @@
 import { Box, Heading } from '@chakra-ui/react'
 
 import TeamPlayerSettingsTable from './components/TeamPlayerSettingsTable'
+import { useDeletePlayerById } from './hooks/useDeletePlayerById'
 import { useGetTeamPlayersForSettings } from './hooks/useGetTeamPlayersForSettings'
 
 const TeamPlayerSettings = () => {
   const { teamWithExtra, teamWithExtraLoading } = useGetTeamPlayersForSettings()
+  const { handleDeletePlayerById } = useDeletePlayerById()
 
   if (teamWithExtraLoading) return null
 
@@ -25,7 +27,10 @@ const TeamPlayerSettings = () => {
           Spelers in jouw team
         </Heading>
 
-        <TeamPlayerSettingsTable entries={transformedTeamPlayers} />
+        <TeamPlayerSettingsTable
+          entries={transformedTeamPlayers}
+          onDelete={handleDeletePlayerById}
+        />
       </Box>
     </Box>
   )

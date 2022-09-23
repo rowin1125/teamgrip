@@ -11,7 +11,7 @@ import TeamPlayerSettingsEditPlayerType from './TeamPlayerSettingsEditPlayerType
 
 type TeamPlayerSettingsActionButtonsProps = {
   row: Record<string, any>
-  onDelete?: (id: string) => Promise<void>
+  onDelete: (id: string) => Promise<void>
   entries?: Record<string, any>[]
 }
 
