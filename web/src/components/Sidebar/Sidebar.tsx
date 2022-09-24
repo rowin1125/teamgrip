@@ -8,6 +8,8 @@ import { routes } from '@redwoodjs/router'
 import useLocalStorage from 'src/hooks/global/useLocalStorage'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
+import RedwoodLink from '../RedwoodLink'
+
 import SidebarItem from './components/SidebarItem'
 import SidebarItemChild from './components/SidebarItemChild'
 import SidebarToggle from './components/SidebarToggle'
@@ -43,12 +45,14 @@ const Sidebar = () => {
     >
       <Flex flexDir="column" w="full" as="nav">
         <Flex justifyContent="center" alignItems="center" py={6}>
-          <Image
-            src="/TeamGrip Logo.png"
-            w={navOpen ? '100px' : '50px'}
-            my={navOpen ? 0 : 6}
-            h="auto"
-          />
+          <RedwoodLink to={routes.home()}>
+            <Image
+              src="/TeamGrip Logo.png"
+              w={navOpen ? '100px' : '50px'}
+              my={navOpen ? 0 : 6}
+              h="auto"
+            />
+          </RedwoodLink>
         </Flex>
 
         <SidebarItem

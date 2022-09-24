@@ -4,7 +4,7 @@ import ClubsLayout from 'src/layouts/ClubsLayout'
 
 import AppLayout from './layouts/AppLayout/AppLayout'
 import AuthLayout from './layouts/AuthLayout/AuthLayout'
-import GeneralLayout from './layouts/GeneralLayout/GeneralLayout'
+import PageLayout from './layouts/PagesLayout/PagesLayout'
 
 const Routes = () => {
   return (
@@ -54,7 +54,7 @@ const Routes = () => {
         <Route path="/activeren" page={ActivatePage} name="activate" />
       </Set>
       {/* PAGES */}
-      <Set wrap={GeneralLayout}>
+      <Set wrap={PageLayout}>
         <Route path="/" page={HomePage} name="home" prerender />
         <Route path="/over" page={AboutPage} name="about" />
         <Route path="/contact" page={ContactPage} name="contact" />
