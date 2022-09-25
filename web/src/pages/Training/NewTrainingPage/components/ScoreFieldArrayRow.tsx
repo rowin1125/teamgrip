@@ -25,32 +25,33 @@ type ScoreFieldArrayRowProps = {
     currentPlayer: GetPlayersForTeamQuery['playersForTeam'][0],
     index: number
   ) => void
+  calculateNumber: string
 }
 
 const ScoreFieldArrayRow = ({
   index,
   players,
   score,
+  calculateNumber,
   handleRemove,
 }: ScoreFieldArrayRowProps) => {
   const { values, setFieldValue } = useFormikContext<FormikValues>()
 
   const id = `scores.${index}.points`
-  const calculateNumber = 25
   const currentPlayer = players.find((item) => item.id === score.playerId)
 
   const handleAddPoints = () => {
     const currentValue = values.scores[index].points
-    setFieldValue(id, +currentValue + calculateNumber)
+    setFieldValue(id, +currentValue + +calculateNumber)
   }
   const handleMinusPoints = () => {
     const currentValue = values.scores[index].points
 
-    if (currentValue - calculateNumber < 0) {
+    if (currentValue - +calculateNumber < 0) {
       setFieldValue(id, 0)
       return
     }
-    setFieldValue(id, currentValue - calculateNumber)
+    setFieldValue(id, currentValue - +calculateNumber)
   }
   return (
     <Grid
@@ -67,7 +68,7 @@ const ScoreFieldArrayRow = ({
             <Button colorScheme="red" onClick={handleMinusPoints}>
               <Icon as={FaMinus} />{' '}
               <Text color="white" position="relative" top="2px">
-                25
+                {calculateNumber}
               </Text>
             </Button>
           </Flex>
@@ -87,14 +88,14 @@ const ScoreFieldArrayRow = ({
               <Button colorScheme="red" onClick={handleMinusPoints}>
                 <Icon as={FaMinus} />{' '}
                 <Text color="white" position="relative" top="2px">
-                  25
+                  {calculateNumber}
                 </Text>
               </Button>
             </Flex>
             <Button colorScheme="green" onClick={handleAddPoints}>
               <Icon as={FaPlus} />{' '}
               <Text color="white" position="relative" top="2px">
-                25
+                {calculateNumber}
               </Text>
             </Button>
 

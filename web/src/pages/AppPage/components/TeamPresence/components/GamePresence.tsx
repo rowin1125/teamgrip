@@ -39,7 +39,7 @@ ChartJS.register(
 )
 
 const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
-  const { isXl } = useScreenSize()
+  const { isXl, is2xl } = useScreenSize()
   const { currentUser } = useAuth()
   if (!teamPresence) return null
 
@@ -88,8 +88,8 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
             x: {
               ticks: {
                 color: 'white',
-                maxRotation: 90,
-                minRotation: 90,
+                maxRotation: is2xl ? 50 : 90,
+                minRotation: is2xl ? 40 : 90,
                 font: {
                   size: isXl ? 12 : 10,
                 },
