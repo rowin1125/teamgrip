@@ -14,6 +14,7 @@ import { toast } from '@redwoodjs/web/dist/toast'
 
 import { GAME_FRAGMENT } from 'src/graphql/fragments/GameFragment'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import { GET_GAMES_BY_TEAM_QUERY } from 'src/pages/Team/TeamPage/components/TeamGames/hooks/useGetGamesByTeamId'
 
 type UseCreateGameType = {
   team: FindTeamQuery['team']
@@ -52,7 +53,14 @@ export const useCreateGame = ({
   const [createGame, { loading: createGameLoading }] = useMutation<
     CreateGameMutation,
     CreateGameMutationVariables
-  >(CREATE_GAME_MUTATION)
+  >(CREATE_GAME_MUTATION, {
+    refetchQueries: [
+      {
+        query: GET_GAMES_BY_TEAM_QUERY,
+        variables: { id: currentUser?.player?.teamId || '' },
+      },
+    ],
+  })
 
   const handleCreateGame = async (values) => {
     const { scores, topGameScores, ...input } = values

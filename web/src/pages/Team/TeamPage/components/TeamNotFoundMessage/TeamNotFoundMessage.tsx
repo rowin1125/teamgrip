@@ -31,7 +31,7 @@ const TeamNotFoundMessage = ({
 
   return (
     <Grid gridTemplateColumns="repeat(12, 1fr)" gridGap={4}>
-      <GridItem colSpan={8}>
+      <GridItem colSpan={{ base: 12, xl: 8 }}>
         <Card>
           <Flex justifyContent="space-between">
             <Box>

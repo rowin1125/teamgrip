@@ -126,6 +126,11 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
       data: {
         isActivePlayer: ownerIsPlayer,
         playerType: 'STAFF',
+        club: {
+          connect: {
+            id: input.clubId,
+          },
+        },
       },
     })
 
@@ -187,6 +192,7 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
     },
     data: {
       teamId: null,
+      clubId: null,
     },
   })
 

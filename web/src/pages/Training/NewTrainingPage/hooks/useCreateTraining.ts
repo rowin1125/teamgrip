@@ -14,6 +14,7 @@ import { toast } from '@redwoodjs/web/dist/toast'
 
 import { TRAINING_FRAGMENT } from 'src/graphql/fragments/TrainingFragment'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import { GET_TRAININGS_BY_TEAM_QUERY } from 'src/pages/Team/TeamPage/components/TeamTrainings/hooks/useGetTrainingsByTeam'
 
 export const CREATE_TRAINING_MUTATION = gql`
   ${TRAINING_FRAGMENT}
@@ -52,7 +53,14 @@ export const useCreateTraining = ({
   const [createTraining, { loading: createTrainingLoading }] = useMutation<
     CreateTrainingMutation,
     CreateTrainingMutationVariables
-  >(CREATE_TRAINING_MUTATION)
+  >(CREATE_TRAINING_MUTATION, {
+    refetchQueries: [
+      {
+        query: GET_TRAININGS_BY_TEAM_QUERY,
+        variables: { id: currentUser?.player?.teamId || '' },
+      },
+    ],
+  })
 
   const handleCreateTraining = async (values) => {
     const { scores, topTrainingScores, ...input } = values

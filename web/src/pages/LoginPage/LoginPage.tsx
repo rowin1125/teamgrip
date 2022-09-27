@@ -97,7 +97,7 @@ const LoginPage = () => {
               />
             </Box>
             {showResendButton && (
-              <Text>
+              <Text color="white">
                 Heb je geen email ontvangen? Verstuur hem dan nogmaals{' '}
                 <Button
                   textDecoration="underline"
