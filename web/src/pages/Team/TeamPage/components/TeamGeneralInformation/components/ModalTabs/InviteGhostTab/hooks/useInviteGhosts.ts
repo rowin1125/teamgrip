@@ -34,7 +34,7 @@ export const useInviteGhosts = () => {
       refetchQueries: [
         {
           query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
-          variables: { teamId: input.teamId },
+          variables: { teamId: input.teamId, limit: 50 },
         },
       ],
     })
