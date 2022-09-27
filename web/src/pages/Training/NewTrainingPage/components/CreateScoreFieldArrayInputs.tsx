@@ -19,11 +19,14 @@ type CreateScoreFieldArrayInputsProps = {
     | GetPlayersForTeamQuery['playersForTeam']
     | GetTrainingByIdQuery['training']['players']
   team?: FindTeamQuery['team']
+  showTop: boolean
+  setShowTop: (value: boolean) => void
 }
 
 const CreateScoreFieldArrayInputs = ({
   players,
   team,
+  ...props
 }: CreateScoreFieldArrayInputsProps) => {
   return (
     <FieldArray
@@ -35,6 +38,7 @@ const CreateScoreFieldArrayInputs = ({
             remove={remove}
             players={players}
             team={team}
+            {...props}
           />
         )
       }}

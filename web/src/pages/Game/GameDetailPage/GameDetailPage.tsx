@@ -25,6 +25,8 @@ const GameDetailPage = () => {
     (score) => score.type === 'GAME'
   )
 
+  const hasTopGames = topGameScores?.length > 0
+
   return (
     <>
       <MetaTags
@@ -91,31 +93,34 @@ const GameDetailPage = () => {
           </Card>
         </GridItem>
         <GridItem colSpan={{ base: 12, xl: 8 }} rowSpan={1}>
-          <Card w="100%" bg="primary.500" color="white" overflowX="auto">
-            <Heading as="h2" size="lg" mb={10} color="white">
-              Top 3 van de wedstrijd
-            </Heading>
-            <TeamTable
-              size="lg"
-              entries={topGameScores
-                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
-                .map((score, index) => ({
-                  Rank: index + 1,
-                  Naam: score.player.displayName,
-                  Avatar: score.player?.user?.avatar,
-                  Punten: score.points,
-                }))}
-            />
-          </Card>
+          {hasTopGames && (
+            <Card w="100%" bg="primary.500" color="white" overflowX="auto">
+              <Heading as="h2" size="lg" mb={10} color="white">
+                Top 3 van de wedstrijd
+              </Heading>
+              <TeamTable
+                size="lg"
+                entries={topGameScores
+                  ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                  .map((score, index) => ({
+                    Rank: index + 1,
+                    Naam: score.player.displayName,
+                    Avatar: score.player?.user?.avatar,
+                    Punten: score.points,
+                  }))}
+              />
+            </Card>
+          )}
+
           <Card
             w="100%"
             bg="primary.500"
             color="white"
             overflowX="auto"
-            mt={10}
+            mt={hasTopGames ? 10 : 0}
           >
             <Heading as="h2" size="lg" mb={10} color="white">
-              Resultaat van de training
+              Wedstrijdresultaat
             </Heading>
             <TeamTable
               size="lg"

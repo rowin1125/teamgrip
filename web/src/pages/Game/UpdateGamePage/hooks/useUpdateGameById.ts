@@ -26,7 +26,7 @@ export const UPDATE_GAME_BY_ID_MUTATION = gql`
   }
 `
 
-export const useUpdateGameById = (id: string) => {
+export const useUpdateGameById = (id: string, showTop: boolean) => {
   const { currentUser, isTeamStaff } = useTeamPlayerAuth()
 
   const [updateGame, { loading: handleUpdateGameLoading }] = useMutation<
@@ -43,7 +43,7 @@ export const useUpdateGameById = (id: string) => {
 
   const handleUpdateGame = async (values) => {
     const { scores, topGameScores, ...input } = values
-    const allScores = [...scores, ...topGameScores]
+    const allScores = [...scores, ...(showTop ? topGameScores : [])]
 
     try {
       await updateGame({

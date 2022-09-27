@@ -2,11 +2,14 @@ import { useState } from 'react'
 
 import {
   Box,
+  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
   Heading,
   Input,
+  Switch,
+  Text,
 } from '@chakra-ui/react'
 import { useFormikContext } from 'formik'
 import {
@@ -28,6 +31,8 @@ type SingleScoreFieldProps = {
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']
   team?: FindTeamQuery['team']
+  showTop: boolean
+  setShowTop: (value: boolean) => void
 }
 
 const SingleScoreField = ({
@@ -35,6 +40,8 @@ const SingleScoreField = ({
   remove,
   players,
   team,
+  setShowTop,
+  showTop,
 }: SingleScoreFieldProps) => {
   const { values } = useFormikContext<ScoreFormValues>()
   const [calculateNumber, setCalculateNumber] = useState('25')
@@ -57,20 +64,42 @@ const SingleScoreField = ({
     <Box>
       <Heading mb={4}>Scores</Heading>
 
-      <Heading fontSize="xl" mb={4}>
-        Top 3 van de wedstrijd
-      </Heading>
-      <Box w={{ base: 'full', '2xl': '50%' }} mb={8}>
-        {values.topGameScores?.map((_, index) => {
-          return (
-            <SingleTopGameScores
-              key={`topGameScores.${index}.playerId`}
-              players={players}
-              index={index}
-            />
-          )
-        })}
-      </Box>
+      <FormControl id="showTop" mb={showTop ? 4 : 8}>
+        <FormLabel fontSize="xl" fontWeight="bold" htmlFor="showTop">
+          Top Speler toevoegen?
+        </FormLabel>
+        <Flex alignItems="center">
+          <Switch
+            id={'showTop'}
+            isChecked={showTop}
+            mt={0}
+            onChange={(event) => setShowTop(event.target.checked)}
+          />
+          <Text fontSize="md" ml={4}>
+            Actief
+          </Text>
+        </Flex>
+      </FormControl>
+
+      {showTop && (
+        <>
+          <Heading fontSize="xl" mb={4}>
+            Top 3 van de wedstrijd
+          </Heading>
+          <Box w={{ base: 'full', '2xl': '50%' }} mb={8}>
+            {values.topGameScores?.map((_, index) => {
+              return (
+                <SingleTopGameScores
+                  key={`topGameScores.${index}.playerId`}
+                  players={players}
+                  index={index}
+                />
+              )
+            })}
+          </Box>
+        </>
+      )}
+
       <Heading fontSize="xl" mb={4}>
         Spelers toevoegen voor de wedstrijd
       </Heading>

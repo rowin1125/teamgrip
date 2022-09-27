@@ -26,35 +26,9 @@ type GameFormProps = {
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']
+  showTop: boolean
+  setShowTop: (value: boolean) => void
 }
-
-const validationSchema = Yup.object({
-  scores: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.string(),
-      playerId: Yup.string().required(),
-      points: Yup.number().required('Geef een geldige score op'),
-      seasonId: Yup.string().required(),
-      gameId: Yup.string(),
-      type: Yup.string().required(),
-      teamId: Yup.string().required(),
-    })
-  ),
-  date: Yup.string().required(),
-  seasonId: Yup.string().required(),
-  teamId: Yup.string().required(),
-  topGameScores: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.string(),
-      playerId: Yup.string().required('Geef een geldige speler op'),
-      points: Yup.number().required('Geef een geldige score op'),
-      seasonId: Yup.string().required(),
-      gameId: Yup.string(),
-      type: Yup.string().required(),
-      teamId: Yup.string().required(),
-    })
-  ),
-})
 
 const GameForm = ({
   onSubmit,
@@ -63,7 +37,40 @@ const GameForm = ({
   loading,
   team,
   players,
+  setShowTop,
+  showTop,
 }: GameFormProps) => {
+  const validationSchema = Yup.object({
+    scores: Yup.array().of(
+      Yup.object().shape({
+        id: Yup.string(),
+        playerId: Yup.string().required(),
+        points: Yup.number().required('Geef een geldige score op'),
+        seasonId: Yup.string().required(),
+        gameId: Yup.string(),
+        type: Yup.string().required(),
+        teamId: Yup.string().required(),
+      })
+    ),
+    date: Yup.string().required(),
+    seasonId: Yup.string().required(),
+    teamId: Yup.string().required(),
+    topGameScores: Yup.array().of(
+      Yup.object().shape({
+        id: Yup.string(),
+        playerId: showTop
+          ? Yup.string().required('Geef een geldige speler op')
+          : Yup.string(),
+        points: showTop
+          ? Yup.number().required('Geef een geldige score op')
+          : Yup.string(),
+        seasonId: showTop ? Yup.string().required() : Yup.string(),
+        trainingId: showTop ? Yup.string() : Yup.string(),
+        type: showTop ? Yup.string().required() : Yup.string(),
+        teamId: showTop ? Yup.string().required() : Yup.string(),
+      })
+    ),
+  })
   return (
     <Formik
       onSubmit={onSubmit}
@@ -89,7 +96,12 @@ const GameForm = ({
             mb={4}
           />
         </Box>
-        <CreateScoreFieldArrayInputs players={players} team={team} />
+        <CreateScoreFieldArrayInputs
+          players={players}
+          team={team}
+          showTop={showTop}
+          setShowTop={setShowTop}
+        />
 
         <Box
           position="fixed"

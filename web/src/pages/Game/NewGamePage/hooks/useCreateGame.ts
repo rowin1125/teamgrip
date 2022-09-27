@@ -18,6 +18,7 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 type UseCreateGameType = {
   team: FindTeamQuery['team']
   playersData?: GetPlayersForTeamQuery
+  showTop?: boolean
 }
 
 export const CREATE_GAME_MUTATION = gql`
@@ -41,7 +42,11 @@ export const scoreBlueprint: CreateScoreInput = {
   teamId: '',
 }
 
-export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
+export const useCreateGame = ({
+  team,
+  playersData,
+  showTop,
+}: UseCreateGameType) => {
   const { currentUser, isTeamStaff } = useTeamPlayerAuth()
 
   const [createGame, { loading: createGameLoading }] = useMutation<
@@ -51,7 +56,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
 
   const handleCreateGame = async (values) => {
     const { scores, topGameScores, ...input } = values
-    const allScores = [...scores, ...topGameScores]
+    const allScores = [...scores, ...(showTop ? topGameScores : [])]
 
     try {
       const game = await createGame({

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { Grid, GridItem, Heading } from '@chakra-ui/react'
 import { format } from 'date-fns'
 
@@ -14,11 +16,12 @@ import { useUpdateTrainingById } from './hooks/useUpdateTrainingById'
 const UpdateTrainingPage = () => {
   const { training, trainingLoading } = useGetTrainingById()
   const { team, loading } = useGetTeamById()
-  const { handleUpdateTraining, updateTrainingLoading } = useUpdateTrainingById(
-    training?.id
-  )
+  const [showTop, setShowTop] = React.useState(true)
 
-  if (trainingLoading || loading) return null
+  const { handleUpdateTraining, updateTrainingLoading } = useUpdateTrainingById(
+    training?.id,
+    showTop
+  )
 
   const regularScores = training?.scores.filter(
     (score) => score.type === 'TRAINING'
@@ -26,6 +29,34 @@ const UpdateTrainingPage = () => {
   const topTrainingScores = training?.scores.filter(
     (score) => score.type === 'TOP_TRAINING'
   )
+  const hasTopTrainingScores = topTrainingScores?.length > 0
+
+  useEffect(() => {
+    if (!training) return
+
+    setShowTop(hasTopTrainingScores)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [training])
+
+  if (trainingLoading || loading) return null
+
+  const topTrainingScoresArray = hasTopTrainingScores
+    ? topTrainingScores.map((score) => ({
+        playerId: score.player.id,
+        seasonId: training.season.id,
+        points: score.points,
+        teamId: team?.id,
+        trainingId: training?.id,
+        type: 'TOP_TRAINING',
+      }))
+    : [1, 2, 3].map(() => ({
+        playerId: '',
+        seasonId: training.season.id,
+        points: 0,
+        teamId: team?.id,
+        trainingId: training?.id,
+        type: 'TOP_TRAINING',
+      }))
 
   return (
     <>
@@ -52,20 +83,15 @@ const UpdateTrainingPage = () => {
                   trainingId: training?.id,
                   type: 'TRAINING',
                 })),
-                topTrainingScores: topTrainingScores.map((score) => ({
-                  playerId: score.player.id,
-                  seasonId: training.season.id,
-                  points: score.points,
-                  teamId: team?.id,
-                  trainingId: training?.id,
-                  type: 'TOP_TRAINING',
-                })),
+                topTrainingScores: topTrainingScoresArray,
               }}
               type="new"
               onSubmit={handleUpdateTraining}
               loading={trainingLoading || updateTrainingLoading}
               team={team}
               players={team?.players.filter((player) => player.isActivePlayer)}
+              setShowTop={setShowTop}
+              showTop={showTop}
             />
           </Card>
         </GridItem>

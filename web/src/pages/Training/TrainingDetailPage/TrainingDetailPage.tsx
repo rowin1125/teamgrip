@@ -24,6 +24,7 @@ const TrainingDetailPage = () => {
   const regularTrainingScores = training?.scores.filter(
     (score) => score.type === 'TRAINING'
   )
+  const hasTopTrainings = topTrainingScores?.length > 0
 
   return (
     <>
@@ -91,25 +92,35 @@ const TrainingDetailPage = () => {
           </Card>
         </GridItem>
         <GridItem colSpan={{ base: 12, xl: 8 }} rowSpan={1}>
-          <Card w="100%" bg="primary.500" color="white" overflowX="auto">
-            <Heading as="h2" size="lg" mb={10} color="white">
-              Top 3 van de training
-            </Heading>
-            <TeamTable
-              size="lg"
-              entries={topTrainingScores
-                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
-                .map((score, index) => ({
-                  Rank: index + 1,
-                  Naam: score.player.displayName,
-                  Avatar: score.player?.user?.avatar,
-                  Punten: score.points,
-                }))}
-            />
-          </Card>
-          <Card w="100%" overflowX="auto" mt={10}>
+          {hasTopTrainings && (
+            <Card w="100%" bg="primary.500" color="white" overflowX="auto">
+              <Heading as="h2" size="lg" mb={10} color="white">
+                Top 3 van de training
+              </Heading>
+              <TeamTable
+                size="lg"
+                theme="light"
+                entries={topTrainingScores
+                  ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                  .map((score, index) => ({
+                    Rank: index + 1,
+                    Naam: score.player.displayName,
+                    Avatar: score.player?.user?.avatar,
+                    Punten: score.points,
+                  }))}
+              />
+            </Card>
+          )}
+
+          <Card
+            w="100%"
+            bg="primary.500"
+            color="white"
+            overflowX="auto"
+            mt={hasTopTrainings ? 10 : 0}
+          >
             <Heading as="h2" size="lg" mb={10}>
-              Top 3 van de training
+              Trainingresultaat
             </Heading>
             <TeamTable
               size="lg"

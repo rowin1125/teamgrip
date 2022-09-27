@@ -14,6 +14,7 @@ import { useCreateGame } from './hooks/useCreateGame'
 const NewGamePage = () => {
   const { team, loading } = useGetTeamById()
   const { playersData, playersLoading } = useGetPlayersForTeam()
+  const [showTop, setShowTop] = React.useState(true)
 
   const {
     defaultTeamSeasonId,
@@ -21,7 +22,8 @@ const NewGamePage = () => {
     initialTopGameScores,
     createGameLoading,
     handleCreateGame,
-  } = useCreateGame({ team, playersData })
+  } = useCreateGame({ team, playersData, showTop })
+
   if (loading || playersLoading) return null
 
   return (
@@ -49,6 +51,8 @@ const NewGamePage = () => {
               loading={createGameLoading}
               team={team}
               players={playersData?.playersForTeam}
+              setShowTop={setShowTop}
+              showTop={showTop}
             />
           </Card>
         </GridItem>

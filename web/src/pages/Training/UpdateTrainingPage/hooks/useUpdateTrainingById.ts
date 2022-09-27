@@ -26,7 +26,7 @@ export const UPDATE_TRAINING_BY_ID_MUTATION = gql`
   }
 `
 
-export const useUpdateTrainingById = (id: string) => {
+export const useUpdateTrainingById = (id: string, showTop: boolean) => {
   const { currentUser, isTeamStaff } = useTeamPlayerAuth()
 
   const [updateTraining, { loading: updateTrainingLoading }] = useMutation<
@@ -43,7 +43,7 @@ export const useUpdateTrainingById = (id: string) => {
 
   const handleUpdateTraining = async (values) => {
     const { scores, topTrainingScores, ...input } = values
-    const allScores = [...scores, ...topTrainingScores]
+    const allScores = [...scores, ...(showTop ? topTrainingScores : [])]
 
     try {
       await updateTraining({

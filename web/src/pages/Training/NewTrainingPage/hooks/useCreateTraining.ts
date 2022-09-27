@@ -30,6 +30,7 @@ export const CREATE_TRAINING_MUTATION = gql`
 type UseCreateTrainingType = {
   playersData?: GetPlayersForTeamQuery
   team?: FindTeamQuery['team']
+  showTop?: boolean
 }
 
 export const scoreBlueprint: CreateScoreInput = {
@@ -44,6 +45,7 @@ export const scoreBlueprint: CreateScoreInput = {
 export const useCreateTraining = ({
   playersData,
   team,
+  showTop,
 }: UseCreateTrainingType) => {
   const { currentUser, isTeamStaff } = useTeamPlayerAuth()
 
@@ -54,7 +56,7 @@ export const useCreateTraining = ({
 
   const handleCreateTraining = async (values) => {
     const { scores, topTrainingScores, ...input } = values
-    const allScores = [...scores, ...topTrainingScores]
+    const allScores = [...scores, ...(showTop ? topTrainingScores : [])]
 
     try {
       const training = await createTraining({

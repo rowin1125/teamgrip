@@ -14,6 +14,7 @@ import { useCreateTraining } from './hooks/useCreateTraining'
 const NewTrainingPage = () => {
   const { playersData, playersLoading } = useGetPlayersForTeam()
   const { team, loading } = useGetTeamById()
+  const [showTop, setShowTop] = React.useState(true)
 
   const {
     handleCreateTraining,
@@ -24,6 +25,7 @@ const NewTrainingPage = () => {
   } = useCreateTraining({
     playersData,
     team,
+    showTop,
   })
 
   if (loading || playersLoading) return null
@@ -50,6 +52,8 @@ const NewTrainingPage = () => {
               loading={createTrainingLoading}
               team={team}
               players={playersData?.playersForTeam}
+              setShowTop={setShowTop}
+              showTop={showTop}
             />
           </Card>
         </GridItem>

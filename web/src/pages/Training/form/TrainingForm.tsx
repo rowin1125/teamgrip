@@ -26,35 +26,9 @@ type TrainingFormProps = {
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetTrainingByIdQuery['training']['players']
+  showTop: boolean
+  setShowTop: (value: boolean) => void
 }
-
-const validationSchema = Yup.object({
-  scores: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.string(),
-      playerId: Yup.string().required(),
-      points: Yup.number().required('Geef een geldige score op'),
-      seasonId: Yup.string().required(),
-      trainingId: Yup.string(),
-      type: Yup.string().required(),
-      teamId: Yup.string().required(),
-    })
-  ),
-  date: Yup.string().required(),
-  seasonId: Yup.string().required(),
-  teamId: Yup.string().required(),
-  topTrainingScores: Yup.array().of(
-    Yup.object().shape({
-      id: Yup.string(),
-      playerId: Yup.string().required('Geef een geldige speler op'),
-      points: Yup.number().required('Geef een geldige score op'),
-      seasonId: Yup.string().required(),
-      trainingId: Yup.string(),
-      type: Yup.string().required(),
-      teamId: Yup.string().required(),
-    })
-  ),
-})
 
 const TrainingForm = ({
   onSubmit,
@@ -63,7 +37,41 @@ const TrainingForm = ({
   loading,
   team,
   players,
+  setShowTop,
+  showTop,
 }: TrainingFormProps) => {
+  const validationSchema = Yup.object({
+    scores: Yup.array().of(
+      Yup.object().shape({
+        id: Yup.string(),
+        playerId: Yup.string().required(),
+        points: Yup.number().required('Geef een geldige score op'),
+        seasonId: Yup.string().required(),
+        trainingId: Yup.string(),
+        type: Yup.string().required(),
+        teamId: Yup.string().required(),
+      })
+    ),
+    date: Yup.string().required(),
+    seasonId: Yup.string().required(),
+    teamId: Yup.string().required(),
+    topTrainingScores: Yup.array().of(
+      Yup.object().shape({
+        id: Yup.string(),
+        playerId: showTop
+          ? Yup.string().required('Geef een geldige speler op')
+          : Yup.string(),
+        points: showTop
+          ? Yup.number().required('Geef een geldige score op')
+          : Yup.string(),
+        seasonId: showTop ? Yup.string().required() : Yup.string(),
+        trainingId: showTop ? Yup.string() : Yup.string(),
+        type: showTop ? Yup.string().required() : Yup.string(),
+        teamId: showTop ? Yup.string().required() : Yup.string(),
+      })
+    ),
+  })
+
   return (
     <Formik
       onSubmit={onSubmit}
@@ -89,7 +97,12 @@ const TrainingForm = ({
             mb={4}
           />
         </Box>
-        <CreateScoreFieldArrayInputs players={players} team={team} />
+        <CreateScoreFieldArrayInputs
+          players={players}
+          team={team}
+          showTop={showTop}
+          setShowTop={setShowTop}
+        />
 
         <Box
           position="fixed"

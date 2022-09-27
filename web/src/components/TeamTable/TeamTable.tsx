@@ -40,7 +40,7 @@ const TeamTable = ({
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
     useTeamTable(entries)
 
-  if (!entries || rows.length === 0) return <NoEntries />
+  if (!entries || rows.length === 0) return <NoEntries theme={theme} />
 
   return (
     <Table size={size} {...getTableProps()} mt={10}>

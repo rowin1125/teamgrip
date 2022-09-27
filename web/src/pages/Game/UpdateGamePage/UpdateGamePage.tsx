@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { Grid, GridItem, Heading } from '@chakra-ui/react'
 import { format } from 'date-fns'
 
@@ -14,16 +16,46 @@ import { useUpdateGameById } from './hooks/useUpdateGameById'
 const UpdateGamePage = () => {
   const { game, gameLoading } = useGetGameById()
   const { team, loading } = useGetTeamById()
-  const { handleUpdateGame, handleUpdateGameLoading } = useUpdateGameById(
-    game?.id
-  )
+  const [showTop, setShowTop] = React.useState(true)
 
-  if (handleUpdateGameLoading || loading || !game) return null
+  const { handleUpdateGame, handleUpdateGameLoading } = useUpdateGameById(
+    game?.id,
+    showTop
+  )
 
   const regularScores = game?.scores.filter((score) => score.type === 'GAME')
   const topGameScores = game?.scores.filter(
     (score) => score.type === 'TOP_GAME'
   )
+
+  const hasTopGamesScores = topGameScores?.length > 0
+
+  useEffect(() => {
+    if (!game) return
+
+    setShowTop(hasTopGamesScores)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game])
+
+  if (handleUpdateGameLoading || loading || !game) return null
+
+  const topGamesScoresArray = hasTopGamesScores
+    ? topGameScores.map((score) => ({
+        playerId: score.player.id,
+        seasonId: game.season.id,
+        points: score.points,
+        teamId: team?.id,
+        gameId: game?.id,
+        type: 'TOP_GAME',
+      }))
+    : [1, 2, 3].map(() => ({
+        playerId: '',
+        seasonId: game.season.id,
+        points: 0,
+        teamId: team?.id,
+        gameId: game?.id,
+        type: 'TOP_GAME',
+      }))
 
   return (
     <>
@@ -50,20 +82,15 @@ const UpdateGamePage = () => {
                   gameId: '',
                   type: 'GAME',
                 })),
-                topGameScores: topGameScores.map((score) => ({
-                  playerId: score.player.id,
-                  seasonId: game.season.id,
-                  points: score.points,
-                  teamId: team?.id,
-                  gameId: '',
-                  type: 'TOP_GAME',
-                })),
+                topGameScores: topGamesScoresArray,
               }}
               type="new"
               onSubmit={handleUpdateGame}
               loading={gameLoading || handleUpdateGameLoading}
               team={team}
               players={team?.players.filter((player) => player.isActivePlayer)}
+              setShowTop={setShowTop}
+              showTop={showTop}
             />
           </Card>
         </GridItem>
