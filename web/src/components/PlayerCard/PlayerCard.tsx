@@ -18,7 +18,7 @@ const PlayerCard = () => {
   if (!playerWithTotalScore) return null
 
   return (
-    <Box transform={{ base: 'scale(0.9)', xl: 'none' }}>
+    <Box transform={{ base: 'scale(0.9)', xl: 'scale(0.9)' }}>
       {/* *** fut-player-card ****/}
       <div className="fut-player-card">
         {/* Player Card Top*/}

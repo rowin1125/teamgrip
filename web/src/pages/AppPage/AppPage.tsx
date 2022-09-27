@@ -55,22 +55,16 @@ const AppPage = () => {
         </GridItem>
 
         {isActivePlayer && (
-          <>
-            <GridItem
-              colSpan={{ base: 12, xl: 6 }}
-              rowSpan={1}
-              justifySelf="center"
-              alignSelf="center"
-            >
-              <PlayerCard />
-            </GridItem>
-            <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-              <SeasonLockWrapper>
-                <PlayerRecentTrainings />
-              </SeasonLockWrapper>
-            </GridItem>
-          </>
+          <GridItem
+            colSpan={{ base: 12, xl: 6 }}
+            rowSpan={1}
+            justifySelf="center"
+            alignSelf="center"
+          >
+            <PlayerCard />
+          </GridItem>
         )}
+        <PlayersScoreTimeline />
         <GridItem
           colSpan={{ base: 12, xl: 6 }}
           rowSpan={1}
@@ -81,12 +75,19 @@ const AppPage = () => {
         {isActivePlayer && (
           <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
             <SeasonLockWrapper>
+              <PlayerRecentTrainings />
+            </SeasonLockWrapper>
+          </GridItem>
+        )}
+
+        {isActivePlayer && (
+          <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
+            <SeasonLockWrapper>
               <PlayerRecentGames />
             </SeasonLockWrapper>
           </GridItem>
         )}
         <TeamPresence />
-        <PlayersScoreTimeline />
       </Grid>
     </>
   )
