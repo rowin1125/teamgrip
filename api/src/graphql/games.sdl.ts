@@ -3,7 +3,7 @@ export const schema = gql`
     id: String!
     createdAt: DateTime!
     updatedAt: DateTime!
-    gameDate: DateTime!
+    date: DateTime!
     season: Season
     seasonId: String
     players: [Player]!
@@ -20,13 +20,13 @@ export const schema = gql`
   }
 
   input CreateGameInput {
-    gameDate: DateTime!
+    date: DateTime!
     seasonId: String
     teamId: String!
   }
 
   input UpdateGameInput {
-    gameDate: DateTime
+    date: DateTime
     seasonId: String
     teamId: String
   }

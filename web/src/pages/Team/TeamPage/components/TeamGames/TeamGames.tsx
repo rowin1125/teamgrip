@@ -27,7 +27,7 @@ const TeamGames = () => {
 
     return {
       id: game.id,
-      datum: format(new Date(game.gameDate), 'dd-MM-yyyy'),
+      datum: format(new Date(game.date), 'dd-MM-yyyy'),
       aantal: game.scores.filter((score) => score.type === 'GAME').length,
       'M-O-T-M': bestPlayerOfGame?.player?.displayName,
       season: game.season.name,

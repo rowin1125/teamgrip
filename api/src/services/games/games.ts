@@ -30,7 +30,7 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
       },
     },
     orderBy: {
-      gameDate: 'desc',
+      date: 'desc',
     },
   })
 }
@@ -54,7 +54,7 @@ export const getRecentGames: QueryResolvers['getRecentGames'] = async ({
       scores: true,
     },
     orderBy: {
-      gameDate: 'desc',
+      date: 'desc',
     },
     take: limit,
   })

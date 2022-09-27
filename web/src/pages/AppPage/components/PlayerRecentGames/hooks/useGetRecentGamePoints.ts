@@ -11,7 +11,7 @@ export const GET_RECENT_TRAININGS_QUERY = gql`
   query GetRecentGamesQuery($playerId: String!, $limit: Int!) {
     getRecentGames(playerId: $playerId, limit: $limit) {
       id
-      gameDate
+      date
       scores {
         id
         points

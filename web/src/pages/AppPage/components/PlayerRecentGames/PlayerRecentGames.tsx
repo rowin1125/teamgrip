@@ -43,9 +43,7 @@ const PlayerRecentGames = () => {
   const { isXl } = useScreenSize()
 
   if (loading) return null
-  const labels = recentGames.map((game) =>
-    format(new Date(game.gameDate), 'dd/MM')
-  )
+  const labels = recentGames.map((game) => format(new Date(game.date), 'dd/MM'))
 
   const data = {
     labels,

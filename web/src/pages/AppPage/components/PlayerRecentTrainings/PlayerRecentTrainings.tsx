@@ -44,7 +44,7 @@ const PlayerRecentTrainings = () => {
 
   if (loading) return null
   const labels = recentTrainings.map((training) =>
-    format(new Date(training.trainingsDate), 'dd/MM')
+    format(new Date(training.date), 'dd/MM')
   )
 
   const data = {

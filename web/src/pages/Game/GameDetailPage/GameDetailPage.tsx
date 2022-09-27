@@ -78,7 +78,7 @@ const GameDetailPage = () => {
               wrapperProps={{ mt: 4 }}
               entry={{
                 Teamnaam: game.team.name,
-                Datum: format(new Date(game?.gameDate || ''), 'dd-MM-yyyy'),
+                Datum: format(new Date(game?.date || ''), 'dd-MM-yyyy'),
                 Seizoen: game?.season.name,
                 'Aantal spelers': game?.players.length,
                 'Aantal scores': game?.scores.length,

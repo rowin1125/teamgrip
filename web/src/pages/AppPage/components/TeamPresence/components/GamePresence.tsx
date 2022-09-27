@@ -74,7 +74,7 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
       buttonText="Maak je eerste wedstrijd aan"
     >
       <Chart
-        height={isXl ? 100 : 200}
+        height={is2xl ? 100 : 200}
         type="bar"
         options={{
           responsive: true,

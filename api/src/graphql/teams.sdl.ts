@@ -21,6 +21,7 @@ export const schema = gql`
     team(id: String!): Team @requireAuth
     teamByInvitationToken(invitationToken: String!): Team @requireAuth
     teamExtraDetails(id: String!): Team @requireAuth
+    getAllGamesAndTrainingsByTeamId(teamId: String!): Team @requireAuth
   }
 
   input CreateTeamInput {

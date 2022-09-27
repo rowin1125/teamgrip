@@ -13,11 +13,11 @@ export const GET_TEAM_PRESENCE_BY_TEAM_ID_QUERY = gql`
       displayName
       trainings {
         id
-        trainingsDate
+        date
       }
       games {
         id
-        gameDate
+        date
       }
     }
   }

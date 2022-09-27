@@ -58,7 +58,7 @@ export const useCreateGame = ({ team, playersData }: UseCreateGameType) => {
         variables: {
           input: {
             ...input,
-            gameDate: new Date(input.gameDate),
+            date: new Date(input.date),
           },
           scores: allScores,
         },

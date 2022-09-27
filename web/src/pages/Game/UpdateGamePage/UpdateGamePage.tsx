@@ -39,7 +39,7 @@ const UpdateGamePage = () => {
 
             <GameForm
               initialValues={{
-                gameDate: format(new Date(game.gameDate), 'yyyy-MM-dd'),
+                date: format(new Date(game.date), 'yyyy-MM-dd'),
                 seasonId: game?.season.id,
                 teamId: game?.teamId,
                 scores: regularScores.map((score) => ({

@@ -126,23 +126,23 @@ model Club {
 }
 
 model Training {
-  id            String   @id @default(cuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now()) @updatedAt
-  trainingsDate DateTime
-  season        Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-  seasonId      String?
-  players       Player[]
-  scores        Score[]
-  team          Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId        String
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  date      DateTime
+  season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  seasonId  String?
+  players   Player[]
+  scores    Score[]
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    String
 }
 
 model Game {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-  gameDate  DateTime
+  date      DateTime
   season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId  String?
   players   Player[]

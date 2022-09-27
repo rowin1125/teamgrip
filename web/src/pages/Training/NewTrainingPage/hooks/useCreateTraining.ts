@@ -61,7 +61,7 @@ export const useCreateTraining = ({
         variables: {
           input: {
             ...input,
-            trainingsDate: new Date(input.trainingsDate),
+            date: new Date(input.date),
           },
           scores: allScores,
         },

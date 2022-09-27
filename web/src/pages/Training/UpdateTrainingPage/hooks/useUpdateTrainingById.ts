@@ -51,7 +51,7 @@ export const useUpdateTrainingById = (id: string) => {
           id,
           input: {
             ...input,
-            trainingsDate: new Date(input.trainingsDate),
+            date: new Date(input.date),
           },
           scores: allScores,
         },

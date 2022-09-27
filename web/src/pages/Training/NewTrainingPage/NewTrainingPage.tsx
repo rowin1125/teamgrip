@@ -39,7 +39,7 @@ const NewTrainingPage = () => {
 
             <TrainingForm
               initialValues={{
-                trainingsDate: format(new Date(), 'yyyy-MM-dd'),
+                date: format(new Date(), 'yyyy-MM-dd'),
                 seasonId: defaultTeamSeasonId,
                 teamId: team.id,
                 scores: initialScoresInputValues,

@@ -6,7 +6,7 @@ export const GAME_FRAGMENT = gql`
     id
     createdAt
     updatedAt
-    gameDate
+    date
     season {
       name
       id

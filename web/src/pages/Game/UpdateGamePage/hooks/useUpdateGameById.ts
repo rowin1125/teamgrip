@@ -51,7 +51,7 @@ export const useUpdateGameById = (id: string) => {
           id,
           input: {
             ...input,
-            gameDate: new Date(input.gameDate),
+            date: new Date(input.date),
           },
           scores: allScores,
         },

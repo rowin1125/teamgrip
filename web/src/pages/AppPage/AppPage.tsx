@@ -11,6 +11,7 @@ import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage
 
 import PlayerRecentGames from './components/PlayerRecentGames'
 import PlayerRecentTrainings from './components/PlayerRecentTrainings'
+import PlayersScoreTimeline from './components/PlayersScoreTimeline'
 import TeamPresence from './components/TeamPresence'
 import TopTeamPlayers from './components/TopTeamPlayers'
 
@@ -38,11 +39,11 @@ const AppPage = () => {
 
       <Grid
         templateColumns="repeat(12, 1fr)"
-        templateRows="auto"
+        templateRows="repeat(1, 1fr)"
         gap={{ base: 0, xl: 10 }}
         rowGap={{ base: 10 }}
       >
-        <GridItem colSpan={{ base: 12 }} rowSpan={1}>
+        <GridItem colSpan={{ base: 12 }}>
           <Heading as="h1" size="2xl" color="white">
             Jouw dashboard
           </Heading>
@@ -85,6 +86,7 @@ const AppPage = () => {
           </GridItem>
         )}
         <TeamPresence />
+        <PlayersScoreTimeline />
       </Grid>
     </>
   )

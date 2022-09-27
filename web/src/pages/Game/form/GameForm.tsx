@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
       teamId: Yup.string().required(),
     })
   ),
-  gameDate: Yup.string().required(),
+  date: Yup.string().required(),
   seasonId: Yup.string().required(),
   teamId: Yup.string().required(),
   topGameScores: Yup.array().of(
@@ -84,7 +84,7 @@ const GameForm = ({
           />
           <ControlledDatePicker
             inline
-            id="gameDate"
+            id="date"
             label="Wedstrijd datum"
             mb={4}
           />

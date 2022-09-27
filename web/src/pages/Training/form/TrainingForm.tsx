@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
       teamId: Yup.string().required(),
     })
   ),
-  trainingsDate: Yup.string().required(),
+  date: Yup.string().required(),
   seasonId: Yup.string().required(),
   teamId: Yup.string().required(),
   topTrainingScores: Yup.array().of(
@@ -84,7 +84,7 @@ const TrainingForm = ({
           />
           <ControlledDatePicker
             inline
-            id="trainingsDate"
+            id="date"
             label="Trainings datum"
             mb={4}
           />

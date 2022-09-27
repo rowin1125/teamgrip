@@ -4,7 +4,7 @@ export const standard = defineScenario<Prisma.GameCreateArgs>({
   game: {
     one: {
       data: {
-        gameDate: '2022-09-12T18:09:40Z',
+        date: '2022-09-12T18:09:40Z',
         team: {
           create: {
             name: 'String7009538',
@@ -15,7 +15,7 @@ export const standard = defineScenario<Prisma.GameCreateArgs>({
     },
     two: {
       data: {
-        gameDate: '2022-09-12T18:09:40Z',
+        date: '2022-09-12T18:09:40Z',
         team: {
           create: {
             name: 'String3945779',

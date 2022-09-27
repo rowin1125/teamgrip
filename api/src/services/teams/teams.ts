@@ -23,6 +23,36 @@ export const team: QueryResolvers['team'] = ({ id }) => {
   })
 }
 
+export const getAllGamesAndTrainingsByTeamId: QueryResolvers['getAllGamesAndTrainingsByTeamId'] =
+  async ({ teamId }) => {
+    const scoreSelectParams = {
+      where: {
+        season: {
+          active: true,
+        },
+      },
+      include: {
+        scores: {
+          select: {
+            playerId: true,
+            trainingId: true,
+            points: true,
+            gameId: true,
+          },
+        },
+      },
+    }
+    return await db.team.findFirst({
+      where: {
+        id: teamId,
+      },
+      include: {
+        games: scoreSelectParams,
+        trainings: scoreSelectParams,
+      },
+    })
+  }
+
 export const teamExtraDetails: QueryResolvers['teamExtraDetails'] = ({
   id,
 }) => {

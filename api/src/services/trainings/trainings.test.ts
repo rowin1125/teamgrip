@@ -28,20 +28,20 @@ describe('trainings', () => {
 
   scenario('creates a training', async () => {
     const result = await createTraining({
-      input: { trainingsDate: '2022-08-30T15:45:02Z' },
+      input: { date: '2022-08-30T15:45:02Z' },
     })
 
-    expect(result.trainingsDate).toEqual('2022-08-30T15:45:02Z')
+    expect(result.date).toEqual('2022-08-30T15:45:02Z')
   })
 
   scenario('updates a training', async (scenario: StandardScenario) => {
     const original = await training({ id: scenario.training.one.id })
     const result = await updateTraining({
       id: original.id,
-      input: { trainingsDate: '2022-08-31T15:45:02Z' },
+      input: { date: '2022-08-31T15:45:02Z' },
     })
 
-    expect(result.trainingsDate).toEqual('2022-08-31T15:45:02Z')
+    expect(result.date).toEqual('2022-08-31T15:45:02Z')
   })
 
   scenario('deletes a training', async (scenario: StandardScenario) => {

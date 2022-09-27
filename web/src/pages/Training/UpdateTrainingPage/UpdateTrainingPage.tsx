@@ -41,10 +41,7 @@ const UpdateTrainingPage = () => {
 
             <TrainingForm
               initialValues={{
-                trainingsDate: format(
-                  new Date(training.trainingsDate),
-                  'yyyy-MM-dd'
-                ),
+                date: format(new Date(training.date), 'yyyy-MM-dd'),
                 seasonId: training?.season.id,
                 teamId: training?.teamId,
                 scores: regularScores.map((score) => ({

@@ -33,7 +33,7 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
       },
     },
     orderBy: {
-      trainingsDate: 'desc',
+      date: 'desc',
     },
   })
 }
@@ -57,7 +57,7 @@ export const getRecentTrainings: QueryResolvers['getRecentTrainings'] = async ({
       scores: true,
     },
     orderBy: {
-      trainingsDate: 'desc',
+      date: 'desc',
     },
     take: limit,
   })

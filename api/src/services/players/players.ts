@@ -302,4 +302,6 @@ export const Player: PlayerResolvers = {
     db.player.findUnique({ where: { id: root.id } }).team(),
   club: (_obj, { root }) =>
     db.player.findUnique({ where: { id: root.id } }).club(),
+  scores: (_obj, { root }) =>
+    db.player.findUnique({ where: { id: root.id } }).scores(),
 }

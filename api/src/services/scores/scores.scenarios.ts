@@ -8,7 +8,7 @@ export const standard = defineScenario<Prisma.ScoreCreateArgs>({
         type: 'TRAINING',
         season: { create: { name: 'String' } },
         player: { create: {} },
-        training: { create: { trainingsDate: '2022-08-30T15:45:10Z' } },
+        training: { create: { date: '2022-08-30T15:45:10Z' } },
       },
     },
     two: {
@@ -17,7 +17,7 @@ export const standard = defineScenario<Prisma.ScoreCreateArgs>({
         type: 'TRAINING',
         season: { create: { name: 'String' } },
         player: { create: {} },
-        training: { create: { trainingsDate: '2022-08-30T15:45:10Z' } },
+        training: { create: { date: '2022-08-30T15:45:10Z' } },
       },
     },
   },

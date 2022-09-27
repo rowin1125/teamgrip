@@ -78,10 +78,7 @@ const TrainingDetailPage = () => {
               wrapperProps={{ mt: 4 }}
               entry={{
                 Teamnaam: training.team.name,
-                Datum: format(
-                  new Date(training?.trainingsDate || ''),
-                  'dd-MM-yyyy'
-                ),
+                Datum: format(new Date(training?.date || ''), 'dd-MM-yyyy'),
                 Seizoen: training?.season.name,
                 'Aantal spelers': training?.players.length,
                 'Aantal scores': training?.scores.length,

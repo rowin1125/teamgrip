@@ -23,12 +23,12 @@ describe('games', () => {
   scenario('creates a game', async (scenario: StandardScenario) => {
     const result = await createGame({
       input: {
-        gameDate: '2022-09-12T18:09:40Z',
+        date: '2022-09-12T18:09:40Z',
         teamId: scenario.game.two.teamId,
       },
     })
 
-    expect(result.gameDate).toEqual('2022-09-12T18:09:40Z')
+    expect(result.date).toEqual('2022-09-12T18:09:40Z')
     expect(result.teamId).toEqual(scenario.game.two.teamId)
   })
 
@@ -36,10 +36,10 @@ describe('games', () => {
     const original = await game({ id: scenario.game.one.id })
     const result = await updateGame({
       id: original.id,
-      input: { gameDate: '2022-09-13T18:09:40Z' },
+      input: { date: '2022-09-13T18:09:40Z' },
     })
 
-    expect(result.gameDate).toEqual('2022-09-13T18:09:40Z')
+    expect(result.date).toEqual('2022-09-13T18:09:40Z')
   })
 
   scenario('deletes a game', async (scenario: StandardScenario) => {
