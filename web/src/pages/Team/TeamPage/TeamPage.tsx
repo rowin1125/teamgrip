@@ -21,6 +21,7 @@ const TeamPage = () => {
 
   const isPartOfTeam = !!team?.id
 
+  console.log('state: ', !loading && !isPartOfTeam)
   if (!loading && !isPartOfTeam)
     return (
       <>

@@ -62,8 +62,8 @@ const ScoreTimeline = ({
     allGamesAndTrainings,
   })
 
-  const somePlayerHasScores = gamesAndTrainingArray.some((gameOrTraining) =>
-    gameOrTraining.scores.some((score) => score.points > 0)
+  const somePlayerHasScores = gamesAndTrainingArray?.some((gameOrTraining) =>
+    gameOrTraining?.scores?.some((score) => score.points > 0)
   )
 
   return (

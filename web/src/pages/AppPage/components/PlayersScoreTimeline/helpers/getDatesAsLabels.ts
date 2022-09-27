@@ -5,10 +5,10 @@ export const getDatesAsLabels = (
   allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId']
 ) => {
   const allDatesFromGamesAndTrainings = []
-  allGamesAndTrainings.games.forEach((game) => {
+  allGamesAndTrainings?.games.forEach((game) => {
     allDatesFromGamesAndTrainings.push(game.date)
   })
-  allGamesAndTrainings.trainings.forEach((training) => {
+  allGamesAndTrainings?.trainings.forEach((training) => {
     allDatesFromGamesAndTrainings.push(training.date)
   })
 

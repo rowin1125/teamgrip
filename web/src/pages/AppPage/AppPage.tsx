@@ -70,7 +70,9 @@ const AppPage = () => {
           rowSpan={1}
           order={{ base: 10, xl: 'unset' }}
         >
-          <TopTeamPlayers amount={10} />
+          <SeasonLockWrapper>
+            <TopTeamPlayers amount={10} />
+          </SeasonLockWrapper>
         </GridItem>
         {isActivePlayer && (
           <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>

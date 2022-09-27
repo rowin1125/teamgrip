@@ -22,7 +22,7 @@ export const getTimelineForPlayers = ({
     datasets: Object.keys(playerTimelineBasedOnDates).map((player) => {
       const values = playerTimelineBasedOnDates[player]
 
-      const playerName = allGamesAndTrainings.players.find(
+      const playerName = allGamesAndTrainings?.players.find(
         (p) => p.id === player
       )?.displayName
 
