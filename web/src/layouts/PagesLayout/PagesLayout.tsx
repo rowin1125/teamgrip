@@ -22,7 +22,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
           <Box as="main">{children}</Box>
         </Flex>
       </Flex>
-      <Footer />
+      <Footer inverse />
     </Box>
   )
 }
