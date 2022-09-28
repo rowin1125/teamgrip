@@ -40,6 +40,7 @@ const TeamPage = () => {
             disclosure={disclosure}
             setCurrentTabIndex={setCurrentTabIndex}
             team={team}
+            isLoading={loading}
           />
         </GridItem>
         <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={14}>

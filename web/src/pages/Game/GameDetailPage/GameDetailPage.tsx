@@ -7,6 +7,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
 import DataDisplay from 'src/components/DataDisplay/DataDisplay'
+import DefaultLoader from 'src/components/DefaultLoader/DefaultLoader'
 import RedwoodLink from 'src/components/RedwoodLink'
 import TeamTable from 'src/components/TeamTable'
 import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
@@ -15,8 +16,6 @@ import { useGetGameById } from '../UpdateGamePage/hooks/useGetGameById'
 
 const GameDetailPage = () => {
   const { game, gameLoading } = useGetGameById()
-
-  if (gameLoading) return null
 
   const topGameScores = game?.scores.filter(
     (score) => score.type === 'TOP_GAME'
@@ -59,7 +58,12 @@ const GameDetailPage = () => {
               </Button>
             )}
           </PlayerIsStaffWrapper>
-          <Button as={RedwoodLink} to={routes.team()} colorScheme="secondary">
+          <Button
+            as={RedwoodLink}
+            to={routes.team()}
+            colorScheme="secondary"
+            mt={{ base: 4, xl: 0 }}
+          >
             Terug naar team
           </Button>
         </Flex>
@@ -72,25 +76,28 @@ const GameDetailPage = () => {
         position="relative"
       >
         <GridItem colSpan={{ base: 12, xl: 4 }} rowSpan={1}>
-          <Card position="sticky" top={10}>
-            <Heading as="h2" size="md" mb={4}>
-              Wedstrijdgegevens
-            </Heading>
-            <DataDisplay
-              wrapperProps={{ mt: 4 }}
-              entry={{
-                Teamnaam: game.team.name,
-                Datum: format(new Date(game?.date || ''), 'dd-MM-yyyy'),
-                Seizoen: game?.season.name,
-                'Aantal spelers': game?.players.length,
-                'Aantal scores': game?.scores.length,
-                'Laatst bijgewerkt': format(
-                  new Date(game?.updatedAt || ''),
-                  'dd-MM-yyyy'
-                ),
-              }}
-            />
-          </Card>
+          <DefaultLoader isLoading={gameLoading}>
+            <Card position="sticky" top={10}>
+              <Heading as="h2" size="md" mb={4}>
+                Wedstrijdgegevens
+              </Heading>
+              <DataDisplay
+                wrapperProps={{ mt: 4 }}
+                entry={{
+                  Teamnaam: game?.team?.name,
+                  Datum: game
+                    ? format(new Date(game?.date || ''), 'dd-MM-yyyy')
+                    : '',
+                  Seizoen: game?.season.name,
+                  'Aantal spelers': game?.players.length,
+                  'Aantal scores': game?.scores.length,
+                  'Laatst bijgewerkt': game
+                    ? format(new Date(game?.updatedAt || ''), 'dd-MM-yyyy')
+                    : '',
+                }}
+              />
+            </Card>
+          </DefaultLoader>
         </GridItem>
         <GridItem colSpan={{ base: 12, xl: 8 }} rowSpan={1}>
           {hasTopGames && (
@@ -99,10 +106,11 @@ const GameDetailPage = () => {
                 Top 3 van de wedstrijd
               </Heading>
               <TeamTable
+                isLoading={gameLoading}
                 size="lg"
                 entries={topGameScores
                   ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
-                  .map((score, index) => ({
+                  ?.map((score, index) => ({
                     Rank: index + 1,
                     Naam: score.player.displayName,
                     Avatar: score.player?.user?.avatar,
@@ -123,9 +131,10 @@ const GameDetailPage = () => {
               Wedstrijdresultaat
             </Heading>
             <TeamTable
+              isLoading={gameLoading}
               size="lg"
               entries={regularGameScores
-                .sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
                 ?.map((score, index) => ({
                   Rank: index + 1,
                   Naam: score.player.displayName,

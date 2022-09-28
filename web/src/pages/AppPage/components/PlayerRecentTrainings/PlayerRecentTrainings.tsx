@@ -20,6 +20,7 @@ import { useAuth } from '@redwoodjs/auth'
 import { routes } from '@redwoodjs/router'
 
 import Card from 'src/components/Card/Card'
+import ChartLoader from 'src/components/Loaders/ChartLoader/ChartLoader'
 import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper'
 import { useScreenSize } from 'src/hooks/global/useScreenSize'
 
@@ -42,8 +43,7 @@ const PlayerRecentTrainings = () => {
   const { currentUser } = useAuth()
   const { isXl } = useScreenSize()
 
-  if (loading) return null
-  const labels = recentTrainings.map((training) =>
+  const labels = recentTrainings?.map((training) =>
     format(new Date(training.date), 'dd/MM')
   )
 
@@ -54,7 +54,7 @@ const PlayerRecentTrainings = () => {
         type: 'bar' as const,
         label: 'Jouw score',
         backgroundColor: 'rgb(75, 192, 192)',
-        data: recentTrainings.map((training) => {
+        data: recentTrainings?.map((training) => {
           const totalPointsOfCurrentPlayer = training.scores.reduce(
             (acc, score) => {
               if (score.playerId === currentUser?.player?.id)
@@ -73,7 +73,7 @@ const PlayerRecentTrainings = () => {
         type: 'bar' as const,
         label: 'Gemiddelde score van de groep',
         backgroundColor: 'rgb(53, 162, 235)',
-        data: recentTrainings.map((training) => {
+        data: recentTrainings?.map((training) => {
           const averageTrainingScore =
             training.scores
               .map((score) => score.points)
@@ -85,58 +85,60 @@ const PlayerRecentTrainings = () => {
     ],
   }
 
-  const somePlayerHasRecentTrainings = recentTrainings.some(
+  const somePlayerHasRecentTrainings = recentTrainings?.some(
     (training) => training.scores.length > 0
   )
 
   return (
-    <Card bg="primary.500" color="white">
-      <Heading color="white" mb={8}>
-        Recente punten trainingen
-      </Heading>
-      <ChartHasDataWrapper
-        hasEntries={somePlayerHasRecentTrainings}
-        isLoading={loading}
-        to={routes.newTraining({
-          id: currentUser?.player.teamId,
-        })}
-        title="Geen gegevens gevonden"
-        buttonText="Maak je eerste training aan"
-      >
-        <Chart
-          height={isXl ? 100 : 200}
-          type="bar"
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                position: 'top' as const,
-                labels: {
-                  font: {
-                    size: 14,
+    <ChartLoader isLoading={loading}>
+      <Card bg="primary.500" color="white" h="full">
+        <Heading color="white" mb={8}>
+          Recente punten trainingen
+        </Heading>
+        <ChartHasDataWrapper
+          hasEntries={somePlayerHasRecentTrainings}
+          isLoading={loading}
+          to={routes.newTraining({
+            id: currentUser?.player.teamId,
+          })}
+          title="Geen gegevens gevonden"
+          buttonText="Maak je eerste training aan"
+        >
+          <Chart
+            height={isXl ? 100 : 200}
+            type="bar"
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top' as const,
+                  labels: {
+                    font: {
+                      size: 14,
+                    },
+                    color: 'white',
                   },
-                  color: 'white',
                 },
               },
-            },
-            color: 'white',
-            scales: {
-              x: {
-                ticks: {
-                  color: 'white',
+              color: 'white',
+              scales: {
+                x: {
+                  ticks: {
+                    color: 'white',
+                  },
+                },
+                y: {
+                  ticks: {
+                    color: 'white',
+                  },
                 },
               },
-              y: {
-                ticks: {
-                  color: 'white',
-                },
-              },
-            },
-          }}
-          data={data}
-        />
-      </ChartHasDataWrapper>
-    </Card>
+            }}
+            data={data}
+          />
+        </ChartHasDataWrapper>
+      </Card>
+    </ChartLoader>
   )
 }
 

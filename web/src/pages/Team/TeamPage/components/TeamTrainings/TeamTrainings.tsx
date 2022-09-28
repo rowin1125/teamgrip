@@ -14,7 +14,7 @@ import { useDeleteTrainingById } from './hooks/useDeleteTrainingById'
 import { useGetTrainingsByTeam } from './hooks/useGetTrainingsByTeam'
 
 const TeamTrainings = () => {
-  const { trainings } = useGetTrainingsByTeam()
+  const { trainings, trainingsLoading } = useGetTrainingsByTeam()
   const { handleDeleteTrainingById } = useDeleteTrainingById()
   const { isTeamStaff } = useTeamPlayerAuth()
 
@@ -59,6 +59,7 @@ const TeamTrainings = () => {
           size={isTeamStaff ? 'sm' : 'md'}
           entries={trainingEntries}
           hiddenColumns={['id']}
+          isLoading={trainingsLoading}
           routes={{
             detail: routes.trainingDetail,
             update: routes.updateTraining,

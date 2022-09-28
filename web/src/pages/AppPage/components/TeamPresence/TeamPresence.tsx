@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Box, GridItem, Heading } from '@chakra-ui/react'
 
 import Card from 'src/components/Card/Card'
+import ChartLoader from 'src/components/Loaders/ChartLoader/ChartLoader'
 import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
@@ -19,36 +20,40 @@ const TeamPresence = () => {
   return (
     <>
       <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-        <Card bg="primary.500" color="white">
-          <Heading color="white">Training aanwezigheid</Heading>
+        <ChartLoader isLoading={teamPresenceLoading}>
+          <Card bg="primary.500" color="white">
+            <Heading color="white">Training aanwezigheid</Heading>
 
-          <Box mt={8}>
-            <SeasonLockWrapper>
-              <TrainingPresence
-                teamPresence={teamPresence}
-                isLoading={teamPresenceLoading}
-              />
-            </SeasonLockWrapper>
-          </Box>
-        </Card>
+            <Box mt={8}>
+              <SeasonLockWrapper>
+                <TrainingPresence
+                  teamPresence={teamPresence}
+                  isLoading={teamPresenceLoading}
+                />
+              </SeasonLockWrapper>
+            </Box>
+          </Card>
+        </ChartLoader>
       </GridItem>
       <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-        <Card
-          bg="primary.500"
-          color="white"
-          mt={{ xl: isActivePlayer ? 0 : 10 }}
-        >
-          <Heading color="white">Wedstrijd aanwezigheid</Heading>
+        <ChartLoader isLoading={teamPresenceLoading}>
+          <Card
+            bg="primary.500"
+            color="white"
+            mt={{ xl: isActivePlayer ? 0 : 10 }}
+          >
+            <Heading color="white">Wedstrijd aanwezigheid</Heading>
 
-          <Box mt={{ xl: 8 }}>
-            <SeasonLockWrapper>
-              <GamePresence
-                teamPresence={teamPresence}
-                isLoading={teamPresenceLoading}
-              />
-            </SeasonLockWrapper>
-          </Box>
-        </Card>
+            <Box mt={{ xl: 8 }}>
+              <SeasonLockWrapper>
+                <GamePresence
+                  teamPresence={teamPresence}
+                  isLoading={teamPresenceLoading}
+                />
+              </SeasonLockWrapper>
+            </Box>
+          </Card>
+        </ChartLoader>
       </GridItem>
     </>
   )

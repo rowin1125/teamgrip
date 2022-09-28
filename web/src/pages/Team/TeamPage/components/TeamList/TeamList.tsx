@@ -24,24 +24,12 @@ type TeamListProps = {
 }
 
 const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
-  const { playersWithTotalScore } = useGetPlayersAndScoresByTeamId()
+  const { playersWithTotalScore, playersWithTotalScoreLoading } =
+    useGetPlayersAndScoresByTeamId()
 
   return (
     <Card w="100%" bg="primary.500" color="white" overflowX="auto">
-      {playersWithTotalScore?.length > 0 ? (
-        <>
-          <Heading color="white">Punten in team: {team?.name}</Heading>
-          <TeamTable
-            size="sm"
-            entries={playersWithTotalScore?.map((player, index) => ({
-              Rank: index + 1,
-              Punten: player.totalScore,
-              Naam: `${capitalizeText(player.displayName)}`,
-              Avatar: player?.user?.avatar,
-            }))}
-          />
-        </>
-      ) : (
+      {!playersWithTotalScoreLoading && playersWithTotalScore?.length === 0 && (
         <>
           <Heading color="white">Je hebt nog geen teamleden</Heading>
           <Text my={4}>
@@ -75,6 +63,20 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
           </Flex>
         </>
       )}
+
+      <>
+        <Heading color="white">Punten in team: {team?.name}</Heading>
+        <TeamTable
+          size="sm"
+          entries={playersWithTotalScore?.map((player, index) => ({
+            Rank: index + 1,
+            Punten: player.totalScore,
+            Naam: `${capitalizeText(player.displayName)}`,
+            Avatar: player?.user?.avatar,
+          }))}
+          isLoading={playersWithTotalScoreLoading}
+        />
+      </>
     </Card>
   )
 }

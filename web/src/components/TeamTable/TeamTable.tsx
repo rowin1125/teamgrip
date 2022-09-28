@@ -1,5 +1,7 @@
 import { Table, TableProps } from '@chakra-ui/react'
 
+import TableLoader from '../Loaders/TableLoader/TableLoader'
+
 import NoEntries from './components/NoEntries'
 import TableBody from './components/TeamTableBody'
 import TableHead from './components/TeamTableHead'
@@ -36,32 +38,38 @@ const TeamTable = ({
   routes,
   onDelete,
   showActions,
+  isLoading,
 }: TeamTableProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
     useTeamTable(entries)
 
-  if (!entries || rows.length === 0) return <NoEntries theme={theme} />
+  const tableHasRows = rows.length > 0
 
   return (
-    <Table size={size} {...getTableProps()} mt={10}>
-      <TableHead
-        headerGroups={headerGroups}
-        theme={theme}
-        hiddenColumns={hiddenColumns}
-        showActions={showActions}
-      />
-      <TableBody
-        size={size}
-        routes={routes}
-        theme={theme}
-        prepareRow={prepareRow}
-        rows={rows}
-        getTableBodyProps={getTableBodyProps}
-        hiddenColumns={hiddenColumns}
-        showActions={showActions}
-        onDelete={onDelete}
-      />
-    </Table>
+    <TableLoader isLoading={isLoading} theme={theme}>
+      {tableHasRows && (
+        <Table size={size} {...getTableProps()} mt={10}>
+          <TableHead
+            headerGroups={headerGroups}
+            theme={theme}
+            hiddenColumns={hiddenColumns}
+            showActions={showActions}
+          />
+          <TableBody
+            size={size}
+            routes={routes}
+            theme={theme}
+            prepareRow={prepareRow}
+            rows={rows}
+            getTableBodyProps={getTableBodyProps}
+            hiddenColumns={hiddenColumns}
+            showActions={showActions}
+            onDelete={onDelete}
+          />
+        </Table>
+      )}
+      {entries && !tableHasRows && <NoEntries />}
+    </TableLoader>
   )
 }
 export default TeamTable

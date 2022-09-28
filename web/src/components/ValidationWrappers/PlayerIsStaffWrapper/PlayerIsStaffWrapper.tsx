@@ -11,7 +11,7 @@ const PlayerIsStaffWrapper = ({ children }: PlayerIsStaffWrapperProps) => {
 
   if (!loading && isTeamPlayer) return null
 
-  return children
+  return children || null
 }
 
 export default PlayerIsStaffWrapper

@@ -4,6 +4,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
 import DataDisplay from 'src/components/DataDisplay/DataDisplay'
+import DefaultLoader from 'src/components/DefaultLoader/DefaultLoader'
 import TeamTable from 'src/components/TeamTable'
 
 import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage'
@@ -44,21 +45,23 @@ const ClubPage = () => {
           </Heading>
         </GridItem>
         <GridItem colSpan={{ base: 12, xl: 4 }}>
-          <Card position="sticky" top={10}>
-            <Heading as="h1" size="lg" mb={8}>
-              Mijn Club
-            </Heading>
+          <DefaultLoader isLoading={clubLoading}>
+            <Card position="sticky" top={10}>
+              <Heading as="h1" size="lg" mb={8}>
+                Mijn Club
+              </Heading>
 
-            <DataDisplay
-              entry={{
-                'Club naam': club?.name,
-                'Aantal teams': club?.teams?.length,
-                'Aantal leden': club?.players?.length,
-                'Totaal aantal trainingen': totalAmountOfTrainings,
-                'Totaal aantal wedstrijden': totalAmountOfGames,
-              }}
-            />
-          </Card>
+              <DataDisplay
+                entry={{
+                  'Club naam': club?.name,
+                  'Aantal teams': club?.teams?.length,
+                  'Aantal leden': club?.players?.length,
+                  'Totaal aantal trainingen': totalAmountOfTrainings,
+                  'Totaal aantal wedstrijden': totalAmountOfGames,
+                }}
+              />
+            </Card>
+          </DefaultLoader>
         </GridItem>
         <GridItem colSpan={{ base: 12, xl: 8 }}>
           <Card bg="primary.500" color="white">
@@ -77,6 +80,7 @@ const ClubPage = () => {
                     'Aantal trainingen': team.trainings.length,
                   }
                 })}
+                isLoading={clubLoading}
               />
             </Box>
           </Card>

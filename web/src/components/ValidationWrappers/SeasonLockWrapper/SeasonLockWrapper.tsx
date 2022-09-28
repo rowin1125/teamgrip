@@ -19,12 +19,10 @@ const SeasonLockWrapper = ({ children }: SeasonLockWrapperProps) => {
 
   const hasSeason = team?.season?.length > 0
 
-  // TODO: Loader here
-  if (!team) return null
   const showLock = !hasSeason && isTeamStaff
 
   return (
-    <Box position="relative">
+    <Box position="relative" h="full">
       {showLock && (
         <Box inset={0} position="absolute" zIndex={1}>
           <Flex
@@ -55,20 +53,24 @@ const SeasonLockWrapper = ({ children }: SeasonLockWrapperProps) => {
                 Maak eerst een seizoen aan
               </Heading>
             </Flex>
-            <Button
-              as={RedwoodLink}
-              to={routes.newSeason({
-                id: team.id,
-              })}
-              mt={4}
-              colorScheme="secondary"
-            >
-              Nieuw seizoen
-            </Button>
+            {team && (
+              <Button
+                as={RedwoodLink}
+                to={routes.newSeason({
+                  id: team.id,
+                })}
+                mt={4}
+                colorScheme="secondary"
+              >
+                Nieuw seizoen
+              </Button>
+            )}
           </Flex>
         </Box>
       )}
-      <Box filter={showLock ? 'blur(3px)' : ''}>{children}</Box>
+      <Box filter={showLock ? 'blur(3px)' : ''} h="full">
+        {children}
+      </Box>
     </Box>
   )
 }

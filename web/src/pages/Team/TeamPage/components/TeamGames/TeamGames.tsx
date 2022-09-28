@@ -14,7 +14,7 @@ import { useDeleteGameById } from './hooks/useDeleteGameById'
 import { useGetGamesByTeamId } from './hooks/useGetGamesByTeamId'
 
 const TeamGames = () => {
-  const { games } = useGetGamesByTeamId()
+  const { games, gamesLoading } = useGetGamesByTeamId()
   const { handleDeleteGameById } = useDeleteGameById()
   const { isTeamStaff } = useTeamPlayerAuth()
 
@@ -58,6 +58,7 @@ const TeamGames = () => {
           size={isTeamStaff ? 'sm' : 'md'}
           entries={gameEntries}
           hiddenColumns={['id']}
+          isLoading={gamesLoading}
           routes={{
             detail: routes.gameDetail,
             update: routes.updateGame,
