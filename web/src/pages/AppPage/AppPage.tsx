@@ -3,7 +3,6 @@ import { Grid, GridItem, Heading } from '@chakra-ui/react'
 import { MetaTags } from '@redwoodjs/web'
 
 import PlayerCard from 'src/components/PlayerCard/PlayerCard'
-import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
@@ -70,23 +69,17 @@ const AppPage = () => {
           rowSpan={1}
           order={{ base: 10, xl: 'unset' }}
         >
-          <SeasonLockWrapper>
-            <TopTeamPlayers amount={10} />
-          </SeasonLockWrapper>
+          <TopTeamPlayers amount={10} />
         </GridItem>
         {isActivePlayer && (
           <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-            <SeasonLockWrapper>
-              <PlayerRecentTrainings />
-            </SeasonLockWrapper>
+            <PlayerRecentTrainings />
           </GridItem>
         )}
 
         {isActivePlayer && (
           <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-            <SeasonLockWrapper>
-              <PlayerRecentGames />
-            </SeasonLockWrapper>
+            <PlayerRecentGames />
           </GridItem>
         )}
         <TeamPresence />

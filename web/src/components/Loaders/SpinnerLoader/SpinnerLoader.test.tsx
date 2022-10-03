@@ -1,14 +1,14 @@
 import { render } from '@redwoodjs/testing/web'
 
-import PlayerCardLoader from './PlayerCardLoader'
+import SpinnerLoader from './SpinnerLoader'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
 
-describe('PlayerCardLoader', () => {
+describe('SpinnerLoader', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<PlayerCardLoader />)
+      render(<SpinnerLoader />)
     }).not.toThrow()
   })
 })

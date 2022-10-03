@@ -5,7 +5,7 @@ import { MetaTags } from '@redwoodjs/web'
 
 import Card from 'src/components/Card/Card'
 import DataDisplay from 'src/components/DataDisplay/DataDisplay'
-import DefaultLoader from 'src/components/DefaultLoader/DefaultLoader'
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader'
 import TeamTable from 'src/components/TeamTable'
 
 import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage'

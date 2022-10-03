@@ -3,7 +3,7 @@ import React from 'react'
 import { Box, GridItem, Heading } from '@chakra-ui/react'
 
 import Card from 'src/components/Card/Card'
-import ChartLoader from 'src/components/Loaders/ChartLoader/ChartLoader'
+import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader'
 import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 
 import GamePresence from './components/GamePresence'
@@ -18,8 +18,8 @@ const TeamPresence = () => {
   return (
     <>
       <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-        <ChartLoader isLoading={teamPresenceLoading}>
-          <Card bg="primary.500" color="white">
+        <SpinnerLoader isLoading={teamPresenceLoading}>
+          <Card bg="primary.500" color="white" minH="400px">
             <Heading color="white">Training aanwezigheid</Heading>
 
             <Box mt={8}>
@@ -31,11 +31,11 @@ const TeamPresence = () => {
               </SeasonLockWrapper>
             </Box>
           </Card>
-        </ChartLoader>
+        </SpinnerLoader>
       </GridItem>
       <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-        <ChartLoader isLoading={teamPresenceLoading}>
-          <Card bg="primary.500" color="white" mt={{ xl: 0 }}>
+        <SpinnerLoader isLoading={teamPresenceLoading}>
+          <Card bg="primary.500" color="white" minH="400px" mt={{ xl: 0 }}>
             <Heading color="white">Wedstrijd aanwezigheid</Heading>
 
             <Box mt={{ xl: 8 }}>
@@ -47,7 +47,7 @@ const TeamPresence = () => {
               </SeasonLockWrapper>
             </Box>
           </Card>
-        </ChartLoader>
+        </SpinnerLoader>
       </GridItem>
     </>
   )

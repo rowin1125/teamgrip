@@ -3,8 +3,9 @@ import React from 'react'
 import { Heading, Text } from '@chakra-ui/react'
 
 import Card from 'src/components/Card/Card'
-import ChartLoader from 'src/components/Loaders/ChartLoader/ChartLoader'
+import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader'
 import TeamTable from 'src/components/TeamTable'
+import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
 import { useGetPlayersAndScoresByTeamId } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId'
 
 type TopTeamPlayersProps = {
@@ -16,30 +17,32 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
     useGetPlayersAndScoresByTeamId(amount)
 
   return (
-    <ChartLoader isLoading={playersWithTotalScoreLoading}>
-      <Card w="100%" bg="primary.500" color="white" overflowX="auto">
-        {playersWithTotalScore?.length === 0 && (
+    <Card w="100%" bg="primary.500" color="white" overflowX="auto" h="full">
+      <SpinnerLoader isLoading={playersWithTotalScoreLoading}>
+        <SeasonLockWrapper>
+          {playersWithTotalScore?.length === 0 && (
+            <>
+              <Heading color="white">Top {amount} van het team </Heading>
+              <Text>Er zijn nog geen gegevens op te laten zien</Text>
+            </>
+          )}
+
           <>
             <Heading color="white">Top {amount} van het team </Heading>
-            <Text>Er zijn nog geen gegevens op te laten zien</Text>
+            <TeamTable
+              size="sm"
+              entries={playersWithTotalScore?.map((player, index) => ({
+                Rank: index + 1,
+                Punten: player?.totalScore,
+                Naam: player?.displayName,
+                Avatar: player?.user?.avatar,
+              }))}
+              isLoading={playersWithTotalScoreLoading}
+            />
           </>
-        )}
-
-        <>
-          <Heading color="white">Top {amount} van het team </Heading>
-          <TeamTable
-            size="sm"
-            entries={playersWithTotalScore?.map((player, index) => ({
-              Rank: index + 1,
-              Punten: player?.totalScore,
-              Naam: player?.displayName,
-              Avatar: player?.user?.avatar,
-            }))}
-            isLoading={playersWithTotalScoreLoading}
-          />
-        </>
-      </Card>
-    </ChartLoader>
+        </SeasonLockWrapper>
+      </SpinnerLoader>
+    </Card>
   )
 }
 
