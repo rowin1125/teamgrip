@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CreateTeamInput,
   CreateTeamMutation,
   CreateTeamMutationVariables,
+  GetClubsQuery,
 } from 'types/graphql'
 
 import { useAuth } from '@redwoodjs/auth'
@@ -21,7 +23,7 @@ const CREATE_TEAM_MUTATION = gql`
   }
 `
 
-export const useCreateTeam = (clubs) => {
+export const useCreateTeam = (clubs?: GetClubsQuery['clubs']) => {
   const { reauthenticate } = useAuth()
   const { currentUser } = useTeamPlayerAuth()
 
@@ -34,7 +36,7 @@ export const useCreateTeam = (clubs) => {
       {
         query: FIND_TEAM_QUERY,
         variables: {
-          id: currentUser?.player.teamId,
+          id: currentUser?.player?.teamId,
         },
       },
     ],
@@ -42,11 +44,11 @@ export const useCreateTeam = (clubs) => {
 
   const handleCreateTeam = async (values: CreateTeamInput) => {
     const clubName = clubs
-      .find((club) => club.id === values.clubId)
+      ?.find((club) => club.id === values.clubId)
       ?.name?.toLowerCase()
     const teamNameContainsClubName = values.name
       .toLowerCase()
-      .includes(clubName)
+      .includes(clubName || '')
     if (teamNameContainsClubName) {
       toast.error('Clubnaam mag niet in teamnaam zitten')
       return
@@ -61,10 +63,10 @@ export const useCreateTeam = (clubs) => {
           },
         },
       })
-      toast.success(`Team ${team.data.createTeam.name} aangemaakt`)
+      toast.success(`Team ${team?.data?.createTeam.name} aangemaakt`)
       navigate(routes.team())
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 

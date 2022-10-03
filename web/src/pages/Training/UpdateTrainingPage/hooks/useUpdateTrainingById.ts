@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from 'react'
 
 import {
@@ -41,7 +42,7 @@ export const useUpdateTrainingById = (id: string, showTop: boolean) => {
     ],
   })
 
-  const handleUpdateTraining = async (values) => {
+  const handleUpdateTraining = async (values: any) => {
     const { scores, topTrainingScores, ...input } = values
     const allScores = [...scores, ...(showTop ? topTrainingScores : [])]
 
@@ -58,8 +59,8 @@ export const useUpdateTrainingById = (id: string, showTop: boolean) => {
       })
       toast.success(`Training aangepast`)
       navigate(routes.trainingDetail({ id }))
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 

@@ -23,13 +23,13 @@ export const useDeletePlayerById = () => {
       refetchQueries: [
         {
           query: GET_TEAM_PLAYERS_FOR_SETTINGS,
-          variables: { id: currentUser?.player.teamId },
+          variables: { id: currentUser?.player?.teamId },
         },
       ],
     }
   )
 
-  const handleDeletePlayerById = async (id) => {
+  const handleDeletePlayerById = async (id: string) => {
     const deletePlayerById = await deletePlayer({
       variables: {
         id,

@@ -21,7 +21,7 @@ type ControlledSelectProps = SelectProps & {
   label: string
   helperText?: string
   id: string
-  options: Record<'value' | 'label', string>[]
+  options?: Record<'value' | 'label', string>[]
   onChangeCallback?: (
     value: string | number,
     field: FieldInputProps<any>,

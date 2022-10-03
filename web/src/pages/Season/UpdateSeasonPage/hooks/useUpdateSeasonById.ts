@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   UpdateSeasonByIdMutation,
   UpdateSeasonByIdMutationVariables,
@@ -35,7 +36,12 @@ export const useUpdateSeasonById = () => {
 
   const handleUpdateSeason = async (values: UpdateSeasonInput) => {
     try {
-      const uniqueName = `${team?.club.name}-${team?.name}-${values.name}`
+      if (!team) {
+        toast.error('No team found')
+        return
+      }
+
+      const uniqueName = `${team?.club?.name}-${team?.name}-${values.name}`
       const season = await updateSeason({
         variables: {
           id: id || '',
@@ -47,11 +53,11 @@ export const useUpdateSeasonById = () => {
         },
       })
 
-      toast.success(`Seizoen ${season.data.updateSeason.name} aangepast`)
+      toast.success(`Seizoen ${season?.data?.updateSeason.name} aangepast`)
       navigate(routes.teamSettings())
-    } catch (error) {
+    } catch (error: any) {
       console.log(error)
-      toast.error(error.message)
+      toast.error(error?.message)
     }
   }
 

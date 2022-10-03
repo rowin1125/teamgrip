@@ -17,14 +17,14 @@ import { useGetGameById } from '../UpdateGamePage/hooks/useGetGameById'
 const GameDetailPage = () => {
   const { game, gameLoading } = useGetGameById()
 
-  const topGameScores = game?.scores.filter(
-    (score) => score.type === 'TOP_GAME'
+  const topGameScores = game?.scores?.filter(
+    (score) => score?.type === 'TOP_GAME'
   )
-  const regularGameScores = game?.scores.filter(
-    (score) => score.type === 'GAME'
+  const regularGameScores = game?.scores?.filter(
+    (score) => score?.type === 'GAME'
   )
 
-  const hasTopGames = topGameScores?.length > 0
+  const hasTopGames = topGameScores && topGameScores?.length > 0
 
   return (
     <>
@@ -38,7 +38,7 @@ const GameDetailPage = () => {
         justifyContent="space-between"
       >
         <Heading as="h1" mb={2} color="white">
-          {game?.team.name}
+          {game?.team?.name}
         </Heading>
 
         <Flex
@@ -88,9 +88,9 @@ const GameDetailPage = () => {
                   Datum: game
                     ? format(new Date(game?.date || ''), 'dd-MM-yyyy')
                     : '',
-                  Seizoen: game?.season.name,
-                  'Aantal spelers': game?.players.length,
-                  'Aantal scores': game?.scores.length,
+                  Seizoen: game?.season?.name,
+                  'Aantal spelers': game?.players?.length,
+                  'Aantal scores': game?.scores?.length,
                   'Laatst bijgewerkt': game
                     ? format(new Date(game?.updatedAt || ''), 'dd-MM-yyyy')
                     : '',
@@ -109,12 +109,17 @@ const GameDetailPage = () => {
                 isLoading={gameLoading}
                 size="lg"
                 entries={topGameScores
-                  ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                  ?.sort((scoreA, scoreB) => {
+                    if (scoreA?.points && scoreB?.points) {
+                      return scoreA?.points - scoreB?.points
+                    }
+                    return 0
+                  })
                   ?.map((score, index) => ({
                     Rank: index + 1,
-                    Naam: score.player.displayName,
-                    Avatar: score.player?.user?.avatar,
-                    Punten: score.points,
+                    Naam: score?.player?.displayName,
+                    Avatar: score?.player?.user?.avatar,
+                    Punten: score?.points,
                   }))}
               />
             </Card>
@@ -134,12 +139,17 @@ const GameDetailPage = () => {
               isLoading={gameLoading}
               size="lg"
               entries={regularGameScores
-                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                ?.sort((scoreA, scoreB) => {
+                  if (scoreA?.points && scoreB?.points) {
+                    return scoreA?.points - scoreB?.points
+                  }
+                  return 0
+                })
                 ?.map((score, index) => ({
                   Rank: index + 1,
-                  Naam: score.player.displayName,
-                  Avatar: score.player?.user?.avatar,
-                  Punten: score.points,
+                  Naam: score?.player?.displayName,
+                  Avatar: score?.player?.user?.avatar,
+                  Punten: score?.points,
                 }))}
             />
           </Card>

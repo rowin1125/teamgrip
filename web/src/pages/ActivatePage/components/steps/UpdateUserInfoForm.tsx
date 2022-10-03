@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react'
 
 import { Box, Heading, Button } from '@chakra-ui/react'
@@ -43,21 +44,28 @@ const UpdateUserInfoForm = ({ setActivateStep }: UpdateUserInfoFormProps) => {
   >(UPDATE_USER_PROFILE)
 
   const onSubmit = async (data: UpdateUserProfileInput) => {
+    if (!currentUser) {
+      toast.error('Je bent niet ingelogd')
+      return
+    }
+
     try {
       await updateUserProfile({
         variables: { input: data, id: currentUser.id },
       })
       setActivateStep(2)
       toast.success('Informatie verwerkt, nog 1 stapje 🎈')
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 
   useEffect(() => {
+    if (!currentUser) return
+
     if (
-      currentUser?.userProfile.lastname ||
-      currentUser?.userProfile.firstname
+      currentUser?.userProfile?.lastname ||
+      currentUser?.userProfile?.firstname
     ) {
       setActivateStep(2)
     }

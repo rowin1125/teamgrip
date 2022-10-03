@@ -59,19 +59,19 @@ const PlayerCard = () => {
                 <div className="player-features-col">
                   <span>
                     <div className="player-feature-value">
-                      {playerWithTotalScore?.totalScore.toFixed(0)}
+                      {playerWithTotalScore?.totalScore?.toFixed(0)}
                     </div>
                     <div className="player-feature-title">Punten totaal</div>
                   </span>
                   <span>
                     <div className="player-feature-value">
-                      {playerWithTotalScore?.avgScore.toFixed(2)}
+                      {playerWithTotalScore?.avgScore?.toFixed(2)}
                     </div>
                     <div className="player-feature-title">Gemiddeld</div>
                   </span>
                   <span>
                     <div className="player-feature-value">
-                      {playerWithTotalScore?.scores?.[0]?.points.toFixed(0) ||
+                      {playerWithTotalScore?.scores?.[0]?.points?.toFixed(0) ||
                         0}
                     </div>
                     <div className="player-feature-title">Laatste score</div>

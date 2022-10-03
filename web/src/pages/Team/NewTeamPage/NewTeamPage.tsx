@@ -38,7 +38,7 @@ const NewTeamPage = () => {
               initialValues={{
                 name: '',
                 clubId: '',
-                ownerId: currentUser?.id,
+                ownerId: currentUser?.id || '',
                 ownerIsPlayer: false,
                 clubTeamName: '',
               }}

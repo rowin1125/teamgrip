@@ -57,8 +57,8 @@ const PlayerRecentGames = () => {
         data: recentGames?.map((game) => {
           const totalPointsOfCurrentPlayer = game.scores.reduce(
             (acc, score) => {
-              if (score.playerId === currentUser?.player?.id)
-                return acc + score.points
+              if (score?.playerId === currentUser?.player?.id)
+                return acc + (score?.points || 0)
 
               return acc
             },
@@ -76,7 +76,7 @@ const PlayerRecentGames = () => {
         data: recentGames?.map((game) => {
           const averageGameScore =
             game.scores
-              .map((score) => score.points)
+              .map((score) => score?.points || 0)
               .reduce((a, b) => a + b, 0) / game.scores.length
 
           return averageGameScore
@@ -96,16 +96,16 @@ const PlayerRecentGames = () => {
           Recente punten wedstrijden
         </Heading>
         <ChartHasDataWrapper
-          hasEntries={somePlayerHasRecentGames}
+          hasEntries={!!somePlayerHasRecentGames}
           isLoading={loading}
           to={routes.newGame({
-            id: currentUser?.player.teamId,
+            id: currentUser?.player?.teamId || '',
           })}
           title="Geen gegevens gevonden"
           buttonText="Maak je eerste wedstrijd aan"
         >
           <Chart
-            height={isXl ? 100 : 200}
+            height={isXl ? 150 : 200}
             type="bar"
             options={{
               responsive: true,

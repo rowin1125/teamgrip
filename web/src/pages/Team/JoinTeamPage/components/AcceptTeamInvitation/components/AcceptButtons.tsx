@@ -35,7 +35,9 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
         <Button
           variant="outline"
           colorScheme="red"
-          onClick={() => handleDeleteTeamInvitation(currentUser?.player?.id)}
+          onClick={() =>
+            handleDeleteTeamInvitation(currentUser?.player?.id || '')
+          }
         >
           Verwijder uitnodiging
         </Button>
@@ -46,7 +48,9 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
         ml={4}
         colorScheme={hasGhostPlayer ? 'orange' : 'secondary'}
         isLoading={loading}
-        onClick={() => handleJoinTeam(currentUser?.player?.id, team?.id)}
+        onClick={() =>
+          handleJoinTeam(currentUser?.player?.id || '', team?.id || '')
+        }
       >
         Join het team
       </Button>
@@ -58,9 +62,9 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
           isLoading={loading}
           onClick={() =>
             handleJoinTeamAsGhost(
-              currentUser?.player?.id,
+              currentUser?.player?.id || '',
               ghostPlayer.id,
-              team?.id
+              team?.id || ''
             )
           }
         >

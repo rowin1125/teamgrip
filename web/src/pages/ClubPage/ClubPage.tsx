@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
 
 import { MetaTags } from '@redwoodjs/web'
@@ -22,14 +23,18 @@ const ClubPage = () => {
       </>
     )
 
-  const totalAmountOfGames = club?.teams?.reduce(
-    (acc, team) => acc + team?.games?.length,
-    0
-  )
-  const totalAmountOfTrainings = club?.teams?.reduce(
-    (acc, team) => acc + team?.trainings?.length,
-    0
-  )
+  const totalAmountOfGames = club?.teams?.reduce((acc, team) => {
+    if (!team?.games?.length) return acc + 0
+
+    return acc + team?.games?.length
+  }, 0)
+
+  const totalAmountOfTrainings = club?.teams?.reduce((acc, team) => {
+    if (!team?.trainings?.length) return acc + 0
+
+    return acc + team?.trainings?.length
+  }, 0)
+
   return (
     <>
       <MetaTags title="Mijn Club" description="Club page" />
@@ -73,11 +78,11 @@ const ClubPage = () => {
               <TeamTable
                 entries={club?.teams.map((team) => {
                   return {
-                    name: team.name,
-                    'Team eigenaar': `${team.owner?.userProfile.firstname} ${team.owner?.userProfile.lastname}`,
-                    'Aantal spelers': team.players.length,
-                    'Aantal wedstrijden': team.games.length,
-                    'Aantal trainingen': team.trainings.length,
+                    name: team?.name,
+                    'Team eigenaar': `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}`,
+                    'Aantal spelers': team?.players.length,
+                    'Aantal wedstrijden': team?.games.length,
+                    'Aantal trainingen': team?.trainings.length,
                   }
                 })}
                 isLoading={clubLoading}

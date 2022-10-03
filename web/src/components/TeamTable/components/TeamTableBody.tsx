@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-key */
 
 import { Tbody, Td, Tr } from '@chakra-ui/react'
@@ -46,7 +47,7 @@ const TeamTableBody = ({
           <Tr {...row.getRowProps()}>
             {row.cells.map((cell) => (
               <TableDataMachine
-                key={cell.column.Header.toString()}
+                key={cell?.column?.Header?.toString()}
                 cell={cell}
                 row={row}
                 hiddenColumns={hiddenColumns}

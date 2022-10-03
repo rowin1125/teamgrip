@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 
 import { Box, Button, Heading } from '@chakra-ui/react'
@@ -66,8 +67,8 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
         toast.success('Account actief!')
       }
       setLoadingLogin(false)
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
 
 import { useMutation } from '@apollo/client'
@@ -36,8 +37,6 @@ const CREATE_AVATAR_MUTATION = gql`
 const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
   const { currentUser, reauthenticate } = useAuth()
   const [createAvatar, { loading }] = useMutation(CREATE_AVATAR_MUTATION, {
-    // HACK to trigger refetch of the current user
-    // https://community.redwoodjs.com/t/data-not-reloaded-properly/1678/2
     onCompleted: reauthenticate,
   })
   const [showSuccess, setShowSuccess] = useState(false)
@@ -59,9 +58,9 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
         'GOOOAAAAAAAAAAAAAL ⚽️\nAvatar is succesvol aangemaakt \n Je wordt geredirect naar de homepage '
       )
       await handlePlayVideo()
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
-      toast.error(error.message)
+      toast.error(error?.message)
     }
   }
 

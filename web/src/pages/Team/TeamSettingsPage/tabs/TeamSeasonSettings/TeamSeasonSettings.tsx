@@ -47,11 +47,11 @@ const TeamSeasonSettings = () => {
             const seasonScoresAmount = season?.scores?.length
 
             return {
-              id: season.id,
-              Seizoensnaam: season.name,
-              Actief: season.active ? 'Ja' : 'Nee',
-              'Aantal trainingen': season.trainings.length,
-              'Aantal wedstrijden': season.games.length,
+              id: season?.id,
+              Seizoensnaam: season?.name,
+              Actief: season?.active ? 'Ja' : 'Nee',
+              'Aantal trainingen': season?.trainings.length,
+              'Aantal wedstrijden': season?.games.length,
               'Aantal scores': seasonScoresAmount,
             }
           })}

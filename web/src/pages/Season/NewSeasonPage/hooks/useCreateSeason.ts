@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CreateSeasonInput,
   CreateSeasonMutation,
@@ -26,21 +27,25 @@ export const useCreateSeason = (team: FindTeamQuery['team']) => {
   >(CREATE_SEASON_MUTATION)
 
   const handleCreateSeason = async (values: CreateSeasonInput) => {
+    if (!team) {
+      toast.error('No team found')
+      return
+    }
     try {
       const season = await createSeason({
         variables: {
           teamId: team?.id,
           input: {
             ...values,
-            seasonTeamName: `${team?.club.name}-${team?.name}-${values.name}`,
+            seasonTeamName: `${team?.club?.name}-${team?.name}-${values.name}`,
           },
         },
       })
-      toast.success(`Seizoen ${season.data.createSeason.name} aangemaakt`)
+      toast.success(`Seizoen ${season?.data?.createSeason.name} aangemaakt`)
       navigate(routes.team())
-    } catch (error) {
+    } catch (error: any) {
       console.log(error)
-      toast.error(error.message)
+      toast.error(error?.message)
     }
   }
 

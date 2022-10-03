@@ -49,7 +49,7 @@ const AppPage = () => {
           </Heading>
           {team && (
             <Heading as="h1" size="lg" color="white" mt={4}>
-              {team.club.name} - {team.name}
+              {team?.club?.name} - {team.name}
             </Heading>
           )}
         </GridItem>

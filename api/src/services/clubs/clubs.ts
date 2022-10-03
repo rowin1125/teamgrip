@@ -1,7 +1,7 @@
 import type {
   QueryResolvers,
   MutationResolvers,
-  ClubResolvers,
+  ClubRelationResolvers,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -46,7 +46,7 @@ export const deleteClub: MutationResolvers['deleteClub'] = ({ id }) => {
   })
 }
 
-export const Club: ClubResolvers = {
+export const Club: ClubRelationResolvers = {
   teams: (_obj, { root }) =>
     db.club.findUnique({ where: { id: root.id } }).teams(),
   players: (_obj, { root }) =>

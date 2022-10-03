@@ -19,7 +19,7 @@ import InvitePlayers from './InvitePlayers'
 type InvitePlayersModalProps = {
   team: FindTeamQuery['team']
   defaultIndex?: number
-  setCurrentTabIndex
+  setCurrentTabIndex: (index: number) => void
 } & UseDisclosureProps
 
 const InvitePlayersModal = ({
@@ -30,6 +30,8 @@ const InvitePlayersModal = ({
   onOpen,
   defaultIndex,
 }: InvitePlayersModalProps) => {
+  if (!onClose || !onOpen) return null
+
   const handleOpenModel = () => {
     setCurrentTabIndex(0)
     onOpen()
@@ -39,7 +41,7 @@ const InvitePlayersModal = ({
     <>
       <Button onClick={handleOpenModel}>Nodig spelers uit</Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="4xl">
+      <Modal isOpen={isOpen || false} onClose={onClose} size="4xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>

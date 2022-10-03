@@ -4,11 +4,15 @@ import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql'
 export const getDatesAsLabels = (
   allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId']
 ) => {
-  const allDatesFromGamesAndTrainings = []
+  const allDatesFromGamesAndTrainings: string[] = []
   allGamesAndTrainings?.games.forEach((game) => {
+    if (!game?.date) return
+
     allDatesFromGamesAndTrainings.push(game.date)
   })
   allGamesAndTrainings?.trainings.forEach((training) => {
+    if (!training?.date) return
+
     allDatesFromGamesAndTrainings.push(training.date)
   })
 

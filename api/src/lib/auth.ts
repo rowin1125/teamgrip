@@ -1,3 +1,5 @@
+import { PlayerType, User } from 'types/graphql'
+
 import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
 
 import { db } from './db'
@@ -19,9 +21,47 @@ import { db } from './db'
  * fields to the `select` object below once you've decided they are safe to be
  * seen if someone were to open the Web Inspector in their browser.
  */
-export const getCurrentUser = async (session) => {
-  return await db.user.findUnique({
-    where: { id: session.id },
+
+type MyCurrentUser = {
+  id: string
+  email: string
+  verified: boolean
+  roles: User['roles']
+  userProfile: {
+    firstname: string | null
+    lastname: string | null
+  } | null
+  player: {
+    id: string
+    teamId: string | null
+    teamInvitation: string | null
+    playerType: PlayerType
+    isActivePlayer: boolean
+    clubId: string | null
+  } | null
+  avatar: {
+    id: string
+    avatarStyle: string
+    topType: string
+    accessoriesType: string
+    hatColor: string
+    hairColor: string
+    facialHairType: string
+    facialHairColor: string
+    clotheType: string
+    clotheColor: string
+    graphicType: string
+    eyeType: string
+    eyebrowType: string
+    mouthType: string
+    skinColor: string
+  } | null
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getCurrentUser = async ({ id }: any): Promise<MyCurrentUser> => {
+  const user = await db.user.findUnique({
+    where: { id },
     select: {
       id: true,
       email: true,
@@ -64,6 +104,12 @@ export const getCurrentUser = async (session) => {
       },
     },
   })
+
+  if (!user) {
+    throw new AuthenticationError('User not found')
+  }
+
+  return user
 }
 
 /**
@@ -112,7 +158,7 @@ export const hasRole = (roles: AllowedRoles): boolean => {
       return currentUserRoles?.some((allowedRole) =>
         roles.includes(allowedRole)
       )
-    } else if (typeof context.currentUser.roles === 'string') {
+    } else if (typeof context.currentUser?.roles === 'string') {
       // roles to check is an array, currentUser.roles is a string
       return roles.some(
         (allowedRole) => context.currentUser?.roles === allowedRole

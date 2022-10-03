@@ -43,11 +43,11 @@ const UpdateTeamPage = () => {
             <Formik
               onSubmit={handleUpdateTeam}
               initialValues={{
-                name: team.name,
-                clubId: team.club.id,
-                ownerId: currentUser?.id,
-                ownerIsPlayer: currentUser?.player.isActivePlayer,
-                clubTeamName: team.clubTeamName,
+                name: team?.name || '',
+                clubId: team?.club?.id || '',
+                ownerId: currentUser?.id || '',
+                ownerIsPlayer: currentUser?.player?.isActivePlayer || false,
+                clubTeamName: team?.clubTeamName || '',
               }}
               validationSchema={validationSchema}
             >

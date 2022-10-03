@@ -20,7 +20,7 @@ export const Loading = () => <div>Loading...</div>
 export const Empty = () => <div>Club not found</div>
 
 export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error.message}</div>
+  <div className="rw-cell-error">{error?.message}</div>
 )
 
 export const Success = ({ club }: CellSuccessProps<FindClubById>) => {

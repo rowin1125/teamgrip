@@ -1,43 +1,43 @@
-import { FormatXMLElementFn, PrimitiveType } from "intl-messageformat";
-import { MessageDescriptor } from "react-intl";
+import { FormatXMLElementFn, PrimitiveType } from 'intl-messageformat'
+import { MessageDescriptor } from 'react-intl'
 
-import datePicker from "@/translations/backoffice/datePicker";
+import datePicker from '@/translations/backoffice/datePicker'
 
 export const datePickerStylesConfig = {
   dayOfMonthBtnProps: {
     defaultBtnProps: {
       _hover: {
-        background: "primary.500",
-        color: "white",
+        background: 'primary.500',
+        color: 'white',
       },
-      color: "black",
+      color: 'black',
     },
     selectedBtnProps: {
-      backgroundColor: "primary.500",
-      color: "white",
+      backgroundColor: 'primary.500',
+      color: 'white',
     },
     isInRangeBtnProps: {
-      color: "red.500",
+      color: 'red.500',
     },
   },
   dateNavBtnProps: {
-    color: "black",
+    color: 'black',
     _hover: {
-      background: "primary.500",
-      color: "white",
+      background: 'primary.500',
+      color: 'white',
     },
   },
-};
+}
 type FormatMessageFunc = (
   descriptor: MessageDescriptor,
   values?: Record<string, PrimitiveType | FormatXMLElementFn<string, string>>,
   opts?: Record<string, unknown>
-) => string;
+) => string
 
 export const datePickerDateConfig = (t: FormatMessageFunc) => {
   return {
     placeholder: t(datePicker.datePickerPlaceholder),
-    dateFormat: "dd/MM/yyyy",
+    dateFormat: 'dd/MM/yyyy',
     dayNames: [
       t(datePicker.datePickerSunday),
       t(datePicker.datePickerMonday),
@@ -63,5 +63,5 @@ export const datePickerDateConfig = (t: FormatMessageFunc) => {
       t(datePicker.datePickerNovember),
       t(datePicker.datePickerDecember),
     ],
-  };
-};
+  }
+}

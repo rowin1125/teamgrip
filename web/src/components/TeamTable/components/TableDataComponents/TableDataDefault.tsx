@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box } from '@chakra-ui/react'
 import { Cell } from 'react-table'
 

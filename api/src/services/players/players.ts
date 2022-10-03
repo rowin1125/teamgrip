@@ -2,8 +2,10 @@ import nanoid from 'nanoid'
 import type {
   QueryResolvers,
   MutationResolvers,
-  PlayerResolvers,
+  PlayerRelationResolvers,
 } from 'types/graphql'
+
+import { removeNulls } from '@redwoodjs/api'
 
 import { db } from 'src/lib/db'
 
@@ -16,7 +18,7 @@ export const players: QueryResolvers['players'] = () => {
 export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
   teamId,
 }) => {
-  return await db.player.findMany({
+  return db.player.findMany({
     where: {
       teamId,
       AND: {
@@ -76,7 +78,7 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
       },
     })
     const players = mergePlayersAndScores(playersWithoutScores, scores)
-    const sortedPLayers = players.sort((a, b) => b.totalScore - a.totalScore)
+    const sortedPLayers = players?.sort((a, b) => b.totalScore - a.totalScore)
 
     if (limit) return sortedPLayers.slice(0, limit)
 
@@ -85,6 +87,8 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
 
 export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] =
   async ({ teamId }) => {
+    if (!context.currentUser?.player) throw new Error('Not authorized')
+
     const playerWithoutScores = await db.player.findFirst({
       where: {
         teamId,
@@ -192,14 +196,14 @@ export const player: QueryResolvers['player'] = ({ id }) => {
 
 export const createPlayer: MutationResolvers['createPlayer'] = ({ input }) => {
   return db.player.create({
-    data: input,
+    data: removeNulls(input),
   })
 }
 
 export const createManyGhostPlayers: MutationResolvers['createManyGhostPlayers'] =
   async ({ input }) => {
     const playersData = input.players.map((player) => ({
-      displayName: player.displayName,
+      displayName: player?.displayName,
       teamId: input.teamId,
       isActivePlayer: true,
       isGhost: true,
@@ -241,7 +245,11 @@ export const deleteGhostPlayerInvitation: MutationResolvers['deleteGhostPlayerIn
 export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTeamByGhostInvitation'] =
   async ({ id, ghostId, teamId }) => {
     const currentPlayer = await db.player.findUnique({ where: { id: id } })
+    const currentUser = context?.currentUser
     const team = await db.team.findUnique({ where: { id: teamId } })
+
+    if (!currentPlayer || !team?.clubId || !currentUser)
+      throw new Error('Player or team not found')
 
     const deleteCurrentPlayerFromUser = db.player.delete({
       where: {
@@ -254,10 +262,9 @@ export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTea
       data: {
         user: {
           connect: {
-            id: context.currentUser.id,
+            id: currentUser?.id,
           },
         },
-
         club: {
           connect: {
             id: team.clubId,
@@ -284,7 +291,7 @@ export const updatePlayer: MutationResolvers['updatePlayer'] = ({
   input,
 }) => {
   return db.player.update({
-    data: input,
+    data: removeNulls(input),
     where: { id },
   })
 }
@@ -295,7 +302,7 @@ export const deletePlayer: MutationResolvers['deletePlayer'] = ({ id }) => {
   })
 }
 
-export const Player: PlayerResolvers = {
+export const Player: PlayerRelationResolvers = {
   user: (_obj, { root }) =>
     db.player.findUnique({ where: { id: root.id } }).user(),
   team: (_obj, { root }) =>

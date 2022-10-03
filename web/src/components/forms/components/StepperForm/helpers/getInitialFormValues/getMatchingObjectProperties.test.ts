@@ -1,23 +1,23 @@
-import { getMatchingObjectProperties } from "./getMatchingObjectProperties";
+import { getMatchingObjectProperties } from './getMatchingObjectProperties'
 
-describe("getMatchingObjectProperties()", () => {
-  test("Should return matching object properties", () => {
+describe('getMatchingObjectProperties()', () => {
+  test('Should return matching object properties', () => {
     const pagesConfig = {
-      clientId: "",
-      supplierId: "",
-      product: "",
-      supplierContractNumber: "",
-    };
+      clientId: '',
+      supplierId: '',
+      product: '',
+      supplierContractNumber: '',
+    }
 
     const data = {
-      supplierId: "",
-      supplierContractNumber: "",
-    };
+      supplierId: '',
+      supplierContractNumber: '',
+    }
 
     const matchingObjectProperties = getMatchingObjectProperties(
       pagesConfig,
       data
-    );
-    expect(matchingObjectProperties).toHaveLength(2);
-  });
-});
+    )
+    expect(matchingObjectProperties).toHaveLength(2)
+  })
+})

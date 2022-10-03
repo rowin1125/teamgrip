@@ -57,7 +57,6 @@ const Routes = () => {
       <Set wrap={PageLayout}>
         <Route path="/" page={HomePage} name="home" prerender />
         <Route path="/over" page={AboutPage} name="about" />
-        <Route path="/contact" page={ContactPage} name="contact" />
       </Set>
 
       {/* Cannot be nested inside a SET*/}

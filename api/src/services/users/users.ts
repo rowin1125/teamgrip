@@ -2,7 +2,7 @@ import nanoid from 'nanoid'
 import {
   MutationResolvers,
   User as UserType,
-  UserResolvers,
+  UserRelationResolvers,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -120,7 +120,7 @@ export const forgotPasswordEmail = async ({ user }: { user: UserType }) => {
   return user
 }
 
-export const User: UserResolvers = {
+export const User: UserRelationResolvers = {
   userProfile: (_obj, { root }) =>
     db.user.findUnique({ where: { id: root.id } }).userProfile(),
   avatar: (_obj, { root }) =>

@@ -17,10 +17,10 @@ const GlobalTeamSettings = () => {
   if (!team) return null
 
   const staffAmount = team.players.filter(
-    (player) => player.playerType === 'STAFF'
+    (player) => player?.playerType === 'STAFF'
   )?.length
   const playerAmount = team.players.filter(
-    (player) => player.playerType === 'PLAYER'
+    (player) => player?.playerType === 'PLAYER'
   )?.length
 
   return (
@@ -37,7 +37,7 @@ const GlobalTeamSettings = () => {
           wrapperProps={{ mt: 4 }}
           entry={{
             naam: team?.name,
-            club: team?.club.name,
+            club: team?.club?.name,
             Eigenaar: `${team.owner?.userProfile?.firstname} ${team.owner?.userProfile?.lastname}`,
             'Aantal stafleden': staffAmount,
             'Aantal spelers': playerAmount,

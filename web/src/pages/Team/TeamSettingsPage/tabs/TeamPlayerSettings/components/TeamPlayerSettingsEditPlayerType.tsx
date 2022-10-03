@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Box,
   Button,
@@ -15,6 +16,8 @@ import {
 import { Form, Formik } from 'formik'
 import { AiOutlineEdit } from 'react-icons/ai'
 import * as Yup from 'yup'
+
+import { useAuth } from '@redwoodjs/auth'
 
 import ControlledSelect from 'src/components/forms/components/ControlledSelect'
 import TextAlert from 'src/components/TextAlert/TextAlert'
@@ -39,11 +42,14 @@ const TeamPlayerSettingsEditPlayerType = ({
   row,
   rowIsOwner,
 }: TeamPlayerSettingsEditPlayerTypeProps) => {
+  const { currentUser } = useAuth()
   const { handleUpdatePlayer, handleUpdatePlayerLoading } = useUpdatePlayerById(
     {
-      onClose,
+      onClose: onClose || (() => {}),
     }
   )
+  if (!onClose || !onOpen) return null
+
   const uniquePlayerType = new Set()
   entries?.forEach((entry) => {
     uniquePlayerType.add(entry['Spelers rol'])
@@ -53,6 +59,7 @@ const TeamPlayerSettingsEditPlayerType = ({
     label: playerType as string,
     value: playerType as string,
   }))
+  const isCurrentPlayerRole = row?.id === currentUser?.player?.id
 
   return (
     <>
@@ -60,12 +67,12 @@ const TeamPlayerSettingsEditPlayerType = ({
         ml={4}
         colorScheme="orange"
         onClick={onOpen}
-        isDisabled={rowIsOwner}
+        isDisabled={rowIsOwner || isCurrentPlayerRole}
       >
         <Icon as={AiOutlineEdit} />
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen || false} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>

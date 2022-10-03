@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 
 import { Box, Flex, Heading } from '@chakra-ui/react'
@@ -30,7 +31,7 @@ const SignupPage = () => {
     }
   }, [isAuthenticated])
 
-  const onSubmit = async (data, actions) => {
+  const onSubmit = async (data: any, actions: any) => {
     setLoading(true)
     const response = await signUp({ ...data })
 

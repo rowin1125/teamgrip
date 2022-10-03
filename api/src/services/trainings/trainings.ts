@@ -1,8 +1,8 @@
 import type {
   QueryResolvers,
   MutationResolvers,
-  TrainingResolvers,
   CreateScoreInput,
+  TrainingRelationResolvers,
 } from 'types/graphql'
 
 import { UserInputError } from '@redwoodjs/graphql-server'
@@ -146,7 +146,7 @@ export const deleteTraining: MutationResolvers['deleteTraining'] = ({ id }) => {
   })
 }
 
-export const Training: TrainingResolvers = {
+export const Training: TrainingRelationResolvers = {
   season: (_obj, { root }) =>
     db.training.findUnique({ where: { id: root.id } }).season(),
   players: (_obj, { root }) =>

@@ -35,7 +35,7 @@ export const useGetBreadCrumbs = (homepage = 'Dashboard') => {
     })
 
     setBreadCrumbs(pathArray)
-  }, [pathname])
+  }, [homepage, pathname])
 
   return { breadCrumbs, subTitle }
 }

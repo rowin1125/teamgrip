@@ -3,6 +3,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "allowJs": true,
+    "strict": true,
     "esModuleInterop": true,
     "target": "esnext",
     "module": "esnext",
@@ -22,7 +23,8 @@
         "../.redwood/types/mirror/api/src/*"
       ],
       "types/*": ["./types/*", "../types/*"],
-      "@redwoodjs/testing": ["../node_modules/@redwoodjs/testing/web"]
+      "@redwoodjs/testing": ["../node_modules/@redwoodjs/testing/web"],
+      "$api/*": ["../api/*"]
     },
     "typeRoots": ["../node_modules/@types", "./node_modules/@types"],
     "types": ["jest", "@testing-library/jest-dom"],
@@ -32,6 +34,6 @@
     "src",
     "../.redwood/types/includes/all-*",
     "../.redwood/types/includes/web-*",
-    "./types",
+    "./types"
   ]
 }

@@ -13,7 +13,7 @@ const NoSeasonAlert = () => {
   const { team, loading } = useGetTeamById()
   if (loading || !team?.id || !isTeamStaff) return null
 
-  const someSeasonActive = team?.season.some((season) => season.active)
+  const someSeasonActive = team?.season.some((season) => season?.active)
   if (someSeasonActive) return null
 
   return (

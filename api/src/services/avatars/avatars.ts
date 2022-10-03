@@ -1,7 +1,7 @@
 import type {
   QueryResolvers,
   MutationResolvers,
-  AvatarResolvers,
+  AvatarRelationResolvers,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -38,7 +38,7 @@ export const deleteAvatar: MutationResolvers['deleteAvatar'] = ({ id }) => {
   })
 }
 
-export const Avatar: AvatarResolvers = {
+export const Avatar: AvatarRelationResolvers = {
   user: (_obj, { root }) =>
     db.avatar.findUnique({ where: { id: root.id } }).user(),
 }

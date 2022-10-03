@@ -58,7 +58,7 @@ const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
         </Button>
         <DeleteDialog
           loading={loading}
-          id={team.id}
+          id={team?.id || ''}
           onDelete={handleDeleteInvitationToken}
           title="De huidige uitnodiging is na het intrekken niet meer te gebruiken"
         >

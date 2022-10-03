@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from 'react'
 
 import {
@@ -41,7 +42,7 @@ export const useUpdateGameById = (id: string, showTop: boolean) => {
     ],
   })
 
-  const handleUpdateGame = async (values) => {
+  const handleUpdateGame = async (values: any) => {
     const { scores, topGameScores, ...input } = values
     const allScores = [...scores, ...(showTop ? topGameScores : [])]
 
@@ -58,8 +59,8 @@ export const useUpdateGameById = (id: string, showTop: boolean) => {
       })
       toast.success(`Wedstrijd aangepast`)
       navigate(routes.gameDetail({ id }))
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 

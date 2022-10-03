@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
@@ -37,7 +38,7 @@ const LoginPage = () => {
     }
   }, [isAuthenticated])
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setLoadingLogin(true)
     const response = await logIn({ ...data })
 

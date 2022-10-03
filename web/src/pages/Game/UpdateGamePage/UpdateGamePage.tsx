@@ -19,16 +19,16 @@ const UpdateGamePage = () => {
   const [showTop, setShowTop] = React.useState(true)
 
   const { handleUpdateGame, handleUpdateGameLoading } = useUpdateGameById(
-    game?.id,
+    game?.id || '',
     showTop
   )
 
-  const regularScores = game?.scores.filter((score) => score.type === 'GAME')
+  const regularScores = game?.scores.filter((score) => score?.type === 'GAME')
   const topGameScores = game?.scores.filter(
-    (score) => score.type === 'TOP_GAME'
+    (score) => score?.type === 'TOP_GAME'
   )
 
-  const hasTopGamesScores = topGameScores?.length > 0
+  const hasTopGamesScores = !!topGameScores && topGameScores?.length > 0
 
   useEffect(() => {
     if (!game) return
@@ -41,16 +41,16 @@ const UpdateGamePage = () => {
 
   const topGamesScoresArray = hasTopGamesScores
     ? topGameScores.map((score) => ({
-        playerId: score.player.id,
-        seasonId: game.season.id,
-        points: score.points,
+        playerId: score?.player.id,
+        seasonId: game?.season?.id,
+        points: score?.points,
         teamId: team?.id,
         gameId: game?.id,
         type: 'TOP_GAME',
       }))
     : [1, 2, 3].map(() => ({
         playerId: '',
-        seasonId: game.season.id,
+        seasonId: game?.season?.id,
         points: 0,
         teamId: team?.id,
         gameId: game?.id,
@@ -72,12 +72,12 @@ const UpdateGamePage = () => {
             <GameForm
               initialValues={{
                 date: format(new Date(game.date), 'yyyy-MM-dd'),
-                seasonId: game?.season.id,
+                seasonId: game?.season?.id,
                 teamId: game?.teamId,
-                scores: regularScores.map((score) => ({
-                  playerId: score.player.id,
-                  seasonId: game.season.id,
-                  points: score.points,
+                scores: regularScores?.map((score) => ({
+                  playerId: score?.player?.id,
+                  seasonId: game?.season?.id,
+                  points: score?.points,
                   teamId: team?.id,
                   gameId: '',
                   type: 'GAME',
@@ -88,7 +88,7 @@ const UpdateGamePage = () => {
               onSubmit={handleUpdateGame}
               loading={gameLoading || handleUpdateGameLoading}
               team={team}
-              players={team?.players.filter((player) => player.isActivePlayer)}
+              players={team?.players.filter((player) => player?.isActivePlayer)}
               setShowTop={setShowTop}
               showTop={showTop}
             />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from 'react'
 
 import {
@@ -62,7 +63,7 @@ export const useCreateGame = ({
     ],
   })
 
-  const handleCreateGame = async (values) => {
+  const handleCreateGame = async (values: any) => {
     const { scores, topGameScores, ...input } = values
     const allScores = [...scores, ...(showTop ? topGameScores : [])]
 
@@ -77,9 +78,9 @@ export const useCreateGame = ({
         },
       })
       toast.success(`Wedstrijd aangemaakt`)
-      navigate(routes.gameDetail({ id: game?.data?.createGame.id }))
-    } catch (error) {
-      toast.error(error.message)
+      navigate(routes.gameDetail({ id: game?.data?.createGame.id || '' }))
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 
@@ -87,7 +88,7 @@ export const useCreateGame = ({
     season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
 
-  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0].id
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id
 
   useEffect(() => {
     if (team && team.season?.length === 0) {
@@ -108,9 +109,9 @@ export const useCreateGame = ({
   const initialScoresInputValues: CreateScoreInput[] =
     playersData?.playersForTeam.map((player) => ({
       ...scoreBlueprint,
-      seasonId: defaultSeasonId,
-      playerId: player.id,
-      teamId: currentUser?.player?.teamId,
+      seasonId: defaultSeasonId || '',
+      playerId: player?.id || '',
+      teamId: currentUser?.player?.teamId || '',
     })) || []
 
   const initialTopGameScores: CreateScoreInput[] = [
@@ -119,8 +120,8 @@ export const useCreateGame = ({
       playerId: '',
       type: 'TOP_GAME',
       points: 50,
-      seasonId: defaultSeasonId,
-      teamId: team?.id,
+      seasonId: defaultSeasonId || '',
+      teamId: team?.id || '',
       gameId: '',
     },
     {
@@ -128,8 +129,8 @@ export const useCreateGame = ({
       playerId: '',
       type: 'TOP_GAME',
       points: 50,
-      seasonId: defaultSeasonId,
-      teamId: team?.id,
+      seasonId: defaultSeasonId || '',
+      teamId: team?.id || '',
       gameId: '',
     },
     {
@@ -137,8 +138,8 @@ export const useCreateGame = ({
       playerId: '',
       type: 'TOP_GAME',
       points: 50,
-      seasonId: defaultSeasonId,
-      teamId: team?.id,
+      seasonId: defaultSeasonId || '',
+      teamId: team?.id || '',
       gameId: '',
     },
   ]

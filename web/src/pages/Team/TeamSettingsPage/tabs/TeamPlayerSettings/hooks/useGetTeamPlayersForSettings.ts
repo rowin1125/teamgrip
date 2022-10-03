@@ -32,7 +32,7 @@ export const useGetTeamPlayersForSettings = () => {
     GetTeamPlayersForSettingsVariables
   >(GET_TEAM_PLAYERS_FOR_SETTINGS, {
     variables: {
-      id: currentUser?.player.teamId,
+      id: currentUser?.player?.teamId,
     },
   })
 

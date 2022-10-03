@@ -1,5 +1,4 @@
-import { Box, Button, Flex, Heading, IconButton, Image } from '@chakra-ui/react'
-import styled from '@emotion/styled'
+import { Box, Button, Flex, Heading, Image } from '@chakra-ui/react'
 
 import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
@@ -55,12 +54,12 @@ const PagesHeader = () => {
   )
 }
 
-const StyledIconButton = styled(IconButton)`
-  &:hover {
-    svg {
-      color: ${(props) => props.theme.colors.primary[500]};
-    }
-  }
-`
+// const StyledIconButton = styled(IconButton)`
+//   &:hover {
+//     svg {
+//       color: ${(props) => props.theme.colors.primary[500]};
+//     }
+//   }
+// `
 
 export default PagesHeader

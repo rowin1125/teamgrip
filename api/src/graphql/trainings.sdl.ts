@@ -14,7 +14,7 @@ export const schema = gql`
 
   type Query {
     trainings: [Training!]! @requireAuth
-    training(id: String!): Training @requireAuth
+    training(id: String!): Training! @requireAuth
     trainingByTeamId(id: String!): [Training]! @requireAuth
     getRecentTrainings(playerId: String!, limit: Int!): [Training!]!
       @requireAuth

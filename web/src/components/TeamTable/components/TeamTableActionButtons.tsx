@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import { Button, Flex, Icon, Text } from '@chakra-ui/react'
@@ -26,7 +27,7 @@ const TeamTableActionButtons = ({
     <Flex>
       <Button
         as={RedwoodLink}
-        to={routes.update({ id })}
+        to={routes?.update?.({ id })}
         variant="ghost"
         colorScheme="secondary"
       >

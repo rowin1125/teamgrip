@@ -1,8 +1,8 @@
 import type {
   QueryResolvers,
   MutationResolvers,
-  GameResolvers,
   CreateScoreInput,
+  GameRelationResolvers,
 } from 'types/graphql'
 
 import { UserInputError } from '@redwoodjs/graphql-server'
@@ -141,7 +141,7 @@ export const deleteGame: MutationResolvers['deleteGame'] = ({ id }) => {
   })
 }
 
-export const Game: GameResolvers = {
+export const Game: GameRelationResolvers = {
   season: (_obj, { root }) =>
     db.game.findUnique({ where: { id: root.id } }).season(),
   players: (_obj, { root }) =>

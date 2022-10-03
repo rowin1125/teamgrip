@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import { Box, Button, Flex } from '@chakra-ui/react'
@@ -7,11 +8,8 @@ import * as Yup from 'yup'
 import ControlledInput from 'src/components/forms/components/ControlledInput'
 
 type ForgotPasswordFormProps = {
-  initialValues: Record<string, unknown>
-  onSubmit: (
-    values: Record<string, unknown>,
-    actions: FormikHelpers<unknown>
-  ) => void
+  initialValues: Record<string, any>
+  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void
   loading: boolean
 }
 

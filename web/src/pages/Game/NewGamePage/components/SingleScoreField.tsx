@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
 
 import {
@@ -26,8 +27,8 @@ import SingleTopGameScores from './SingleTopGameScores'
 
 type SingleScoreFieldProps = {
   push: (obj: any) => void
-  remove: <T>(index: number) => T
-  players?:
+  remove: <T>(index: number) => T | undefined
+  players:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']
   team?: FindTeamQuery['team']

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import Avatar from 'avataaars'
@@ -12,7 +13,7 @@ type TableDataAvatarProps = {
   size?: 'sm' | 'md' | 'lg'
 }
 
-const TableDataAvatar = ({ cell, size }: TableDataAvatarProps) => {
+const TableDataAvatar = ({ cell, size = 'md' }: TableDataAvatarProps) => {
   const { __typename, ...avatarProps } = cell.value || {}
 
   const sizes = {

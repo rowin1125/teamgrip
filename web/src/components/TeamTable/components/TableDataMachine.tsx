@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import { Td, Box } from '@chakra-ui/react'
@@ -29,7 +30,8 @@ const TableDataMachine = ({
   hiddenColumns,
   size,
 }: TableDataMachineProps) => {
-  const headerTitle = cell.column.Header.toString().toLocaleLowerCase()
+  const headerTitle =
+    cell?.column?.Header?.toString()?.toLocaleLowerCase() || ''
   if (hiddenColumns && hiddenColumns.includes(headerTitle)) return null
 
   let TableDataComponent

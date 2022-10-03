@@ -10,10 +10,10 @@ const TeamPlayerSettings = () => {
 
   if (teamWithExtraLoading) return null
 
-  const transformedTeamPlayers = teamWithExtra.players.map((player) => ({
-    id: player.id,
-    naam: player.displayName,
-    'Spelers rol': player.playerType,
+  const transformedTeamPlayers = teamWithExtra?.players?.map((player) => ({
+    id: player?.id,
+    naam: player?.displayName,
+    'Spelers rol': player?.playerType,
   }))
 
   return (

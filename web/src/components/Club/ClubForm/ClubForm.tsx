@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Form,
   FormError,
@@ -7,8 +8,8 @@ import {
   Submit,
 } from '@redwoodjs/forms'
 
-const ClubForm = (props) => {
-  const onSubmit = (data) => {
+const ClubForm = (props: any) => {
+  const onSubmit = (data: any) => {
     props.onSave(data, props?.club?.id)
   }
 

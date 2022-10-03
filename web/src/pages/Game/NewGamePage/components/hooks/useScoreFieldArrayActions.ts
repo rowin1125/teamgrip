@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
 
 import { useFormikContext } from 'formik'
@@ -15,11 +16,11 @@ import { ScoreFormValues } from '../CreateScoreFieldArrayInputs'
 import { useGetInitialBenchPlayers } from './useGetInitialBenchPlayers'
 
 type UseScoreFieldArrayActionsType = {
-  players?:
+  players:
     | GetPlayersForTeamQuery['playersForTeam']
     | GetGameByIdQuery['game']['players']
   push: (obj: any) => void
-  remove: <T>(index: number) => T
+  remove: <T>(index: number) => T | undefined
   team?: FindTeamQuery['team']
 }
 
@@ -38,10 +39,16 @@ export const useScoreFieldArrayActions = ({
     season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
 
-  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0].id
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id
 
-  const handleRemove = (currentPlayer, index: number) => {
-    setBenchPlayers((prevBenchPlayers) => [...prevBenchPlayers, currentPlayer])
+  const handleRemove = (
+    currentPlayer: Record<string, unknown>,
+    index: number
+  ) => {
+    setBenchPlayers((prevBenchPlayers: any) => [
+      ...prevBenchPlayers,
+      currentPlayer,
+    ])
 
     const topPlayer = values.topGameScores.find(
       (score) => currentPlayer.id === score.playerId
@@ -80,6 +87,8 @@ export const useScoreFieldArrayActions = ({
     const filteredPlayers = benchPlayers.filter(
       (benchPlayer) => benchPlayer.id !== playerId
     )
+    if (!filteredPlayers) return
+
     setBenchPlayers([...filteredPlayers])
     toast.success('Speler neemt deel aan de wedstrijd', {
       duration: 2000,
@@ -88,18 +97,22 @@ export const useScoreFieldArrayActions = ({
     push({
       ...scoreBlueprint,
       playerId,
-      teamId: team.id,
+      teamId: team?.id,
       seasonId: values.seasonId || defaultSeasonId || '',
     })
   }
 
   const playersScoreArray = values?.scores?.sort((a, b) => {
+    if (!a?.playerId || !b?.playerId) return 0
+
     const playerA = players.find(
-      (player) => player.id === a.playerId
+      (player) => player?.id === a.playerId
     ) as GetPlayersForTeamQuery['playersForTeam'][0]
     const playerB = players.find(
-      (player) => player.id === b.playerId
+      (player) => player?.id === b.playerId
     ) as GetPlayersForTeamQuery['playersForTeam'][0]
+
+    if (!playerA?.displayName || !playerB?.displayName) return 0
 
     return playerA?.displayName.localeCompare(playerB?.displayName)
   })

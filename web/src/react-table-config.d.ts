@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // This is required to make React-table work with `useSortBy`
 // https://github.com/TanStack/table/issues/2970#issuecomment-761752097
 import {
@@ -48,9 +49,9 @@ import {
   UseSortByInstanceProps,
   UseSortByOptions,
   UseSortByState,
-} from "react-table";
+} from 'react-table'
 
-declare module "react-table" {
+declare module 'react-table' {
   // take this file as-is, or comment out the sections that don't apply to your plugin configuration
 
   export interface TableOptions<
@@ -117,8 +118,7 @@ declare module "react-table" {
       UseSortByColumnProps<D> {}
 
   export interface Cell<
-    D extends Record<string, unknown> = Record<string, unknown>,
-    V = any
+    D extends Record<string, unknown> = Record<string, unknown>
   > extends UseGroupByCellProps<D>,
       UseRowStateCellProps<D> {}
 

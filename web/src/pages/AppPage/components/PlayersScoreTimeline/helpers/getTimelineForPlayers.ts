@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from 'date-fns'
 import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql'
 
@@ -23,14 +24,14 @@ export const getTimelineForPlayers = ({
       const values = playerTimelineBasedOnDates[player]
 
       const playerName = allGamesAndTrainings?.players.find(
-        (p) => p.id === player
+        (p) => p?.id === player
       )?.displayName
 
       const randomColor = getRandomColor()
 
       const totalPointsForEachData: { date: string; points: number }[] =
-        values.reduce((acc, curr) => {
-          const existing = acc.find((item) => item.date === curr.date)
+        values.reduce<any>((acc, curr) => {
+          const existing = acc.find((item: any) => item.date === curr.date)
           if (existing) {
             existing.points += curr.points
           } else {

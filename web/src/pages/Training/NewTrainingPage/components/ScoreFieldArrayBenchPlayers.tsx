@@ -2,12 +2,15 @@ import React from 'react'
 
 import { Box, Button, Icon } from '@chakra-ui/react'
 import { FaPlus } from 'react-icons/fa'
-import { GetPlayersForTeamQuery } from 'types/graphql'
 
 import TextAlert from 'src/components/TextAlert/TextAlert'
 
 type ScoreFieldArrayBenchPlayersProps = {
-  benchPlayers: GetPlayersForTeamQuery['playersForTeam']
+  benchPlayers: {
+    __typename: 'Player' | undefined
+    displayName: string | null | undefined
+    id: string | undefined
+  }[]
   handlePush: (playerId: string) => void
 }
 
@@ -31,14 +34,14 @@ const ScoreFieldArrayBenchPlayers = ({
       </TextAlert>
       {benchPlayers.map((benchPlayer) => (
         <Button
-          key={benchPlayer.id}
+          key={benchPlayer?.id}
           colorScheme="secondary"
           mr={4}
           mb={4}
-          onClick={() => handlePush(benchPlayer.id)}
+          onClick={() => handlePush(benchPlayer?.id || '')}
         >
           <Icon as={FaPlus} mr={2} />
-          {benchPlayer.displayName}
+          {benchPlayer?.displayName}
         </Button>
       ))}
     </Box>

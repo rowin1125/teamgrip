@@ -19,13 +19,18 @@ export const GET_CLUB_BY_ID_QUERY = gql`
 
 export const useGetClubById = () => {
   const { currentUser } = useAuth()
-  if (!currentUser) return null
+  if (!currentUser)
+    return {
+      club: null,
+      loading: true,
+      error: null,
+    }
 
   const { data, loading, error } = useQuery<
     GetClubByIdQuery,
     GetClubByIdQueryVariables
   >(GET_CLUB_BY_ID_QUERY, {
-    variables: { id: currentUser?.player?.clubId },
+    variables: { id: currentUser?.player?.clubId || '' },
   })
 
   return {

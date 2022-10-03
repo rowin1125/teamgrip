@@ -40,7 +40,7 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
             <Button
               onClick={() => {
                 setCurrentTabIndex(1)
-                disclosure.onOpen()
+                disclosure?.onOpen?.()
               }}
               variant="ghost"
               h="400px"
@@ -70,8 +70,8 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
           size="sm"
           entries={playersWithTotalScore?.map((player, index) => ({
             Rank: index + 1,
-            Punten: player.totalScore,
-            Naam: `${capitalizeText(player.displayName)}`,
+            Punten: player?.totalScore,
+            Naam: `${capitalizeText(player?.displayName || '')}`,
             Avatar: player?.user?.avatar,
           }))}
           isLoading={playersWithTotalScoreLoading}

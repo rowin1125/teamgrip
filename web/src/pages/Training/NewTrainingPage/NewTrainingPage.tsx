@@ -43,7 +43,7 @@ const NewTrainingPage = () => {
               initialValues={{
                 date: format(new Date(), 'yyyy-MM-dd'),
                 seasonId: defaultTeamSeasonId,
-                teamId: team.id,
+                teamId: team?.id,
                 scores: initialScoresInputValues,
                 topTrainingScores: initialTopTrainingScores,
               }}

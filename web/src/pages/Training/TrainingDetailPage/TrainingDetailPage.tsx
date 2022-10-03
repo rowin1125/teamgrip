@@ -17,13 +17,13 @@ import { useGetTrainingById } from '../UpdateTrainingPage/hooks/useGetTrainingBy
 const TrainingDetailPage = () => {
   const { training, trainingLoading } = useGetTrainingById()
 
-  const topTrainingScores = training?.scores.filter(
-    (score) => score.type === 'TOP_TRAINING'
+  const topTrainingScores = training?.scores?.filter(
+    (score) => score?.type === 'TOP_TRAINING'
   )
-  const regularTrainingScores = training?.scores.filter(
-    (score) => score.type === 'TRAINING'
+  const regularTrainingScores = training?.scores?.filter(
+    (score) => score?.type === 'TRAINING'
   )
-  const hasTopTrainings = topTrainingScores?.length > 0
+  const hasTopTrainings = topTrainingScores && topTrainingScores?.length > 0
 
   return (
     <>
@@ -37,7 +37,7 @@ const TrainingDetailPage = () => {
         justifyContent="space-between"
       >
         <Heading as="h1" size="2xl" mb={2} color="white">
-          {training?.team.name}
+          {training?.team?.name}
         </Heading>
 
         <Flex
@@ -83,13 +83,13 @@ const TrainingDetailPage = () => {
               <DataDisplay
                 wrapperProps={{ mt: 4 }}
                 entry={{
-                  Teamnaam: training?.team.name,
+                  Teamnaam: training?.team?.name,
                   Datum: training
                     ? format(new Date(training?.date || ''), 'dd-MM-yyyy')
                     : '',
-                  Seizoen: training?.season.name,
-                  'Aantal spelers': training?.players.length,
-                  'Aantal scores': training?.scores.length,
+                  Seizoen: training?.season?.name,
+                  'Aantal spelers': training?.players?.length,
+                  'Aantal scores': training?.scores?.length,
                   'Laatst bijgewerkt': training
                     ? format(new Date(training?.updatedAt || ''), 'dd-MM-yyyy')
                     : '',
@@ -109,12 +109,17 @@ const TrainingDetailPage = () => {
                 size="lg"
                 theme="light"
                 entries={topTrainingScores
-                  ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                  ?.sort((scoreA, scoreB) => {
+                    if (scoreA?.points && scoreB?.points) {
+                      return scoreB?.points - scoreA?.points
+                    }
+                    return 0
+                  })
                   ?.map((score, index) => ({
                     Rank: index + 1,
-                    Naam: score.player.displayName,
-                    Avatar: score.player?.user?.avatar,
-                    Punten: score.points,
+                    Naam: score?.player?.displayName,
+                    Avatar: score?.player?.user?.avatar,
+                    Punten: score?.points,
                   }))}
               />
             </Card>
@@ -134,12 +139,17 @@ const TrainingDetailPage = () => {
               isLoading={trainingLoading}
               size="lg"
               entries={regularTrainingScores
-                ?.sort((scoreA, scoreB) => scoreB.points - scoreA.points)
+                ?.sort((scoreA, scoreB) => {
+                  if (scoreA?.points && scoreB?.points) {
+                    return scoreB?.points - scoreA?.points
+                  }
+                  return 0
+                })
                 ?.map((score, index) => ({
                   Rank: index + 1,
-                  Naam: score.player.displayName,
-                  Avatar: score.player?.user?.avatar,
-                  Punten: score.points,
+                  Naam: score?.player?.displayName,
+                  Avatar: score?.player?.user?.avatar,
+                  Punten: score?.points,
                 }))}
             />
           </Card>

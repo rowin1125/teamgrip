@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import {
@@ -17,8 +18,6 @@ import { CgClose } from 'react-icons/cg'
 import { FaPlus } from 'react-icons/fa'
 import { FindTeamQuery } from 'types/graphql'
 import * as Yup from 'yup'
-
-import { toast } from '@redwoodjs/web/dist/toast'
 
 import ControlledInput from 'src/components/forms/components/ControlledInput'
 import TextAlert from 'src/components/TextAlert/TextAlert'
@@ -44,7 +43,7 @@ const validationSchema = Yup.object({
 })
 
 const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
-  const handleSubmit = async (values, actions) => {
+  const handleSubmit = async (values: any, actions: any) => {
     try {
       const playerCountCreated = await handleInviteGhostsPlayers(values)
       if (!playerCountCreated) return

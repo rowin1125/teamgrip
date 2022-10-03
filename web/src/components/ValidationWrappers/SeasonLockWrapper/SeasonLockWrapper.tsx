@@ -17,7 +17,7 @@ const SeasonLockWrapper = ({ children }: SeasonLockWrapperProps) => {
   const { team } = useGetTeamById()
   const { isTeamStaff } = useTeamPlayerAuth()
 
-  const hasSeason = team?.season?.length > 0
+  const hasSeason = team?.season && team.season?.length > 0
 
   const showLock = !hasSeason && isTeamStaff
 

@@ -6,6 +6,9 @@ export const TEAM_FRAGMENT = gql`
     clubTeamName
     owner {
       id
+      player {
+        id
+      }
       userProfile {
         firstname
         lastname

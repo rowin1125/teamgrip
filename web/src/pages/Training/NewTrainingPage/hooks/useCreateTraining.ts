@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from 'react'
 
 import {
@@ -62,7 +63,7 @@ export const useCreateTraining = ({
     ],
   })
 
-  const handleCreateTraining = async (values) => {
+  const handleCreateTraining = async (values: any) => {
     const { scores, topTrainingScores, ...input } = values
     const allScores = [...scores, ...(showTop ? topTrainingScores : [])]
 
@@ -77,8 +78,10 @@ export const useCreateTraining = ({
         },
       })
       toast.success(`Training aangemaakt`)
-      navigate(routes.trainingDetail({ id: training.data?.createTraining.id }))
-    } catch (error) {
+      navigate(
+        routes.trainingDetail({ id: training.data?.createTraining.id || '' })
+      )
+    } catch (error: any) {
       toast.error(error.message)
     }
   }
@@ -103,14 +106,14 @@ export const useCreateTraining = ({
     season?.name?.includes(new Date().getFullYear().toString())
   )?.[0]?.id
 
-  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0].id
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id
 
   const initialScoresInputValues: CreateScoreInput[] =
     playersData?.playersForTeam.map((player) => ({
       ...scoreBlueprint,
-      seasonId: defaultSeasonId,
-      playerId: player.id,
-      teamId: currentUser?.player?.teamId,
+      seasonId: defaultSeasonId || '',
+      playerId: player?.id || '',
+      teamId: currentUser?.player?.teamId || '',
     })) || []
 
   const initialTopTrainingScores: CreateScoreInput[] = [
@@ -119,8 +122,8 @@ export const useCreateTraining = ({
       playerId: '',
       type: 'TOP_TRAINING',
       points: 50,
-      seasonId: defaultSeasonId,
-      teamId: team?.id,
+      seasonId: defaultSeasonId || '',
+      teamId: team?.id || '',
       trainingId: '',
     },
     {
@@ -128,8 +131,8 @@ export const useCreateTraining = ({
       playerId: '',
       type: 'TOP_TRAINING',
       points: 50,
-      seasonId: defaultSeasonId,
-      teamId: team?.id,
+      seasonId: defaultSeasonId || '',
+      teamId: team?.id || '',
       trainingId: '',
     },
     {
@@ -137,8 +140,8 @@ export const useCreateTraining = ({
       playerId: '',
       type: 'TOP_TRAINING',
       points: 50,
-      seasonId: defaultSeasonId,
-      teamId: team?.id,
+      seasonId: defaultSeasonId || '',
+      teamId: team?.id || '',
       trainingId: '',
     },
   ]

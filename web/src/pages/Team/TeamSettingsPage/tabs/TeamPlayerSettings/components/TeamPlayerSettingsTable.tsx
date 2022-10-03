@@ -37,6 +37,7 @@ const TeamPlayerSettingsTable = ({
 
   if (!entries || rows.length === 0) return <NoEntries />
   const hiddenColumns = ['id']
+
   return (
     <Table size="sm" {...getTableProps()} mt={10}>
       <TeamTableHead
@@ -48,12 +49,13 @@ const TeamPlayerSettingsTable = ({
       <Tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row)
+          if (!onDelete) return null
 
           return (
             <Tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
                 <TableDataMachine
-                  key={cell.column.Header.toString()}
+                  key={cell?.column?.Header?.toString()}
                   cell={cell}
                   row={row}
                   size="md"

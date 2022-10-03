@@ -20,17 +20,19 @@ const TeamGames = () => {
 
   const gameEntries = games?.map((game) => {
     const bestPlayerOfGame = game?.scores?.slice()?.sort((a, b) => {
+      if (!a?.points || !b?.points) return 0
+
       if (a.points < b.points) return -1
       if (a.points > b.points) return 1
       return 0
     })?.[0]
 
     return {
-      id: game.id,
-      datum: format(new Date(game.date), 'dd-MM-yyyy'),
-      aantal: game.scores.filter((score) => score.type === 'GAME').length,
+      id: game?.id,
+      datum: game?.date ? format(new Date(game.date), 'dd-MM-yyyy') : '',
+      aantal: game?.scores.filter((score) => score?.type === 'GAME').length,
       'M-O-T-M': bestPlayerOfGame?.player?.displayName,
-      season: game.season.name,
+      season: game?.season?.name,
     }
   })
 

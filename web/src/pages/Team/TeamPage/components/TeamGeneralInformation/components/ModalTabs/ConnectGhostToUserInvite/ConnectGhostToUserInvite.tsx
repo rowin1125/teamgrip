@@ -33,7 +33,11 @@ const ConnectGhostToUserInvite = ({ team }: ConnectGhostToUserInviteProps) => {
       <Box mt={4}>
         {ghostPlayers?.map((ghost) => {
           return (
-            <GhostPlayerUniqueInvite key={ghost.id} ghost={ghost} team={team} />
+            <GhostPlayerUniqueInvite
+              key={ghost?.id}
+              ghost={ghost}
+              team={team}
+            />
           )
         })}
       </Box>

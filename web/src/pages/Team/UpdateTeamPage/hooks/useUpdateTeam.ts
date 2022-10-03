@@ -1,4 +1,5 @@
 import {
+  GetClubsQuery,
   UpdateTeamById,
   UpdateTeamByIdVariables,
   UpdateTeamInput,
@@ -20,7 +21,7 @@ export const UPDATE_TEAM_BY_ID = gql`
   }
 `
 
-export const useUpdateTeam = (clubs) => {
+export const useUpdateTeam = (clubs?: GetClubsQuery['clubs']) => {
   const { reauthenticate, currentUser } = useAuth()
   const [updateTeam, { loading: updateTeamLoading }] = useMutation<
     UpdateTeamById,
@@ -34,23 +35,24 @@ export const useUpdateTeam = (clubs) => {
 
   const handleUpdateTeam = async (input: UpdateTeamInput) => {
     const clubName = clubs
-      .find((club) => club.id === input.clubId)
+      ?.find((club) => club.id === input.clubId)
       ?.name?.toLowerCase()
-    const teamNameContainsClubName = input.name.toLowerCase().includes(clubName)
+    const teamNameContainsClubName = input.name
+      .toLowerCase()
+      .includes(clubName || '')
     if (teamNameContainsClubName) {
       toast.error('Clubnaam mag niet in teamnaam zitten')
       return
     }
-    const variables = {
-      id: currentUser?.player?.teamId,
-      input: {
-        ...input,
-        clubTeamName: `${clubName}-${input.name}`,
-      },
-    }
 
     const updateTeamById = await updateTeam({
-      variables,
+      variables: {
+        id: currentUser?.player?.teamId || '',
+        input: {
+          ...input,
+          clubTeamName: `${clubName}-${input.name}`,
+        },
+      },
     })
 
     if (!updateTeamById.errors) {

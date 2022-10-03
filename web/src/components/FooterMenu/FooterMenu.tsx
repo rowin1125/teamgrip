@@ -18,7 +18,7 @@ export const footerMenuHeight = '70px'
 const FooterMenu = () => {
   const { isTeamPlayer, isTeamStaff } = useTeamPlayerAuth()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const btnRef = React.useRef(null)
 
   return (
     <Box mt={footerMenuHeight} display={{ base: 'block', xl: 'none' }}>

@@ -20,18 +20,22 @@ const TeamTrainings = () => {
 
   const trainingEntries = trainings?.map((training) => {
     const bestPlayerOfTraining = training?.scores?.slice()?.sort((a, b) => {
+      if (!a?.points || !b?.points) return 0
+
       if (a.points < b.points) return -1
       if (a.points > b.points) return 1
       return 0
     })?.[0]
 
     return {
-      id: training.id,
-      datum: format(new Date(training.date), 'dd-MM-yyyy'),
-      aantal: training.scores.filter((score) => score.type === 'TRAINING')
+      id: training?.id,
+      datum: training?.date
+        ? format(new Date(training.date), 'dd-MM-yyyy')
+        : '',
+      aantal: training?.scores.filter((score) => score?.type === 'TRAINING')
         .length,
       'Top speler': bestPlayerOfTraining?.player?.displayName,
-      season: training.season.name,
+      season: training?.season?.name,
     }
   })
 

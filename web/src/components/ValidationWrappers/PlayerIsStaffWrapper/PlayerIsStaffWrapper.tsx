@@ -3,7 +3,7 @@ import React from 'react'
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
 
 type PlayerIsStaffWrapperProps = {
-  children: React.ReactElement
+  children?: React.ReactElement | null
 }
 
 const PlayerIsStaffWrapper = ({ children }: PlayerIsStaffWrapperProps) => {

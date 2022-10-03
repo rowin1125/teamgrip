@@ -18,7 +18,7 @@ export const schema = gql`
   }
 
   input UpdateClubInput {
-    name: String
+    name: String!
   }
 
   type Mutation {

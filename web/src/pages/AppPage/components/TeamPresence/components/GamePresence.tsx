@@ -22,7 +22,7 @@ import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataW
 import { useScreenSize } from 'src/hooks/global/useScreenSize'
 
 type GamePresenceProps = {
-  teamPresence: GetPlayersPresenceQuery['getPlayersPresenceByTeamId']
+  teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId']
   isLoading: boolean
 }
 
@@ -43,7 +43,7 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
   const { currentUser } = useAuth()
   if (!teamPresence) return null
 
-  const labels = teamPresence.map((player) => player.displayName)
+  const labels = teamPresence.map((player) => player?.displayName)
 
   const data = {
     labels,
@@ -52,7 +52,7 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
         type: 'bar' as const,
         label: 'Jouw score',
         backgroundColor: '#1f8efa',
-        data: teamPresence.map((player) => player.games.length),
+        data: teamPresence.map((player) => player?.games.length),
         borderColor: 'white',
         borderWidth: 2,
       },
@@ -60,7 +60,7 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
   }
 
   const somePlayerHasGames = teamPresence.some(
-    (player) => player.games.length > 0
+    (player) => player?.games && player?.games.length > 0
   )
 
   return (
@@ -68,7 +68,7 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
       hasEntries={somePlayerHasGames}
       isLoading={isLoading}
       to={routes.newGame({
-        id: currentUser?.player.teamId,
+        id: currentUser?.player?.teamId || '',
       })}
       title="Geen gegevens gevonden"
       buttonText="Maak je eerste wedstrijd aan"

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { Form, Formik, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
@@ -8,11 +9,8 @@ import ControlledInput from 'src/components/forms/components/ControlledInput'
 import RedwoodLink from 'src/components/RedwoodLink'
 
 type ResetPasswordFormProps = {
-  initialValues: Record<string, unknown>
-  onSubmit: (
-    values: Record<string, unknown>,
-    actions: FormikHelpers<unknown>
-  ) => void
+  initialValues: Record<string, any>
+  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void
   disabled?: boolean
   showLoginLink?: boolean
   loading?: boolean

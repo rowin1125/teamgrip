@@ -2,6 +2,7 @@ import { Box, BoxProps } from '@chakra-ui/react'
 
 import DataEntryToJsx from './components/DataEntryToJsx'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ApiEntriesTypes = Record<string, any>
 export type DataDisplayProps = {
   entry: ApiEntriesTypes

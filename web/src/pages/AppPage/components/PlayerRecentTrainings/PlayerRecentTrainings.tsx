@@ -57,8 +57,8 @@ const PlayerRecentTrainings = () => {
         data: recentTrainings?.map((training) => {
           const totalPointsOfCurrentPlayer = training.scores.reduce(
             (acc, score) => {
-              if (score.playerId === currentUser?.player?.id)
-                return acc + score.points
+              if (score?.playerId === currentUser?.player?.id)
+                return acc + (score?.points ?? 0)
 
               return acc
             },
@@ -76,7 +76,7 @@ const PlayerRecentTrainings = () => {
         data: recentTrainings?.map((training) => {
           const averageTrainingScore =
             training.scores
-              .map((score) => score.points)
+              .map((score) => score?.points ?? 0)
               .reduce((a, b) => a + b, 0) / training.scores.length
 
           return averageTrainingScore
@@ -96,16 +96,16 @@ const PlayerRecentTrainings = () => {
           Recente punten trainingen
         </Heading>
         <ChartHasDataWrapper
-          hasEntries={somePlayerHasRecentTrainings}
+          hasEntries={!!somePlayerHasRecentTrainings}
           isLoading={loading}
           to={routes.newTraining({
-            id: currentUser?.player.teamId,
+            id: currentUser?.player?.teamId || '',
           })}
           title="Geen gegevens gevonden"
           buttonText="Maak je eerste training aan"
         >
           <Chart
-            height={isXl ? 100 : 200}
+            height={isXl ? 150 : 200}
             type="bar"
             options={{
               responsive: true,

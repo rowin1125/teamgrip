@@ -22,7 +22,7 @@ import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataW
 import { useScreenSize } from 'src/hooks/global/useScreenSize'
 
 type TrainingPresenceProps = {
-  teamPresence: GetPlayersPresenceQuery['getPlayersPresenceByTeamId']
+  teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId']
   isLoading: boolean
 }
 
@@ -46,7 +46,7 @@ const TrainingPresence = ({
   const { currentUser } = useAuth()
   if (!teamPresence) return null
 
-  const labels = teamPresence.map((player) => player.displayName)
+  const labels = teamPresence?.map((player) => player?.displayName)
 
   const data = {
     labels,
@@ -55,7 +55,7 @@ const TrainingPresence = ({
         type: 'bar' as const,
         label: 'Jouw score',
         backgroundColor: 'rgb(75, 192, 192)',
-        data: teamPresence.map((player) => player.trainings.length),
+        data: teamPresence.map((player) => player?.trainings.length),
         borderColor: 'white',
         borderWidth: 2,
       },
@@ -63,7 +63,7 @@ const TrainingPresence = ({
   }
 
   const somePlayerHasTrainings = teamPresence.some(
-    (player) => player.trainings.length > 0
+    (player) => player?.trainings && player?.trainings.length > 0
   )
 
   return (
@@ -71,7 +71,7 @@ const TrainingPresence = ({
       hasEntries={somePlayerHasTrainings}
       isLoading={isLoading}
       to={routes.newTraining({
-        id: currentUser?.player.teamId,
+        id: currentUser?.player?.teamId || '',
       })}
       title="Geen gegevens gevonden"
       buttonText="Maak je eerste training aan"

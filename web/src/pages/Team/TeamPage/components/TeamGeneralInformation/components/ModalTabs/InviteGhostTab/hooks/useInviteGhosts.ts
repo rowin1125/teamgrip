@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   InviteGhostsPlayersMutation,
   InviteGhostsPlayersMutationVariables,
@@ -26,7 +27,7 @@ export const useInviteGhosts = () => {
     },
   })
 
-  const handleInviteGhostsPlayers = async (input) => {
+  const handleInviteGhostsPlayers = async (input: any) => {
     const ghostPlayers = await inviteGhostPlayers({
       variables: {
         input: input,

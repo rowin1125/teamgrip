@@ -8,6 +8,12 @@ type PlayerTimelineBasedOnDatesType = Record<
 export const getPlayerTimelineBasedOnDates = (
   allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId']
 ) => {
+  if (!allGamesAndTrainings?.games || !allGamesAndTrainings?.trainings)
+    return {
+      gamesAndTrainingArray: [],
+      playerTimelineBasedOnDates: {},
+    }
+
   const playerTimelineBasedOnDates: PlayerTimelineBasedOnDatesType = {}
   const gamesAndTrainingArray = [
     ...allGamesAndTrainings.games,
@@ -15,7 +21,8 @@ export const getPlayerTimelineBasedOnDates = (
   ]
 
   for (const gameOrTraining of gamesAndTrainingArray) {
-    gameOrTraining.scores.forEach((score) => {
+    gameOrTraining?.scores.forEach((score) => {
+      if (!score?.playerId) return
       if (!playerTimelineBasedOnDates[score.playerId]) {
         playerTimelineBasedOnDates[score.playerId] = [
           {

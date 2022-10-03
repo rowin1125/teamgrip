@@ -25,7 +25,7 @@ const TeamGeneralInformation = ({
   setCurrentTabIndex,
   isLoading,
 }: TeamGeneralInformationProps) => {
-  const activeSeason = team?.season?.find((s) => s.active)
+  const activeSeason = team?.season?.find((s) => s?.active)
 
   return (
     <DefaultLoader isLoading={isLoading}>
@@ -35,7 +35,7 @@ const TeamGeneralInformation = ({
         </Flex>
         <DataDisplay
           entry={{
-            Beheerder: `${team?.owner.userProfile.firstname} ${team?.owner.userProfile.lastname}`,
+            Beheerder: `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}`,
             Club: team?.club?.name,
             'Actieve uitnodiging': team?.invitationToken ? 'Ja' : 'Nee',
             'Actief seizoen': activeSeason?.name || 'Geen',
@@ -51,7 +51,7 @@ const TeamGeneralInformation = ({
               colorScheme="secondary"
               onClick={() => {
                 setCurrentTabIndex(1)
-                disclosure.onOpen()
+                disclosure?.onOpen?.()
               }}
             >
               Maak ghost spelers aan

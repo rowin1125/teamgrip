@@ -36,7 +36,7 @@ const DeleteDialog = ({
   buttonProps,
 }: DeleteDialogType) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+  const cancelRef = React.useRef(null)
 
   const handleDelete = () => {
     onDelete(id)

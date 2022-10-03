@@ -39,7 +39,7 @@ const GhostPlayerUniqueInvite = ({
         whiteSpace="nowrap"
         fontWeight="bold"
       >
-        {ghost.displayName}
+        {ghost?.displayName}
       </Text>
       <Input
         title={
@@ -95,7 +95,7 @@ const GhostPlayerUniqueInvite = ({
         <Button
           ml={4}
           isLoading={loading}
-          onClick={() => handleCreateInvitation(ghost.id || '')}
+          onClick={() => handleCreateInvitation(ghost?.id || '')}
         >
           Maak uitnodiging
         </Button>

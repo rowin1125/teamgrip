@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import { FaArrowDown } from 'react-icons/fa'
@@ -84,8 +85,8 @@ const TrainingForm = ({
             id="seasonId"
             label="Selecteer seizoen"
             options={team?.season?.map((season) => ({
-              label: capitalizeText(season.name),
-              value: season?.id,
+              label: capitalizeText(season?.name || ''),
+              value: season?.id || '',
             }))}
             placeholder="Selecteer"
             reactSelectProps={{ isClearable: true }}

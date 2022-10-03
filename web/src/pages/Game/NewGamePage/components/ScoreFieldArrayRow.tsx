@@ -21,10 +21,7 @@ type ScoreFieldArrayRowProps = {
   index: number
   players: GetPlayersForTeamQuery['playersForTeam']
   score: CreateScoreInput
-  handleRemove: (
-    currentPlayer: GetPlayersForTeamQuery['playersForTeam'][0],
-    index: number
-  ) => void
+  handleRemove: (currentPlayer: Record<string, unknown>, index: number) => void
   calculateNumber: string
 }
 
@@ -38,7 +35,7 @@ const ScoreFieldArrayRow = ({
   const { values, setFieldValue } = useFormikContext<FormikValues>()
 
   const id = `scores.${index}.points`
-  const currentPlayer = players.find((item) => item.id === score.playerId)
+  const currentPlayer = players.find((item) => item?.id === score.playerId)
 
   const handleAddPoints = () => {
     const currentValue = values.scores[index].points
@@ -58,7 +55,7 @@ const ScoreFieldArrayRow = ({
     <Grid
       templateColumns="repeat(12, 1fr)"
       gap={4}
-      key={players[index].displayName}
+      key={players[index]?.displayName}
     >
       <GridItem colSpan={{ base: 12, xl: 9 }}>
         <Flex
@@ -74,7 +71,7 @@ const ScoreFieldArrayRow = ({
             </Button>
           </Flex>
           <ControlledInput
-            label={capitalizeText(currentPlayer?.displayName)}
+            label={capitalizeText(currentPlayer?.displayName || '')}
             labelProps={{ m: 0 }}
             id={`scores.${index}.points`}
             mr={2}
@@ -100,12 +97,14 @@ const ScoreFieldArrayRow = ({
               </Text>
             </Button>
 
-            <Button
-              variant="ghost"
-              onClick={() => handleRemove(currentPlayer, index)}
-            >
-              <Icon as={CgClose} color="red" />
-            </Button>
+            {currentPlayer && (
+              <Button
+                variant="ghost"
+                onClick={() => handleRemove(currentPlayer, index)}
+              >
+                <Icon as={CgClose} color="red" />
+              </Button>
+            )}
           </Flex>
         </Flex>
       </GridItem>

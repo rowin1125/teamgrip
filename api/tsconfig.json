@@ -3,6 +3,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "allowJs": true,
+    "strict": true,
     "esModuleInterop": true,
     "target": "esnext",
     "module": "esnext",

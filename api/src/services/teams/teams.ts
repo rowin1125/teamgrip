@@ -2,7 +2,7 @@ import nanoid from 'nanoid'
 import type {
   QueryResolvers,
   MutationResolvers,
-  TeamResolvers,
+  TeamRelationResolvers,
 } from 'types/graphql'
 
 import { context, UserInputError } from '@redwoodjs/graphql-server'
@@ -258,7 +258,7 @@ export const deleteInvitationToken: MutationResolvers['deleteInvitationToken'] =
     return team
   }
 
-export const Team: TeamResolvers = {
+export const Team: TeamRelationResolvers = {
   players: (_obj, { root }) =>
     db.team.findUnique({ where: { id: root.id } }).players(),
   club: (_obj, { root }) =>

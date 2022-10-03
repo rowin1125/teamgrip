@@ -3,7 +3,6 @@ import React from 'react'
 import {
   Button,
   Flex,
-  Link,
   Menu,
   MenuButton,
   MenuDivider,
@@ -51,10 +50,8 @@ const ProfileMenu = () => {
         </MenuButton>
         <MenuList>
           <MenuGroup title="Pages">
-            <MenuItem>
-              <Link to={routes.contact()} as={RedwoodLink}>
-                Contact
-              </Link>
+            <MenuItem as={RedwoodLink} to={routes.home()}>
+              Home
             </MenuItem>
           </MenuGroup>
           <MenuDivider />

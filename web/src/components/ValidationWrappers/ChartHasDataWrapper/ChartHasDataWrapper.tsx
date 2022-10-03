@@ -115,7 +115,7 @@ const ChartHasDataWrapper = ({
                 {title}
               </Heading>
             </Flex>
-            {isTeamStaff && (
+            {isTeamStaff && to && (
               <Button as={RedwoodLink} to={to} mt={4} colorScheme="secondary">
                 {buttonText}
               </Button>

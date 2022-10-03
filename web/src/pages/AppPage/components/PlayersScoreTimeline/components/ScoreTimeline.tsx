@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from 'react'
 
 import {
@@ -63,7 +64,7 @@ const ScoreTimeline = ({
   })
 
   const somePlayerHasScores = gamesAndTrainingArray?.some((gameOrTraining) =>
-    gameOrTraining?.scores?.some((score) => score.points > 0)
+    gameOrTraining?.scores?.some((score) => score && score.points > 0)
   )
 
   return (
@@ -71,13 +72,13 @@ const ScoreTimeline = ({
       hasEntries={somePlayerHasScores}
       isLoading={isLoading}
       to={routes.newTraining({
-        id: currentUser?.player.teamId,
+        id: currentUser?.player?.teamId || '',
       })}
       title="Geen gegevens gevonden"
       buttonText="Maak je eerste training aan"
     >
       <Chart
-        height={is2xl ? 100 : 300}
+        height={is2xl ? 200 : 300}
         type="bar"
         options={{
           responsive: true,
@@ -122,7 +123,7 @@ const ScoreTimeline = ({
             },
           },
         }}
-        data={data}
+        data={data as any}
       />
     </ChartHasDataWrapper>
   )

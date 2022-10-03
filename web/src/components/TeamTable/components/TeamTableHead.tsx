@@ -11,14 +11,14 @@ import { UseTeamTableReturnType } from '../hooks/useTeamTable'
 
 type TeamTableHeadProps = {
   headerGroups: HeaderGroup<UseTeamTableReturnType>[]
-  theme: 'dark' | 'light'
+  theme?: 'dark' | 'light'
   hiddenColumns?: string[]
   showActions?: boolean
 }
 
 const TeamTableHead = ({
   headerGroups,
-  theme,
+  theme = 'dark',
   hiddenColumns,
   showActions,
 }: TeamTableHeadProps) => (
@@ -28,7 +28,10 @@ const TeamTableHead = ({
         {headerGroup.headers.map((column) => {
           if (
             hiddenColumns &&
-            hiddenColumns.includes(column.Header.toString().toLocaleLowerCase())
+            column?.Header &&
+            hiddenColumns.includes(
+              column?.Header?.toString()?.toLocaleLowerCase()
+            )
           )
             return null
           return (

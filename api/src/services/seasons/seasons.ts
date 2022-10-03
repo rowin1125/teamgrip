@@ -1,7 +1,7 @@
 import type {
   QueryResolvers,
   MutationResolvers,
-  SeasonResolvers,
+  SeasonRelationResolvers,
 } from 'types/graphql'
 
 import { UserInputError } from '@redwoodjs/graphql-server'
@@ -117,7 +117,7 @@ export const deleteSeason: MutationResolvers['deleteSeason'] = async ({
   }
 }
 
-export const Season: SeasonResolvers = {
+export const Season: SeasonRelationResolvers = {
   trainings: (_obj, { root }) =>
     db.season.findUnique({ where: { id: root.id } }).trainings(),
   scores: (_obj, { root }) =>

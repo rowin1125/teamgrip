@@ -20,7 +20,7 @@ const Sidebar = () => {
   const [navOpen, toggleNav] = useLocalStorage('navOpen', true)
   const { isTeamStaff, isTeamPlayer } = useTeamPlayerAuth()
 
-  const handler = ({ key }) => {
+  const handler = ({ key }: { key: string }) => {
     if (ClOSE_SIDEBAR_KEYS.includes(String(key))) {
       toggleNav(!navOpen)
     }
@@ -88,12 +88,6 @@ const Sidebar = () => {
             </SidebarItemChild>
           </SidebarItem>
         )}
-        {/* <SidebarItem
-          navOpen={navOpen}
-          icon={IoIosStats}
-          title="Mijn scores"
-          to={routes.app()}
-        /> */}
         <SidebarItem
           navOpen={navOpen}
           icon={CgHomeAlt}

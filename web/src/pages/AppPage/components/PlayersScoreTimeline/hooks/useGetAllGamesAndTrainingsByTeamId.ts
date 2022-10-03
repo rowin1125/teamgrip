@@ -44,7 +44,7 @@ export const useGetAllGamesAndTrainingsByTeamId = () => {
     GetAllGamesAndTrainingsByTeamIdVariables
   >(GET_PLAYER_SCORE_TIMELINE, {
     variables: {
-      teamId: currentUser?.player?.teamId,
+      teamId: currentUser?.player?.teamId || '',
     },
   })
 

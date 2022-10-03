@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react'
 
-import { Button, Flex } from "@chakra-ui/react";
-import { useFormikContext } from "formik";
+import { Button, Flex } from '@chakra-ui/react'
+import { useFormikContext } from 'formik'
 
-import { FormContext } from "../FormContext/FormContext";
+import { FormContext } from '../FormContext/FormContext'
 
-import useTranslation from "@/hooks/useTranslation";
-import formBase from "@/translations/backoffice/formBase";
+import useTranslation from '@/hooks/useTranslation'
+import formBase from '@/translations/backoffice/formBase'
 
 const FormControls = () => {
-  const { t } = useTranslation();
-  const { values } = useFormikContext<StepperForm.FormValuesType>();
-  const { activePage, previous, isLastPage } = useContext(FormContext);
+  const { t } = useTranslation()
+  const { values } = useFormikContext<StepperForm.FormValuesType>()
+  const { activePage, previous, isLastPage } = useContext(FormContext)
 
   return (
     <Flex w="100%" justifyContent="flex-end" mt={8}>
@@ -29,7 +29,7 @@ const FormControls = () => {
         </Button>
       </div>
     </Flex>
-  );
-};
+  )
+}
 
-export default FormControls;
+export default FormControls

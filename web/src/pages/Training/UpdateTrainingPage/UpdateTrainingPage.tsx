@@ -19,17 +19,18 @@ const UpdateTrainingPage = () => {
   const [showTop, setShowTop] = React.useState(true)
 
   const { handleUpdateTraining, updateTrainingLoading } = useUpdateTrainingById(
-    training?.id,
+    training?.id || '',
     showTop
   )
 
   const regularScores = training?.scores.filter(
-    (score) => score.type === 'TRAINING'
+    (score) => score?.type === 'TRAINING'
   )
   const topTrainingScores = training?.scores.filter(
-    (score) => score.type === 'TOP_TRAINING'
+    (score) => score?.type === 'TOP_TRAINING'
   )
-  const hasTopTrainingScores = topTrainingScores?.length > 0
+  const hasTopTrainingScores =
+    !!topTrainingScores && topTrainingScores?.length > 0
 
   useEffect(() => {
     if (!training) return
@@ -38,20 +39,20 @@ const UpdateTrainingPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training])
 
-  if (trainingLoading || loading) return null
+  if (trainingLoading || loading || !training) return null
 
   const topTrainingScoresArray = hasTopTrainingScores
     ? topTrainingScores.map((score) => ({
-        playerId: score.player.id,
-        seasonId: training.season.id,
-        points: score.points,
+        playerId: score?.player.id,
+        seasonId: training?.season?.id,
+        points: score?.points,
         teamId: team?.id,
         trainingId: training?.id,
         type: 'TOP_TRAINING',
       }))
     : [1, 2, 3].map(() => ({
         playerId: '',
-        seasonId: training.season.id,
+        seasonId: training?.season?.id,
         points: 0,
         teamId: team?.id,
         trainingId: training?.id,
@@ -73,12 +74,12 @@ const UpdateTrainingPage = () => {
             <TrainingForm
               initialValues={{
                 date: format(new Date(training.date), 'yyyy-MM-dd'),
-                seasonId: training?.season.id,
+                seasonId: training?.season?.id,
                 teamId: training?.teamId,
-                scores: regularScores.map((score) => ({
-                  playerId: score.player.id,
-                  seasonId: training.season.id,
-                  points: score.points,
+                scores: regularScores?.map((score) => ({
+                  playerId: score?.player?.id,
+                  seasonId: training?.season?.id,
+                  points: score?.points,
                   teamId: team?.id,
                   trainingId: training?.id,
                   type: 'TRAINING',
@@ -89,7 +90,7 @@ const UpdateTrainingPage = () => {
               onSubmit={handleUpdateTraining}
               loading={trainingLoading || updateTrainingLoading}
               team={team}
-              players={team?.players.filter((player) => player.isActivePlayer)}
+              players={team?.players.filter((player) => player?.isActivePlayer)}
               setShowTop={setShowTop}
               showTop={showTop}
             />

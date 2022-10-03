@@ -19,9 +19,9 @@ const SingleTopGameScores = ({ index, players }: SingleTopGameScoresProps) => (
       mb={2}
       id={`topGameScores.${index}.playerId`}
       label="Selecteer een speler"
-      options={players.map((option) => ({
-        label: capitalizeText(option.displayName),
-        value: option?.id,
+      options={players?.map((option) => ({
+        label: capitalizeText(option?.displayName || ''),
+        value: option?.id || '',
       }))}
       placeholder="Selecteer"
       reactSelectProps={{ isClearable: true }}

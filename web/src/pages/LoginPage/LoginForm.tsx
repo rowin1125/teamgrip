@@ -59,9 +59,9 @@ const LoginForm = ({
           {showSignUp && (
             <Box>
               Heb je nog geen account?{' '}
-              <RedwoodLink to={routes.signup()} className="rw-link">
+              <Link as={RedwoodLink} textDecor="underline" to={routes.signup()}>
                 Registeer
-              </RedwoodLink>
+              </Link>
             </Box>
           )}
         </Flex>

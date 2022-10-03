@@ -40,7 +40,13 @@ const UpdateUserPage = () => {
     onCompleted: reauthenticate,
   })
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (
+    data: UpdateUserProfileMutationVariables['input']
+  ) => {
+    if (!currentUser) {
+      toast.error('Fout met het ophalen van je gegevens')
+      return
+    }
     try {
       await updateUserProfile({
         variables: { input: data, id: currentUser.id },
@@ -63,8 +69,8 @@ const UpdateUserPage = () => {
             <Heading>Update jouw informatie</Heading>
             <Formik
               initialValues={{
-                firstname: currentUser.userProfile.firstname,
-                lastname: currentUser.userProfile.lastname,
+                firstname: currentUser?.userProfile?.firstname,
+                lastname: currentUser?.userProfile?.lastname,
               }}
               validationSchema={validationSchema}
               onSubmit={onSubmit}

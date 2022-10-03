@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react'
 
 import { useAuth } from '@redwoodjs/auth'
@@ -16,7 +17,7 @@ export const useUnAuthenticated = () => {
     toast.error('Je hebt geen uitnodigingstoken')
   }, [invitationToken])
 
-  const handleSignUp = async (data, actions) => {
+  const handleSignUp = async (data: any, actions: any) => {
     setLoading(true)
     const response = await signUp({ ...data, invitationToken, ghostInvitation })
 
@@ -29,7 +30,7 @@ export const useUnAuthenticated = () => {
     setLoading(false)
   }
 
-  const handleSignIn = async (data) => {
+  const handleSignIn = async (data: any) => {
     setLoading(true)
     const response = await logIn({ ...data })
 

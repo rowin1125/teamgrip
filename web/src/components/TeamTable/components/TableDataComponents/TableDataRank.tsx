@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box } from '@chakra-ui/react'
 import { Cell } from 'react-table'
 
@@ -14,7 +15,7 @@ const TableDataRank = ({ cell }: TableDataRankProps) => {
     3: '🥉',
   }
   const value = cell.value
-  const medal = topTree[value]
+  const medal = topTree[value as keyof typeof topTree]
 
   const position = medal ? `${medal}` : ``
 

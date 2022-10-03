@@ -9,7 +9,7 @@ import { tableLoadingData } from './tableLoadingData'
 
 type TableLoaderProps = {
   children?: React.ReactNode
-  isLoading: boolean
+  isLoading?: boolean
   theme?: 'dark' | 'light'
 }
 

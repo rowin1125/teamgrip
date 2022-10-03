@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react'
 
-import { useAuth } from '@redwoodjs/auth'
-
 import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
 import TextAlert from 'src/components/TextAlert/TextAlert'
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
 
 import TeamPlayerSettingsEditPlayerType from './TeamPlayerSettingsEditPlayerType'
 
@@ -20,9 +20,9 @@ const TeamPlayerSettingsActionButtons = ({
   onDelete,
   entries,
 }: TeamPlayerSettingsActionButtonsProps) => {
-  const { currentUser } = useAuth()
   const { onClose, onOpen, isOpen } = useDisclosure()
-  const rowIsOwner = row.id === currentUser?.player.id
+  const { team } = useGetTeamById()
+  const rowIsOwner = row.id === team?.owner?.player?.id
 
   return (
     <Flex>

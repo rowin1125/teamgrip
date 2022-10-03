@@ -1,6 +1,4 @@
-import humanize from 'humanize-string'
-
-import { useAuth } from '@redwoodjs/auth'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
@@ -17,18 +15,18 @@ const DELETE_CLUB_MUTATION = gql`
 
 const MAX_STRING_LENGTH = 150
 
-const formatEnum = (values: string | string[] | null | undefined) => {
-  if (values) {
-    if (Array.isArray(values)) {
-      const humanizedValues = values.map((value) => humanize(value))
-      return humanizedValues.join(', ')
-    } else {
-      return humanize(values as string)
-    }
-  }
-}
+// const formatEnum = (values: string | string[] | null | undefined) => {
+//   if (values) {
+//     if (Array.isArray(values)) {
+//       const humanizedValues = values.map((value) => humanize(value))
+//       return humanizedValues.join(', ')
+//     } else {
+//       return humanize(values as string)
+//     }
+//   }
+// }
 
-const truncate = (text) => {
+const truncate = (text: string) => {
   let output = text
   if (text && text.length > MAX_STRING_LENGTH) {
     output = output.substring(0, MAX_STRING_LENGTH) + '...'
@@ -36,11 +34,11 @@ const truncate = (text) => {
   return output
 }
 
-const jsonTruncate = (obj) => {
-  return truncate(JSON.stringify(obj, null, 2))
-}
+// const jsonTruncate = (obj) => {
+//   return truncate(JSON.stringify(obj, null, 2))
+// }
 
-const timeTag = (datetime) => {
+const timeTag = (datetime: string) => {
   return (
     datetime && (
       <time dateTime={datetime} title={datetime}>
@@ -50,11 +48,11 @@ const timeTag = (datetime) => {
   )
 }
 
-const checkboxInputTag = (checked) => {
-  return <input type="checkbox" checked={checked} disabled />
-}
+// const checkboxInputTag = (checked) => {
+//   return <input type="checkbox" checked={checked} disabled />
+// }
 
-const ClubsList = ({ clubs }) => {
+const ClubsList = ({ clubs }: { clubs: any[] }) => {
   const [deleteClub] = useMutation(DELETE_CLUB_MUTATION, {
     onCompleted: () => {
       toast.success('Club deleted')
@@ -69,7 +67,7 @@ const ClubsList = ({ clubs }) => {
     awaitRefetchQueries: true,
   })
 
-  const onDeleteClick = (id) => {
+  const onDeleteClick = (id: string) => {
     if (confirm('Are you sure you want to delete club ' + id + '?')) {
       deleteClub({ variables: { id } })
     }
@@ -88,7 +86,7 @@ const ClubsList = ({ clubs }) => {
           </tr>
         </thead>
         <tbody>
-          {clubs.map((club) => (
+          {clubs.map((club: any) => (
             <tr key={club.id}>
               <td>{truncate(club.id)}</td>
               <td>{timeTag(club.createdAt)}</td>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 
 import { Box, Flex, Heading } from '@chakra-ui/react'
@@ -20,7 +21,7 @@ const ForgotPasswordPage = () => {
     }
   }, [isAuthenticated])
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setLoading(true)
     const response = await forgotPassword(data.username)
 

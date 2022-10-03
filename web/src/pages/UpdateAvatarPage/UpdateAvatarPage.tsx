@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
 import { Formik, Form } from 'formik'
 
@@ -29,11 +30,11 @@ const UpdateAvatarPage = () => {
     onCompleted: reauthenticate,
   })
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     try {
       await updateAvatar({
         variables: {
-          id: currentUser.avatar.id,
+          id: currentUser?.avatar?.id || '',
           input: {
             ...data,
           },
@@ -46,6 +47,8 @@ const UpdateAvatarPage = () => {
       toast.error('Oeps er is iets fout gegaan 😢')
     }
   }
+
+  if (!currentUser?.avatar) return null
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, ...initalAvatarValues } = currentUser.avatar

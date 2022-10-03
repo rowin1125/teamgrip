@@ -31,8 +31,8 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
             size="sm"
             entries={playersWithTotalScore?.map((player, index) => ({
               Rank: index + 1,
-              Punten: player.totalScore,
-              Naam: player.displayName,
+              Punten: player?.totalScore,
+              Naam: player?.displayName,
               Avatar: player?.user?.avatar,
             }))}
             isLoading={playersWithTotalScoreLoading}

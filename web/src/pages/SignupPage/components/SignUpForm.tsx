@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 
@@ -10,11 +11,8 @@ import ControlledInput from 'src/components/forms/components/ControlledInput'
 import RedwoodLink from 'src/components/RedwoodLink'
 
 type SignUpFormProps = {
-  initialValues: Record<string, unknown>
-  onSubmit: (
-    values: Record<string, unknown>,
-    actions: FormikHelpers<unknown>
-  ) => void
+  initialValues: Record<string, any>
+  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void
   loading: boolean
 }
 
@@ -55,9 +53,9 @@ const SignUpForm = ({ initialValues, onSubmit, loading }: SignUpFormProps) => {
             </Button>
             <Box>
               Heb je a een account?{' '}
-              <RedwoodLink to={routes.login()} className="rw-link">
+              <Link as={RedwoodLink} to={routes.login()} textDecor="underline">
                 Login
-              </RedwoodLink>
+              </Link>
             </Box>
           </Flex>
         </Box>

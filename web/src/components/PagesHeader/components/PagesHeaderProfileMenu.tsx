@@ -52,8 +52,8 @@ const ProfileMenu = () => {
         <MenuList>
           <MenuGroup title="Pages">
             <MenuItem>
-              <Link to={routes.contact()} as={RedwoodLink}>
-                Contact
+              <Link to={routes.home()} as={RedwoodLink}>
+                Home
               </Link>
             </MenuItem>
           </MenuGroup>

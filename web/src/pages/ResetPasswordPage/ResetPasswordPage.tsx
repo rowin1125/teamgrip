@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
 
 import { Box, Flex, Heading } from '@chakra-ui/react'
@@ -10,7 +11,7 @@ import { toast } from '@redwoodjs/web/toast'
 import ResetPasswordForm from './components/ResetPasswordForm'
 import ResetPasswordWithImage from './components/ResetPasswordWithImage'
 
-const ResetPasswordPage = ({ resetToken }) => {
+const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
   const [showLoginLink, setShowLoginLink] = useState(false)
   const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } =
     useAuth()
@@ -39,7 +40,7 @@ const ResetPasswordPage = ({ resetToken }) => {
     setLoading(false)
   }, [resetToken, validateResetToken])
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     setLoading(true)
     const response = await resetPassword({
       resetToken,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Table, TableProps } from '@chakra-ui/react'
 
 import TableLoader from '../Loaders/TableLoader/TableLoader'

@@ -18,7 +18,7 @@ const Avatar = ({
   additionalAvatarProps,
 }: AvatarProps) => {
   const { currentUser } = useAuth()
-  if (!currentUser) return null
+  if (!currentUser || !currentUser.avatar) return null
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id, ...avatarProperties } = currentUser.avatar

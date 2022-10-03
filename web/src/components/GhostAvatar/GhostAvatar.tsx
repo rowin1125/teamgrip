@@ -1,7 +1,12 @@
 import { Box, Flex, Icon } from '@chakra-ui/react'
 import { BiQuestionMark } from 'react-icons/bi'
 
-const GhostAvatar = ({ w, h, ...props }) => (
+type GhostAvatarProps = {
+  w: string
+  h: string
+}
+
+const GhostAvatar = ({ w, h, ...props }: GhostAvatarProps) => (
   <Box w={w} h={h} position="relative" {...props}>
     <svg
       style={{ width: w, height: h }}

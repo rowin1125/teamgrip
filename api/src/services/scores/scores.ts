@@ -1,7 +1,7 @@
 import type {
   QueryResolvers,
   MutationResolvers,
-  ScoreResolvers,
+  ScoreRelationResolvers,
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
@@ -38,7 +38,7 @@ export const deleteScore: MutationResolvers['deleteScore'] = ({ id }) => {
   })
 }
 
-export const Score: ScoreResolvers = {
+export const Score: ScoreRelationResolvers = {
   season: (_obj, { root }) =>
     db.score.findUnique({ where: { id: root.id } }).season(),
   player: (_obj, { root }) =>

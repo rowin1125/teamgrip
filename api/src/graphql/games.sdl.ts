@@ -14,7 +14,7 @@ export const schema = gql`
 
   type Query {
     games: [Game!]! @requireAuth
-    game(id: String!): Game @requireAuth
+    game(id: String!): Game! @requireAuth
     gamesByTeamId(id: String!): [Game]! @requireAuth
     getRecentGames(playerId: String!, limit: Int!): [Game!]! @requireAuth
   }

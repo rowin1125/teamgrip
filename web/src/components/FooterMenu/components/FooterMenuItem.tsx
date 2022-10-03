@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { forwardRef } from 'react'
 
 import { Button, ButtonProps, Icon, IconProps } from '@chakra-ui/react'
