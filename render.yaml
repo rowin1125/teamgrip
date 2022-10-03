@@ -1,3 +1,0 @@
-databases:
-  - name: web-db
-    region: frankfurt
