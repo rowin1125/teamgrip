@@ -63,6 +63,7 @@ const HomePage = () => {
                     base: '4xl',
                     xl: '7xl',
                   }}
+                  display={{ base: 'none', xl: 'block' }}
                   fontWeight="extrabold"
                   color="white"
                 >
@@ -94,6 +95,7 @@ const HomePage = () => {
           colSpan={{ base: 2, xl: 1 }}
           border="solid 1px transparent"
           order={{ base: -1, xl: 0 }}
+          position="relative"
         >
           <Image
             h={{
@@ -111,6 +113,24 @@ const HomePage = () => {
               xl: 'polygon(15% 0px, 50px 100%, 90% 100%, 100% 0px)',
             }}
           />
+          <Flex
+            pos={'absolute'}
+            inset={0}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Heading
+              fontSize={{
+                base: '4xl',
+              }}
+              textAlign="center"
+              display={{ base: 'block', xl: 'none' }}
+              fontWeight="extrabold"
+              color="white"
+            >
+              Start vandaag met het beheren van jouw team!
+            </Heading>
+          </Flex>
         </GridItem>
       </Grid>
     </>

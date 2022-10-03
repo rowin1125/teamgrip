@@ -72,10 +72,14 @@ const GameDetailPage = () => {
       <Grid
         templateColumns="repeat(12, 1fr)"
         templateRows="auto"
-        gap={10}
+        gap={{ base: 0, xl: 10 }}
         position="relative"
       >
-        <GridItem colSpan={{ base: 12, xl: 4 }} rowSpan={1}>
+        <GridItem
+          colSpan={{ base: 12, xl: 4 }}
+          rowSpan={1}
+          mb={{ base: 10, xl: 0 }}
+        >
           <DefaultLoader isLoading={gameLoading}>
             <Card position="sticky" top={10}>
               <Heading as="h2" size="md" mb={4}>

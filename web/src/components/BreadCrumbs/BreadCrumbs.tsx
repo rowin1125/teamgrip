@@ -46,8 +46,14 @@ const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
           )
         })}
       </Breadcrumb>
-      <Box mt={1}>
-        <Text fontWeight="bold" color="white">
+      <Box mt={1} maxW={{ base: '40vw', xl: 'auto' }}>
+        <Text
+          fontWeight="bold"
+          color="white"
+          textOverflow="ellipsis"
+          overflow="hidden"
+          whiteSpace="nowrap"
+        >
           {breadCrumbLabelOverride || subTitle}
         </Text>
       </Box>
