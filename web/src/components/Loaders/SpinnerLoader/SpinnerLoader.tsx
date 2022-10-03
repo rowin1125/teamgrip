@@ -7,7 +7,7 @@ type SpinnerLoaderType = {
 
 const SpinnerLoader = ({ isLoading, children }: SpinnerLoaderType) => {
   return (
-    <Box w="full" h="full">
+    <Box w="full" h="full" position="relative">
       <Fade
         in={isLoading}
         style={{

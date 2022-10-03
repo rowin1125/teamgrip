@@ -22,7 +22,7 @@ const PlayerCard = () => {
     >
       {/* *** fut-player-card ****/}
 
-      <Box bgImage={playerCard} className="fut-player-card">
+      <Box bgImage={playerCard} className="fut-player-card" position="relative">
         {/* Player Card Top*/}
         <Fade
           in={playerWithTotalScoreLoading}
