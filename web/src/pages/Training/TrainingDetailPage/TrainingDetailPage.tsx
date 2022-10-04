@@ -110,11 +110,13 @@ const TrainingDetailPage = () => {
               </Heading>
               <TeamTable
                 isLoading={trainingLoading}
-                size="lg"
+                size="md"
                 theme="light"
                 entries={topTrainingScores
                   ?.sort((scoreA, scoreB) => {
-                    if (scoreA?.points && scoreB?.points) {
+                    const scoreAIsNumber = typeof scoreA?.points === 'number'
+                    const scoreBIsNumber = typeof scoreB?.points === 'number'
+                    if (scoreAIsNumber && scoreBIsNumber) {
                       return scoreB?.points - scoreA?.points
                     }
                     return 0
@@ -141,10 +143,12 @@ const TrainingDetailPage = () => {
             </Heading>
             <TeamTable
               isLoading={trainingLoading}
-              size="lg"
+              size="md"
               entries={regularTrainingScores
                 ?.sort((scoreA, scoreB) => {
-                  if (scoreA?.points && scoreB?.points) {
+                  const scoreAIsNumber = typeof scoreA?.points === 'number'
+                  const scoreBIsNumber = typeof scoreB?.points === 'number'
+                  if (scoreAIsNumber && scoreBIsNumber) {
                     return scoreB?.points - scoreA?.points
                   }
                   return 0
