@@ -15,17 +15,17 @@ const PlayersScoreTimeline = () => {
   return (
     <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
       <Card bg="primary.500" color="white" h="full">
-        <Heading color="white">Scoreverloop</Heading>
-        <Box mt={8}>
-          <SpinnerLoader isLoading={loading}>
+        <SpinnerLoader isLoading={loading}>
+          <Heading color="white">Scoreverloop</Heading>
+          <Box mt={8}>
             <SeasonLockWrapper>
               <ScoreTimeline
                 allGamesAndTrainings={allGamesAndTrainings}
                 isLoading={loading}
               />
             </SeasonLockWrapper>
-          </SpinnerLoader>
-        </Box>
+          </Box>
+        </SpinnerLoader>
       </Card>
     </GridItem>
   )
