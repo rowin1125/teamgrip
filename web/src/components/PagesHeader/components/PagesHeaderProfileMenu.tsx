@@ -19,7 +19,7 @@ import { toast } from '@redwoodjs/web/toast'
 import Avatar from 'src/components/Avatar/Avatar'
 
 const ProfileMenu = () => {
-  const { logOut } = useAuth()
+  const { logOut, currentUser, loading } = useAuth()
   const { pathname } = useLocation()
 
   const handleLogout = async () => {
@@ -31,11 +31,23 @@ const ProfileMenu = () => {
     }
   }
 
-  const hideAppButton = !pathname.includes('app')
+  const showAppButton = !pathname.includes('app')
 
   return (
     <Flex alignItems="center">
-      {hideAppButton && (
+      {!currentUser && (
+        <Button
+          as={RedwoodLink}
+          to={routes.login()}
+          colorScheme="gray"
+          isLoading={loading}
+          mr={4}
+          minW="10rem"
+        >
+          Login
+        </Button>
+      )}
+      {currentUser && showAppButton && (
         <Button
           as={RedwoodLink}
           to={routes.app()}

@@ -1,10 +1,12 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, Spinner } from '@chakra-ui/react'
 import AvatarComponent from 'avataaars'
 import { Avatar as AdditionalAvatarProps } from 'types/graphql'
 
 import { useAuth } from '@redwoodjs/auth'
 
 import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar'
+
+import TeamGripAvatar from './components/TeamGripAvatar'
 
 type AvatarProps = {
   size?: string
@@ -17,25 +19,32 @@ const Avatar = ({
   disableInitials,
   additionalAvatarProps,
 }: AvatarProps) => {
-  const { currentUser } = useAuth()
-  if (!currentUser || !currentUser.avatar) return null
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, ...avatarProperties } = currentUser.avatar
+  const { currentUser, loading } = useAuth()
 
   return (
     <Box position="relative" maxW={size} m={2}>
-      {currentUser?.avatar?.avatarStyle ? (
-        <AvatarComponent
-          style={{ width: size, height: size }}
-          {...avatarProperties}
-          {...additionalAvatarProps}
-        />
-      ) : (
-        <AvatarComponent
-          style={{ width: size, height: size }}
-          avatarStyle="Circle"
-          {...generateRandomAvatarOptions()}
+      {loading && (
+        <Flex
+          position="relative"
+          w="full"
+          h="full"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box filter="blur(2px)">
+            <AvatarComponent
+              avatarStyle="Circle"
+              {...generateRandomAvatarOptions()}
+              style={{ width: size, height: size }}
+            />
+          </Box>
+          <Spinner size="lg" position="absolute" color="secondary.500" />
+        </Flex>
+      )}
+      {!loading && currentUser?.avatar?.avatarStyle && (
+        <TeamGripAvatar
+          avatar={currentUser.avatar}
+          size={size}
           {...additionalAvatarProps}
         />
       )}
