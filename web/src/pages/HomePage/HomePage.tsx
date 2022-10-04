@@ -19,7 +19,14 @@ import manAtNightImage from '../../components/Hero/images/footbal-night-man.jpg'
 const HomePage = () => {
   return (
     <>
-      <MetaTags title="Home" description="Home page" />
+      <MetaTags
+        title="TeamGrip"
+        description="Ga aan de slag met het bijhouden van jouw team gegevens"
+        tag="og:image"
+        ogWidth="100"
+        ogHeight="100"
+        ogContentUrl="/TeamGrip Logo.png"
+      />
 
       <Grid
         templateColumns="repeat(2, 1fr)"
