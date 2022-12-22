@@ -13,7 +13,7 @@ const PagesHeader = () => {
         <Box>
           <RedwoodLink to={routes.home()}>
             <Flex alignItems="center">
-              <Image src="/TeamGrip Logo.png" w={'80px'} h="auto" />
+              <Image src="/TeamGrip Logo.png" w={'70px'} h="auto" />
               <Heading
                 color="white"
                 ml={4}

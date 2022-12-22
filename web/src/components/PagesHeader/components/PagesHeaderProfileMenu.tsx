@@ -49,6 +49,7 @@ const ProfileMenu = () => {
       )}
       {currentUser && showAppButton && (
         <Button
+          display={{ base: 'none', xl: 'block' }}
           as={RedwoodLink}
           to={routes.app()}
           mr={4}
@@ -67,6 +68,9 @@ const ProfileMenu = () => {
               <Link to={routes.home()} as={RedwoodLink}>
                 Home
               </Link>
+            </MenuItem>
+            <MenuItem as={RedwoodLink} to={routes.app()}>
+              App
             </MenuItem>
           </MenuGroup>
           <MenuDivider />

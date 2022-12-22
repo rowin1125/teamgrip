@@ -1,4 +1,4 @@
-import { Grid, GridItem, Heading } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
 
 import { MetaTags } from '@redwoodjs/web';
 
@@ -54,13 +54,10 @@ const AppPage = () => {
         </GridItem>
 
         {isActivePlayer && (
-          <GridItem
-            colSpan={{ base: 12, xl: 6 }}
-            rowSpan={1}
-            justifySelf="center"
-            alignSelf="center"
-          >
-            <PlayerCard />
+          <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
+            <Flex justifyContent="center" w="full">
+              <PlayerCard />
+            </Flex>
           </GridItem>
         )}
         <PlayersScoreTimeline />

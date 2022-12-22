@@ -16,14 +16,13 @@ const PlayerCard = () => {
     useGetPlayerScoresByTeamId();
 
   return (
-    <Box
-      transform={{ base: 'scale(0.9)', xl: 'scale(0.9)' }}
-      position="relative"
-    >
-      {/* *** fut-player-card ****/}
-
-      <Box bgImage={playerCard} className="fut-player-card" position="relative">
-        {/* Player Card Top*/}
+    <Box>
+      <Box
+        bgImage={playerCard}
+        className="fut-player-card"
+        position="relative"
+        w={{ base: '300px', xl: '320px' }}
+      >
         <Fade
           in={playerWithTotalScoreLoading}
           style={{
@@ -40,15 +39,15 @@ const PlayerCard = () => {
         <Fade in={!playerWithTotalScoreLoading}>
           {playerWithTotalScore && (
             <>
-              <div className="player-card-top">
+              <Box className="player-card-top">
                 <div className="player-master-info">
                   <div className="player-rating">
                     <span>97</span>
                   </div>
                   {/* Implement when playerStats are added */}
                   {/* <div className="player-position">
-              <span>RW</span>
-            </div> */}
+                      <span>RW</span>
+                    </div> */}
                   <div className="player-nation">
                     <img src={dutchFlag} alt="Argentina" draggable="false" />
                   </div>
@@ -71,7 +70,7 @@ const PlayerCard = () => {
                     additionalAvatarProps={{ avatarStyle: 'blank' }}
                   />
                 </Flex>
-              </div>
+              </Box>
               <div className="player-card-bottom">
                 <div className="player-info">
                   <div className="player-name">
@@ -115,8 +114,6 @@ const PlayerCard = () => {
             </>
           )}
         </Fade>
-
-        {/* Player Card Bottom*/}
       </Box>
     </Box>
   );

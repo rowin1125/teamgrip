@@ -18,7 +18,7 @@ import { toast } from '@redwoodjs/web/toast';
 import Avatar from 'src/components/Avatar/Avatar';
 
 const ProfileMenu = () => {
-  const { logOut } = useAuth();
+  const { logOut, currentUser } = useAuth();
   const { pathname } = useLocation();
 
   const handleLogout = async () => {
@@ -53,6 +53,11 @@ const ProfileMenu = () => {
             <MenuItem as={RedwoodLink} to={routes.home()}>
               Home
             </MenuItem>
+            {currentUser && (
+              <MenuItem as={RedwoodLink} to={routes.app()}>
+                App
+              </MenuItem>
+            )}
           </MenuGroup>
           <MenuDivider />
 
