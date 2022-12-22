@@ -49,7 +49,7 @@ const ProfileMenu = () => {
       )}
       {currentUser && showAppButton && (
         <Button
-          display={{ base: 'none', xl: 'block' }}
+          display={{ base: 'none', xl: 'flex' }}
           as={RedwoodLink}
           to={routes.app()}
           mr={4}
