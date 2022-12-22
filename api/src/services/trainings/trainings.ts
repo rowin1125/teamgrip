@@ -3,15 +3,15 @@ import type {
   MutationResolvers,
   CreateScoreInput,
   TrainingRelationResolvers,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { UserInputError } from '@redwoodjs/graphql-server'
+import { UserInputError } from '@redwoodjs/graphql-server';
 
-import { db } from 'src/lib/db'
+import { db } from 'src/lib/db';
 
 export const trainings: QueryResolvers['trainings'] = () => {
-  return db.training.findMany()
-}
+  return db.training.findMany();
+};
 
 export const training: QueryResolvers['training'] = ({ id }) => {
   return db.training.findUnique({
@@ -19,8 +19,8 @@ export const training: QueryResolvers['training'] = ({ id }) => {
     include: {
       team: true,
     },
-  })
-}
+  });
+};
 
 export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
   id,
@@ -35,8 +35,8 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
     orderBy: {
       date: 'desc',
     },
-  })
-}
+  });
+};
 
 export const getRecentTrainings: QueryResolvers['getRecentTrainings'] = async ({
   playerId,
@@ -60,10 +60,10 @@ export const getRecentTrainings: QueryResolvers['getRecentTrainings'] = async ({
       date: 'desc',
     },
     take: limit,
-  })
+  });
 
-  return trainings
-}
+  return trainings;
+};
 
 export const createTraining: MutationResolvers['createTraining'] = async ({
   input,
@@ -71,9 +71,9 @@ export const createTraining: MutationResolvers['createTraining'] = async ({
 }) => {
   const team = await db.team.findUnique({
     where: { id: input.teamId },
-  })
+  });
 
-  if (!team) throw new UserInputError('Team niet gevonden')
+  if (!team) throw new UserInputError('Team niet gevonden');
 
   try {
     const trainingResult = await db.training.create({
@@ -85,22 +85,22 @@ export const createTraining: MutationResolvers['createTraining'] = async ({
           })),
         },
       },
-    })
+    });
 
     const scoreData: CreateScoreInput[] = scores.map((score) => ({
       ...score,
       trainingId: trainingResult.id,
-    }))
+    }));
 
     await db.score.createMany({
       data: scoreData,
-    })
+    });
 
-    return trainingResult
+    return trainingResult;
   } catch (error) {
-    throw new UserInputError('Failed to upload')
+    throw new UserInputError('Failed to upload');
   }
-}
+};
 
 export const updateTraining: MutationResolvers['updateTraining'] = async ({
   id,
@@ -109,9 +109,9 @@ export const updateTraining: MutationResolvers['updateTraining'] = async ({
 }) => {
   const team = await db.team.findUnique({
     where: { id: input.teamId },
-  })
+  });
 
-  if (!team) throw new UserInputError('Team niet gevonden')
+  if (!team) throw new UserInputError('Team niet gevonden');
 
   const trainingResult = await db.training.update({
     where: { id },
@@ -126,25 +126,25 @@ export const updateTraining: MutationResolvers['updateTraining'] = async ({
         deleteMany: {},
       },
     },
-  })
+  });
 
   const scoreData: CreateScoreInput[] = scores.map((score) => ({
     ...score,
     trainingId: trainingResult.id,
-  }))
+  }));
 
   await db.score.createMany({
     data: scoreData,
-  })
+  });
 
-  return trainingResult
-}
+  return trainingResult;
+};
 
 export const deleteTraining: MutationResolvers['deleteTraining'] = ({ id }) => {
   return db.training.delete({
     where: { id },
-  })
-}
+  });
+};
 
 export const Training: TrainingRelationResolvers = {
   season: (_obj, { root }) =>
@@ -153,4 +153,4 @@ export const Training: TrainingRelationResolvers = {
     db.training.findUnique({ where: { id: root.id } }).players(),
   scores: (_obj, { root }) =>
     db.training.findUnique({ where: { id: root.id } }).scores(),
-}
+};

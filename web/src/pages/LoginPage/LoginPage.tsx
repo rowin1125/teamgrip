@@ -1,61 +1,61 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import {
   ResendActivateUserMutation,
   ResendActivateUserMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags, useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { MetaTags, useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import { RESEND_ACTIVATE_USER } from '../SignupPage/SignupPage'
+import { RESEND_ACTIVATE_USER } from '../SignupPage/SignupPage';
 
-import LoginWithImage from './components/LoginWithImage'
-import LoginForm from './LoginForm'
+import LoginWithImage from './components/LoginWithImage';
+import LoginForm from './LoginForm';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('')
-  const [loadingLogin, setLoadingLogin] = useState(false)
-  const [showResendButton, setShowResendButton] = useState(false)
-  const { isAuthenticated, logIn } = useAuth()
+  const [email, setEmail] = useState('');
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [showResendButton, setShowResendButton] = useState(false);
+  const { isAuthenticated, logIn } = useAuth();
   const [resend, { loading }] = useMutation<
     ResendActivateUserMutation,
     ResendActivateUserMutationVariables
   >(RESEND_ACTIVATE_USER, {
     onCompleted: () => {
-      setShowResendButton(false)
-      toast.success('Activation email sent')
+      setShowResendButton(false);
+      toast.success('Activation email sent');
     },
-  })
+  });
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(routes.app())
+      navigate(routes.app());
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   const onSubmit = async (data: any) => {
-    setLoadingLogin(true)
-    const response = await logIn({ ...data })
+    setLoadingLogin(true);
+    const response = await logIn({ ...data });
 
     if (response.message) {
-      toast(response.message)
+      toast(response.message);
     } else if (response.error) {
       if ((response.error as string).includes('Please validate')) {
-        setEmail(data.username)
-        setShowResendButton(true)
+        setEmail(data.username);
+        setShowResendButton(true);
       }
 
-      toast.error(response.error)
+      toast.error(response.error);
     } else {
-      toast.success('Welcome back 🥳')
+      toast.success('Welcome back 🥳');
     }
-    setLoadingLogin(false)
-  }
+    setLoadingLogin(false);
+  };
 
   const handleResend = async () =>
     await resend({
@@ -64,7 +64,7 @@ const LoginPage = () => {
           email,
         },
       },
-    })
+    });
 
   return (
     <>
@@ -116,7 +116,7 @@ const LoginPage = () => {
         </Flex>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

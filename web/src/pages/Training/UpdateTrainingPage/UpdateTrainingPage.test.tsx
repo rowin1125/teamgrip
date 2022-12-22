@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import UpdateTrainingPage from './UpdateTrainingPage'
+import UpdateTrainingPage from './UpdateTrainingPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import UpdateTrainingPage from './UpdateTrainingPage'
 describe('UpdateTrainingPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<UpdateTrainingPage />)
-    }).not.toThrow()
-  })
-})
+      render(<UpdateTrainingPage />);
+    }).not.toThrow();
+  });
+});

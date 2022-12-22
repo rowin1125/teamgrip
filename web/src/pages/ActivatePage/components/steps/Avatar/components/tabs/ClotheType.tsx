@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import { Grid, GridItem } from '@chakra-ui/react'
-import { useFormikContext } from 'formik'
+import { Grid, GridItem } from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
 
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
 
-import { avatarOptions } from '../../helpers/generateRandomAvatar'
+import { avatarOptions } from '../../helpers/generateRandomAvatar';
 
 const ClotheType = () => {
-  const { values } = useFormikContext<Record<string, string>>()
+  const { values } = useFormikContext<Record<string, string>>();
 
-  const disableGraphic = ['GraphicShirt'].includes(values.clotheType)
+  const disableGraphic = ['GraphicShirt'].includes(values.clotheType);
   const disableClotheColor = ['BlazerShirt', 'BlazerSweater'].includes(
     values.clotheType
-  )
+  );
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4}>
@@ -60,7 +60,7 @@ const ClotheType = () => {
         </GridItem>
       )}
     </Grid>
-  )
-}
+  );
+};
 
-export default ClotheType
+export default ClotheType;

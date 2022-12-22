@@ -1,20 +1,20 @@
-import { Box, Button, Flex, Heading } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import RedwoodLink from 'src/components/RedwoodLink'
-import TeamTable from 'src/components/TeamTable'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import RedwoodLink from 'src/components/RedwoodLink';
+import TeamTable from 'src/components/TeamTable';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
-import { useDeleteSeasonById } from './hooks/useDeleteSeasonById'
-import { useGetSeasonsByTeamId } from './hooks/useGetSeasonsByTeamId'
+import { useDeleteSeasonById } from './hooks/useDeleteSeasonById';
+import { useGetSeasonsByTeamId } from './hooks/useGetSeasonsByTeamId';
 
 const TeamSeasonSettings = () => {
-  const { seasons, loading } = useGetSeasonsByTeamId()
-  const { team } = useGetTeamById()
-  const { handleDeleteSeason } = useDeleteSeasonById()
+  const { seasons, loading } = useGetSeasonsByTeamId();
+  const { team } = useGetTeamById();
+  const { handleDeleteSeason } = useDeleteSeasonById();
 
-  if (loading) return null
+  if (loading) return null;
 
   return (
     <Box>
@@ -44,7 +44,7 @@ const TeamSeasonSettings = () => {
           theme="light"
           size="sm"
           entries={seasons?.map((season) => {
-            const seasonScoresAmount = season?.scores?.length
+            const seasonScoresAmount = season?.scores?.length;
 
             return {
               id: season?.id,
@@ -53,7 +53,7 @@ const TeamSeasonSettings = () => {
               'Aantal trainingen': season?.trainings.length,
               'Aantal wedstrijden': season?.games.length,
               'Aantal scores': seasonScoresAmount,
-            }
+            };
           })}
           hiddenColumns={['id']}
           routes={{
@@ -64,7 +64,7 @@ const TeamSeasonSettings = () => {
         />
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default TeamSeasonSettings
+export default TeamSeasonSettings;

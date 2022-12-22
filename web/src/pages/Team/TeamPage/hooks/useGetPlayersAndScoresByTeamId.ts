@@ -1,10 +1,10 @@
 import {
   GetPlayersAndScoresByTeamId,
   GetPlayersAndScoresByTeamIdVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useQuery } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth';
+import { useQuery } from '@redwoodjs/web';
 
 export const GET_PLAYERS_AND_SCORES_BY_TEAM_ID = gql`
   query GetPlayersAndScoresByTeamId($teamId: String!, $limit: Int) {
@@ -32,20 +32,20 @@ export const GET_PLAYERS_AND_SCORES_BY_TEAM_ID = gql`
       }
     }
   }
-`
+`;
 
 export const useGetPlayersAndScoresByTeamId = (amount?: number) => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   const { data: playersWithTotalScore, loading } = useQuery<
     GetPlayersAndScoresByTeamId,
     GetPlayersAndScoresByTeamIdVariables
   >(GET_PLAYERS_AND_SCORES_BY_TEAM_ID, {
     variables: { teamId: currentUser?.player?.teamId || '', limit: amount },
-  })
+  });
 
   return {
     playersWithTotalScore: playersWithTotalScore?.getPlayersAndScoresByTeamId,
     playersWithTotalScoreLoading: loading,
-  }
-}
+  };
+};

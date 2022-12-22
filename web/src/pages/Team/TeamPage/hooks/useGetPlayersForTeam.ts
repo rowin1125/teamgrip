@@ -1,10 +1,10 @@
 import {
   GetPlayersForTeamQuery,
   GetPlayersForTeamQueryVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useQuery } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth';
+import { useQuery } from '@redwoodjs/web';
 
 export const GET_PLAYERS_FOR_TEAM_QUERY = gql`
   query GetPlayersForTeamQuery($teamId: String!) {
@@ -33,17 +33,17 @@ export const GET_PLAYERS_FOR_TEAM_QUERY = gql`
       }
     }
   }
-`
+`;
 
 export const useGetPlayersForTeam = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   const { data: playersData, loading } = useQuery<
     GetPlayersForTeamQuery,
     GetPlayersForTeamQueryVariables
   >(GET_PLAYERS_FOR_TEAM_QUERY, {
     variables: { teamId: currentUser?.player?.teamId || '' },
-  })
+  });
 
-  return { playersData, playersLoading: loading }
-}
+  return { playersData, playersLoading: loading };
+};

@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Button, Flex } from '@chakra-ui/react'
-import { Form, Formik, FormikHelpers } from 'formik'
-import * as Yup from 'yup'
+import { Box, Button, Flex } from '@chakra-ui/react';
+import { Form, Formik, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import RedwoodLink from 'src/components/RedwoodLink'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type ResetPasswordFormProps = {
-  initialValues: Record<string, any>
-  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void
-  disabled?: boolean
-  showLoginLink?: boolean
-  loading?: boolean
-}
+  initialValues: Record<string, any>;
+  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void;
+  disabled?: boolean;
+  showLoginLink?: boolean;
+  loading?: boolean;
+};
 
 const ResetPasswordForm = ({
   initialValues,
@@ -28,7 +28,7 @@ const ResetPasswordForm = ({
       6,
       'Wachtwoord moet minimaal 6 karakters lang zijn...'
     ),
-  })
+  });
   return (
     <Formik
       initialValues={initialValues}
@@ -66,7 +66,7 @@ const ResetPasswordForm = ({
         </Flex>
       </Box>
     </Formik>
-  )
-}
+  );
+};
 
-export default ResetPasswordForm
+export default ResetPasswordForm;

@@ -1,20 +1,20 @@
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box, Button, Text } from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
-import RedwoodLink from '../RedwoodLink'
-import TextAlert from '../TextAlert/TextAlert'
+import RedwoodLink from '../RedwoodLink';
+import TextAlert from '../TextAlert/TextAlert';
 
 const NoSeasonAlert = () => {
-  const { isTeamStaff } = useTeamPlayerAuth()
-  const { team, loading } = useGetTeamById()
-  if (loading || !team?.id || !isTeamStaff) return null
+  const { isTeamStaff } = useTeamPlayerAuth();
+  const { team, loading } = useGetTeamById();
+  if (loading || !team?.id || !isTeamStaff) return null;
 
-  const someSeasonActive = team?.season.some((season) => season?.active)
-  if (someSeasonActive) return null
+  const someSeasonActive = team?.season.some((season) => season?.active);
+  if (someSeasonActive) return null;
 
   return (
     <Box mx={10}>
@@ -33,7 +33,7 @@ const NoSeasonAlert = () => {
         </Text>
       </TextAlert>
     </Box>
-  )
-}
+  );
+};
 
-export default NoSeasonAlert
+export default NoSeasonAlert;

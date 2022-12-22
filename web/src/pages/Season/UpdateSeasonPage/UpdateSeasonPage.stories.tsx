@@ -1,7 +1,7 @@
-import UpdateSeasonPage from './UpdateSeasonPage'
+import UpdateSeasonPage from './UpdateSeasonPage';
 
 export const generated = () => {
-  return <UpdateSeasonPage />
-}
+  return <UpdateSeasonPage />;
+};
 
-export default { title: 'Pages/UpdateSeasonPage' }
+export default { title: 'Pages/UpdateSeasonPage' };

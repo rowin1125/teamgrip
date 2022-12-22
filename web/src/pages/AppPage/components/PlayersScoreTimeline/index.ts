@@ -1,1 +1,1 @@
-export { default } from './PlayersScoreTimeline'
+export { default } from './PlayersScoreTimeline';

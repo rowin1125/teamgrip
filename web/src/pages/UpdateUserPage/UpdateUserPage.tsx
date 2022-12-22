@@ -1,18 +1,18 @@
-import { Grid, GridItem, Heading, Box, Button } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
+import { Grid, GridItem, Heading, Box, Button } from '@chakra-ui/react';
+import { Formik, Form } from 'formik';
 import {
   UpdateUserProfileMutation,
   UpdateUserProfileMutationVariables,
-} from 'types/graphql'
-import * as Yup from 'yup'
+} from 'types/graphql';
+import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags, useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { MetaTags, useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import Card from 'src/components/Card/Card'
-import ControlledInput from 'src/components/forms/components/ControlledInput'
+import Card from 'src/components/Card/Card';
+import ControlledInput from 'src/components/forms/components/ControlledInput';
 
 const UPDATE_USER_PROFILE = gql`
   mutation UpdateUserProfileMutation(
@@ -23,41 +23,41 @@ const UPDATE_USER_PROFILE = gql`
       id
     }
   }
-`
+`;
 
 const validationSchema = Yup.object().shape({
   firstname: Yup.string().required('Vul je voornaam in'),
   lastname: Yup.string().required('Vul je achternaam in'),
-})
+});
 
 const UpdateUserPage = () => {
-  const { currentUser, reauthenticate } = useAuth()
+  const { currentUser, reauthenticate } = useAuth();
 
   const [updateUserProfile, { loading }] = useMutation<
     UpdateUserProfileMutation,
     UpdateUserProfileMutationVariables
   >(UPDATE_USER_PROFILE, {
     onCompleted: reauthenticate,
-  })
+  });
 
   const onSubmit = async (
     data: UpdateUserProfileMutationVariables['input']
   ) => {
     if (!currentUser) {
-      toast.error('Fout met het ophalen van je gegevens')
-      return
+      toast.error('Fout met het ophalen van je gegevens');
+      return;
     }
     try {
       await updateUserProfile({
         variables: { input: data, id: currentUser.id },
-      })
-      toast.success('Profiel is succesvol aangepast 👍')
-      navigate(routes.settings())
+      });
+      toast.success('Profiel is succesvol aangepast 👍');
+      navigate(routes.settings());
     } catch (error) {
-      console.error(error)
-      toast.error('Oeps er is iets fout gegaan 😢')
+      console.error(error);
+      toast.error('Oeps er is iets fout gegaan 😢');
     }
-  }
+  };
 
   return (
     <>
@@ -100,7 +100,7 @@ const UpdateUserPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default UpdateUserPage
+export default UpdateUserPage;

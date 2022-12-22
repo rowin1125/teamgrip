@@ -1,43 +1,43 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
-import { Grid, GridItem, Heading } from '@chakra-ui/react'
-import { format } from 'date-fns'
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
+import { format } from 'date-fns';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import Card from 'src/components/Card/Card';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
-import GameForm from '../form/GameForm'
+import GameForm from '../form/GameForm';
 
-import { useGetGameById } from './hooks/useGetGameById'
-import { useUpdateGameById } from './hooks/useUpdateGameById'
+import { useGetGameById } from './hooks/useGetGameById';
+import { useUpdateGameById } from './hooks/useUpdateGameById';
 
 const UpdateGamePage = () => {
-  const { game, gameLoading } = useGetGameById()
-  const { team, loading } = useGetTeamById()
-  const [showTop, setShowTop] = React.useState(true)
+  const { game, gameLoading } = useGetGameById();
+  const { team, loading } = useGetTeamById();
+  const [showTop, setShowTop] = React.useState(true);
 
   const { handleUpdateGame, handleUpdateGameLoading } = useUpdateGameById(
     game?.id || '',
     showTop
-  )
+  );
 
-  const regularScores = game?.scores.filter((score) => score?.type === 'GAME')
+  const regularScores = game?.scores.filter((score) => score?.type === 'GAME');
   const topGameScores = game?.scores.filter(
     (score) => score?.type === 'TOP_GAME'
-  )
+  );
 
-  const hasTopGamesScores = !!topGameScores && topGameScores?.length > 0
+  const hasTopGamesScores = !!topGameScores && topGameScores?.length > 0;
 
   useEffect(() => {
-    if (!game) return
+    if (!game) return;
 
-    setShowTop(hasTopGamesScores)
+    setShowTop(hasTopGamesScores);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [game])
+  }, [game]);
 
-  if (handleUpdateGameLoading || loading || !game) return null
+  if (handleUpdateGameLoading || loading || !game) return null;
 
   const topGamesScoresArray = hasTopGamesScores
     ? topGameScores.map((score) => ({
@@ -55,7 +55,7 @@ const UpdateGamePage = () => {
         teamId: team?.id,
         gameId: game?.id,
         type: 'TOP_GAME',
-      }))
+      }));
 
   return (
     <>
@@ -96,7 +96,7 @@ const UpdateGamePage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default UpdateGamePage
+export default UpdateGamePage;

@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import { Menu, MenuButton, MenuList } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList } from '@chakra-ui/react';
 
 type FooterMenuItemWrapperProps = {
-  hasChildren: boolean
-  children: React.ReactNode
-  parentChildren?: React.ReactNode
-}
+  hasChildren: boolean;
+  children: React.ReactNode;
+  parentChildren?: React.ReactNode;
+};
 
 const FooterMenuItemWrapper = ({
   hasChildren,
@@ -14,7 +14,7 @@ const FooterMenuItemWrapper = ({
   children,
   parentChildren,
 }: FooterMenuItemWrapperProps) => {
-  if (!hasChildren) return <>{children}</>
+  if (!hasChildren) return <>{children}</>;
 
   return (
     <Menu placement="top-start">
@@ -25,7 +25,7 @@ const FooterMenuItemWrapper = ({
         {parentChildren}
       </MenuList>
     </Menu>
-  )
-}
+  );
+};
 
-export default FooterMenuItemWrapper
+export default FooterMenuItemWrapper;

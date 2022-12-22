@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { useSteps } from 'chakra-ui-steps'
-import { FormikHelpers } from 'formik'
+import { useSteps } from 'chakra-ui-steps';
+import { FormikHelpers } from 'formik';
 
-import { getInitialFormValues } from '../helpers/getInitialFormValues/getInitialFormValues'
+import { getInitialFormValues } from '../helpers/getInitialFormValues/getInitialFormValues';
 
 type UseStepperFormType = {
-  pages: StepperForm.FormConfigType['pages']
-  onSubmit: (values: StepperForm.FormValuesType) => void
-  initialValues?: Record<string, unknown>
-}
+  pages: StepperForm.FormConfigType['pages'];
+  onSubmit: (values: StepperForm.FormValuesType) => void;
+  initialValues?: Record<string, unknown>;
+};
 
 export const useStepperForm = ({
   pages,
@@ -22,35 +22,35 @@ export const useStepperForm = ({
     activeStep: activePage,
   } = useSteps({
     initialStep: 0,
-  })
-  const initialValues = getInitialFormValues(pages, apiInitialValues)
+  });
+  const initialValues = getInitialFormValues(pages, apiInitialValues);
 
-  const [snapshot, setSnapshot] = useState(initialValues)
-  const activePageConfig = pages[activePage]
-  const amountOfPages = pages.length
-  const isLastPage = activePage === amountOfPages - 1
+  const [snapshot, setSnapshot] = useState(initialValues);
+  const activePageConfig = pages[activePage];
+  const amountOfPages = pages.length;
+  const isLastPage = activePage === amountOfPages - 1;
 
   const next = (values: StepperForm.FormValuesType) => {
-    setSnapshot(values)
-    nextStep()
-  }
+    setSnapshot(values);
+    nextStep();
+  };
 
   const previous = (values: StepperForm.FormValuesType) => {
-    setSnapshot(values)
-    prevStep()
-  }
+    setSnapshot(values);
+    prevStep();
+  };
 
   const handleSubmit = async (
     values: StepperForm.FormValuesType,
     formikHelpers: FormikHelpers<Record<string, unknown>>
   ) => {
     if (isLastPage) {
-      return onSubmit(values)
+      return onSubmit(values);
     }
 
-    formikHelpers.setTouched({})
-    next(values)
-  }
+    formikHelpers.setTouched({});
+    next(values);
+  };
 
   return {
     activePageConfig,
@@ -61,5 +61,5 @@ export const useStepperForm = ({
     next,
     previous,
     handleSubmit,
-  }
-}
+  };
+};

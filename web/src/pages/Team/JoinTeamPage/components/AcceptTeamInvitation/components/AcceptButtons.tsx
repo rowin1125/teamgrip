@@ -1,33 +1,33 @@
-import React from 'react'
+import React from 'react';
 
-import { Flex, Button } from '@chakra-ui/react'
+import { Flex, Button } from '@chakra-ui/react';
 import {
   FindTeamByInvitationTokenQuery,
   GetPlayerByGhostInvitationQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
 
-import { useTeamInvitation } from '../../../hooks/useTeamInvitation'
+import { useTeamInvitation } from '../../../hooks/useTeamInvitation';
 
 type AcceptButtonsProps = {
-  team: FindTeamByInvitationTokenQuery['teamByInvitationToken']
-  ghostPlayer: GetPlayerByGhostInvitationQuery['getGhostPlayerByInvitation']
-}
+  team: FindTeamByInvitationTokenQuery['teamByInvitationToken'];
+  ghostPlayer: GetPlayerByGhostInvitationQuery['getGhostPlayerByInvitation'];
+};
 
 const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   const {
     handleJoinTeam,
     loading,
     handleDeleteTeamInvitation,
     handleJoinTeamAsGhost,
-  } = useTeamInvitation()
+  } = useTeamInvitation();
 
-  const hasGhostPlayer = !!ghostPlayer?.id
-  const playerHasInvitation = currentUser?.player?.teamInvitation
+  const hasGhostPlayer = !!ghostPlayer?.id;
+  const playerHasInvitation = currentUser?.player?.teamInvitation;
 
   return (
     <Flex mt={2} justifyContent="flex-end">
@@ -74,7 +74,7 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
         </Button>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default AcceptButtons
+export default AcceptButtons;

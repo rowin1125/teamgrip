@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Flex,
@@ -10,15 +10,15 @@ import {
   Switch,
   SwitchProps,
   Text,
-} from '@chakra-ui/react'
-import { useField } from 'formik'
+} from '@chakra-ui/react';
+import { useField } from 'formik';
 
 type ControlledSwitchProps = {
-  id: string
-  switchProps?: SwitchProps
-  labelProps?: FormLabelProps
-  helperText?: string
-} & FormControlProps
+  id: string;
+  switchProps?: SwitchProps;
+  labelProps?: FormLabelProps;
+  helperText?: string;
+} & FormControlProps;
 
 const ControlledSwitch = ({
   id,
@@ -29,7 +29,7 @@ const ControlledSwitch = ({
   helperText,
   ...rest
 }: ControlledSwitchProps) => {
-  const [field, { error, touched }] = useField(id)
+  const [field, { error, touched }] = useField(id);
 
   return (
     <FormControl name={id} {...rest}>
@@ -53,7 +53,7 @@ const ControlledSwitch = ({
       </Flex>
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
-  )
-}
+  );
+};
 
-export default ControlledSwitch
+export default ControlledSwitch;

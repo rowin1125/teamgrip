@@ -1,29 +1,29 @@
-import { Button, Flex, Grid, GridItem, Heading, Icon } from '@chakra-ui/react'
-import { format } from 'date-fns'
-import { AiOutlineEdit } from 'react-icons/ai'
+import { Button, Flex, Grid, GridItem, Heading, Icon } from '@chakra-ui/react';
+import { format } from 'date-fns';
+import { AiOutlineEdit } from 'react-icons/ai';
 
-import { routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import DataDisplay from 'src/components/DataDisplay/DataDisplay'
-import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader'
-import RedwoodLink from 'src/components/RedwoodLink'
-import TeamTable from 'src/components/TeamTable'
-import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+import Card from 'src/components/Card/Card';
+import DataDisplay from 'src/components/DataDisplay/DataDisplay';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
+import RedwoodLink from 'src/components/RedwoodLink';
+import TeamTable from 'src/components/TeamTable';
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper';
 
-import { useGetTrainingById } from '../UpdateTrainingPage/hooks/useGetTrainingById'
+import { useGetTrainingById } from '../UpdateTrainingPage/hooks/useGetTrainingById';
 
 const TrainingDetailPage = () => {
-  const { training, trainingLoading } = useGetTrainingById()
+  const { training, trainingLoading } = useGetTrainingById();
 
   const topTrainingScores = training?.scores?.filter(
     (score) => score?.type === 'TOP_TRAINING'
-  )
+  );
   const regularTrainingScores = training?.scores?.filter(
     (score) => score?.type === 'TRAINING'
-  )
-  const hasTopTrainings = topTrainingScores && topTrainingScores?.length > 0
+  );
+  const hasTopTrainings = topTrainingScores && topTrainingScores?.length > 0;
 
   return (
     <>
@@ -114,12 +114,12 @@ const TrainingDetailPage = () => {
                 theme="light"
                 entries={topTrainingScores
                   ?.sort((scoreA, scoreB) => {
-                    const scoreAIsNumber = typeof scoreA?.points === 'number'
-                    const scoreBIsNumber = typeof scoreB?.points === 'number'
+                    const scoreAIsNumber = typeof scoreA?.points === 'number';
+                    const scoreBIsNumber = typeof scoreB?.points === 'number';
                     if (scoreAIsNumber && scoreBIsNumber) {
-                      return scoreB?.points - scoreA?.points
+                      return scoreB?.points - scoreA?.points;
                     }
-                    return 0
+                    return 0;
                   })
                   ?.map((score, index) => ({
                     Rank: index + 1,
@@ -146,12 +146,12 @@ const TrainingDetailPage = () => {
               size="md"
               entries={regularTrainingScores
                 ?.sort((scoreA, scoreB) => {
-                  const scoreAIsNumber = typeof scoreA?.points === 'number'
-                  const scoreBIsNumber = typeof scoreB?.points === 'number'
+                  const scoreAIsNumber = typeof scoreA?.points === 'number';
+                  const scoreBIsNumber = typeof scoreB?.points === 'number';
                   if (scoreAIsNumber && scoreBIsNumber) {
-                    return scoreB?.points - scoreA?.points
+                    return scoreB?.points - scoreA?.points;
                   }
-                  return 0
+                  return 0;
                 })
                 ?.map((score, index) => ({
                   Rank: index + 1,
@@ -164,7 +164,7 @@ const TrainingDetailPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default TrainingDetailPage
+export default TrainingDetailPage;

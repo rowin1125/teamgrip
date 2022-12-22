@@ -2,25 +2,25 @@ import type {
   QueryResolvers,
   MutationResolvers,
   AvatarRelationResolvers,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { db } from 'src/lib/db'
+import { db } from 'src/lib/db';
 
 export const avatars: QueryResolvers['avatars'] = () => {
-  return db.avatar.findMany()
-}
+  return db.avatar.findMany();
+};
 
 export const avatar: QueryResolvers['avatar'] = ({ id }) => {
   return db.avatar.findUnique({
     where: { id },
-  })
-}
+  });
+};
 
 export const createAvatar: MutationResolvers['createAvatar'] = ({ input }) => {
   return db.avatar.create({
     data: input,
-  })
-}
+  });
+};
 
 export const updateAvatar: MutationResolvers['updateAvatar'] = ({
   id,
@@ -29,16 +29,16 @@ export const updateAvatar: MutationResolvers['updateAvatar'] = ({
   return db.avatar.update({
     data: input,
     where: { id },
-  })
-}
+  });
+};
 
 export const deleteAvatar: MutationResolvers['deleteAvatar'] = ({ id }) => {
   return db.avatar.delete({
     where: { id },
-  })
-}
+  });
+};
 
 export const Avatar: AvatarRelationResolvers = {
   user: (_obj, { root }) =>
     db.avatar.findUnique({ where: { id: root.id } }).user(),
-}
+};

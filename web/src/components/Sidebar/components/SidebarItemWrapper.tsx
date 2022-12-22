@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Menu, MenuButton, MenuList } from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 
 type SidebarItemWrapperProps = {
-  hasChildren: boolean
-  isOpen: boolean
-  onOpen: () => void
-  onClose: () => void
-  children: React.ReactNode
-  isLast?: boolean
-  parentChildren?: React.ReactNode
-}
+  hasChildren: boolean;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  children: React.ReactNode;
+  isLast?: boolean;
+  parentChildren?: React.ReactNode;
+};
 
 const SidebarItemWrapper = ({
   hasChildren,
@@ -30,7 +30,7 @@ const SidebarItemWrapper = ({
       >
         {children}
       </Box>
-    )
+    );
 
   return (
     <Menu isOpen={isOpen} placement="right-start">
@@ -53,7 +53,7 @@ const SidebarItemWrapper = ({
         {parentChildren}
       </MenuList>
     </Menu>
-  )
-}
+  );
+};
 
-export default SidebarItemWrapper
+export default SidebarItemWrapper;

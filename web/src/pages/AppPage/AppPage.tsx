@@ -1,22 +1,22 @@
-import { Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import PlayerCard from 'src/components/PlayerCard/PlayerCard'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import PlayerCard from 'src/components/PlayerCard/PlayerCard';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
-import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage'
+import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage';
 
-import PlayerRecentGames from './components/PlayerRecentGames'
-import PlayerRecentTrainings from './components/PlayerRecentTrainings'
-import PlayersScoreTimeline from './components/PlayersScoreTimeline'
-import TeamPresence from './components/TeamPresence'
-import TopTeamPlayers from './components/TopTeamPlayers'
+import PlayerRecentGames from './components/PlayerRecentGames';
+import PlayerRecentTrainings from './components/PlayerRecentTrainings';
+import PlayersScoreTimeline from './components/PlayersScoreTimeline';
+import TeamPresence from './components/TeamPresence';
+import TopTeamPlayers from './components/TopTeamPlayers';
 
 const AppPage = () => {
-  const { team, loading } = useGetTeamById()
-  const { isActivePlayer } = useTeamPlayerAuth()
+  const { team, loading } = useGetTeamById();
+  const { isActivePlayer } = useTeamPlayerAuth();
 
   if (!team?.id && !loading)
     return (
@@ -27,7 +27,7 @@ const AppPage = () => {
         />
         <TeamNotFoundMessage title="Mijn Dashboard" />
       </>
-    )
+    );
 
   return (
     <>
@@ -85,7 +85,7 @@ const AppPage = () => {
         <TeamPresence />
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default AppPage
+export default AppPage;

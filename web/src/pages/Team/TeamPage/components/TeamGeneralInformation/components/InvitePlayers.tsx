@@ -1,15 +1,15 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import { FindTeamQuery } from 'types/graphql'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { FindTeamQuery } from 'types/graphql';
 
-import ConnectGhostToUserInvite from './ModalTabs/ConnectGhostToUserInvite'
-import ControlTeamInviteTab from './ModalTabs/ControlTeamInviteTab'
-import InviteGhostTab from './ModalTabs/InviteGhostTab'
+import ConnectGhostToUserInvite from './ModalTabs/ConnectGhostToUserInvite';
+import ControlTeamInviteTab from './ModalTabs/ControlTeamInviteTab';
+import InviteGhostTab from './ModalTabs/InviteGhostTab';
 
 type InvitePlayersProps = {
-  team?: FindTeamQuery['team']
-  defaultIndex?: number
-  onClose: () => void
-}
+  team?: FindTeamQuery['team'];
+  defaultIndex?: number;
+  onClose: () => void;
+};
 
 const InvitePlayers = ({ team, defaultIndex, onClose }: InvitePlayersProps) => {
   return (
@@ -32,7 +32,7 @@ const InvitePlayers = ({ team, defaultIndex, onClose }: InvitePlayersProps) => {
         </TabPanel>
       </TabPanels>
     </Tabs>
-  )
-}
+  );
+};
 
-export default InvitePlayers
+export default InvitePlayers;

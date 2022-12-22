@@ -12,27 +12,27 @@ import {
   ModalHeader,
   ModalOverlay,
   UseDisclosureProps,
-} from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
-import { AiOutlineEdit } from 'react-icons/ai'
-import * as Yup from 'yup'
+} from '@chakra-ui/react';
+import { Form, Formik } from 'formik';
+import { AiOutlineEdit } from 'react-icons/ai';
+import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth'
+import { useAuth } from '@redwoodjs/auth';
 
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
-import { useUpdatePlayerById } from '../hooks/useUpdatePlayerById'
+import { useUpdatePlayerById } from '../hooks/useUpdatePlayerById';
 
 type TeamPlayerSettingsEditPlayerTypeProps = UseDisclosureProps & {
-  entries?: Record<string, any>[]
-  row: Record<string, any>
-  rowIsOwner?: boolean
-}
+  entries?: Record<string, any>[];
+  row: Record<string, any>;
+  rowIsOwner?: boolean;
+};
 
 const validationSchema = Yup.object().shape({
   playerType: Yup.string().required('Type speler is verplicht'),
-})
+});
 
 const TeamPlayerSettingsEditPlayerType = ({
   isOpen,
@@ -42,24 +42,24 @@ const TeamPlayerSettingsEditPlayerType = ({
   row,
   rowIsOwner,
 }: TeamPlayerSettingsEditPlayerTypeProps) => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const { handleUpdatePlayer, handleUpdatePlayerLoading } = useUpdatePlayerById(
     {
       onClose: onClose || (() => {}),
     }
-  )
-  if (!onClose || !onOpen) return null
+  );
+  if (!onClose || !onOpen) return null;
 
-  const uniquePlayerType = new Set()
+  const uniquePlayerType = new Set();
   entries?.forEach((entry) => {
-    uniquePlayerType.add(entry['Spelers rol'])
-  })
+    uniquePlayerType.add(entry['Spelers rol']);
+  });
 
   const selectOptions = Array.from(uniquePlayerType).map((playerType) => ({
     label: playerType as string,
     value: playerType as string,
-  }))
-  const isCurrentPlayerRole = row?.id === currentUser?.player?.id
+  }));
+  const isCurrentPlayerRole = row?.id === currentUser?.player?.id;
 
   return (
     <>
@@ -134,7 +134,7 @@ const TeamPlayerSettingsEditPlayerType = ({
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default TeamPlayerSettingsEditPlayerType
+export default TeamPlayerSettingsEditPlayerType;

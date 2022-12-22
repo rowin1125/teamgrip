@@ -1,4 +1,4 @@
-import { mode, Styles } from '@chakra-ui/theme-tools'
+import { mode, Styles } from '@chakra-ui/theme-tools';
 
 export const styles: Styles = {
   global: (props) => ({
@@ -7,4 +7,4 @@ export const styles: Styles = {
       bg: mode('gray.100', 'gray.800')(props),
     },
   }),
-}
+};

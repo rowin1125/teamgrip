@@ -1,19 +1,19 @@
-import { Box, Fade, Flex, Spinner } from '@chakra-ui/react'
+import { Box, Fade, Flex, Spinner } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
+import { useAuth } from '@redwoodjs/auth';
 
-import Avatar from '../Avatar/Avatar'
+import Avatar from '../Avatar/Avatar';
 
-import dutchFlag from './dutch-flag.png'
-import playerCard from './fifa-player-card.png'
-import { useGetPlayerScoresByTeamId } from './hooks/useGetPlayerScoresByTeamId'
+import dutchFlag from './dutch-flag.png';
+import playerCard from './fifa-player-card.png';
+import { useGetPlayerScoresByTeamId } from './hooks/useGetPlayerScoresByTeamId';
 
-import './PLayerCard.scss'
+import './PLayerCard.scss';
 
 const PlayerCard = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const { playerWithTotalScore, playerWithTotalScoreLoading } =
-    useGetPlayerScoresByTeamId()
+    useGetPlayerScoresByTeamId();
 
   return (
     <Box
@@ -119,7 +119,7 @@ const PlayerCard = () => {
         {/* Player Card Bottom*/}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default PlayerCard
+export default PlayerCard;

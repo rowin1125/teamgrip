@@ -1,7 +1,7 @@
-import ChartHasDataWrapper from './ChartHasDataWrapper'
+import ChartHasDataWrapper from './ChartHasDataWrapper';
 
 export const generated = () => {
-  return <ChartHasDataWrapper entries={[]}>hi</ChartHasDataWrapper>
-}
+  return <ChartHasDataWrapper entries={[]}>hi</ChartHasDataWrapper>;
+};
 
-export default { title: 'Components/ChartHasDataWrapper' }
+export default { title: 'Components/ChartHasDataWrapper' };

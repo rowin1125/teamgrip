@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import GhostAvatar from './GhostAvatar'
+import GhostAvatar from './GhostAvatar';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import GhostAvatar from './GhostAvatar'
 describe('GhostAvatar', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<GhostAvatar />)
-    }).not.toThrow()
-  })
-})
+      render(<GhostAvatar />);
+    }).not.toThrow();
+  });
+});

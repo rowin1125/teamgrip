@@ -1,20 +1,20 @@
-import { Box, Heading, Text } from '@chakra-ui/react'
-import { FindTeamQuery } from 'types/graphql'
+import { Box, Heading, Text } from '@chakra-ui/react';
+import { FindTeamQuery } from 'types/graphql';
 
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
-import ValidateTeamInvitation from '../../ValidateTeamInvitation'
+import ValidateTeamInvitation from '../../ValidateTeamInvitation';
 
-import GhostPlayerUniqueInvite from './components/GhostPlayerUniqueInvite'
-import { useGetGhostsPlayersForTeam } from './hooks/useGetGhostsPlayersForTeam'
+import GhostPlayerUniqueInvite from './components/GhostPlayerUniqueInvite';
+import { useGetGhostsPlayersForTeam } from './hooks/useGetGhostsPlayersForTeam';
 
 type ConnectGhostToUserInviteProps = {
-  team?: FindTeamQuery['team']
-  onClose: () => void
-}
+  team?: FindTeamQuery['team'];
+  onClose: () => void;
+};
 
 const ConnectGhostToUserInvite = ({ team }: ConnectGhostToUserInviteProps) => {
-  const { ghostPlayers } = useGetGhostsPlayersForTeam()
+  const { ghostPlayers } = useGetGhostsPlayersForTeam();
 
   return (
     <ValidateTeamInvitation team={team}>
@@ -38,11 +38,11 @@ const ConnectGhostToUserInvite = ({ team }: ConnectGhostToUserInviteProps) => {
               ghost={ghost}
               team={team}
             />
-          )
+          );
         })}
       </Box>
     </ValidateTeamInvitation>
-  )
-}
+  );
+};
 
-export default ConnectGhostToUserInvite
+export default ConnectGhostToUserInvite;

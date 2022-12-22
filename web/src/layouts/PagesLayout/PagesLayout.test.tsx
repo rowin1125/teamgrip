@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import PagesLayout from './PagesLayout'
+import PagesLayout from './PagesLayout';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import PagesLayout from './PagesLayout'
 describe('PagesLayout', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<PagesLayout />)
-    }).not.toThrow()
-  })
-})
+      render(<PagesLayout />);
+    }).not.toThrow();
+  });
+});

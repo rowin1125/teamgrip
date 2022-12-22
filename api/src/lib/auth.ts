@@ -1,8 +1,8 @@
-import { PlayerType, User } from 'types/graphql'
+import { PlayerType, User } from 'types/graphql';
 
-import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
+import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server';
 
-import { db } from './db'
+import { db } from './db';
 
 /**
  * The session object sent in as the first argument to getCurrentUser() will
@@ -23,40 +23,40 @@ import { db } from './db'
  */
 
 type MyCurrentUser = {
-  id: string
-  email: string
-  verified: boolean
-  roles: User['roles']
+  id: string;
+  email: string;
+  verified: boolean;
+  roles: User['roles'];
   userProfile: {
-    firstname: string | null
-    lastname: string | null
-  } | null
+    firstname: string | null;
+    lastname: string | null;
+  } | null;
   player: {
-    id: string
-    teamId: string | null
-    teamInvitation: string | null
-    playerType: PlayerType
-    isActivePlayer: boolean
-    clubId: string | null
-  } | null
+    id: string;
+    teamId: string | null;
+    teamInvitation: string | null;
+    playerType: PlayerType;
+    isActivePlayer: boolean;
+    clubId: string | null;
+  } | null;
   avatar: {
-    id: string
-    avatarStyle: string
-    topType: string
-    accessoriesType: string
-    hatColor: string
-    hairColor: string
-    facialHairType: string
-    facialHairColor: string
-    clotheType: string
-    clotheColor: string
-    graphicType: string
-    eyeType: string
-    eyebrowType: string
-    mouthType: string
-    skinColor: string
-  } | null
-}
+    id: string;
+    avatarStyle: string;
+    topType: string;
+    accessoriesType: string;
+    hatColor: string;
+    hairColor: string;
+    facialHairType: string;
+    facialHairColor: string;
+    clotheType: string;
+    clotheColor: string;
+    graphicType: string;
+    eyeType: string;
+    eyebrowType: string;
+    mouthType: string;
+    skinColor: string;
+  } | null;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getCurrentUser = async ({ id }: any): Promise<MyCurrentUser> => {
@@ -103,14 +103,14 @@ export const getCurrentUser = async ({ id }: any): Promise<MyCurrentUser> => {
         },
       },
     },
-  })
+  });
 
   if (!user) {
-    throw new AuthenticationError('User not found')
+    throw new AuthenticationError('User not found');
   }
 
-  return user
-}
+  return user;
+};
 
 /**
  * The user is authenticated if there is a currentUser in the context
@@ -118,14 +118,14 @@ export const getCurrentUser = async ({ id }: any): Promise<MyCurrentUser> => {
  * @returns {boolean} - If the currentUser is authenticated
  */
 export const isAuthenticated = (): boolean => {
-  return !!context.currentUser
-}
+  return !!context.currentUser;
+};
 
 /**
  * When checking role membership, roles can be a single value, a list, or none.
  * You can use Prisma enums too (if you're using them for roles), just import your enum type from `@prisma/client`
  */
-type AllowedRoles = string | string[] | undefined
+type AllowedRoles = string | string[] | undefined;
 
 /**
  * Checks if the currentUser is authenticated (and assigned one of the given roles)
@@ -137,18 +137,18 @@ type AllowedRoles = string | string[] | undefined
  */
 export const hasRole = (roles: AllowedRoles): boolean => {
   if (!isAuthenticated()) {
-    return false
+    return false;
   }
 
-  const currentUserRoles = context.currentUser?.roles as AllowedRoles
+  const currentUserRoles = context.currentUser?.roles as AllowedRoles;
 
   if (typeof roles === 'string') {
     if (typeof currentUserRoles === 'string') {
       // roles to check is a string, currentUser.roles is a string
-      return currentUserRoles === roles
+      return currentUserRoles === roles;
     } else if (Array.isArray(currentUserRoles)) {
       // roles to check is a string, currentUser.roles is an array
-      return currentUserRoles?.some((allowedRole) => roles === allowedRole)
+      return currentUserRoles?.some((allowedRole) => roles === allowedRole);
     }
   }
 
@@ -157,18 +157,18 @@ export const hasRole = (roles: AllowedRoles): boolean => {
       // roles to check is an array, currentUser.roles is an array
       return currentUserRoles?.some((allowedRole) =>
         roles.includes(allowedRole)
-      )
+      );
     } else if (typeof context.currentUser?.roles === 'string') {
       // roles to check is an array, currentUser.roles is a string
       return roles.some(
         (allowedRole) => context.currentUser?.roles === allowedRole
-      )
+      );
     }
   }
 
   // roles not found
-  return false
-}
+  return false;
+};
 
 /**
  * Use requireAuth in your services to check that a user is logged in,
@@ -186,10 +186,10 @@ export const hasRole = (roles: AllowedRoles): boolean => {
  */
 export const requireAuth = ({ roles }: { roles: AllowedRoles }) => {
   if (!isAuthenticated()) {
-    throw new AuthenticationError("You don't have permission to do that.")
+    throw new AuthenticationError("You don't have permission to do that.");
   }
 
   if (roles && !hasRole(roles)) {
-    throw new ForbiddenError("You don't have access to do that.")
+    throw new ForbiddenError("You don't have access to do that.");
   }
-}
+};

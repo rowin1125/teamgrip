@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-import { Heading, Text } from '@chakra-ui/react'
+import { Heading, Text } from '@chakra-ui/react';
 
-import Card from 'src/components/Card/Card'
-import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader'
-import TeamTable from 'src/components/TeamTable'
-import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
-import { useGetPlayersAndScoresByTeamId } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId'
+import Card from 'src/components/Card/Card';
+import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
+import TeamTable from 'src/components/TeamTable';
+import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
+import { useGetPlayersAndScoresByTeamId } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
 
 type TopTeamPlayersProps = {
-  amount?: number
-}
+  amount?: number;
+};
 
 const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
   const { playersWithTotalScore, playersWithTotalScoreLoading } =
-    useGetPlayersAndScoresByTeamId(amount)
+    useGetPlayersAndScoresByTeamId(amount);
 
   return (
     <Card w="100%" bg="primary.500" color="white" overflowX="auto" h="full">
@@ -43,7 +43,7 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
         </SeasonLockWrapper>
       </SpinnerLoader>
     </Card>
-  )
-}
+  );
+};
 
-export default TopTeamPlayers
+export default TopTeamPlayers;

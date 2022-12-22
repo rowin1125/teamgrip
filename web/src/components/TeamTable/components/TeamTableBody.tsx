@@ -1,32 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-key */
 
-import { Tbody, Td, Tr } from '@chakra-ui/react'
-import { Row, TableBodyPropGetter, TableCommonProps } from 'react-table'
+import { Tbody, Td, Tr } from '@chakra-ui/react';
+import { Row, TableBodyPropGetter, TableCommonProps } from 'react-table';
 
-import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper';
 
-import { UseTeamTableReturnType } from '../hooks/useTeamTable'
+import { UseTeamTableReturnType } from '../hooks/useTeamTable';
 
-import TableDataMachine from './TableDataMachine'
-import TeamTableActionButtons from './TeamTableActionButtons'
+import TableDataMachine from './TableDataMachine';
+import TeamTableActionButtons from './TeamTableActionButtons';
 
 type TeamTableBodyProps = {
-  rows: Row<UseTeamTableReturnType>[]
-  prepareRow: (row: Row<UseTeamTableReturnType>) => void
+  rows: Row<UseTeamTableReturnType>[];
+  prepareRow: (row: Row<UseTeamTableReturnType>) => void;
   getTableBodyProps: (
     propGetter?: TableBodyPropGetter<UseTeamTableReturnType> | undefined
-  ) => TableCommonProps
+  ) => TableCommonProps;
   routes?: {
-    detail?: (params?: any) => string
-    update?: (params?: any) => string
-  }
-  onDelete?: (id: string) => Promise<void>
-  hiddenColumns?: string[]
-  showActions?: boolean
-  theme?: 'dark' | 'light'
-  size?: 'sm' | 'md' | 'lg'
-}
+    detail?: (params?: any) => string;
+    update?: (params?: any) => string;
+  };
+  onDelete?: (id: string) => Promise<void>;
+  hiddenColumns?: string[];
+  showActions?: boolean;
+  theme?: 'dark' | 'light';
+  size?: 'sm' | 'md' | 'lg';
+};
 
 const TeamTableBody = ({
   rows,
@@ -41,7 +41,7 @@ const TeamTableBody = ({
   return (
     <Tbody {...getTableBodyProps()}>
       {rows.map((row) => {
-        prepareRow(row)
+        prepareRow(row);
 
         return (
           <Tr {...row.getRowProps()}>
@@ -67,10 +67,10 @@ const TeamTableBody = ({
               </PlayerIsStaffWrapper>
             )}
           </Tr>
-        )
+        );
       })}
     </Tbody>
-  )
-}
+  );
+};
 
-export default TeamTableBody
+export default TeamTableBody;

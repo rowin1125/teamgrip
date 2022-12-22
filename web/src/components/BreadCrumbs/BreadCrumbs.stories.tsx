@@ -1,7 +1,7 @@
-import BreadCrumbs from './BreadCrumbs'
+import BreadCrumbs from './BreadCrumbs';
 
 export const generated = () => {
-  return <BreadCrumbs />
-}
+  return <BreadCrumbs />;
+};
 
-export default { title: 'Components/BreadCrumbs' }
+export default { title: 'Components/BreadCrumbs' };

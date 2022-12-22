@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, GridItem, Heading } from '@chakra-ui/react'
+import { Box, GridItem, Heading } from '@chakra-ui/react';
 
-import Card from 'src/components/Card/Card'
-import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader'
-import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
+import Card from 'src/components/Card/Card';
+import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
+import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
 
-import ScoreTimeline from './components/ScoreTimeline'
-import { useGetAllGamesAndTrainingsByTeamId } from './hooks/useGetAllGamesAndTrainingsByTeamId'
+import ScoreTimeline from './components/ScoreTimeline';
+import { useGetAllGamesAndTrainingsByTeamId } from './hooks/useGetAllGamesAndTrainingsByTeamId';
 
 const PlayersScoreTimeline = () => {
-  const { allGamesAndTrainings, loading } = useGetAllGamesAndTrainingsByTeamId()
+  const { allGamesAndTrainings, loading } =
+    useGetAllGamesAndTrainingsByTeamId();
 
   return (
     <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
@@ -28,7 +29,7 @@ const PlayersScoreTimeline = () => {
         </SpinnerLoader>
       </Card>
     </GridItem>
-  )
-}
+  );
+};
 
-export default PlayersScoreTimeline
+export default PlayersScoreTimeline;

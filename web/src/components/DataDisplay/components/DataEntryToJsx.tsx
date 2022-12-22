@@ -1,40 +1,40 @@
-import { Box } from '@chakra-ui/react'
-import { nanoid } from 'nanoid'
+import { Box } from '@chakra-ui/react';
+import { nanoid } from 'nanoid';
 
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import { ApiEntriesTypes, DataDisplayProps } from '../DataDisplay'
+import { ApiEntriesTypes, DataDisplayProps } from '../DataDisplay';
 
-import DisplayArrayField from './DisplayArrayField'
-import DisplayEntryValue from './DisplayEntryValue'
-import DisplayObjectField from './DisplayObjectField'
+import DisplayArrayField from './DisplayArrayField';
+import DisplayEntryValue from './DisplayEntryValue';
+import DisplayObjectField from './DisplayObjectField';
 
 type DataEntryToJsxProps = {
-  isNested: boolean
-} & DataDisplayProps
+  isNested: boolean;
+} & DataDisplayProps;
 
 const DataEntryToJsx = ({
   entry,
   isNested,
   ignoreKeys,
 }: DataEntryToJsxProps) => {
-  if (!entry) return null
+  if (!entry) return null;
 
-  const keys = Object.keys(entry) as (keyof ApiEntriesTypes)[]
+  const keys = Object.keys(entry) as (keyof ApiEntriesTypes)[];
   return (
     <>
       {keys.map((key) => {
-        if (ignoreKeys?.includes(key)) return null
+        if (ignoreKeys?.includes(key)) return null;
 
-        const value = entry[key]
-        const isObject = value !== null && typeof value === 'object'
-        const isArray = Array.isArray(value)
+        const value = entry[key];
+        const isObject = value !== null && typeof value === 'object';
+        const isArray = Array.isArray(value);
 
-        let FieldComponent
+        let FieldComponent;
         if (isArray) {
-          FieldComponent = <DisplayArrayField objectKey={key} entry={value} />
+          FieldComponent = <DisplayArrayField objectKey={key} entry={value} />;
         } else if (isObject) {
-          FieldComponent = <DisplayObjectField objectKey={key} value={value} />
+          FieldComponent = <DisplayObjectField objectKey={key} value={value} />;
         } else {
           FieldComponent = (
             <DisplayEntryValue
@@ -42,7 +42,7 @@ const DataEntryToJsx = ({
               value={value}
               isNested={isNested}
             />
-          )
+          );
         }
 
         return (
@@ -61,10 +61,10 @@ const DataEntryToJsx = ({
           >
             {FieldComponent}
           </Box>
-        )
+        );
       })}
     </>
-  )
-}
+  );
+};
 
-export default DataEntryToJsx
+export default DataEntryToJsx;

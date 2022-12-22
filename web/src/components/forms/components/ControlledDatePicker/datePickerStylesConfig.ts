@@ -1,7 +1,7 @@
-import { FormatXMLElementFn, PrimitiveType } from 'intl-messageformat'
-import { MessageDescriptor } from 'react-intl'
+import { FormatXMLElementFn, PrimitiveType } from 'intl-messageformat';
+import { MessageDescriptor } from 'react-intl';
 
-import datePicker from '@/translations/backoffice/datePicker'
+import datePicker from '@/translations/backoffice/datePicker';
 
 export const datePickerStylesConfig = {
   dayOfMonthBtnProps: {
@@ -27,12 +27,12 @@ export const datePickerStylesConfig = {
       color: 'white',
     },
   },
-}
+};
 type FormatMessageFunc = (
   descriptor: MessageDescriptor,
   values?: Record<string, PrimitiveType | FormatXMLElementFn<string, string>>,
   opts?: Record<string, unknown>
-) => string
+) => string;
 
 export const datePickerDateConfig = (t: FormatMessageFunc) => {
   return {
@@ -63,5 +63,5 @@ export const datePickerDateConfig = (t: FormatMessageFunc) => {
       t(datePicker.datePickerNovember),
       t(datePicker.datePickerDecember),
     ],
-  }
-}
+  };
+};

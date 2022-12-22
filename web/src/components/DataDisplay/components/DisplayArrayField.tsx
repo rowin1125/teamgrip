@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { Box } from '@chakra-ui/react'
-import { nanoid } from 'nanoid'
+import { Box } from '@chakra-ui/react';
+import { nanoid } from 'nanoid';
 
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import { ApiEntriesTypes } from '../DataDisplay'
+import { ApiEntriesTypes } from '../DataDisplay';
 
-import DataEntryToJsx from './DataEntryToJsx'
+import DataEntryToJsx from './DataEntryToJsx';
 
 type DisplayArrayFieldsProps = {
-  entry: ApiEntriesTypes[]
-  objectKey: string
-}
+  entry: ApiEntriesTypes[];
+  objectKey: string;
+};
 
 const DisplayArrayFields = ({ entry, objectKey }: DisplayArrayFieldsProps) => (
   <Box w="100%" as="dd">
@@ -23,6 +23,6 @@ const DisplayArrayFields = ({ entry, objectKey }: DisplayArrayFieldsProps) => (
       <DataEntryToJsx key={nanoid()} entry={item} isNested={true} />
     ))}
   </Box>
-)
+);
 
-export default DisplayArrayFields
+export default DisplayArrayFields;

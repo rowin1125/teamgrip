@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Grid,
@@ -8,26 +8,26 @@ import {
   Heading,
   Button,
   Text,
-} from '@chakra-ui/react'
-import Avatar from 'avataaars'
+} from '@chakra-ui/react';
+import Avatar from 'avataaars';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
 
-import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
+import Card from 'src/components/Card/Card';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type TeamNotFoundMessageProps = {
-  title: string
-  type?: 'team' | 'club'
-}
+  title: string;
+  type?: 'team' | 'club';
+};
 
 const TeamNotFoundMessage = ({
   title,
   type = 'team',
 }: TeamNotFoundMessageProps) => {
-  const { currentUser } = useAuth()
-  const invitationToken = currentUser?.player?.teamInvitation
+  const { currentUser } = useAuth();
+  const invitationToken = currentUser?.player?.teamInvitation;
 
   return (
     <Grid gridTemplateColumns="repeat(12, 1fr)" gridGap={4}>
@@ -91,7 +91,7 @@ const TeamNotFoundMessage = ({
         </Card>
       </GridItem>
     </Grid>
-  )
-}
+  );
+};
 
-export default TeamNotFoundMessage
+export default TeamNotFoundMessage;

@@ -1,30 +1,30 @@
-import { Button, Flex, Grid, GridItem, Heading, Icon } from '@chakra-ui/react'
-import { format } from 'date-fns'
-import { AiOutlineEdit } from 'react-icons/ai'
+import { Button, Flex, Grid, GridItem, Heading, Icon } from '@chakra-ui/react';
+import { format } from 'date-fns';
+import { AiOutlineEdit } from 'react-icons/ai';
 
-import { routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import DataDisplay from 'src/components/DataDisplay/DataDisplay'
-import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader'
-import RedwoodLink from 'src/components/RedwoodLink'
-import TeamTable from 'src/components/TeamTable'
-import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+import Card from 'src/components/Card/Card';
+import DataDisplay from 'src/components/DataDisplay/DataDisplay';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
+import RedwoodLink from 'src/components/RedwoodLink';
+import TeamTable from 'src/components/TeamTable';
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper';
 
-import { useGetGameById } from '../UpdateGamePage/hooks/useGetGameById'
+import { useGetGameById } from '../UpdateGamePage/hooks/useGetGameById';
 
 const GameDetailPage = () => {
-  const { game, gameLoading } = useGetGameById()
+  const { game, gameLoading } = useGetGameById();
 
   const topGameScores = game?.scores?.filter(
     (score) => score?.type === 'TOP_GAME'
-  )
+  );
   const regularGameScores = game?.scores?.filter(
     (score) => score?.type === 'GAME'
-  )
+  );
 
-  const hasTopGames = topGameScores && topGameScores?.length > 0
+  const hasTopGames = topGameScores && topGameScores?.length > 0;
 
   return (
     <>
@@ -114,12 +114,12 @@ const GameDetailPage = () => {
                 size="md"
                 entries={topGameScores
                   ?.sort((scoreA, scoreB) => {
-                    const scoreAIsNumber = typeof scoreA?.points === 'number'
-                    const scoreBIsNumber = typeof scoreB?.points === 'number'
+                    const scoreAIsNumber = typeof scoreA?.points === 'number';
+                    const scoreBIsNumber = typeof scoreB?.points === 'number';
                     if (scoreAIsNumber && scoreBIsNumber) {
-                      return scoreB?.points - scoreA?.points
+                      return scoreB?.points - scoreA?.points;
                     }
-                    return 0
+                    return 0;
                   })
                   ?.map((score, index) => ({
                     Rank: index + 1,
@@ -146,12 +146,12 @@ const GameDetailPage = () => {
               size="md"
               entries={regularGameScores
                 ?.sort((scoreA, scoreB) => {
-                  const scoreAIsNumber = typeof scoreA?.points === 'number'
-                  const scoreBIsNumber = typeof scoreB?.points === 'number'
+                  const scoreAIsNumber = typeof scoreA?.points === 'number';
+                  const scoreBIsNumber = typeof scoreB?.points === 'number';
                   if (scoreAIsNumber && scoreBIsNumber) {
-                    return scoreB?.points - scoreA?.points
+                    return scoreB?.points - scoreA?.points;
                   }
-                  return 0
+                  return 0;
                 })
                 ?.map((score, index) => ({
                   Rank: index + 1,
@@ -164,7 +164,7 @@ const GameDetailPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default GameDetailPage
+export default GameDetailPage;

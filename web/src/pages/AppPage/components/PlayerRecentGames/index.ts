@@ -1,1 +1,1 @@
-export { default } from './PlayerRecentGames'
+export { default } from './PlayerRecentGames';

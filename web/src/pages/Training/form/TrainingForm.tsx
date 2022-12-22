@@ -1,35 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
-import { FaArrowDown } from 'react-icons/fa'
+import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Form, Formik } from 'formik';
+import { FaArrowDown } from 'react-icons/fa';
 import {
   FindTeamQuery,
   GetPlayersForTeamQuery,
   GetTrainingByIdQuery,
-} from 'types/graphql'
-import * as Yup from 'yup'
+} from 'types/graphql';
+import * as Yup from 'yup';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker'
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
-import RedwoodLink from 'src/components/RedwoodLink'
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker';
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
+import RedwoodLink from 'src/components/RedwoodLink';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import CreateScoreFieldArrayInputs from '../NewTrainingPage/components/CreateScoreFieldArrayInputs'
+import CreateScoreFieldArrayInputs from '../NewTrainingPage/components/CreateScoreFieldArrayInputs';
 
 type TrainingFormProps = {
-  onSubmit: (values: any) => Promise<void>
-  initialValues: Record<string, any>
-  type: 'new' | 'edit'
-  loading: boolean
-  team?: FindTeamQuery['team']
+  onSubmit: (values: any) => Promise<void>;
+  initialValues: Record<string, any>;
+  type: 'new' | 'edit';
+  loading: boolean;
+  team?: FindTeamQuery['team'];
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
-    | GetTrainingByIdQuery['training']['players']
-  showTop: boolean
-  setShowTop: (value: boolean) => void
-}
+    | GetTrainingByIdQuery['training']['players'];
+  showTop: boolean;
+  setShowTop: (value: boolean) => void;
+};
 
 const TrainingForm = ({
   onSubmit,
@@ -71,7 +71,7 @@ const TrainingForm = ({
         teamId: showTop ? Yup.string().required() : Yup.string(),
       })
     ),
-  })
+  });
 
   return (
     <Formik
@@ -144,7 +144,7 @@ const TrainingForm = ({
         </Flex>
       </Box>
     </Formik>
-  )
-}
+  );
+};
 
-export default TrainingForm
+export default TrainingForm;

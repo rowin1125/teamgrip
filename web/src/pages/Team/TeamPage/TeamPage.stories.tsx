@@ -1,7 +1,7 @@
-import TeamPage from './TeamPage'
+import TeamPage from './TeamPage';
 
 export const generated = () => {
-  return <TeamPage />
-}
+  return <TeamPage />;
+};
 
-export default { title: 'Pages/TeamPage' }
+export default { title: 'Pages/TeamPage' };

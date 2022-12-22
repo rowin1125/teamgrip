@@ -1,6 +1,6 @@
-import { render } from 'src/lib/testing/test-utils'
+import { render } from 'src/lib/testing/test-utils';
 
-import BreadCrumbs from './BreadCrumbs'
+import BreadCrumbs from './BreadCrumbs';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import BreadCrumbs from './BreadCrumbs'
 describe('BreadCrumbs', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<BreadCrumbs />)
-    }).not.toThrow()
-  })
-})
+      render(<BreadCrumbs />);
+    }).not.toThrow();
+  });
+});

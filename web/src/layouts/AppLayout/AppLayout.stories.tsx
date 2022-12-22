@@ -1,7 +1,7 @@
-import AppLayout from './AppLayout'
+import AppLayout from './AppLayout';
 
 export const generated = () => {
-  return <AppLayout />
-}
+  return <AppLayout />;
+};
 
-export default { title: 'Layouts/AppLayout' }
+export default { title: 'Layouts/AppLayout' };

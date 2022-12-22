@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, BoxProps } from '@chakra-ui/react'
+import { Box, BoxProps } from '@chakra-ui/react';
 
 type CardProps = {
-  children: React.ReactNode
-  noXPadding?: boolean
-  bg?: BoxProps['bg']
-} & BoxProps
+  children: React.ReactNode;
+  noXPadding?: boolean;
+  bg?: BoxProps['bg'];
+} & BoxProps;
 
 const Card = ({ children, noXPadding, bg = 'white', ...rest }: CardProps) => (
   <Box
@@ -20,6 +20,6 @@ const Card = ({ children, noXPadding, bg = 'white', ...rest }: CardProps) => (
   >
     {children}
   </Box>
-)
+);
 
-export default Card
+export default Card;

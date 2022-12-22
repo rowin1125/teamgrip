@@ -1,7 +1,7 @@
-import ActivatePage from './ActivatePage'
+import ActivatePage from './ActivatePage';
 
 export const generated = () => {
-  return <ActivatePage />
-}
+  return <ActivatePage />;
+};
 
-export default { title: 'Pages/ActivatePage' }
+export default { title: 'Pages/ActivatePage' };

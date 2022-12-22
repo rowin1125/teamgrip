@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React from 'react';
 
 import {
   Box,
@@ -12,24 +12,24 @@ import {
   Icon,
   IconButton,
   Text,
-} from '@chakra-ui/react'
-import { FieldArray, Form, Formik } from 'formik'
-import { CgClose } from 'react-icons/cg'
-import { FaPlus } from 'react-icons/fa'
-import { FindTeamQuery } from 'types/graphql'
-import * as Yup from 'yup'
+} from '@chakra-ui/react';
+import { FieldArray, Form, Formik } from 'formik';
+import { CgClose } from 'react-icons/cg';
+import { FaPlus } from 'react-icons/fa';
+import { FindTeamQuery } from 'types/graphql';
+import * as Yup from 'yup';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
-import ValidateTeamInvitation from '../../ValidateTeamInvitation'
+import ValidateTeamInvitation from '../../ValidateTeamInvitation';
 
-import { useInviteGhosts } from './hooks/useInviteGhosts'
+import { useInviteGhosts } from './hooks/useInviteGhosts';
 
 type InviteGhostTabProps = {
-  team?: FindTeamQuery['team']
-  onClose: () => void
-}
+  team?: FindTeamQuery['team'];
+  onClose: () => void;
+};
 
 const validationSchema = Yup.object({
   players: Yup.array().of(
@@ -40,25 +40,25 @@ const validationSchema = Yup.object({
     })
   ),
   teamId: Yup.string().required(),
-})
+});
 
 const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
   const handleSubmit = async (values: any, actions: any) => {
     try {
-      const playerCountCreated = await handleInviteGhostsPlayers(values)
-      if (!playerCountCreated) return
+      const playerCountCreated = await handleInviteGhostsPlayers(values);
+      if (!playerCountCreated) return;
 
-      actions.resetForm()
-      onClose()
+      actions.resetForm();
+      onClose();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
-  const { handleInviteGhostsPlayers, loading } = useInviteGhosts()
+  };
+  const { handleInviteGhostsPlayers, loading } = useInviteGhosts();
 
   const playersBlueprint = {
     displayName: '',
-  }
+  };
 
   return (
     <ValidateTeamInvitation team={team}>
@@ -117,7 +117,7 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
                               />
                             </Flex>
                           </GridItem>
-                        )
+                        );
                       })}
                     </Grid>
                     <Button onClick={() => push(playersBlueprint)} mt={3}>
@@ -140,7 +140,7 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
         </Formik>
       </>
     </ValidateTeamInvitation>
-  )
-}
+  );
+};
 
-export default InviteGhostTab
+export default InviteGhostTab;

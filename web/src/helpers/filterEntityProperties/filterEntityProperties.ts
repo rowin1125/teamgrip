@@ -5,17 +5,17 @@ export const filterEntityProperties = <
   entityArray: T[] | undefined,
   keys: K[]
 ) => {
-  if (!entityArray) return []
+  if (!entityArray) return [];
 
   return entityArray.map((entity) => {
-    const entityKeys = Object.keys(entity)
-    const matchingKeys = entityKeys.filter((key) => keys.includes(key as K))
+    const entityKeys = Object.keys(entity);
+    const matchingKeys = entityKeys.filter((key) => keys.includes(key as K));
 
-    const filteredEntity = {} as Pick<T, K>
+    const filteredEntity = {} as Pick<T, K>;
 
     for (const key of matchingKeys as K[]) {
-      filteredEntity[key] = entity[key]
+      filteredEntity[key] = entity[key];
     }
-    return filteredEntity
-  })
-}
+    return filteredEntity;
+  });
+};

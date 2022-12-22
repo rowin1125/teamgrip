@@ -1,1 +1,1 @@
-export { default } from './TeamNotFoundMessage'
+export { default } from './TeamNotFoundMessage';

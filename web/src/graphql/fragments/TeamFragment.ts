@@ -30,4 +30,4 @@ export const TEAM_FRAGMENT = gql`
       playerType
     }
   }
-`
+`;

@@ -92,4 +92,4 @@ export const schema = gql`
     updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @requireAuth
     deletePlayer(id: String!): Player! @requireAuth
   }
-`
+`;

@@ -1,7 +1,7 @@
-import Footer from './Footer'
+import Footer from './Footer';
 
 export const generated = () => {
-  return <Footer />
-}
+  return <Footer />;
+};
 
-export default { title: 'Components/Footer' }
+export default { title: 'Components/Footer' };

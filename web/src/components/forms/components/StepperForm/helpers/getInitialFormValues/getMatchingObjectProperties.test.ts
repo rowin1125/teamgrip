@@ -1,4 +1,4 @@
-import { getMatchingObjectProperties } from './getMatchingObjectProperties'
+import { getMatchingObjectProperties } from './getMatchingObjectProperties';
 
 describe('getMatchingObjectProperties()', () => {
   test('Should return matching object properties', () => {
@@ -7,17 +7,17 @@ describe('getMatchingObjectProperties()', () => {
       supplierId: '',
       product: '',
       supplierContractNumber: '',
-    }
+    };
 
     const data = {
       supplierId: '',
       supplierContractNumber: '',
-    }
+    };
 
     const matchingObjectProperties = getMatchingObjectProperties(
       pagesConfig,
       data
-    )
-    expect(matchingObjectProperties).toHaveLength(2)
-  })
-})
+    );
+    expect(matchingObjectProperties).toHaveLength(2);
+  });
+});

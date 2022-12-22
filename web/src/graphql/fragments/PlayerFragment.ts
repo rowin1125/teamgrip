@@ -11,4 +11,4 @@ export const PLAYER_FRAGMENT = gql`
     displayName
     isGhost
   }
-`
+`;

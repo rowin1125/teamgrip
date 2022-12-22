@@ -1,12 +1,12 @@
-import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
+import { Box, Flex, Heading, Spinner } from '@chakra-ui/react';
 
 type SpinnerOverlayType = {
-  children: React.ReactNode
-  theme?: 'dark' | 'light'
-}
+  children: React.ReactNode;
+  theme?: 'dark' | 'light';
+};
 
 const SpinnerOverlay = ({ children, theme }: SpinnerOverlayType) => {
-  const isDarkTheme = theme === 'dark'
+  const isDarkTheme = theme === 'dark';
 
   return (
     <Box position="relative" h="full">
@@ -42,7 +42,7 @@ const SpinnerOverlay = ({ children, theme }: SpinnerOverlayType) => {
         {children}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default SpinnerOverlay
+export default SpinnerOverlay;

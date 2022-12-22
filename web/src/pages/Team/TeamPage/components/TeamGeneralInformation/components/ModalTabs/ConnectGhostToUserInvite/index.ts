@@ -1,1 +1,1 @@
-export { default } from './ConnectGhostToUserInvite'
+export { default } from './ConnectGhostToUserInvite';

@@ -1,4 +1,4 @@
-import { getMatchingObjectProperties } from './getMatchingObjectProperties'
+import { getMatchingObjectProperties } from './getMatchingObjectProperties';
 
 export const getInitialFormValues = (
   pages: StepperForm.FormConfigType['pages'],
@@ -6,15 +6,15 @@ export const getInitialFormValues = (
 ): Record<string, unknown> => {
   const initialValues = pages.reduce<StepperForm.InitialFormValuesType>(
     (prevValues, currentValues) => {
-      return { ...prevValues, ...currentValues.initialValues }
+      return { ...prevValues, ...currentValues.initialValues };
     },
     {}
-  )
+  );
 
   const matchingObjectProperties = getMatchingObjectProperties(
     initialValues,
     apiInitialValues
-  )
+  );
 
   return {
     ...initialValues,
@@ -22,7 +22,7 @@ export const getInitialFormValues = (
       return {
         ...prevValues,
         [currentValues]: apiInitialValues?.[currentValues],
-      }
+      };
     }, {}),
-  }
-}
+  };
+};

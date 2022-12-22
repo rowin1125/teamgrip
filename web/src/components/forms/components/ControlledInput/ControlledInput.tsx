@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   FormControl,
@@ -12,20 +12,20 @@ import {
   InputLeftAddon,
   InputProps,
   InputRightAddon,
-} from '@chakra-ui/react'
-import { useField } from 'formik'
+} from '@chakra-ui/react';
+import { useField } from 'formik';
 
 type ControlledInputProps = {
-  label?: string
-  helperText?: string
-  id: string
-  labelProps?: FormLabelProps
-  inputRightAddonText?: string
-  inputLeftAddonText?: string
-  fullWidth?: boolean
-  formControlProps?: FormControlProps
-  transformValue?: (value: string) => string
-} & InputProps
+  label?: string;
+  helperText?: string;
+  id: string;
+  labelProps?: FormLabelProps;
+  inputRightAddonText?: string;
+  inputLeftAddonText?: string;
+  fullWidth?: boolean;
+  formControlProps?: FormControlProps;
+  transformValue?: (value: string) => string;
+} & InputProps;
 
 const ControlledInput = ({
   label,
@@ -40,16 +40,16 @@ const ControlledInput = ({
   transformValue,
   ...props
 }: ControlledInputProps) => {
-  const [{ onChange, ...field }, meta, { setValue }] = useField(id)
-  const isInvalid = !!meta.error && meta.touched
+  const [{ onChange, ...field }, meta, { setValue }] = useField(id);
+  const isInvalid = !!meta.error && meta.touched;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (transformValue) {
-      setValue(transformValue(e.target.value), true)
-      return
+      setValue(transformValue(e.target.value), true);
+      return;
     }
-    onChange(e)
-  }
+    onChange(e);
+  };
 
   return (
     <FormControl
@@ -85,7 +85,7 @@ const ControlledInput = ({
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
-  )
-}
+  );
+};
 
-export default ControlledInput
+export default ControlledInput;

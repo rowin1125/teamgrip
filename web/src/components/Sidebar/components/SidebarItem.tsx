@@ -1,20 +1,20 @@
-import { As, ChakraProps, IconProps, useDisclosure } from '@chakra-ui/react'
+import { As, ChakraProps, IconProps, useDisclosure } from '@chakra-ui/react';
 
-import { useLocation } from '@redwoodjs/router'
+import { useLocation } from '@redwoodjs/router';
 
-import SidebarItemClosed from './SidebarItemClosed'
-import SidebarItemOpen from './SidebarItemOpen'
-import SidebarItemWrapper from './SidebarItemWrapper'
+import SidebarItemClosed from './SidebarItemClosed';
+import SidebarItemOpen from './SidebarItemOpen';
+import SidebarItemWrapper from './SidebarItemWrapper';
 
 type SidebarItemProps = {
-  title: string
-  icon: As
-  navOpen: boolean
-  to: string
-  isLast?: boolean
-  children?: React.ReactNode
-  iconProps?: IconProps
-} & ChakraProps
+  title: string;
+  icon: As;
+  navOpen: boolean;
+  to: string;
+  isLast?: boolean;
+  children?: React.ReactNode;
+  iconProps?: IconProps;
+} & ChakraProps;
 
 const SidebarItem = ({
   icon,
@@ -25,15 +25,15 @@ const SidebarItem = ({
   children,
   iconProps,
 }: SidebarItemProps) => {
-  const { pathname } = useLocation()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { pathname } = useLocation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const isHomepage =
-    title.toLocaleLowerCase() === 'dashboard' && pathname === '/app'
+    title.toLocaleLowerCase() === 'dashboard' && pathname === '/app';
   const active =
-    (pathname.includes(title.toLocaleLowerCase()) && !isHomepage) || isHomepage
+    (pathname.includes(title.toLocaleLowerCase()) && !isHomepage) || isHomepage;
 
-  const hasChildren = !!children
+  const hasChildren = !!children;
   return (
     <>
       <SidebarItemWrapper
@@ -65,7 +65,7 @@ const SidebarItem = ({
         )}
       </SidebarItemWrapper>
     </>
-  )
-}
+  );
+};
 
-export default SidebarItem
+export default SidebarItem;

@@ -1,22 +1,22 @@
-import React from 'react'
+import React from 'react';
 
-import { Flex, Heading, Button, UseDisclosureProps } from '@chakra-ui/react'
-import { FindTeamQuery } from 'types/graphql'
+import { Flex, Heading, Button, UseDisclosureProps } from '@chakra-ui/react';
+import { FindTeamQuery } from 'types/graphql';
 
-import Card from 'src/components/Card/Card'
-import DataDisplay from 'src/components/DataDisplay/DataDisplay'
-import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader'
-import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+import Card from 'src/components/Card/Card';
+import DataDisplay from 'src/components/DataDisplay/DataDisplay';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper';
 
-import InvitePlayersModal from './components/InvitePlayersModal'
+import InvitePlayersModal from './components/InvitePlayersModal';
 
 type TeamGeneralInformationProps = {
-  team: FindTeamQuery['team']
-  disclosure: UseDisclosureProps
-  setCurrentTabIndex: (index: number) => void
-  currentTabIndex: number
-  isLoading: boolean
-}
+  team: FindTeamQuery['team'];
+  disclosure: UseDisclosureProps;
+  setCurrentTabIndex: (index: number) => void;
+  currentTabIndex: number;
+  isLoading: boolean;
+};
 
 const TeamGeneralInformation = ({
   team,
@@ -25,7 +25,7 @@ const TeamGeneralInformation = ({
   setCurrentTabIndex,
   isLoading,
 }: TeamGeneralInformationProps) => {
-  const activeSeason = team?.season?.find((s) => s?.active)
+  const activeSeason = team?.season?.find((s) => s?.active);
 
   return (
     <DefaultLoader isLoading={isLoading}>
@@ -50,8 +50,8 @@ const TeamGeneralInformation = ({
               mb={{ base: 4, xl: 0 }}
               colorScheme="secondary"
               onClick={() => {
-                setCurrentTabIndex(1)
-                disclosure?.onOpen?.()
+                setCurrentTabIndex(1);
+                disclosure?.onOpen?.();
               }}
             >
               Maak ghost spelers aan
@@ -66,7 +66,7 @@ const TeamGeneralInformation = ({
         </PlayerIsStaffWrapper>
       </Card>
     </DefaultLoader>
-  )
-}
+  );
+};
 
-export default TeamGeneralInformation
+export default TeamGeneralInformation;

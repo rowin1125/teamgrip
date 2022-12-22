@@ -1,9 +1,9 @@
-import { Box, Fade, Flex, Spinner, Text } from '@chakra-ui/react'
+import { Box, Fade, Flex, Spinner, Text } from '@chakra-ui/react';
 
 type SpinnerLoaderType = {
-  isLoading: boolean
-  children: React.ReactNode
-}
+  isLoading: boolean;
+  children: React.ReactNode;
+};
 
 const SpinnerLoader = ({ isLoading, children }: SpinnerLoaderType) => {
   return (
@@ -33,7 +33,7 @@ const SpinnerLoader = ({ isLoading, children }: SpinnerLoaderType) => {
       </Fade>
       <Fade in={!isLoading}>{!isLoading && children}</Fade>
     </Box>
-  )
-}
+  );
+};
 
-export default SpinnerLoader
+export default SpinnerLoader;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Heading,
@@ -7,25 +7,25 @@ import {
   Icon,
   Text,
   UseDisclosureProps,
-} from '@chakra-ui/react'
-import { BiUserPlus } from 'react-icons/bi'
-import { FindTeamQuery } from 'types/graphql'
+} from '@chakra-ui/react';
+import { BiUserPlus } from 'react-icons/bi';
+import { FindTeamQuery } from 'types/graphql';
 
-import Card from 'src/components/Card/Card'
-import TeamTable from 'src/components/TeamTable'
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import Card from 'src/components/Card/Card';
+import TeamTable from 'src/components/TeamTable';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import { useGetPlayersAndScoresByTeamId } from '../../hooks/useGetPlayersAndScoresByTeamId'
+import { useGetPlayersAndScoresByTeamId } from '../../hooks/useGetPlayersAndScoresByTeamId';
 
 type TeamListProps = {
-  team: FindTeamQuery['team']
-  setCurrentTabIndex: (index: number) => void
-  disclosure: UseDisclosureProps
-}
+  team: FindTeamQuery['team'];
+  setCurrentTabIndex: (index: number) => void;
+  disclosure: UseDisclosureProps;
+};
 
 const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
   const { playersWithTotalScore, playersWithTotalScoreLoading } =
-    useGetPlayersAndScoresByTeamId()
+    useGetPlayersAndScoresByTeamId();
 
   return (
     <Card w="100%" bg="primary.500" color="white" overflowX="auto">
@@ -39,8 +39,8 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
           <Flex my={10} justifyContent="center">
             <Button
               onClick={() => {
-                setCurrentTabIndex(1)
-                disclosure?.onOpen?.()
+                setCurrentTabIndex(1);
+                disclosure?.onOpen?.();
               }}
               variant="ghost"
               h="400px"
@@ -78,7 +78,7 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
         />
       </>
     </Card>
-  )
-}
+  );
+};
 
-export default TeamList
+export default TeamList;

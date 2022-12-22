@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, BoxProps, Image } from '@chakra-ui/react'
+import { Box, BoxProps, Image } from '@chakra-ui/react';
 
-import footballNightMan from './images/footbal-night-man.jpg'
-import stadiumImage from './images/stadium.jpg'
+import footballNightMan from './images/footbal-night-man.jpg';
+import stadiumImage from './images/stadium.jpg';
 
 export type HeroProps = {
-  type?: 'stadium' | 'football-night-man'
-  size?: 'sm' | 'md' | 'lg' | '1/2' | 'full'
-} & BoxProps
+  type?: 'stadium' | 'football-night-man';
+  size?: 'sm' | 'md' | 'lg' | '1/2' | 'full';
+} & BoxProps;
 
 const HERO_SIZES_MAP = {
   sm: '200px',
@@ -16,18 +16,18 @@ const HERO_SIZES_MAP = {
   lg: '600px',
   '1/2': '50vh',
   full: '100vh',
-}
+};
 
 const Hero = ({ type = 'stadium', size = 'md', zIndex = '-1' }: HeroProps) => {
-  const heightProperty = HERO_SIZES_MAP[size]
-  let heroImage: string
+  const heightProperty = HERO_SIZES_MAP[size];
+  let heroImage: string;
 
   switch (type) {
     case 'stadium':
-      heroImage = stadiumImage
-      break
+      heroImage = stadiumImage;
+      break;
     case 'football-night-man':
-      heroImage = footballNightMan
+      heroImage = footballNightMan;
   }
 
   return (
@@ -60,7 +60,7 @@ const Hero = ({ type = 'stadium', size = 'md', zIndex = '-1' }: HeroProps) => {
         bottom={0}
       />
     </Box>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

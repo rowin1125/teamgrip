@@ -1,21 +1,21 @@
-import { Box, Fade, Table } from '@chakra-ui/react'
+import { Box, Fade, Table } from '@chakra-ui/react';
 
-import SpinnerOverlay from 'src/components/SpinnerOverlay/SpinnerOverlay'
-import TeamTableBody from 'src/components/TeamTable/components/TeamTableBody'
-import TeamTableHead from 'src/components/TeamTable/components/TeamTableHead'
-import { useTeamTable } from 'src/components/TeamTable/hooks/useTeamTable'
+import SpinnerOverlay from 'src/components/SpinnerOverlay/SpinnerOverlay';
+import TeamTableBody from 'src/components/TeamTable/components/TeamTableBody';
+import TeamTableHead from 'src/components/TeamTable/components/TeamTableHead';
+import { useTeamTable } from 'src/components/TeamTable/hooks/useTeamTable';
 
-import { tableLoadingData } from './tableLoadingData'
+import { tableLoadingData } from './tableLoadingData';
 
 type TableLoaderProps = {
-  children?: React.ReactNode
-  isLoading?: boolean
-  theme?: 'dark' | 'light'
-}
+  children?: React.ReactNode;
+  isLoading?: boolean;
+  theme?: 'dark' | 'light';
+};
 
 const TableLoader = ({ children, isLoading, theme }: TableLoaderProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
-    useTeamTable(tableLoadingData)
+    useTeamTable(tableLoadingData);
 
   return (
     <Box>
@@ -37,7 +37,7 @@ const TableLoader = ({ children, isLoading, theme }: TableLoaderProps) => {
       </Fade>
       <Fade in={!isLoading}>{!isLoading && children}</Fade>
     </Box>
-  )
-}
+  );
+};
 
-export default TableLoader
+export default TableLoader;

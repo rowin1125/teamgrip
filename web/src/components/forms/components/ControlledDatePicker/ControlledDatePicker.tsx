@@ -8,17 +8,17 @@ import {
   FormLabelProps,
   Input,
   InputProps,
-} from '@chakra-ui/react'
-import { useField } from 'formik'
+} from '@chakra-ui/react';
+import { useField } from 'formik';
 
 type ControlledDatePickerProps = {
-  label: string
-  helperText?: string
-  id: string
-  inline?: boolean
-  labelProps?: FormLabelProps
-  inputProps?: InputProps
-} & FormControlProps
+  label: string;
+  helperText?: string;
+  id: string;
+  inline?: boolean;
+  labelProps?: FormLabelProps;
+  inputProps?: InputProps;
+} & FormControlProps;
 
 const ControlledDatePicker = ({
   id,
@@ -29,8 +29,8 @@ const ControlledDatePicker = ({
   inputProps,
   ...props
 }: ControlledDatePickerProps) => {
-  const [field, meta] = useField(id)
-  const isInvalid = !!meta.error && !!meta.touched
+  const [field, meta] = useField(id);
+  const isInvalid = !!meta.error && !!meta.touched;
 
   return (
     <FormControl isInvalid={isInvalid} w="full" {...props}>
@@ -64,7 +64,7 @@ const ControlledDatePicker = ({
       )}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
-  )
-}
+  );
+};
 
-export default ControlledDatePicker
+export default ControlledDatePicker;

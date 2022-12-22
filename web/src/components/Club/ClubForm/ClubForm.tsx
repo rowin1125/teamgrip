@@ -6,12 +6,12 @@ import {
   Label,
   TextField,
   Submit,
-} from '@redwoodjs/forms'
+} from '@redwoodjs/forms';
 
 const ClubForm = (props: any) => {
   const onSubmit = (data: any) => {
-    props.onSave(data, props?.club?.id)
-  }
+    props.onSave(data, props?.club?.id);
+  };
 
   return (
     <div className="rw-form-wrapper">
@@ -48,7 +48,7 @@ const ClubForm = (props: any) => {
         </div>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default ClubForm
+export default ClubForm;

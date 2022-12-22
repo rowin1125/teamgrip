@@ -219,4 +219,4 @@ export const tableLoadingData = [
       skinColor: 'Tanned',
     },
   },
-]
+];

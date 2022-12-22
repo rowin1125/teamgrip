@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import { Button, Flex, Icon, IconProps } from '@chakra-ui/react'
-import { CgChevronRight } from 'react-icons/cg'
-import { RiMenuUnfoldLine } from 'react-icons/ri'
+import { Button, Flex, Icon, IconProps } from '@chakra-ui/react';
+import { CgChevronRight } from 'react-icons/cg';
+import { RiMenuUnfoldLine } from 'react-icons/ri';
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type SidebarItemOpenProps = {
-  to: string
-  title: string
-  icon: React.ElementType
-  active: boolean
-  hasChildren: boolean
-  iconProps?: IconProps
-}
+  to: string;
+  title: string;
+  icon: React.ElementType;
+  active: boolean;
+  hasChildren: boolean;
+  iconProps?: IconProps;
+};
 
 const SidebarItemOpen = ({
   to,
@@ -55,7 +55,7 @@ const SidebarItemOpen = ({
         <Icon as={CgChevronRight} ml={4} />
       )}
     </Button>
-  )
-}
+  );
+};
 
-export default SidebarItemOpen
+export default SidebarItemOpen;

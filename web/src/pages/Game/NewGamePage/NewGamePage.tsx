@@ -1,20 +1,20 @@
-import { Grid, GridItem, Heading } from '@chakra-ui/react'
-import { format } from 'date-fns'
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
+import { format } from 'date-fns';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useGetPlayersForTeam } from 'src/pages/Team/TeamPage/hooks/useGetPlayersForTeam'
+import Card from 'src/components/Card/Card';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import { useGetPlayersForTeam } from 'src/pages/Team/TeamPage/hooks/useGetPlayersForTeam';
 
-import GameForm from '../form/GameForm'
+import GameForm from '../form/GameForm';
 
-import { useCreateGame } from './hooks/useCreateGame'
+import { useCreateGame } from './hooks/useCreateGame';
 
 const NewGamePage = () => {
-  const { team, loading } = useGetTeamById()
-  const { playersData, playersLoading } = useGetPlayersForTeam()
-  const [showTop, setShowTop] = React.useState(true)
+  const { team, loading } = useGetTeamById();
+  const { playersData, playersLoading } = useGetPlayersForTeam();
+  const [showTop, setShowTop] = React.useState(true);
 
   const {
     defaultTeamSeasonId,
@@ -22,9 +22,9 @@ const NewGamePage = () => {
     initialTopGameScores,
     createGameLoading,
     handleCreateGame,
-  } = useCreateGame({ team, playersData, showTop })
+  } = useCreateGame({ team, playersData, showTop });
 
-  if (loading || playersLoading) return null
+  if (loading || playersLoading) return null;
 
   return (
     <>
@@ -58,7 +58,7 @@ const NewGamePage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default NewGamePage
+export default NewGamePage;

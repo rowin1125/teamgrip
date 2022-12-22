@@ -1,1 +1,1 @@
-export { default } from './ControlTeamInviteTab'
+export { default } from './ControlTeamInviteTab';

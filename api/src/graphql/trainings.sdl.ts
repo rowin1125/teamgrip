@@ -44,4 +44,4 @@ export const schema = gql`
     ): Training! @requireAuth @isTeamOwner
     deleteTraining(id: String!): Training! @requireAuth @isTeamOwner
   }
-`
+`;

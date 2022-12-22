@@ -1,7 +1,7 @@
-import TrainingDetailPage from './TrainingDetailPage'
+import TrainingDetailPage from './TrainingDetailPage';
 
 export const generated = () => {
-  return <TrainingDetailPage />
-}
+  return <TrainingDetailPage />;
+};
 
-export default { title: 'Pages/TrainingDetailPage' }
+export default { title: 'Pages/TrainingDetailPage' };

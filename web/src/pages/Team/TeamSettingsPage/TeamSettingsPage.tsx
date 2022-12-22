@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 import {
   Grid,
@@ -10,34 +10,34 @@ import {
   TabPanels,
   Tabs,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import Card from 'src/components/Card/Card'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import Card from 'src/components/Card/Card';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
-import TeamNotFoundMessage from '../TeamPage/components/TeamNotFoundMessage'
+import TeamNotFoundMessage from '../TeamPage/components/TeamNotFoundMessage';
 
-import GlobalTeamSettings from './tabs/GlobalTeamSettings/GlobalTeamSettings'
-import TeamPlayerSettings from './tabs/TeamPlayerSettings'
-import TeamSeasonSettings from './tabs/TeamSeasonSettings'
+import GlobalTeamSettings from './tabs/GlobalTeamSettings/GlobalTeamSettings';
+import TeamPlayerSettings from './tabs/TeamPlayerSettings';
+import TeamSeasonSettings from './tabs/TeamSeasonSettings';
 
 const TeamSettingsPage = () => {
-  const { team, loading } = useGetTeamById()
-  const { isTeamStaff } = useTeamPlayerAuth()
-  const isPartOfTeam = !!team?.id
+  const { team, loading } = useGetTeamById();
+  const { isTeamStaff } = useTeamPlayerAuth();
+  const isPartOfTeam = !!team?.id;
 
   useEffect(() => {
-    if (!isPartOfTeam) return
+    if (!isPartOfTeam) return;
     if (!isTeamStaff) {
-      navigate(routes.app())
-      toast.error('Je hebt geen toegang tot deze pagina')
+      navigate(routes.app());
+      toast.error('Je hebt geen toegang tot deze pagina');
     }
-  }, [isTeamStaff, isPartOfTeam])
+  }, [isTeamStaff, isPartOfTeam]);
 
   if (!loading && !isPartOfTeam)
     return (
@@ -48,7 +48,7 @@ const TeamSettingsPage = () => {
         />
         <TeamNotFoundMessage title="Mijn settings" />
       </>
-    )
+    );
 
   return (
     <>
@@ -93,7 +93,7 @@ const TeamSettingsPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default TeamSettingsPage
+export default TeamSettingsPage;

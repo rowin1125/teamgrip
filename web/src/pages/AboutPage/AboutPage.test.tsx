@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import AboutPage from './AboutPage'
+import AboutPage from './AboutPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import AboutPage from './AboutPage'
 describe('AboutPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<AboutPage />)
-    }).not.toThrow()
-  })
-})
+      render(<AboutPage />);
+    }).not.toThrow();
+  });
+});

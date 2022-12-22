@@ -50,4 +50,4 @@ export const schema = gql`
     createInvitationToken(id: String!): Team! @requireAuth @isTeamOwner
     deleteInvitationToken(id: String!): Team! @requireAuth @isTeamOwner
   }
-`
+`;

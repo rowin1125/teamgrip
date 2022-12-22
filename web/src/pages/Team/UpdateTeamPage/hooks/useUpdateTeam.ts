@@ -3,14 +3,14 @@ import {
   UpdateTeamById,
   UpdateTeamByIdVariables,
   UpdateTeamInput,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { gHistory } from '@redwoodjs/router/dist/history'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { gHistory } from '@redwoodjs/router/dist/history';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { TEAM_FRAGMENT } from 'src/graphql/fragments/TeamFragment'
+import { TEAM_FRAGMENT } from 'src/graphql/fragments/TeamFragment';
 
 export const UPDATE_TEAM_BY_ID = gql`
   ${TEAM_FRAGMENT}
@@ -19,30 +19,30 @@ export const UPDATE_TEAM_BY_ID = gql`
       ...TeamFragment
     }
   }
-`
+`;
 
 export const useUpdateTeam = (clubs?: GetClubsQuery['clubs']) => {
-  const { reauthenticate, currentUser } = useAuth()
+  const { reauthenticate, currentUser } = useAuth();
   const [updateTeam, { loading: updateTeamLoading }] = useMutation<
     UpdateTeamById,
     UpdateTeamByIdVariables
   >(UPDATE_TEAM_BY_ID, {
     onCompleted: reauthenticate,
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const handleUpdateTeam = async (input: UpdateTeamInput) => {
     const clubName = clubs
       ?.find((club) => club.id === input.clubId)
-      ?.name?.toLowerCase()
+      ?.name?.toLowerCase();
     const teamNameContainsClubName = input.name
       .toLowerCase()
-      .includes(clubName || '')
+      .includes(clubName || '');
     if (teamNameContainsClubName) {
-      toast.error('Clubnaam mag niet in teamnaam zitten')
-      return
+      toast.error('Clubnaam mag niet in teamnaam zitten');
+      return;
     }
 
     const updateTeamById = await updateTeam({
@@ -53,13 +53,13 @@ export const useUpdateTeam = (clubs?: GetClubsQuery['clubs']) => {
           clubTeamName: `${clubName}-${input.name}`,
         },
       },
-    })
+    });
 
     if (!updateTeamById.errors) {
-      toast.success('Team succesvol aangepast 🎉')
-      gHistory.back()
+      toast.success('Team succesvol aangepast 🎉');
+      gHistory.back();
     }
-  }
+  };
 
-  return { handleUpdateTeam, updateTeamLoading }
-}
+  return { handleUpdateTeam, updateTeamLoading };
+};

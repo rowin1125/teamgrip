@@ -1,14 +1,14 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react';
 
-import { Toaster } from '@redwoodjs/web/dist/toast'
+import { Toaster } from '@redwoodjs/web/dist/toast';
 
-import Footer from 'src/components/Footer/Footer'
-import Header from 'src/components/Header/Header'
-import Hero from 'src/components/Hero/Hero'
+import Footer from 'src/components/Footer/Footer';
+import Header from 'src/components/Header/Header';
+import Hero from 'src/components/Hero/Hero';
 
 type GeneralLayoutProps = {
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 const GeneralLayout = ({ children }: GeneralLayoutProps) => {
   return (
@@ -26,7 +26,7 @@ const GeneralLayout = ({ children }: GeneralLayoutProps) => {
       </Flex>
       <Footer />
     </Box>
-  )
-}
+  );
+};
 
-export default GeneralLayout
+export default GeneralLayout;

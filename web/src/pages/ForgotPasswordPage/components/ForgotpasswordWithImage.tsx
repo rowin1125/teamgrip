@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Center, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Center, Heading, Image, Text } from '@chakra-ui/react';
 
-import fieldAtNights from './field-night.jpg'
+import fieldAtNights from './field-night.jpg';
 
 const ForgotPasswordWithImage = () => {
   return (
@@ -64,7 +64,7 @@ const ForgotPasswordWithImage = () => {
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default ForgotPasswordWithImage
+export default ForgotPasswordWithImage;

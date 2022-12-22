@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import SeasonLockWrapper from './SeasonLockWrapper'
+import SeasonLockWrapper from './SeasonLockWrapper';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -12,7 +12,7 @@ describe('SeasonLockWrapper', () => {
         <SeasonLockWrapper>
           <p>Hi</p>
         </SeasonLockWrapper>
-      )
-    }).not.toThrow()
-  })
-})
+      );
+    }).not.toThrow();
+  });
+});

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { randEmail, randFirstName, randLastName } from '@ngneat/falso'
-import type { Prisma } from '@prisma/client'
-import { db } from 'api/src/lib/db'
+import { randEmail, randFirstName, randLastName } from '@ngneat/falso';
+import type { Prisma } from '@prisma/client';
+import { db } from 'api/src/lib/db';
 
-import { generateRandomAvatarOptions } from '../helpers/generateRandomAvatar'
+import { generateRandomAvatarOptions } from '../helpers/generateRandomAvatar';
 
-import { defaultUserProperties } from './User'
+import { defaultUserProperties } from './User';
 
 export const users: Prisma.UserCreateArgs['data'][] = [
   ...Array.from(Array(20).keys()).map<any>(() => ({
@@ -18,13 +18,13 @@ export const users: Prisma.UserCreateArgs['data'][] = [
       },
     },
   })),
-]
+];
 
 export const createUsersAndConnectToTeam = async () =>
   Promise.all(
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
-      const firstname = randFirstName()
-      const lastname = randLastName()
+      const firstname = randFirstName();
+      const lastname = randLastName();
 
       try {
         const user = await db.user.create({
@@ -38,15 +38,15 @@ export const createUsersAndConnectToTeam = async () =>
               },
             },
           },
-        })
+        });
         const team = await db.team.findFirst({
           where: {
             owner: {
               email: 'rowinmol648@gmail.com',
             },
           },
-        })
-        const club = await db.club.findFirst()
+        });
+        const club = await db.club.findFirst();
         await db.player.create({
           data: {
             displayName: `${firstname} ${lastname}`,
@@ -67,9 +67,9 @@ export const createUsersAndConnectToTeam = async () =>
               },
             },
           },
-        })
+        });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     })
-  )
+  );

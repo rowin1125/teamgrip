@@ -1,54 +1,54 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef, useState } from 'react'
+import { useRef, useState } from 'react';
 
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes, useParams } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes, useParams } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import FormProgress from 'src/components/forms/components/FormProgress'
+import FormProgress from 'src/components/forms/components/FormProgress';
 
-import { waitFor } from '../../helpers/waitFor/waitFor'
+import { waitFor } from '../../helpers/waitFor/waitFor';
 
-import AuthImageWithVideo from './components/AuthImageWithVideo'
-import ActivateForm from './components/steps/ActivateForm'
-import CreateAvatar from './components/steps/Avatar/CreateAvatar'
-import UpdateUserInfoForm from './components/steps/UpdateUserInfoForm'
+import AuthImageWithVideo from './components/AuthImageWithVideo';
+import ActivateForm from './components/steps/ActivateForm';
+import CreateAvatar from './components/steps/Avatar/CreateAvatar';
+import UpdateUserInfoForm from './components/steps/UpdateUserInfoForm';
 
 const ActivatePage = () => {
-  const { ghostInvitation } = useParams()
-  const { currentUser } = useAuth()
-  const [activateStep, setActivateStep] = useState(0)
-  const [videoShown, setVideoShown] = useState(false)
-  const [showWelcomeTitle, setShowWelcomeTitle] = useState(true)
-  const [showGetStartedTitle, setShowGetStartedTitle] = useState(false)
+  const { ghostInvitation } = useParams();
+  const { currentUser } = useAuth();
+  const [activateStep, setActivateStep] = useState(0);
+  const [videoShown, setVideoShown] = useState(false);
+  const [showWelcomeTitle, setShowWelcomeTitle] = useState(true);
+  const [showGetStartedTitle, setShowGetStartedTitle] = useState(false);
 
-  const FormPages = [ActivateForm, UpdateUserInfoForm, CreateAvatar]
-  const Component = FormPages[activateStep] ?? 'div'
+  const FormPages = [ActivateForm, UpdateUserInfoForm, CreateAvatar];
+  const Component = FormPages[activateStep] ?? 'div';
 
-  const invitationToken = currentUser?.player?.teamInvitation
+  const invitationToken = currentUser?.player?.teamInvitation;
 
   const handlePlayVideo = async () => {
-    setVideoShown(true)
-    videoRef.current.play()
-    setShowWelcomeTitle(false)
+    setVideoShown(true);
+    videoRef.current.play();
+    setShowWelcomeTitle(false);
 
-    await waitFor(6000)
+    await waitFor(6000);
 
-    setVideoShown(false)
-    setShowGetStartedTitle(true)
+    setVideoShown(false);
+    setShowGetStartedTitle(true);
 
-    await waitFor(4000)
+    await waitFor(4000);
 
     invitationToken
       ? navigate(routes.joinTeam({ invitationToken, ghostInvitation }))
-      : navigate(routes.app())
-    toast.success('Welcome en ga direct aan de slag!')
-  }
+      : navigate(routes.app());
+    toast.success('Welcome en ga direct aan de slag!');
+  };
 
-  const videoRef = useRef<any>()
+  const videoRef = useRef<any>();
 
   return (
     <>
@@ -91,7 +91,7 @@ const ActivatePage = () => {
         </Flex>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default ActivatePage
+export default ActivatePage;

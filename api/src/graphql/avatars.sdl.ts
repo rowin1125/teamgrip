@@ -67,4 +67,4 @@ export const schema = gql`
     updateAvatar(id: String!, input: UpdateAvatarInput!): Avatar! @requireAuth
     deleteAvatar(id: String!): Avatar! @requireAuth
   }
-`
+`;

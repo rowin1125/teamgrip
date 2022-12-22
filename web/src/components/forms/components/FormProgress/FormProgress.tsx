@@ -1,14 +1,14 @@
-import { Flex, FlexProps } from '@chakra-ui/react'
-import { StepProps, Steps, StepsProps } from 'chakra-ui-steps'
+import { Flex, FlexProps } from '@chakra-ui/react';
+import { StepProps, Steps, StepsProps } from 'chakra-ui-steps';
 
-import FormStep from './FormStep'
+import FormStep from './FormStep';
 
 type FormProgressProps = {
-  activePage: number
-  amountOfPages: number
-  stepsProps?: StepsProps
-  stepProps?: StepProps
-} & FlexProps
+  activePage: number;
+  amountOfPages: number;
+  stepsProps?: StepsProps;
+  stepProps?: StepProps;
+} & FlexProps;
 
 const FormProgress = ({
   activePage,
@@ -17,7 +17,7 @@ const FormProgress = ({
   stepsProps,
   ...props
 }: FormProgressProps) => {
-  const greaterThanTwo = amountOfPages > 2
+  const greaterThanTwo = amountOfPages > 2;
 
   return (
     <Flex justifyContent="center" w="100%" {...props}>
@@ -37,7 +37,7 @@ const FormProgress = ({
         ))}
       </Steps>
     </Flex>
-  )
-}
+  );
+};
 
-export default FormProgress
+export default FormProgress;

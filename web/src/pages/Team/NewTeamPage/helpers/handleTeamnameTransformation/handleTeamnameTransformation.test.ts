@@ -1,4 +1,4 @@
-import { handleTeamNameTransformation } from './handleTeamnameTransformation'
+import { handleTeamNameTransformation } from './handleTeamnameTransformation';
 
 describe('handleTeamNameTransformation()', () => {
   it.each([
@@ -8,7 +8,7 @@ describe('handleTeamNameTransformation()', () => {
     ['Zondag@!*#&*&*^!$#!', 'Zondag'],
     ['Zaterdag !#&*^^*#7', 'Zaterdag-7'],
   ])('Total of volumes %s and %s is %s', (stringValue, expectedResult) => {
-    const result = handleTeamNameTransformation(stringValue)
-    expect(expectedResult).toEqual(result)
-  })
-})
+    const result = handleTeamNameTransformation(stringValue);
+    expect(expectedResult).toEqual(result);
+  });
+});

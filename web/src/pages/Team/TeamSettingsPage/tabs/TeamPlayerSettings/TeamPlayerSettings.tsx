@@ -1,20 +1,21 @@
-import { Box, Heading } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react';
 
-import TeamPlayerSettingsTable from './components/TeamPlayerSettingsTable'
-import { useDeletePlayerById } from './hooks/useDeletePlayerById'
-import { useGetTeamPlayersForSettings } from './hooks/useGetTeamPlayersForSettings'
+import TeamPlayerSettingsTable from './components/TeamPlayerSettingsTable';
+import { useDeletePlayerById } from './hooks/useDeletePlayerById';
+import { useGetTeamPlayersForSettings } from './hooks/useGetTeamPlayersForSettings';
 
 const TeamPlayerSettings = () => {
-  const { teamWithExtra, teamWithExtraLoading } = useGetTeamPlayersForSettings()
-  const { handleDeletePlayerById } = useDeletePlayerById()
+  const { teamWithExtra, teamWithExtraLoading } =
+    useGetTeamPlayersForSettings();
+  const { handleDeletePlayerById } = useDeletePlayerById();
 
-  if (teamWithExtraLoading) return null
+  if (teamWithExtraLoading) return null;
 
   const transformedTeamPlayers = teamWithExtra?.players?.map((player) => ({
     id: player?.id,
     naam: player?.displayName,
     'Spelers rol': player?.playerType,
-  }))
+  }));
 
   return (
     <Box>
@@ -33,7 +34,7 @@ const TeamPlayerSettings = () => {
         />
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default TeamPlayerSettings
+export default TeamPlayerSettings;

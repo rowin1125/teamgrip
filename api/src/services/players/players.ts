@@ -1,19 +1,19 @@
-import nanoid from 'nanoid'
+import nanoid from 'nanoid';
 import type {
   QueryResolvers,
   MutationResolvers,
   PlayerRelationResolvers,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { removeNulls } from '@redwoodjs/api'
+import { removeNulls } from '@redwoodjs/api';
 
-import { db } from 'src/lib/db'
+import { db } from 'src/lib/db';
 
-import { mergePlayersAndScores } from './helpers/mergePlayersAndScores'
+import { mergePlayersAndScores } from './helpers/mergePlayersAndScores';
 
 export const players: QueryResolvers['players'] = () => {
-  return db.player.findMany()
-}
+  return db.player.findMany();
+};
 
 export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
   teamId,
@@ -39,8 +39,8 @@ export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
         },
       },
     },
-  })
-}
+  });
+};
 
 export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByTeamId'] =
   async ({ teamId, limit }) => {
@@ -58,7 +58,7 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
           },
         },
       },
-    })
+    });
 
     const scores = await db.score.groupBy({
       by: ['playerId'],
@@ -76,18 +76,18 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
           active: true,
         },
       },
-    })
-    const players = mergePlayersAndScores(playersWithoutScores, scores)
-    const sortedPLayers = players?.sort((a, b) => b.totalScore - a.totalScore)
+    });
+    const players = mergePlayersAndScores(playersWithoutScores, scores);
+    const sortedPLayers = players?.sort((a, b) => b.totalScore - a.totalScore);
 
-    if (limit) return sortedPLayers.slice(0, limit)
+    if (limit) return sortedPLayers.slice(0, limit);
 
-    return sortedPLayers
-  }
+    return sortedPLayers;
+  };
 
 export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] =
   async ({ teamId }) => {
-    if (!context.currentUser?.player) throw new Error('Not authorized')
+    if (!context.currentUser?.player) throw new Error('Not authorized');
 
     const playerWithoutScores = await db.player.findFirst({
       where: {
@@ -105,13 +105,13 @@ export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] 
           take: 1,
         },
       },
-    })
+    });
     const activeSeason = await db.season.findFirst({
       where: {
         active: true,
         teamId,
       },
-    })
+    });
 
     const score = await db.score.aggregate({
       _sum: {
@@ -126,17 +126,17 @@ export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] 
         },
         playerId: context.currentUser.player.id,
       },
-    })
+    });
 
     const playerWithScore = {
       ...playerWithoutScores,
       totalScore: score?._sum?.points ?? 0,
       avgScore: score?._avg?.points ?? 0,
       activeSeason,
-    }
+    };
 
-    return playerWithScore
-  }
+    return playerWithScore;
+  };
 
 export const getPlayersPresenceByTeamId: QueryResolvers['getPlayersPresenceByTeamId'] =
   async ({ teamId }) => {
@@ -163,10 +163,10 @@ export const getPlayersPresenceByTeamId: QueryResolvers['getPlayersPresenceByTea
           },
         },
       },
-    })
+    });
 
-    return players
-  }
+    return players;
+  };
 
 export const getGhostPlayersByTeamId: QueryResolvers['getGhostPlayersByTeamId'] =
   async ({ teamId }) => {
@@ -175,8 +175,8 @@ export const getGhostPlayersByTeamId: QueryResolvers['getGhostPlayersByTeamId'] 
         teamId,
         isGhost: true,
       },
-    })
-  }
+    });
+  };
 
 export const getGhostPlayerByInvitation: QueryResolvers['getGhostPlayerByInvitation'] =
   async ({ ghostInvitation }) => {
@@ -185,20 +185,20 @@ export const getGhostPlayerByInvitation: QueryResolvers['getGhostPlayerByInvitat
         ghostInvitation,
         isGhost: true,
       },
-    })
-  }
+    });
+  };
 
 export const player: QueryResolvers['player'] = ({ id }) => {
   return db.player.findUnique({
     where: { id },
-  })
-}
+  });
+};
 
 export const createPlayer: MutationResolvers['createPlayer'] = ({ input }) => {
   return db.player.create({
     data: removeNulls(input),
-  })
-}
+  });
+};
 
 export const createManyGhostPlayers: MutationResolvers['createManyGhostPlayers'] =
   async ({ input }) => {
@@ -207,18 +207,18 @@ export const createManyGhostPlayers: MutationResolvers['createManyGhostPlayers']
       teamId: input.teamId,
       isActivePlayer: true,
       isGhost: true,
-    }))
+    }));
     const players = await db.player.createMany({
       data: playersData,
       skipDuplicates: true,
-    })
+    });
 
-    return players
-  }
+    return players;
+  };
 
 export const createGhostPlayerInvitation: MutationResolvers['createGhostPlayerInvitation'] =
   async ({ id }) => {
-    const token = nanoid()
+    const token = nanoid();
 
     return db.player.update({
       where: {
@@ -227,8 +227,8 @@ export const createGhostPlayerInvitation: MutationResolvers['createGhostPlayerIn
       data: {
         ghostInvitation: token,
       },
-    })
-  }
+    });
+  };
 
 export const deleteGhostPlayerInvitation: MutationResolvers['deleteGhostPlayerInvitation'] =
   async ({ id }) => {
@@ -239,23 +239,23 @@ export const deleteGhostPlayerInvitation: MutationResolvers['deleteGhostPlayerIn
       data: {
         ghostInvitation: null,
       },
-    })
-  }
+    });
+  };
 
 export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTeamByGhostInvitation'] =
   async ({ id, ghostId, teamId }) => {
-    const currentPlayer = await db.player.findUnique({ where: { id: id } })
-    const currentUser = context?.currentUser
-    const team = await db.team.findUnique({ where: { id: teamId } })
+    const currentPlayer = await db.player.findUnique({ where: { id: id } });
+    const currentUser = context?.currentUser;
+    const team = await db.team.findUnique({ where: { id: teamId } });
 
     if (!currentPlayer || !team?.clubId || !currentUser)
-      throw new Error('Player or team not found')
+      throw new Error('Player or team not found');
 
     const deleteCurrentPlayerFromUser = db.player.delete({
       where: {
         id,
       },
-    })
+    });
 
     const newCurrentUserPlayer = db.player.update({
       where: { id: ghostId },
@@ -276,15 +276,15 @@ export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTea
         displayName: currentPlayer.displayName,
         isGhost: false,
       },
-    })
+    });
 
     const updatePlayersResult = await db.$transaction([
       deleteCurrentPlayerFromUser,
       newCurrentUserPlayer,
-    ])
+    ]);
 
-    return updatePlayersResult[1]
-  }
+    return updatePlayersResult[1];
+  };
 
 export const updatePlayer: MutationResolvers['updatePlayer'] = ({
   id,
@@ -293,14 +293,14 @@ export const updatePlayer: MutationResolvers['updatePlayer'] = ({
   return db.player.update({
     data: removeNulls(input),
     where: { id },
-  })
-}
+  });
+};
 
 export const deletePlayer: MutationResolvers['deletePlayer'] = ({ id }) => {
   return db.player.delete({
     where: { id },
-  })
-}
+  });
+};
 
 export const Player: PlayerRelationResolvers = {
   user: (_obj, { root }) =>
@@ -311,4 +311,4 @@ export const Player: PlayerRelationResolvers = {
     db.player.findUnique({ where: { id: root.id } }).club(),
   scores: (_obj, { root }) =>
     db.player.findUnique({ where: { id: root.id } }).scores(),
-}
+};

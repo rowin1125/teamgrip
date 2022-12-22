@@ -4,13 +4,13 @@ import {
   CreateSeasonMutation,
   CreateSeasonMutationVariables,
   FindTeamQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { SEASON_FRAGMENT } from 'src/graphql/fragments/SeasonFragment'
+import { SEASON_FRAGMENT } from 'src/graphql/fragments/SeasonFragment';
 
 export const CREATE_SEASON_MUTATION = gql`
   ${SEASON_FRAGMENT}
@@ -19,17 +19,17 @@ export const CREATE_SEASON_MUTATION = gql`
       ...SeasonFragment
     }
   }
-`
+`;
 export const useCreateSeason = (team: FindTeamQuery['team']) => {
   const [createSeason, { loading: seasonLoading }] = useMutation<
     CreateSeasonMutation,
     CreateSeasonMutationVariables
-  >(CREATE_SEASON_MUTATION)
+  >(CREATE_SEASON_MUTATION);
 
   const handleCreateSeason = async (values: CreateSeasonInput) => {
     if (!team) {
-      toast.error('No team found')
-      return
+      toast.error('No team found');
+      return;
     }
     try {
       const season = await createSeason({
@@ -40,17 +40,17 @@ export const useCreateSeason = (team: FindTeamQuery['team']) => {
             seasonTeamName: `${team?.club?.name}-${team?.name}-${values.name}`,
           },
         },
-      })
-      toast.success(`Seizoen ${season?.data?.createSeason.name} aangemaakt`)
-      navigate(routes.team())
+      });
+      toast.success(`Seizoen ${season?.data?.createSeason.name} aangemaakt`);
+      navigate(routes.team());
     } catch (error: any) {
-      console.log(error)
-      toast.error(error?.message)
+      console.log(error);
+      toast.error(error?.message);
     }
-  }
+  };
 
   return {
     handleCreateSeason,
     seasonLoading,
-  }
-}
+  };
+};

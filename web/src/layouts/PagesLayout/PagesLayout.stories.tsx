@@ -1,7 +1,7 @@
-import PageLayout from './PagesLayout'
+import PageLayout from './PagesLayout';
 
 export const generated = () => {
-  return <PageLayout />
-}
+  return <PageLayout />;
+};
 
-export default { title: 'Layouts/PageLayout' }
+export default { title: 'Layouts/PageLayout' };

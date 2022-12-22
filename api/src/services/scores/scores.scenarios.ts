@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/client';
 
 export const standard = defineScenario<Prisma.ScoreCreateArgs>({
   score: {
@@ -21,6 +21,6 @@ export const standard = defineScenario<Prisma.ScoreCreateArgs>({
       },
     },
   },
-})
+});
 
-export type StandardScenario = typeof standard
+export type StandardScenario = typeof standard;

@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import GameDetailPage from './GameDetailPage'
+import GameDetailPage from './GameDetailPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import GameDetailPage from './GameDetailPage'
 describe('GameDetailPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<GameDetailPage />)
-    }).not.toThrow()
-  })
-})
+      render(<GameDetailPage />);
+    }).not.toThrow();
+  });
+});

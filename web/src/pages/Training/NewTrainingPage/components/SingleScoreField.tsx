@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
+import { useState } from 'react';
 
 import {
   Box,
@@ -11,30 +11,30 @@ import {
   Input,
   Switch,
   Text,
-} from '@chakra-ui/react'
-import { useFormikContext } from 'formik'
+} from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
 import {
   FindTeamQuery,
   GetPlayersForTeamQuery,
   GetTrainingByIdQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { ScoreFormValues } from './CreateScoreFieldArrayInputs'
-import { useScoreFieldArrayActions } from './hooks/useScoreFieldArrayActions'
-import ScoreFieldArrayBenchPlayers from './ScoreFieldArrayBenchPlayers'
-import ScoreFieldArrayRow from './ScoreFieldArrayRow'
-import SingleTopTrainingScores from './SingleTopTrainingScores'
+import { ScoreFormValues } from './CreateScoreFieldArrayInputs';
+import { useScoreFieldArrayActions } from './hooks/useScoreFieldArrayActions';
+import ScoreFieldArrayBenchPlayers from './ScoreFieldArrayBenchPlayers';
+import ScoreFieldArrayRow from './ScoreFieldArrayRow';
+import SingleTopTrainingScores from './SingleTopTrainingScores';
 
 type SingleScoreFieldProps = {
-  push: (obj: any) => void
-  remove: <T>(index: number) => T | undefined
+  push: (obj: any) => void;
+  remove: <T>(index: number) => T | undefined;
   players:
     | GetPlayersForTeamQuery['playersForTeam']
-    | GetTrainingByIdQuery['training']['players']
-  team?: FindTeamQuery['team']
-  showTop: boolean
-  setShowTop: (value: boolean) => void
-}
+    | GetTrainingByIdQuery['training']['players'];
+  team?: FindTeamQuery['team'];
+  showTop: boolean;
+  setShowTop: (value: boolean) => void;
+};
 
 const SingleScoreField = ({
   push,
@@ -44,8 +44,8 @@ const SingleScoreField = ({
   setShowTop,
   showTop,
 }: SingleScoreFieldProps) => {
-  const { values } = useFormikContext<ScoreFormValues>()
-  const [calculateNumber, setCalculateNumber] = useState('25')
+  const { values } = useFormikContext<ScoreFormValues>();
+  const [calculateNumber, setCalculateNumber] = useState('25');
 
   const { handlePush, playersScoreArray, benchPlayers, handleRemove } =
     useScoreFieldArrayActions({
@@ -53,13 +53,13 @@ const SingleScoreField = ({
       push,
       remove,
       team,
-    })
+    });
 
   const handleCalculateNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
+    const value = e.target.value;
 
-    setCalculateNumber(value)
-  }
+    setCalculateNumber(value);
+  };
 
   return (
     <Box>
@@ -95,7 +95,7 @@ const SingleScoreField = ({
                   players={players}
                   index={index}
                 />
-              )
+              );
             })}
           </Box>
         </>
@@ -133,7 +133,7 @@ const SingleScoreField = ({
         />
       ))}
     </Box>
-  )
-}
+  );
+};
 
-export default SingleScoreField
+export default SingleScoreField;

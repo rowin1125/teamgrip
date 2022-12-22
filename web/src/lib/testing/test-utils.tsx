@@ -1,15 +1,15 @@
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement } from 'react';
 
-import { ChakraProvider } from '@chakra-ui/react'
-import { render, RenderOptions } from '@testing-library/react'
+import { ChakraProvider } from '@chakra-ui/react';
+import { render, RenderOptions } from '@testing-library/react';
 
-import { MockProviders } from '@redwoodjs/testing/web'
+import { MockProviders } from '@redwoodjs/testing/web';
 
-import { theme } from 'src/lib/theme/theme'
+import { theme } from 'src/lib/theme/theme';
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <ChakraProvider theme={theme}>{children}</ChakraProvider>
-}
+  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
+};
 
 const customRender = (
   ui: ReactElement,
@@ -22,7 +22,7 @@ const customRender = (
       </MockProviders>
     ),
     ...options,
-  })
+  });
 
-export * from '@testing-library/react'
-export { customRender as render }
+export * from '@testing-library/react';
+export { customRender as render };

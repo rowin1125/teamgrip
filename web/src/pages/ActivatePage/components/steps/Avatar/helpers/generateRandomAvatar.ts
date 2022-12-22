@@ -185,19 +185,19 @@ export const avatarOptions = {
     'DarkBrown',
     'Black',
   ],
-}
+};
 
-type ConfigsKeys = keyof typeof avatarOptions
+type ConfigsKeys = keyof typeof avatarOptions;
 
-const configsKeys = Object.keys(avatarOptions) as ConfigsKeys[]
+const configsKeys = Object.keys(avatarOptions) as ConfigsKeys[];
 
 export function generateRandomAvatarOptions() {
-  const options = {} as Record<ConfigsKeys, string>
-  const keys = [...configsKeys]
+  const options = {} as Record<ConfigsKeys, string>;
+  const keys = [...configsKeys];
   keys.forEach((key) => {
-    const configArray = avatarOptions[key]
-    options[key] = configArray[Math.floor(Math.random() * configArray.length)]
-  })
+    const configArray = avatarOptions[key];
+    options[key] = configArray[Math.floor(Math.random() * configArray.length)];
+  });
 
-  return options
+  return options;
 }

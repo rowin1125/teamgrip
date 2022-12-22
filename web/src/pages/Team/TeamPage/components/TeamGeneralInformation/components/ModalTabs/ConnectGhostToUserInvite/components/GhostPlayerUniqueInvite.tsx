@@ -1,34 +1,41 @@
-import React from 'react'
+import React from 'react';
 
-import { Button, Flex, Icon, Input, Text, useClipboard } from '@chakra-ui/react'
-import { BsWhatsapp } from 'react-icons/bs'
-import { MdContentCopy } from 'react-icons/md'
-import { TbCheck } from 'react-icons/tb'
-import { FindTeamQuery, GetGhostPlayersForTeamQuery } from 'types/graphql'
+import {
+  Button,
+  Flex,
+  Icon,
+  Input,
+  Text,
+  useClipboard,
+} from '@chakra-ui/react';
+import { BsWhatsapp } from 'react-icons/bs';
+import { MdContentCopy } from 'react-icons/md';
+import { TbCheck } from 'react-icons/tb';
+import { FindTeamQuery, GetGhostPlayersForTeamQuery } from 'types/graphql';
 
-import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog';
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
-import { useCreateGhostPlayerInvitation } from '../hooks/useCreateGhostPlayerInvitation'
-import { useDeleteGhostPlayerInvitation } from '../hooks/useDeleteGhostPlayerInvitation'
+import { useCreateGhostPlayerInvitation } from '../hooks/useCreateGhostPlayerInvitation';
+import { useDeleteGhostPlayerInvitation } from '../hooks/useDeleteGhostPlayerInvitation';
 
 type GhostPlayerUniqueInviteProps = {
-  team?: FindTeamQuery['team']
-  ghost: GetGhostPlayersForTeamQuery['getGhostPlayersByTeamId'][0]
-}
+  team?: FindTeamQuery['team'];
+  ghost: GetGhostPlayersForTeamQuery['getGhostPlayersByTeamId'][0];
+};
 
 const GhostPlayerUniqueInvite = ({
   ghost,
   team,
 }: GhostPlayerUniqueInviteProps) => {
-  const { handleCreateInvitation, loading } = useCreateGhostPlayerInvitation()
-  const hasGhostInvitation = !!ghost?.ghostInvitation
+  const { handleCreateInvitation, loading } = useCreateGhostPlayerInvitation();
+  const hasGhostInvitation = !!ghost?.ghostInvitation;
 
-  const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}&ghostInvitation=${ghost?.ghostInvitation}`
+  const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}&ghostInvitation=${ghost?.ghostInvitation}`;
 
-  const { hasCopied, onCopy } = useClipboard(inviteUrl)
+  const { hasCopied, onCopy } = useClipboard(inviteUrl);
   const { handleDeleteGhostPlayerInvitation, loading: deleteLoading } =
-    useDeleteGhostPlayerInvitation()
+    useDeleteGhostPlayerInvitation();
 
   return (
     <Flex my={4} w={{ base: 'full' }}>
@@ -101,7 +108,7 @@ const GhostPlayerUniqueInvite = ({
         </Button>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default GhostPlayerUniqueInvite
+export default GhostPlayerUniqueInvite;

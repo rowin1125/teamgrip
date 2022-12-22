@@ -1,1 +1,1 @@
-export { default } from './FooterDrawer'
+export { default } from './FooterDrawer';

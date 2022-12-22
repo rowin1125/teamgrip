@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { Flex, Button, Icon, IconProps } from '@chakra-ui/react'
+import { Flex, Button, Icon, IconProps } from '@chakra-ui/react';
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type SidebarItemClosedProps = {
-  navOpen: boolean
-  title: string
-  active: boolean
-  to: string
-  icon: React.ElementType
-  iconProps?: IconProps
-}
+  navOpen: boolean;
+  title: string;
+  active: boolean;
+  to: string;
+  icon: React.ElementType;
+  iconProps?: IconProps;
+};
 
 const SidebarItemClosed = ({
   active,
@@ -31,7 +31,7 @@ const SidebarItemClosed = ({
         <Icon as={icon} fontSize="md" {...iconProps} />
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default SidebarItemClosed
+export default SidebarItemClosed;

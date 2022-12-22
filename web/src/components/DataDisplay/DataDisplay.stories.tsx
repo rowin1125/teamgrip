@@ -1,7 +1,7 @@
-import DataDisplay from './DataDisplay'
+import DataDisplay from './DataDisplay';
 
 export const generated = () => {
-  return <DataDisplay />
-}
+  return <DataDisplay />;
+};
 
-export default { title: 'Components/DataDisplay' }
+export default { title: 'Components/DataDisplay' };

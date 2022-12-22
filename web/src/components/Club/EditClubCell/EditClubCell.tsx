@@ -1,11 +1,11 @@
-import type { EditClubById } from 'types/graphql'
+import type { EditClubById } from 'types/graphql';
 
-import { navigate, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import ClubForm from 'src/components/Club/ClubForm'
+import ClubForm from 'src/components/Club/ClubForm';
 
 export const QUERY = gql`
   query EditClubById($id: String!) {
@@ -16,7 +16,7 @@ export const QUERY = gql`
       name
     }
   }
-`
+`;
 const UPDATE_CLUB_MUTATION = gql`
   mutation UpdateClubMutation($id: String!, $input: UpdateClubInput!) {
     updateClub(id: $id, input: $input) {
@@ -26,28 +26,28 @@ const UPDATE_CLUB_MUTATION = gql`
       name
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
 export const Failure = ({ error }: CellFailureProps) => (
   <div className="rw-cell-error">{error.message}</div>
-)
+);
 
 export const Success = ({ club }: CellSuccessProps<EditClubById>) => {
   const [updateClub, { loading, error }] = useMutation(UPDATE_CLUB_MUTATION, {
     onCompleted: () => {
-      toast.success('Club updated')
-      navigate(routes.adminClubs())
+      toast.success('Club updated');
+      navigate(routes.adminClubs());
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const onSave = (input, id) => {
-    updateClub({ variables: { id, input } })
-  }
+    updateClub({ variables: { id, input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -58,5 +58,5 @@ export const Success = ({ club }: CellSuccessProps<EditClubById>) => {
         <ClubForm club={club} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>
-  )
-}
+  );
+};

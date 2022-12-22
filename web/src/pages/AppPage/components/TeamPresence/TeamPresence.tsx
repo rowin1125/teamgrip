@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, GridItem, Heading } from '@chakra-ui/react'
+import { Box, GridItem, Heading } from '@chakra-ui/react';
 
-import Card from 'src/components/Card/Card'
-import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader'
-import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
+import Card from 'src/components/Card/Card';
+import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
+import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
 
-import GamePresence from './components/GamePresence'
-import TrainingPresence from './components/TrainingPresence'
-import { useGetPlayersPresence } from './hooks/useGetTeamPresenceByTeamId'
+import GamePresence from './components/GamePresence';
+import TrainingPresence from './components/TrainingPresence';
+import { useGetPlayersPresence } from './hooks/useGetTeamPresenceByTeamId';
 
 const TeamPresence = () => {
-  const { teamPresence, teamPresenceLoading } = useGetPlayersPresence()
+  const { teamPresence, teamPresenceLoading } = useGetPlayersPresence();
 
-  if (teamPresenceLoading) return null
+  if (teamPresenceLoading) return null;
 
   return (
     <>
@@ -50,7 +50,7 @@ const TeamPresence = () => {
         </SpinnerLoader>
       </GridItem>
     </>
-  )
-}
+  );
+};
 
-export default TeamPresence
+export default TeamPresence;

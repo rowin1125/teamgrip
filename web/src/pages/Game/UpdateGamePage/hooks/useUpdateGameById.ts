@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 import {
   UpdateGameByIdMutation,
   UpdateGameByIdMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { GAME_FRAGMENT } from 'src/graphql/fragments/GameFragment'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
-import { GET_GAMES_BY_TEAM_QUERY } from 'src/pages/Team/TeamPage/components/TeamGames/hooks/useGetGamesByTeamId'
+import { GAME_FRAGMENT } from 'src/graphql/fragments/GameFragment';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
+import { GET_GAMES_BY_TEAM_QUERY } from 'src/pages/Team/TeamPage/components/TeamGames/hooks/useGetGamesByTeamId';
 
 export const UPDATE_GAME_BY_ID_MUTATION = gql`
   ${GAME_FRAGMENT}
@@ -25,10 +25,10 @@ export const UPDATE_GAME_BY_ID_MUTATION = gql`
       ...GameFragment
     }
   }
-`
+`;
 
 export const useUpdateGameById = (id: string, showTop: boolean) => {
-  const { currentUser, isTeamStaff } = useTeamPlayerAuth()
+  const { currentUser, isTeamStaff } = useTeamPlayerAuth();
 
   const [updateGame, { loading: handleUpdateGameLoading }] = useMutation<
     UpdateGameByIdMutation,
@@ -40,11 +40,11 @@ export const useUpdateGameById = (id: string, showTop: boolean) => {
         variables: { id: currentUser?.player?.teamId || '' },
       },
     ],
-  })
+  });
 
   const handleUpdateGame = async (values: any) => {
-    const { scores, topGameScores, ...input } = values
-    const allScores = [...scores, ...(showTop ? topGameScores : [])]
+    const { scores, topGameScores, ...input } = values;
+    const allScores = [...scores, ...(showTop ? topGameScores : [])];
 
     try {
       await updateGame({
@@ -56,23 +56,23 @@ export const useUpdateGameById = (id: string, showTop: boolean) => {
           },
           scores: allScores,
         },
-      })
-      toast.success(`Wedstrijd aangepast`)
-      navigate(routes.gameDetail({ id }))
+      });
+      toast.success(`Wedstrijd aangepast`);
+      navigate(routes.gameDetail({ id }));
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  }
+  };
 
   useEffect(() => {
-    if (isTeamStaff) return
+    if (isTeamStaff) return;
 
-    toast.error('Je hebt geen toegang voor deze pagina')
-    navigate(routes.team())
-  }, [currentUser, isTeamStaff])
+    toast.error('Je hebt geen toegang voor deze pagina');
+    navigate(routes.team());
+  }, [currentUser, isTeamStaff]);
 
   return {
     handleUpdateGame,
     handleUpdateGameLoading,
-  }
-}
+  };
+};

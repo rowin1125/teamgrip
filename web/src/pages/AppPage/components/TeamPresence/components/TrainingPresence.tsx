@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Chart as ChartJS,
@@ -11,20 +11,20 @@ import {
   Tooltip,
   LineController,
   BarController,
-} from 'chart.js'
-import { Chart } from 'react-chartjs-2'
-import { GetPlayersPresenceQuery } from 'types/graphql'
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { GetPlayersPresenceQuery } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { routes } from '@redwoodjs/router';
 
-import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper'
-import { useScreenSize } from 'src/hooks/global/useScreenSize'
+import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';
+import { useScreenSize } from 'src/hooks/global/useScreenSize';
 
 type TrainingPresenceProps = {
-  teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId']
-  isLoading: boolean
-}
+  teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId'];
+  isLoading: boolean;
+};
 
 ChartJS.register(
   LinearScale,
@@ -36,17 +36,17 @@ ChartJS.register(
   Tooltip,
   LineController,
   BarController
-)
+);
 
 const TrainingPresence = ({
   teamPresence,
   isLoading,
 }: TrainingPresenceProps) => {
-  const { isXl, is2xl } = useScreenSize()
-  const { currentUser } = useAuth()
-  if (!teamPresence) return null
+  const { isXl, is2xl } = useScreenSize();
+  const { currentUser } = useAuth();
+  if (!teamPresence) return null;
 
-  const labels = teamPresence?.map((player) => player?.displayName)
+  const labels = teamPresence?.map((player) => player?.displayName);
 
   const data = {
     labels,
@@ -60,11 +60,11 @@ const TrainingPresence = ({
         borderWidth: 2,
       },
     ],
-  }
+  };
 
   const somePlayerHasTrainings = teamPresence.some(
     (player) => player?.trainings && player?.trainings.length > 0
-  )
+  );
 
   return (
     <ChartHasDataWrapper
@@ -108,7 +108,7 @@ const TrainingPresence = ({
         data={data}
       />
     </ChartHasDataWrapper>
-  )
-}
+  );
+};
 
-export default TrainingPresence
+export default TrainingPresence;

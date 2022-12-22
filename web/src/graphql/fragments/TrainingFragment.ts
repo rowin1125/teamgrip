@@ -1,4 +1,4 @@
-import { AVATAR_FRAGMENT } from './AvatarFragment'
+import { AVATAR_FRAGMENT } from './AvatarFragment';
 
 export const TRAINING_FRAGMENT = gql`
   ${AVATAR_FRAGMENT}
@@ -36,4 +36,4 @@ export const TRAINING_FRAGMENT = gql`
       }
     }
   }
-`
+`;

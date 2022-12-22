@@ -1,20 +1,20 @@
-import { Grid, GridItem, Heading } from '@chakra-ui/react'
-import { format } from 'date-fns'
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
+import { format } from 'date-fns';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useGetPlayersForTeam } from 'src/pages/Team/TeamPage/hooks/useGetPlayersForTeam'
+import Card from 'src/components/Card/Card';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import { useGetPlayersForTeam } from 'src/pages/Team/TeamPage/hooks/useGetPlayersForTeam';
 
-import TrainingForm from '../form/TrainingForm'
+import TrainingForm from '../form/TrainingForm';
 
-import { useCreateTraining } from './hooks/useCreateTraining'
+import { useCreateTraining } from './hooks/useCreateTraining';
 
 const NewTrainingPage = () => {
-  const { playersData, playersLoading } = useGetPlayersForTeam()
-  const { team, loading } = useGetTeamById()
-  const [showTop, setShowTop] = React.useState(true)
+  const { playersData, playersLoading } = useGetPlayersForTeam();
+  const { team, loading } = useGetTeamById();
+  const [showTop, setShowTop] = React.useState(true);
 
   const {
     handleCreateTraining,
@@ -26,9 +26,9 @@ const NewTrainingPage = () => {
     playersData,
     team,
     showTop,
-  })
+  });
 
-  if (loading || playersLoading) return null
+  if (loading || playersLoading) return null;
 
   return (
     <>
@@ -59,7 +59,7 @@ const NewTrainingPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default NewTrainingPage
+export default NewTrainingPage;

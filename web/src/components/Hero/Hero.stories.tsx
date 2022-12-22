@@ -1,7 +1,7 @@
-import Hero from './Hero'
+import Hero from './Hero';
 
 export const generated = () => {
-  return <Hero />
-}
+  return <Hero />;
+};
 
-export default { title: 'Components/Hero' }
+export default { title: 'Components/Hero' };

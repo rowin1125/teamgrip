@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Flex, Link } from '@chakra-ui/react'
-import { Formik, Form as FormikForm } from 'formik'
-import * as Yup from 'yup'
+import { Box, Button, Flex, Link } from '@chakra-ui/react';
+import { Formik, Form as FormikForm } from 'formik';
+import * as Yup from 'yup';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import RedwoodLink from 'src/components/RedwoodLink'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type LoginFormProps = {
-  initialValues: Record<string, unknown>
-  onSubmit: (values: Record<string, unknown>) => Promise<void>
-  loading: boolean
-  showSignUp?: boolean
-}
+  initialValues: Record<string, unknown>;
+  onSubmit: (values: Record<string, unknown>) => Promise<void>;
+  loading: boolean;
+  showSignUp?: boolean;
+};
 
 const LoginForm = ({
   initialValues,
@@ -27,7 +27,7 @@ const LoginForm = ({
       .email('Email moet wel een email zijn...')
       .required('Veld is verplicht'),
     password: Yup.string().required('Wachtwoord is verplicht'),
-  })
+  });
   return (
     <Formik
       initialValues={initialValues}
@@ -67,7 +67,7 @@ const LoginForm = ({
         </Flex>
       </FormikForm>
     </Formik>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

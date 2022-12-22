@@ -1,8 +1,8 @@
-import { useAuth } from '@redwoodjs/auth'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { GET_TEAM_PLAYERS_FOR_SETTINGS } from './useGetTeamPlayersForSettings'
+import { GET_TEAM_PLAYERS_FOR_SETTINGS } from './useGetTeamPlayersForSettings';
 
 export const DELETE_PLAYER_BY_ID_MUTATION = gql`
   mutation DeletePlayerByIdMutation($id: String!) {
@@ -10,15 +10,15 @@ export const DELETE_PLAYER_BY_ID_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 export const useDeletePlayerById = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const [deletePlayer, { loading }] = useMutation(
     DELETE_PLAYER_BY_ID_MUTATION,
     {
       onError: (error) => {
-        toast.error(error.message)
+        toast.error(error.message);
       },
       refetchQueries: [
         {
@@ -27,22 +27,22 @@ export const useDeletePlayerById = () => {
         },
       ],
     }
-  )
+  );
 
   const handleDeletePlayerById = async (id: string) => {
     const deletePlayerById = await deletePlayer({
       variables: {
         id,
       },
-    })
+    });
 
     if (!deletePlayerById.errors) {
-      toast.success('Speler succesvol verwijderd 🗑️')
+      toast.success('Speler succesvol verwijderd 🗑️');
     }
-  }
+  };
 
   return {
     handleDeletePlayerById,
     handleDeletePlayerByIdLoading: loading,
-  }
-}
+  };
+};

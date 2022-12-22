@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Button,
@@ -9,28 +9,28 @@ import {
   MenuGroup,
   MenuItem,
   MenuList,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { Link as RedwoodLink, routes, useLocation } from '@redwoodjs/router'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { Link as RedwoodLink, routes, useLocation } from '@redwoodjs/router';
+import { toast } from '@redwoodjs/web/toast';
 
-import Avatar from 'src/components/Avatar/Avatar'
+import Avatar from 'src/components/Avatar/Avatar';
 
 const ProfileMenu = () => {
-  const { logOut } = useAuth()
-  const { pathname } = useLocation()
+  const { logOut } = useAuth();
+  const { pathname } = useLocation();
 
   const handleLogout = async () => {
     try {
-      await logOut()
-      toast.success('Logout successful')
+      await logOut();
+      toast.success('Logout successful');
     } catch (error) {
-      toast.error('Failed to logout')
+      toast.error('Failed to logout');
     }
-  }
+  };
 
-  const hideAppButton = !pathname.includes('app')
+  const hideAppButton = !pathname.includes('app');
 
   return (
     <Flex alignItems="center">
@@ -65,7 +65,7 @@ const ProfileMenu = () => {
         </MenuList>
       </Menu>
     </Flex>
-  )
-}
+  );
+};
 
-export default ProfileMenu
+export default ProfileMenu;

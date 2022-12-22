@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
+import React from 'react';
 
-import AvatarComponent from 'avataaars'
-import { Avatar } from 'types/graphql'
+import AvatarComponent from 'avataaars';
+import { Avatar } from 'types/graphql';
 
 type TeamGripAvatarProps = {
-  size: string
+  size: string;
   avatar: Omit<
     Avatar,
     '__typename' | 'createdAt' | 'updatedAt' | 'userId' | 'user'
-  >
-}
+  >;
+};
 
 const TeamGripAvatar = ({
   size,
@@ -20,12 +20,12 @@ const TeamGripAvatar = ({
   const combinedAvatarProps = {
     ...avatar,
     ...additionalAvatarProps,
-  }
-  const { id, ...avatarProps } = combinedAvatarProps
+  };
+  const { id, ...avatarProps } = combinedAvatarProps;
 
   return (
     <AvatarComponent style={{ width: size, height: size }} {...avatarProps} />
-  )
-}
+  );
+};
 
-export default TeamGripAvatar
+export default TeamGripAvatar;

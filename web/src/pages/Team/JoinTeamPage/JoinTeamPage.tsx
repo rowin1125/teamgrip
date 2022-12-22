@@ -1,16 +1,16 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { MetaTags } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth';
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import Hero from 'src/components/Hero/Hero'
+import Card from 'src/components/Card/Card';
+import Hero from 'src/components/Hero/Hero';
 
-import AcceptTeamInvitation from './components/AcceptTeamInvitation'
-import UnAuthenticatedJoin from './components/UnAuthenticatedJoin'
+import AcceptTeamInvitation from './components/AcceptTeamInvitation';
+import UnAuthenticatedJoin from './components/UnAuthenticatedJoin';
 
 const JoinTeamPage = () => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
@@ -33,7 +33,7 @@ const JoinTeamPage = () => {
         </Flex>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default JoinTeamPage
+export default JoinTeamPage;

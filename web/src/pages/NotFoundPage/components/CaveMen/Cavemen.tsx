@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
 
-import './Cavemen.scss'
+import './Cavemen.scss';
 
 const Cavemen = () => {
   return (
@@ -76,7 +76,7 @@ const Cavemen = () => {
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Cavemen
+export default Cavemen;

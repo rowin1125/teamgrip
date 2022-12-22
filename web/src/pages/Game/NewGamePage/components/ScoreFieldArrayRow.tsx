@@ -1,29 +1,29 @@
-import React from 'react'
+import React from 'react';
 
-import { Button, Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react'
-import { useFormikContext } from 'formik'
-import { CgClose } from 'react-icons/cg'
-import { FaMinus, FaPlus } from 'react-icons/fa'
+import { Button, Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
+import { CgClose } from 'react-icons/cg';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 import {
   CreateScoreInput,
   CreateGameInput,
   GetPlayersForTeamQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 type FormikValues = {
-  input: CreateGameInput
-  scores: CreateScoreInput[]
-}
+  input: CreateGameInput;
+  scores: CreateScoreInput[];
+};
 type ScoreFieldArrayRowProps = {
-  index: number
-  players: GetPlayersForTeamQuery['playersForTeam']
-  score: CreateScoreInput
-  handleRemove: (currentPlayer: Record<string, unknown>, index: number) => void
-  calculateNumber: string
-}
+  index: number;
+  players: GetPlayersForTeamQuery['playersForTeam'];
+  score: CreateScoreInput;
+  handleRemove: (currentPlayer: Record<string, unknown>, index: number) => void;
+  calculateNumber: string;
+};
 
 const ScoreFieldArrayRow = ({
   index,
@@ -32,24 +32,24 @@ const ScoreFieldArrayRow = ({
   calculateNumber,
   handleRemove,
 }: ScoreFieldArrayRowProps) => {
-  const { values, setFieldValue } = useFormikContext<FormikValues>()
+  const { values, setFieldValue } = useFormikContext<FormikValues>();
 
-  const id = `scores.${index}.points`
-  const currentPlayer = players.find((item) => item?.id === score.playerId)
+  const id = `scores.${index}.points`;
+  const currentPlayer = players.find((item) => item?.id === score.playerId);
 
   const handleAddPoints = () => {
-    const currentValue = values.scores[index].points
-    setFieldValue(id, +currentValue + +calculateNumber)
-  }
+    const currentValue = values.scores[index].points;
+    setFieldValue(id, +currentValue + +calculateNumber);
+  };
   const handleMinusPoints = () => {
-    const currentValue = values.scores[index].points
+    const currentValue = values.scores[index].points;
 
     if (currentValue - +calculateNumber < 0) {
-      setFieldValue(id, 0)
-      return
+      setFieldValue(id, 0);
+      return;
     }
-    setFieldValue(id, currentValue - +calculateNumber)
-  }
+    setFieldValue(id, currentValue - +calculateNumber);
+  };
 
   return (
     <Grid
@@ -109,7 +109,7 @@ const ScoreFieldArrayRow = ({
         </Flex>
       </GridItem>
     </Grid>
-  )
-}
+  );
+};
 
-export default ScoreFieldArrayRow
+export default ScoreFieldArrayRow;

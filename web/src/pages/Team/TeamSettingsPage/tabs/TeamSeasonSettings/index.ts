@@ -1,1 +1,1 @@
-export { default } from './TeamSeasonSettings'
+export { default } from './TeamSeasonSettings';

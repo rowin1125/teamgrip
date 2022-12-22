@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { Grid, GridItem } from '@chakra-ui/react'
-import { useFormikContext } from 'formik'
+import { Grid, GridItem } from '@chakra-ui/react';
+import { useFormikContext } from 'formik';
 
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
 
-import { avatarOptions } from '../../helpers/generateRandomAvatar'
+import { avatarOptions } from '../../helpers/generateRandomAvatar';
 
 const TopType = () => {
-  const { values } = useFormikContext<Record<string, string>>()
+  const { values } = useFormikContext<Record<string, string>>();
 
-  const disableaccessoriesType = values.topType === 'eyePatch'
-  const disableFacialHairColor = values.facialHairType === 'Blank'
+  const disableaccessoriesType = values.topType === 'eyePatch';
+  const disableFacialHairColor = values.facialHairType === 'Blank';
   const disableHairColor = [
     'LongHairShavedSides',
     'LongHairFrida',
@@ -20,7 +20,7 @@ const TopType = () => {
     'Hijab',
     'Hat',
     'Eyepatch',
-  ].includes(values.topType)
+  ].includes(values.topType);
   const showHatColor = [
     'WinterHat1',
     'WinterHat2',
@@ -28,7 +28,7 @@ const TopType = () => {
     'WinterHat4',
     'Turban',
     'Hijab',
-  ].includes(values.topType)
+  ].includes(values.topType);
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4}>
@@ -114,7 +114,7 @@ const TopType = () => {
         </GridItem>
       )}
     </Grid>
-  )
-}
+  );
+};
 
-export default TopType
+export default TopType;

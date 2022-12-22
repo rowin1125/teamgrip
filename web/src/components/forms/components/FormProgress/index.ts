@@ -1,1 +1,1 @@
-export { default } from './FormProgress'
+export { default } from './FormProgress';

@@ -1,7 +1,7 @@
-import NewTrainingPage from './NewTrainingPage'
+import NewTrainingPage from './NewTrainingPage';
 
 export const generated = () => {
-  return <NewTrainingPage />
-}
+  return <NewTrainingPage />;
+};
 
-export default { title: 'Pages/NewTrainingPage' }
+export default { title: 'Pages/NewTrainingPage' };

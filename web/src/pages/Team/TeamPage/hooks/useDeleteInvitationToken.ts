@@ -1,10 +1,10 @@
 import {
   DeleteInvitationTokenMutation,
   DeleteInvitationTokenMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
 export const DELETE_INVITATION_TOKEN = gql`
   mutation DeleteInvitationTokenMutation($id: String!) {
@@ -14,7 +14,7 @@ export const DELETE_INVITATION_TOKEN = gql`
       invitationToken
     }
   }
-`
+`;
 
 export const useDeleteInvitationToken = () => {
   const [deleteInvationToken, { loading, error }] = useMutation<
@@ -22,23 +22,23 @@ export const useDeleteInvitationToken = () => {
     DeleteInvitationTokenMutationVariables
   >(DELETE_INVITATION_TOKEN, {
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const handleDeleteInvitationToken = async (teamId: string) => {
     const deleteInvitationResult = await deleteInvationToken({
       variables: { id: teamId },
-    })
+    });
 
     if (!deleteInvitationResult.errors) {
-      toast.success('Uitnodiging succesvol verwijderd 🗑️')
+      toast.success('Uitnodiging succesvol verwijderd 🗑️');
     }
-  }
+  };
 
   return {
     handleDeleteInvitationToken,
     loading,
     error,
-  }
-}
+  };
+};

@@ -11,19 +11,19 @@ import {
   Icon,
   Text,
   useDisclosure,
-} from '@chakra-ui/react'
-import { BsTrash } from 'react-icons/bs'
+} from '@chakra-ui/react';
+import { BsTrash } from 'react-icons/bs';
 
 type DeleteDialogType = {
-  onDelete: (id: string) => Promise<void>
-  loading?: boolean
-  id: string
-  children: React.ReactNode
-  buttonVariant?: ButtonProps['variant']
-  title: string
-  buttonLabel?: string
-  buttonProps?: ButtonProps
-}
+  onDelete: (id: string) => Promise<void>;
+  loading?: boolean;
+  id: string;
+  children: React.ReactNode;
+  buttonVariant?: ButtonProps['variant'];
+  title: string;
+  buttonLabel?: string;
+  buttonProps?: ButtonProps;
+};
 
 const DeleteDialog = ({
   onDelete,
@@ -35,13 +35,13 @@ const DeleteDialog = ({
   buttonLabel,
   buttonProps,
 }: DeleteDialogType) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef(null)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef(null);
 
   const handleDelete = () => {
-    onDelete(id)
-    onClose()
-  }
+    onDelete(id);
+    onClose();
+  };
 
   return (
     <>
@@ -90,7 +90,7 @@ const DeleteDialog = ({
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  )
-}
+  );
+};
 
-export default DeleteDialog
+export default DeleteDialog;

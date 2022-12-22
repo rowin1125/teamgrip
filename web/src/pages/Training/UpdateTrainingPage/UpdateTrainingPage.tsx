@@ -1,45 +1,45 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
-import { Grid, GridItem, Heading } from '@chakra-ui/react'
-import { format } from 'date-fns'
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
+import { format } from 'date-fns';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import Card from 'src/components/Card/Card';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
-import TrainingForm from '../form/TrainingForm'
+import TrainingForm from '../form/TrainingForm';
 
-import { useGetTrainingById } from './hooks/useGetTrainingById'
-import { useUpdateTrainingById } from './hooks/useUpdateTrainingById'
+import { useGetTrainingById } from './hooks/useGetTrainingById';
+import { useUpdateTrainingById } from './hooks/useUpdateTrainingById';
 
 const UpdateTrainingPage = () => {
-  const { training, trainingLoading } = useGetTrainingById()
-  const { team, loading } = useGetTeamById()
-  const [showTop, setShowTop] = React.useState(true)
+  const { training, trainingLoading } = useGetTrainingById();
+  const { team, loading } = useGetTeamById();
+  const [showTop, setShowTop] = React.useState(true);
 
   const { handleUpdateTraining, updateTrainingLoading } = useUpdateTrainingById(
     training?.id || '',
     showTop
-  )
+  );
 
   const regularScores = training?.scores.filter(
     (score) => score?.type === 'TRAINING'
-  )
+  );
   const topTrainingScores = training?.scores.filter(
     (score) => score?.type === 'TOP_TRAINING'
-  )
+  );
   const hasTopTrainingScores =
-    !!topTrainingScores && topTrainingScores?.length > 0
+    !!topTrainingScores && topTrainingScores?.length > 0;
 
   useEffect(() => {
-    if (!training) return
+    if (!training) return;
 
-    setShowTop(hasTopTrainingScores)
+    setShowTop(hasTopTrainingScores);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [training])
+  }, [training]);
 
-  if (trainingLoading || loading || !training) return null
+  if (trainingLoading || loading || !training) return null;
 
   const topTrainingScoresArray = hasTopTrainingScores
     ? topTrainingScores.map((score) => ({
@@ -57,7 +57,7 @@ const UpdateTrainingPage = () => {
         teamId: team?.id,
         trainingId: training?.id,
         type: 'TOP_TRAINING',
-      }))
+      }));
 
   return (
     <>
@@ -98,7 +98,7 @@ const UpdateTrainingPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default UpdateTrainingPage
+export default UpdateTrainingPage;

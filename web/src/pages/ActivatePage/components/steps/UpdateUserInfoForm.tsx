@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-import { Box, Heading, Button } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
+import { Box, Heading, Button } from '@chakra-ui/react';
+import { Formik, Form } from 'formik';
 import {
   UpdateUserProfileMutationVariables,
   UpdateUserProfileMutation,
   UpdateUserProfileInput,
-} from 'types/graphql'
-import * as Yup from 'yup'
+} from 'types/graphql';
+import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
 
 const UPDATE_USER_PROFILE = gql`
   mutation UpdateUserProfileMutation(
@@ -25,51 +25,51 @@ const UPDATE_USER_PROFILE = gql`
       id
     }
   }
-`
+`;
 const validationSchema = Yup.object().shape({
   firstname: Yup.string().required('Vul je voornaam in'),
   lastname: Yup.string().required('Vul je achternaam in'),
-})
+});
 
 type UpdateUserInfoFormProps = {
-  setActivateStep: (step: number) => void
-  handlePlayVideo: () => void
-}
+  setActivateStep: (step: number) => void;
+  handlePlayVideo: () => void;
+};
 
 const UpdateUserInfoForm = ({ setActivateStep }: UpdateUserInfoFormProps) => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const [updateUserProfile, { loading }] = useMutation<
     UpdateUserProfileMutation,
     UpdateUserProfileMutationVariables
-  >(UPDATE_USER_PROFILE)
+  >(UPDATE_USER_PROFILE);
 
   const onSubmit = async (data: UpdateUserProfileInput) => {
     if (!currentUser) {
-      toast.error('Je bent niet ingelogd')
-      return
+      toast.error('Je bent niet ingelogd');
+      return;
     }
 
     try {
       await updateUserProfile({
         variables: { input: data, id: currentUser.id },
-      })
-      setActivateStep(2)
-      toast.success('Informatie verwerkt, nog 1 stapje 🎈')
+      });
+      setActivateStep(2);
+      toast.success('Informatie verwerkt, nog 1 stapje 🎈');
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  }
+  };
 
   useEffect(() => {
-    if (!currentUser) return
+    if (!currentUser) return;
 
     if (
       currentUser?.userProfile?.lastname ||
       currentUser?.userProfile?.firstname
     ) {
-      setActivateStep(2)
+      setActivateStep(2);
     }
-  }, [currentUser, setActivateStep])
+  }, [currentUser, setActivateStep]);
 
   return (
     <Formik
@@ -98,6 +98,6 @@ const UpdateUserInfoForm = ({ setActivateStep }: UpdateUserInfoFormProps) => {
         </Button>
       </Box>
     </Formik>
-  )
-}
-export default UpdateUserInfoForm
+  );
+};
+export default UpdateUserInfoForm;

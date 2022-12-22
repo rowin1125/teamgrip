@@ -1,7 +1,7 @@
-import FooterMenu from './FooterMenu'
+import FooterMenu from './FooterMenu';
 
 export const generated = () => {
-  return <FooterMenu />
-}
+  return <FooterMenu />;
+};
 
-export default { title: 'Components/FooterMenu' }
+export default { title: 'Components/FooterMenu' };

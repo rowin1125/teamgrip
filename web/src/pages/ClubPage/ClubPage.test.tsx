@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import ClubPage from './ClubPage'
+import ClubPage from './ClubPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import ClubPage from './ClubPage'
 describe('ClubPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<ClubPage />)
-    }).not.toThrow()
-  })
-})
+      render(<ClubPage />);
+    }).not.toThrow();
+  });
+});

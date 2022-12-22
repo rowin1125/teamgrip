@@ -1,7 +1,7 @@
-import ClubsCell from 'src/components/Club/ClubsCell'
+import ClubsCell from 'src/components/Club/ClubsCell';
 
 const ClubsPage = () => {
-  return <ClubsCell />
-}
+  return <ClubsCell />;
+};
 
-export default ClubsPage
+export default ClubsPage;

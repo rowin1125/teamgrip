@@ -1,25 +1,25 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Flex, Heading, Icon } from '@chakra-ui/react'
-import { AiFillLock } from 'react-icons/ai'
+import { Box, Button, Flex, Heading, Icon } from '@chakra-ui/react';
+import { AiFillLock } from 'react-icons/ai';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import RedwoodLink from 'src/components/RedwoodLink'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import RedwoodLink from 'src/components/RedwoodLink';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 type SeasonLockWrapperProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const SeasonLockWrapper = ({ children }: SeasonLockWrapperProps) => {
-  const { team } = useGetTeamById()
-  const { isTeamStaff } = useTeamPlayerAuth()
+  const { team } = useGetTeamById();
+  const { isTeamStaff } = useTeamPlayerAuth();
 
-  const hasSeason = team?.season && team.season?.length > 0
+  const hasSeason = team?.season && team.season?.length > 0;
 
-  const showLock = !hasSeason && isTeamStaff
+  const showLock = !hasSeason && isTeamStaff;
 
   return (
     <Box position="relative" h="full">
@@ -72,7 +72,7 @@ const SeasonLockWrapper = ({ children }: SeasonLockWrapperProps) => {
         {children}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default SeasonLockWrapper
+export default SeasonLockWrapper;

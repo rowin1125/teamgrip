@@ -1,35 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
-import { FaArrowDown } from 'react-icons/fa'
+import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Form, Formik } from 'formik';
+import { FaArrowDown } from 'react-icons/fa';
 import {
   FindTeamQuery,
   GetGameByIdQuery,
   GetPlayersForTeamQuery,
-} from 'types/graphql'
-import * as Yup from 'yup'
+} from 'types/graphql';
+import * as Yup from 'yup';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker'
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
-import RedwoodLink from 'src/components/RedwoodLink'
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import ControlledDatePicker from 'src/components/forms/components/ControlledDatePicker';
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
+import RedwoodLink from 'src/components/RedwoodLink';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import CreateScoreFieldArrayInputs from '../NewGamePage/components/CreateScoreFieldArrayInputs'
+import CreateScoreFieldArrayInputs from '../NewGamePage/components/CreateScoreFieldArrayInputs';
 
 type GameFormProps = {
-  onSubmit: (values: any) => Promise<void>
-  initialValues: Record<string, any>
-  type: 'new' | 'edit'
-  loading: boolean
-  team?: FindTeamQuery['team']
+  onSubmit: (values: any) => Promise<void>;
+  initialValues: Record<string, any>;
+  type: 'new' | 'edit';
+  loading: boolean;
+  team?: FindTeamQuery['team'];
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
-    | GetGameByIdQuery['game']['players']
-  showTop: boolean
-  setShowTop: (value: boolean) => void
-}
+    | GetGameByIdQuery['game']['players'];
+  showTop: boolean;
+  setShowTop: (value: boolean) => void;
+};
 
 const GameForm = ({
   onSubmit,
@@ -71,7 +71,7 @@ const GameForm = ({
         teamId: showTop ? Yup.string().required() : Yup.string(),
       })
     ),
-  })
+  });
   return (
     <Formik
       onSubmit={onSubmit}
@@ -143,7 +143,7 @@ const GameForm = ({
         </Flex>
       </Box>
     </Formik>
-  )
-}
+  );
+};
 
-export default GameForm
+export default GameForm;

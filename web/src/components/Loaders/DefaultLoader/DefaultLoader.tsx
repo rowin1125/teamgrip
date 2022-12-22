@@ -1,13 +1,13 @@
-import { Skeleton } from '@chakra-ui/react'
+import { Skeleton } from '@chakra-ui/react';
 
 type DefaultLoaderProps = {
-  children?: React.ReactNode
-  isLoading: boolean
-  theme?: 'dark' | 'light'
-}
+  children?: React.ReactNode;
+  isLoading: boolean;
+  theme?: 'dark' | 'light';
+};
 
 const DefaultLoader = ({ children, isLoading, theme }: DefaultLoaderProps) => {
-  const isDarkTheme = theme === 'dark'
+  const isDarkTheme = theme === 'dark';
 
   return (
     <Skeleton
@@ -20,7 +20,7 @@ const DefaultLoader = ({ children, isLoading, theme }: DefaultLoaderProps) => {
     >
       {children}
     </Skeleton>
-  )
-}
+  );
+};
 
-export default DefaultLoader
+export default DefaultLoader;

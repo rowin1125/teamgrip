@@ -1,25 +1,25 @@
-import { Box, Flex, Spinner } from '@chakra-ui/react'
-import AvatarComponent from 'avataaars'
-import { Avatar as AdditionalAvatarProps } from 'types/graphql'
+import { Box, Flex, Spinner } from '@chakra-ui/react';
+import AvatarComponent from 'avataaars';
+import { Avatar as AdditionalAvatarProps } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
+import { useAuth } from '@redwoodjs/auth';
 
-import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar'
+import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
 
-import TeamGripAvatar from './components/TeamGripAvatar'
+import TeamGripAvatar from './components/TeamGripAvatar';
 
 type AvatarProps = {
-  size?: string
-  disableInitials?: boolean
-  additionalAvatarProps?: Partial<AdditionalAvatarProps>
-}
+  size?: string;
+  disableInitials?: boolean;
+  additionalAvatarProps?: Partial<AdditionalAvatarProps>;
+};
 
 const Avatar = ({
   size = '60',
   disableInitials,
   additionalAvatarProps,
 }: AvatarProps) => {
-  const { currentUser, loading } = useAuth()
+  const { currentUser, loading } = useAuth();
 
   return (
     <Box position="relative" maxW={size} m={2}>
@@ -72,7 +72,7 @@ const Avatar = ({
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

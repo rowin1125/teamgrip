@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import nanoid from 'nanoid'
-import { User } from 'types/graphql'
+import nanoid from 'nanoid';
+import { User } from 'types/graphql';
 
-import { DbAuthHandler } from '@redwoodjs/api'
+import { DbAuthHandler } from '@redwoodjs/api';
 
-import { db } from 'src/lib/db'
-import { createPlayer } from 'src/services/players/players'
+import { db } from 'src/lib/db';
+import { createPlayer } from 'src/services/players/players';
 import {
   activateUserEmail,
   forgotPasswordEmail,
-} from 'src/services/users/users'
+} from 'src/services/users/users';
 
 export const handler = async (event: any, context: any) => {
   const forgotPasswordOptions = {
@@ -26,10 +26,10 @@ export const handler = async (event: any, context: any) => {
     // address in a toast message so the user will know it worked and where
     // to look for the email.
     handler: async (user: any) => {
-      const userdata = user as User
-      await forgotPasswordEmail({ user: userdata })
+      const userdata = user as User;
+      await forgotPasswordEmail({ user: userdata });
 
-      return user
+      return user;
     },
 
     // How long the resetToken is valid for, in seconds (default is 24 hours)
@@ -45,7 +45,7 @@ export const handler = async (event: any, context: any) => {
       usernameNotFound: 'Username incorrect',
       usernameRequired: 'Username is required',
     },
-  }
+  };
 
   const loginOptions = {
     // handler() is called after finding the user that matches the
@@ -61,9 +61,9 @@ export const handler = async (event: any, context: any) => {
     // `{ message: 'Error message' }`
     handler: (user: any) => {
       if (!user.verified) {
-        throw new Error('Please validate your email first!')
+        throw new Error('Please validate your email first!');
       } else {
-        return user
+        return user;
       }
     },
 
@@ -80,7 +80,7 @@ export const handler = async (event: any, context: any) => {
 
     // How long a user will remain logged in, in seconds
     expires: 60 * 60 * 24 * 365 * 10,
-  }
+  };
 
   const resetPasswordOptions = {
     // handler() is invoked after the password has been successfully updated in
@@ -88,7 +88,7 @@ export const handler = async (event: any, context: any) => {
     // in. Return `false` otherwise, and in the Reset Password page redirect the
     // user to the login page.
     handler: (user: any) => {
-      return user
+      return user;
     },
 
     // If `false` then the new password MUST be different from the current one
@@ -105,7 +105,7 @@ export const handler = async (event: any, context: any) => {
       reusedPassword:
         'Je nieuwe wachtwoord is hetzelfde als je oude wachtwoord .... Probeer anders even in te loggen',
     },
-  }
+  };
 
   const signupOptions = {
     // Whatever you want to happen to your data on new user signup. Redwood will
@@ -131,7 +131,7 @@ export const handler = async (event: any, context: any) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       userAttributes,
     }: any) => {
-      const token = nanoid()
+      const token = nanoid();
 
       try {
         const user = await db.user.create({
@@ -147,25 +147,25 @@ export const handler = async (event: any, context: any) => {
               },
             },
           },
-        })
-        if (!user) throw new Error('User not created')
+        });
+        if (!user) throw new Error('User not created');
         await activateUserEmail({
           email: user.email,
           token,
           ghostInvitation: userAttributes.ghostInvitation,
-        })
+        });
         await createPlayer({
           input: {
             userId: user.id,
             teamInvitation: userAttributes.invitationToken,
           },
-        })
+        });
       } catch (error) {
-        console.log('error', error)
-        throw new Error('Failed to sign up')
+        console.log('error', error);
+        throw new Error('Failed to sign up');
       }
 
-      return 'Activeer je account via de email die we naar je hebben gestuurd'
+      return 'Activeer je account via de email die we naar je hebben gestuurd';
     },
 
     errors: {
@@ -173,7 +173,7 @@ export const handler = async (event: any, context: any) => {
       fieldMissing: '${field} is required',
       usernameTaken: 'Email `${username}` al in gebruik',
     },
-  }
+  };
 
   const authHandler = new DbAuthHandler(event, context, {
     // Provide prisma db client
@@ -212,7 +212,7 @@ export const handler = async (event: any, context: any) => {
     login: loginOptions,
     resetPassword: resetPasswordOptions,
     signup: signupOptions,
-  })
+  });
 
-  return await authHandler.invoke()
-}
+  return await authHandler.invoke();
+};

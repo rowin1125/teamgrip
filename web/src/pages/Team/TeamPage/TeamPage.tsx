@@ -1,25 +1,25 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Grid, GridItem, useDisclosure } from '@chakra-ui/react'
+import { Grid, GridItem, useDisclosure } from '@chakra-ui/react';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
-import SeasonLockWrapper from '../../../components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
+import SeasonLockWrapper from '../../../components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
 
-import TeamGames from './components/TeamGames/TeamGames'
-import TeamGeneralInformation from './components/TeamGeneralInformation'
-import TeamList from './components/TeamList/TeamList'
-import TeamNotFoundMessage from './components/TeamNotFoundMessage/TeamNotFoundMessage'
-import TeamTrainings from './components/TeamTrainings/TeamTrainings'
+import TeamGames from './components/TeamGames/TeamGames';
+import TeamGeneralInformation from './components/TeamGeneralInformation';
+import TeamList from './components/TeamList/TeamList';
+import TeamNotFoundMessage from './components/TeamNotFoundMessage/TeamNotFoundMessage';
+import TeamTrainings from './components/TeamTrainings/TeamTrainings';
 
 const TeamPage = () => {
-  const { team, loading } = useGetTeamById()
-  const disclosure = useDisclosure()
-  const [currentTabIndex, setCurrentTabIndex] = useState(0)
+  const { team, loading } = useGetTeamById();
+  const disclosure = useDisclosure();
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
-  const isPartOfTeam = !!team?.id
+  const isPartOfTeam = !!team?.id;
 
   if (!loading && !isPartOfTeam)
     return (
@@ -27,7 +27,7 @@ const TeamPage = () => {
         <MetaTags title="Team" description="Team page" />
         <TeamNotFoundMessage title="Mijn team" />
       </>
-    )
+    );
 
   return (
     <>
@@ -62,7 +62,7 @@ const TeamPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default TeamPage
+export default TeamPage;

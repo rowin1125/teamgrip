@@ -1,17 +1,17 @@
-import nanoid from 'nanoid'
+import nanoid from 'nanoid';
 import type {
   QueryResolvers,
   MutationResolvers,
   TeamRelationResolvers,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { context, UserInputError } from '@redwoodjs/graphql-server'
+import { context, UserInputError } from '@redwoodjs/graphql-server';
 
-import { db } from 'src/lib/db'
+import { db } from 'src/lib/db';
 
 export const teams: QueryResolvers['teams'] = () => {
-  return db.team.findMany()
-}
+  return db.team.findMany();
+};
 
 export const team: QueryResolvers['team'] = ({ id }) => {
   return db.team.findFirst({
@@ -20,8 +20,8 @@ export const team: QueryResolvers['team'] = ({ id }) => {
       club: true,
       players: true,
     },
-  })
-}
+  });
+};
 
 export const getAllGamesAndTrainingsByTeamId: QueryResolvers['getAllGamesAndTrainingsByTeamId'] =
   async ({ teamId }) => {
@@ -41,7 +41,7 @@ export const getAllGamesAndTrainingsByTeamId: QueryResolvers['getAllGamesAndTrai
           },
         },
       },
-    }
+    };
     return await db.team.findFirst({
       where: {
         id: teamId,
@@ -50,8 +50,8 @@ export const getAllGamesAndTrainingsByTeamId: QueryResolvers['getAllGamesAndTrai
         games: scoreSelectParams,
         trainings: scoreSelectParams,
       },
-    })
-  }
+    });
+  };
 
 export const teamExtraDetails: QueryResolvers['teamExtraDetails'] = ({
   id,
@@ -77,8 +77,8 @@ export const teamExtraDetails: QueryResolvers['teamExtraDetails'] = ({
       games: true,
       trainings: true,
     },
-  })
-}
+  });
+};
 
 export const teamByInvitationToken: QueryResolvers['teamByInvitationToken'] = ({
   invitationToken,
@@ -87,14 +87,14 @@ export const teamByInvitationToken: QueryResolvers['teamByInvitationToken'] = ({
     where: {
       invitationToken,
     },
-  })
-}
+  });
+};
 
 export const createTeam: MutationResolvers['createTeam'] = async ({
   input: { ownerIsPlayer, ...input },
 }) => {
   try {
-    const currentUser = context.currentUser
+    const currentUser = context.currentUser;
     const playerAlreadyPartOfTeam = await db.team.findFirst({
       where: {
         players: {
@@ -103,10 +103,10 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
           },
         },
       },
-    })
+    });
 
     if (playerAlreadyPartOfTeam)
-      throw new UserInputError('Je maakt al deel uit van een Team')
+      throw new UserInputError('Je maakt al deel uit van een Team');
 
     const createTeam = db.team.create({
       data: {
@@ -117,7 +117,7 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
           },
         },
       },
-    })
+    });
 
     const playerUpdate = db.player.update({
       where: {
@@ -132,28 +132,28 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
           },
         },
       },
-    })
+    });
 
-    const result = await db.$transaction([createTeam, playerUpdate])
+    const result = await db.$transaction([createTeam, playerUpdate]);
 
-    return result[0]
+    return result[0];
   } catch (error) {
-    if (error.code === 'P2002') throw new UserInputError('Team bestaat al')
-    if (error.message) throw new UserInputError(error.message)
-    throw new UserInputError('Er is iets misgegaan')
+    if (error.code === 'P2002') throw new UserInputError('Team bestaat al');
+    if (error.message) throw new UserInputError(error.message);
+    throw new UserInputError('Er is iets misgegaan');
   }
-}
+};
 
 export const updateTeam: MutationResolvers['updateTeam'] = async ({
   id,
   input,
 }) => {
   try {
-    const { ownerIsPlayer, ...data } = input
+    const { ownerIsPlayer, ...data } = input;
     const teamResult = await db.team.update({
       data,
       where: { id },
-    })
+    });
 
     await db.player.update({
       where: {
@@ -162,15 +162,15 @@ export const updateTeam: MutationResolvers['updateTeam'] = async ({
       data: {
         isActivePlayer: ownerIsPlayer,
       },
-    })
+    });
 
-    return teamResult
+    return teamResult;
   } catch (error) {
-    if (error.code === 'P2002') throw new UserInputError('Team bestaat al')
-    if (error.message) throw new UserInputError(error.message)
-    throw new UserInputError('Er is iets misgegaan')
+    if (error.code === 'P2002') throw new UserInputError('Team bestaat al');
+    if (error.message) throw new UserInputError(error.message);
+    throw new UserInputError('Er is iets misgegaan');
   }
-}
+};
 
 export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
   await db.player.deleteMany({
@@ -180,11 +180,11 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
         isGhost: true,
       },
     },
-  })
+  });
 
   const deletedTeam = await db.team.delete({
     where: { id },
-  })
+  });
 
   await db.player.updateMany({
     where: {
@@ -194,7 +194,7 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
       teamId: null,
       clubId: null,
     },
-  })
+  });
 
   await db.player.update({
     where: {
@@ -203,22 +203,22 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
     data: {
       playerType: 'PLAYER',
     },
-  })
+  });
 
-  return deletedTeam
-}
+  return deletedTeam;
+};
 
 export const createInvitationToken: MutationResolvers['createInvitationToken'] =
   async ({ id }) => {
-    const currentUser = context.currentUser
+    const currentUser = context.currentUser;
 
-    let team = await db.team.findUnique({ where: { id } })
-    if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`)
+    let team = await db.team.findUnique({ where: { id } });
+    if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`);
 
     if (currentUser.id !== team.ownerId)
-      throw new UserInputError('Je bent niet de eigenaar van het team')
+      throw new UserInputError('Je bent niet de eigenaar van het team');
 
-    const invitationToken = nanoid()
+    const invitationToken = nanoid();
 
     try {
       team = await db.team.update({
@@ -226,23 +226,23 @@ export const createInvitationToken: MutationResolvers['createInvitationToken'] =
         data: {
           invitationToken,
         },
-      })
+      });
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
 
-    return team
-  }
+    return team;
+  };
 
 export const deleteInvitationToken: MutationResolvers['deleteInvitationToken'] =
   async ({ id }) => {
-    const currentUser = context.currentUser
+    const currentUser = context.currentUser;
 
-    let team = await db.team.findUnique({ where: { id } })
-    if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`)
+    let team = await db.team.findUnique({ where: { id } });
+    if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`);
 
     if (currentUser.id !== team.ownerId)
-      throw new UserInputError('Je bent niet de eigenaar van het team')
+      throw new UserInputError('Je bent niet de eigenaar van het team');
 
     try {
       team = await db.team.update({
@@ -250,13 +250,13 @@ export const deleteInvitationToken: MutationResolvers['deleteInvitationToken'] =
         data: {
           invitationToken: null,
         },
-      })
+      });
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
 
-    return team
-  }
+    return team;
+  };
 
 export const Team: TeamRelationResolvers = {
   players: (_obj, { root }) =>
@@ -271,4 +271,4 @@ export const Team: TeamRelationResolvers = {
     db.team.findUnique({ where: { id: root.id } }).trainings(),
   games: (_obj, { root }) =>
     db.team.findUnique({ where: { id: root.id } }).games(),
-}
+};

@@ -1,31 +1,31 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Icon } from '@chakra-ui/react'
-import { FaPlus } from 'react-icons/fa'
+import { Box, Button, Icon } from '@chakra-ui/react';
+import { FaPlus } from 'react-icons/fa';
 
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
 type ScoreFieldArrayBenchPlayersProps = {
   benchPlayers: {
-    __typename: 'Player' | undefined
-    displayName: string | null | undefined
-    id: string | undefined
-  }[]
-  handlePush: (playerId: string) => void
-}
+    __typename: 'Player' | undefined;
+    displayName: string | null | undefined;
+    id: string | undefined;
+  }[];
+  handlePush: (playerId: string) => void;
+};
 
 const ScoreFieldArrayBenchPlayers = ({
   benchPlayers,
   handlePush,
 }: ScoreFieldArrayBenchPlayersProps) => {
-  const hasBenchPlayers = benchPlayers?.length > 0
+  const hasBenchPlayers = benchPlayers?.length > 0;
 
   if (!hasBenchPlayers)
     return (
       <TextAlert status="info" mb={8}>
         Alle spelers nemen deel aan de training ✅
       </TextAlert>
-    )
+    );
 
   return (
     <Box mb={4}>
@@ -45,7 +45,7 @@ const ScoreFieldArrayBenchPlayers = ({
         </Button>
       ))}
     </Box>
-  )
-}
+  );
+};
 
-export default ScoreFieldArrayBenchPlayers
+export default ScoreFieldArrayBenchPlayers;

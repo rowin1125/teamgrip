@@ -17,4 +17,4 @@ export const AVATAR_FRAGMENT = gql`
       skinColor
     }
   }
-`
+`;

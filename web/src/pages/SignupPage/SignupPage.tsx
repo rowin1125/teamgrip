@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import SignUpForm from './components/SignUpForm'
-import SignupWithImage from './components/SignupWithImage'
+import SignUpForm from './components/SignUpForm';
+import SignupWithImage from './components/SignupWithImage';
 
 export const RESEND_ACTIVATE_USER = gql`
   mutation ResendActivateUserMutation($input: ResendActivateUserInput!) {
@@ -18,31 +18,31 @@ export const RESEND_ACTIVATE_USER = gql`
       verifiedToken
     }
   }
-`
+`;
 
 const SignupPage = () => {
-  const { isAuthenticated, signUp } = useAuth()
-  const [loading, setLoading] = useState(false)
+  const { isAuthenticated, signUp } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
-      toast.error('Je bent al ingelogd 🤔')
-      navigate(routes.app())
+      toast.error('Je bent al ingelogd 🤔');
+      navigate(routes.app());
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   const onSubmit = async (data: any, actions: any) => {
-    setLoading(true)
-    const response = await signUp({ ...data })
+    setLoading(true);
+    const response = await signUp({ ...data });
 
     if (response.message) {
-      toast.success(response.message)
-      actions.resetForm()
+      toast.success(response.message);
+      actions.resetForm();
     } else if (response.error) {
-      toast.error(response.error)
+      toast.error(response.error);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <>
@@ -79,7 +79,7 @@ const SignupPage = () => {
         </Flex>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default SignupPage
+export default SignupPage;

@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import { GridItem, Flex, Box, Heading, Button } from '@chakra-ui/react'
+import { GridItem, Flex, Box, Heading, Button } from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import Avatar from 'src/components/Avatar/Avatar'
-import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
+import Avatar from 'src/components/Avatar/Avatar';
+import Card from 'src/components/Card/Card';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 const AvatarSettings = () => {
   return (
@@ -33,7 +33,7 @@ const AvatarSettings = () => {
         </Flex>
       </Card>
     </GridItem>
-  )
-}
+  );
+};
 
-export default AvatarSettings
+export default AvatarSettings;

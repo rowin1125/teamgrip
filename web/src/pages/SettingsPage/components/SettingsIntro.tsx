@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Box,
@@ -8,17 +8,17 @@ import {
   Heading,
   Icon,
   Text,
-} from '@chakra-ui/react'
-import { GiLaurelsTrophy } from 'react-icons/gi'
+} from '@chakra-ui/react';
+import { GiLaurelsTrophy } from 'react-icons/gi';
 
-import { useAuth } from '@redwoodjs/auth'
-import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { routes } from '@redwoodjs/router';
 
-import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
+import Card from 'src/components/Card/Card';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 const SettingsIntro = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   return (
     <GridItem
@@ -74,7 +74,7 @@ const SettingsIntro = () => {
         </Flex>
       </Card>
     </GridItem>
-  )
-}
+  );
+};
 
-export default SettingsIntro
+export default SettingsIntro;

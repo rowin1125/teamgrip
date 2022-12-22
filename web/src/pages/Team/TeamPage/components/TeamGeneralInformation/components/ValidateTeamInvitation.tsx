@@ -1,23 +1,25 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Text } from '@chakra-ui/react'
-import { FindTeamQuery } from 'types/graphql'
+import { Box, Button, Text } from '@chakra-ui/react';
+import { FindTeamQuery } from 'types/graphql';
 
-import { useCreateInvitationToken } from '../../../hooks/useCreateInvitationToken'
+import { useCreateInvitationToken } from '../../../hooks/useCreateInvitationToken';
 
 type ValidateTeamInvitationProps = {
-  team?: FindTeamQuery['team']
+  team?: FindTeamQuery['team'];
   children?:
     | React.ReactNode
-    | ((props: { team: FindTeamQuery['team'] }) => React.ReactNode)
-}
+    | ((props: { team: FindTeamQuery['team'] }) => React.ReactNode);
+};
 
 const ValidateTeamInvitation = ({
   team,
   children,
 }: ValidateTeamInvitationProps) => {
-  const { handleCreateInvitation, loading } = useCreateInvitationToken(team?.id)
-  const hasInvitationToken = team?.invitationToken
+  const { handleCreateInvitation, loading } = useCreateInvitationToken(
+    team?.id
+  );
+  const hasInvitationToken = team?.invitationToken;
 
   return (
     <>
@@ -38,7 +40,7 @@ const ValidateTeamInvitation = ({
         </Box>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ValidateTeamInvitation
+export default ValidateTeamInvitation;

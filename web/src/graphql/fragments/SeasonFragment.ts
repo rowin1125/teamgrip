@@ -12,4 +12,4 @@ export const SEASON_FRAGMENT = gql`
       id
     }
   }
-`
+`;

@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Center, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Center, Heading, Image, Text } from '@chakra-ui/react';
 
-import footballNightMan from '../../SignupPage/login-bg.jpg'
+import footballNightMan from '../../SignupPage/login-bg.jpg';
 
 const ResetPasswordWithImage = () => {
   return (
@@ -64,7 +64,7 @@ const ResetPasswordWithImage = () => {
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default ResetPasswordWithImage
+export default ResetPasswordWithImage;

@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { GridItem, Heading, Box, Stack, Switch, Text } from '@chakra-ui/react'
+import { GridItem, Heading, Box, Stack, Switch, Text } from '@chakra-ui/react';
 
-import Card from 'src/components/Card/Card'
+import Card from 'src/components/Card/Card';
 
 const GlobalSettings = () => {
   return (
@@ -35,7 +35,7 @@ const GlobalSettings = () => {
         </Box>
       </Card>
     </GridItem>
-  )
-}
+  );
+};
 
-export default GlobalSettings
+export default GlobalSettings;

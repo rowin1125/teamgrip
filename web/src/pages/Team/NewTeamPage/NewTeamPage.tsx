@@ -1,29 +1,29 @@
-import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
-import * as Yup from 'yup'
+import { Box, Button, Grid, GridItem, Heading } from '@chakra-ui/react';
+import { Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth'
-import { MetaTags } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth';
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
-import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch'
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import Card from 'src/components/Card/Card';
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
+import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import { handleTeamNameTransformation } from './helpers/handleTeamnameTransformation/handleTeamnameTransformation'
-import { useCreateTeam } from './hooks/useCreateTeam'
-import { useGetClubs } from './hooks/useGetClubs'
+import { handleTeamNameTransformation } from './helpers/handleTeamnameTransformation/handleTeamnameTransformation';
+import { useCreateTeam } from './hooks/useCreateTeam';
+import { useGetClubs } from './hooks/useGetClubs';
 
 const NewTeamPage = () => {
-  const { currentUser } = useAuth()
-  const { clubs } = useGetClubs()
-  const { handleCreateTeam, loading } = useCreateTeam(clubs)
+  const { currentUser } = useAuth();
+  const { clubs } = useGetClubs();
+  const { handleCreateTeam, loading } = useCreateTeam(clubs);
 
   const validationSchema = Yup.object().shape({
     clubId: Yup.string().required('Club is verplicht'),
     name: Yup.string().min(4).required('Naam is verplicht'),
-  })
+  });
 
   return (
     <>
@@ -45,12 +45,12 @@ const NewTeamPage = () => {
               validationSchema={validationSchema}
             >
               {({ values }) => {
-                const { name, clubId } = values
-                const club = clubs?.find((club) => club.id === clubId)
+                const { name, clubId } = values;
+                const club = clubs?.find((club) => club.id === clubId);
                 const customTeamName =
                   club &&
                   name &&
-                  `${capitalizeText(club.name)} ${capitalizeText(name)}`
+                  `${capitalizeText(club.name)} ${capitalizeText(name)}`;
                 return (
                   <Box as={Form} w="full" maxW="500px">
                     <ControlledSelect
@@ -85,14 +85,14 @@ const NewTeamPage = () => {
                       Maak {customTeamName ? customTeamName : 'team'} aan
                     </Button>
                   </Box>
-                )
+                );
               }}
             </Formik>
           </Card>
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default NewTeamPage
+export default NewTeamPage;

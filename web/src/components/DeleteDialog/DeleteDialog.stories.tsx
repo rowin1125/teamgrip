@@ -1,7 +1,7 @@
-import DeleteDialog from './DeleteDialog'
+import DeleteDialog from './DeleteDialog';
 
 export const generated = () => {
-  return <DeleteDialog />
-}
+  return <DeleteDialog />;
+};
 
-export default { title: 'Components/DeleteDialog' }
+export default { title: 'Components/DeleteDialog' };

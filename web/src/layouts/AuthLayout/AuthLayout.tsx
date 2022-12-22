@@ -1,15 +1,15 @@
-import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react'
+import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 
-import { Link as RedwoodLink, routes } from '@redwoodjs/router'
-import { Toaster } from '@redwoodjs/web/dist/toast'
+import { Link as RedwoodLink, routes } from '@redwoodjs/router';
+import { Toaster } from '@redwoodjs/web/dist/toast';
 
-import Footer from 'src/components/Footer/Footer'
+import Footer from 'src/components/Footer/Footer';
 
-import './AuthLayout.scss'
+import './AuthLayout.scss';
 
 type AuthLayoutProps = {
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
@@ -31,7 +31,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
       <Box>{children}</Box>
       <Footer inverse />
     </Box>
-  )
-}
+  );
+};
 
-export default AuthLayout
+export default AuthLayout;

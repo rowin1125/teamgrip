@@ -1,8 +1,8 @@
-import { FindClubById } from 'types/graphql'
+import { FindClubById } from 'types/graphql';
 
-import { Link, routes, navigate } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { Link, routes, navigate } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
 const DELETE_CLUB_MUTATION = gql`
   mutation DeleteClubMutation($id: String!) {
@@ -10,7 +10,7 @@ const DELETE_CLUB_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 // const formatEnum = (values: string | string[] | null | undefined) => {
 //   if (values) {
@@ -38,8 +38,8 @@ const timeTag = (datetime: string | undefined) => {
         {new Date(datetime).toUTCString()}
       </time>
     )
-  )
-}
+  );
+};
 
 // const checkboxInputTag = (checked) => {
 //   return <input type="checkbox" checked={checked} disabled />
@@ -48,19 +48,19 @@ const timeTag = (datetime: string | undefined) => {
 const Club = ({ club }: { club: FindClubById['club'] }) => {
   const [deleteClub] = useMutation(DELETE_CLUB_MUTATION, {
     onCompleted: () => {
-      toast.success('Club deleted')
-      navigate(routes.adminClubs())
+      toast.success('Club deleted');
+      navigate(routes.adminClubs());
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const onDeleteClick = (id: string) => {
     if (confirm('Are you sure you want to delete club ' + id + '?')) {
-      deleteClub({ variables: { id } })
+      deleteClub({ variables: { id } });
     }
-  }
+  };
 
   return (
     <>
@@ -111,7 +111,7 @@ const Club = ({ club }: { club: FindClubById['club'] }) => {
         )}
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Club
+export default Club;

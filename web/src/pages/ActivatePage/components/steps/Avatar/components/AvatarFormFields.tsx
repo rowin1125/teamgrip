@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 
-import ClotheType from './tabs/ClotheType'
-import ExtraType from './tabs/ExtraType'
-import FaceType from './tabs/FaceType'
-import TopType from './tabs/TopType'
+import ClotheType from './tabs/ClotheType';
+import ExtraType from './tabs/ExtraType';
+import FaceType from './tabs/FaceType';
+import TopType from './tabs/TopType';
 
 const AvatarFormFields = () => {
   return (
@@ -34,7 +34,7 @@ const AvatarFormFields = () => {
         </TabPanels>
       </Tabs>
     </>
-  )
-}
+  );
+};
 
-export default AvatarFormFields
+export default AvatarFormFields;

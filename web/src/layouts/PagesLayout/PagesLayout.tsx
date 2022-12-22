@@ -1,13 +1,13 @@
-import { Box, Container, Flex } from '@chakra-ui/react'
+import { Box, Container, Flex } from '@chakra-ui/react';
 
-import { Toaster } from '@redwoodjs/web/dist/toast'
+import { Toaster } from '@redwoodjs/web/dist/toast';
 
-import Footer from 'src/components/Footer/Footer'
-import PagesHeader from 'src/components/PagesHeader/PagesHeader'
+import Footer from 'src/components/Footer/Footer';
+import PagesHeader from 'src/components/PagesHeader/PagesHeader';
 
 type PageLayoutProps = {
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 const PageLayout = ({ children }: PageLayoutProps) => {
   return (
@@ -24,7 +24,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
       </Flex>
       <Footer inverse />
     </Box>
-  )
-}
+  );
+};
 
-export default PageLayout
+export default PageLayout;

@@ -1,9 +1,9 @@
-import { Flex, Icon, Text } from '@chakra-ui/react'
-import { HiOutlineDocumentSearch } from 'react-icons/hi'
+import { Flex, Icon, Text } from '@chakra-ui/react';
+import { HiOutlineDocumentSearch } from 'react-icons/hi';
 
 type NoEntriesProps = {
-  theme?: 'dark' | 'light'
-}
+  theme?: 'dark' | 'light';
+};
 
 const NoEntries = ({ theme }: NoEntriesProps) => {
   return (
@@ -13,7 +13,7 @@ const NoEntries = ({ theme }: NoEntriesProps) => {
       </Text>{' '}
       <Icon as={HiOutlineDocumentSearch} fontSize="5xl" ml={4} />
     </Flex>
-  )
-}
+  );
+};
 
-export default NoEntries
+export default NoEntries;

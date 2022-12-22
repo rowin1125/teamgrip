@@ -27,4 +27,4 @@ export const schema = gql`
       @requireAuth(roles: ["ADMIN"])
     deleteClub(id: String!): Club! @requireAuth(roles: ["ADMIN"])
   }
-`
+`;

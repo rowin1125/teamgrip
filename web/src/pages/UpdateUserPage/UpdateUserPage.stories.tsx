@@ -1,7 +1,7 @@
-import UpdateUserPage from './UpdateUserPage'
+import UpdateUserPage from './UpdateUserPage';
 
 export const generated = () => {
-  return <UpdateUserPage />
-}
+  return <UpdateUserPage />;
+};
 
-export default { title: 'Pages/UpdateUserPage' }
+export default { title: 'Pages/UpdateUserPage' };

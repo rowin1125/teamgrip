@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import PlayerCard from './PlayerCard'
+import PlayerCard from './PlayerCard';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import PlayerCard from './PlayerCard'
 describe('PlayerCard', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<PlayerCard />)
-    }).not.toThrow()
-  })
-})
+      render(<PlayerCard />);
+    }).not.toThrow();
+  });
+});

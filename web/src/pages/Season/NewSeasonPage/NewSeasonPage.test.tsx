@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import NewSeasonPage from './NewSeasonPage'
+import NewSeasonPage from './NewSeasonPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import NewSeasonPage from './NewSeasonPage'
 describe('NewSeasonPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<NewSeasonPage />)
-    }).not.toThrow()
-  })
-})
+      render(<NewSeasonPage />);
+    }).not.toThrow();
+  });
+});

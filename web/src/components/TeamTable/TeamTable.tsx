@@ -1,35 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Table, TableProps } from '@chakra-ui/react'
+import { Table, TableProps } from '@chakra-ui/react';
 
-import TableLoader from '../Loaders/TableLoader/TableLoader'
+import TableLoader from '../Loaders/TableLoader/TableLoader';
 
-import NoEntries from './components/NoEntries'
-import TableBody from './components/TeamTableBody'
-import TableHead from './components/TeamTableHead'
-import { TeamTableEntriesType, useTeamTable } from './hooks/useTeamTable'
+import NoEntries from './components/NoEntries';
+import TableBody from './components/TeamTableBody';
+import TableHead from './components/TeamTableHead';
+import { TeamTableEntriesType, useTeamTable } from './hooks/useTeamTable';
 
 export type TableLinkProps = {
-  hrefPrefix: string
-  buttonLabel: string
-}
+  hrefPrefix: string;
+  buttonLabel: string;
+};
 
 type TeamTableProps = Omit<TableProps, 'size'> & {
-  entries?: TeamTableEntriesType
-  isLoading?: boolean
+  entries?: TeamTableEntriesType;
+  isLoading?: boolean;
   loadingProps?: {
-    loadingColumns: number
-    loadingRows: number
-  }
-  hiddenColumns?: string[]
-  theme?: 'dark' | 'light'
+    loadingColumns: number;
+    loadingRows: number;
+  };
+  hiddenColumns?: string[];
+  theme?: 'dark' | 'light';
   routes?: {
-    detail?: (params?: any) => string
-    update?: (params?: any) => string
-  }
-  showActions?: boolean
-  onDelete?: (id: string) => Promise<void>
-  size?: 'sm' | 'md' | 'lg'
-}
+    detail?: (params?: any) => string;
+    update?: (params?: any) => string;
+  };
+  showActions?: boolean;
+  onDelete?: (id: string) => Promise<void>;
+  size?: 'sm' | 'md' | 'lg';
+};
 
 const TeamTable = ({
   entries,
@@ -42,9 +42,9 @@ const TeamTable = ({
   isLoading,
 }: TeamTableProps) => {
   const { getTableBodyProps, getTableProps, headerGroups, prepareRow, rows } =
-    useTeamTable(entries)
+    useTeamTable(entries);
 
-  const tableHasRows = rows.length > 0
+  const tableHasRows = rows.length > 0;
 
   return (
     <TableLoader isLoading={isLoading} theme={theme}>
@@ -71,6 +71,6 @@ const TeamTable = ({
       )}
       {entries && !tableHasRows && <NoEntries />}
     </TableLoader>
-  )
-}
-export default TeamTable
+  );
+};
+export default TeamTable;

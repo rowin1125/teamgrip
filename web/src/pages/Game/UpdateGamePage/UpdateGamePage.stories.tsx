@@ -1,7 +1,7 @@
-import UpdateGamePage from './UpdateGamePage'
+import UpdateGamePage from './UpdateGamePage';
 
 export const generated = () => {
-  return <UpdateGamePage />
-}
+  return <UpdateGamePage />;
+};
 
-export default { title: 'Pages/UpdateGamePage' }
+export default { title: 'Pages/UpdateGamePage' };

@@ -1,10 +1,10 @@
-import { Box, Flex, Heading, Image } from '@chakra-ui/react'
+import { Box, Flex, Heading, Image } from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import RedwoodLink from '../RedwoodLink'
+import RedwoodLink from '../RedwoodLink';
 
-import ProfileMenu from './components/PagesHeaderProfileMenu'
+import ProfileMenu from './components/PagesHeaderProfileMenu';
 
 const PagesHeader = () => {
   return (
@@ -30,7 +30,7 @@ const PagesHeader = () => {
         </Flex>
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default PagesHeader
+export default PagesHeader;

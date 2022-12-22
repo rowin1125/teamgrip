@@ -1,32 +1,32 @@
-import { Flex, Image, useEventListener } from '@chakra-ui/react'
-import { CgHomeAlt, CgOptions } from 'react-icons/cg'
-import { MdFormatListBulleted } from 'react-icons/md'
-import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
+import { Flex, Image, useEventListener } from '@chakra-ui/react';
+import { CgHomeAlt, CgOptions } from 'react-icons/cg';
+import { MdFormatListBulleted } from 'react-icons/md';
+import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import useLocalStorage from 'src/hooks/global/useLocalStorage'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import useLocalStorage from 'src/hooks/global/useLocalStorage';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
-import RedwoodLink from '../RedwoodLink'
+import RedwoodLink from '../RedwoodLink';
 
-import SidebarItem from './components/SidebarItem'
-import SidebarItemChild from './components/SidebarItemChild'
-import SidebarToggle from './components/SidebarToggle'
+import SidebarItem from './components/SidebarItem';
+import SidebarItemChild from './components/SidebarItemChild';
+import SidebarToggle from './components/SidebarToggle';
 
-const ClOSE_SIDEBAR_KEYS = ['221', '[']
+const ClOSE_SIDEBAR_KEYS = ['221', '['];
 
 const Sidebar = () => {
-  const [navOpen, toggleNav] = useLocalStorage('navOpen', true)
-  const { isTeamStaff, isTeamPlayer } = useTeamPlayerAuth()
+  const [navOpen, toggleNav] = useLocalStorage('navOpen', true);
+  const { isTeamStaff, isTeamPlayer } = useTeamPlayerAuth();
 
   const handler = ({ key }: { key: string }) => {
     if (ClOSE_SIDEBAR_KEYS.includes(String(key))) {
-      toggleNav(!navOpen)
+      toggleNav(!navOpen);
     }
-  }
+  };
 
-  useEventListener('keydown', handler)
+  useEventListener('keydown', handler);
 
   return (
     <Flex
@@ -106,7 +106,7 @@ const Sidebar = () => {
 
       <SidebarToggle navOpen={navOpen} toggleNav={toggleNav} />
     </Flex>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

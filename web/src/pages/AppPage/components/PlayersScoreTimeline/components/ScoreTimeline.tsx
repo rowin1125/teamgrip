@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useMemo } from 'react'
+import React, { useMemo } from 'react';
 
 import {
   Chart as ChartJS,
@@ -12,24 +12,24 @@ import {
   Tooltip,
   LineController,
   BarController,
-} from 'chart.js'
-import { Chart } from 'react-chartjs-2'
-import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql'
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { routes } from '@redwoodjs/router';
 
-import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper'
-import { useScreenSize } from 'src/hooks/global/useScreenSize'
+import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';
+import { useScreenSize } from 'src/hooks/global/useScreenSize';
 
-import { getDatesAsLabels } from '../helpers/getDatesAsLabels'
-import { getPlayerTimelineBasedOnDates } from '../helpers/getPlayerTimelineBasedOnDates'
-import { getTimelineForPlayers } from '../helpers/getTimelineForPlayers'
+import { getDatesAsLabels } from '../helpers/getDatesAsLabels';
+import { getPlayerTimelineBasedOnDates } from '../helpers/getPlayerTimelineBasedOnDates';
+import { getTimelineForPlayers } from '../helpers/getTimelineForPlayers';
 
 type ScoreTimelineProps = {
-  allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId']
-  isLoading: boolean
-}
+  allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId'];
+  isLoading: boolean;
+};
 
 ChartJS.register(
   LinearScale,
@@ -41,31 +41,31 @@ ChartJS.register(
   Tooltip,
   LineController,
   BarController
-)
+);
 
 const ScoreTimeline = ({
   allGamesAndTrainings,
   isLoading,
 }: ScoreTimelineProps) => {
-  const { currentUser } = useAuth()
-  const { isXl, is2xl } = useScreenSize()
+  const { currentUser } = useAuth();
+  const { isXl, is2xl } = useScreenSize();
 
   const labels = useMemo(
     () => getDatesAsLabels(allGamesAndTrainings),
     [allGamesAndTrainings]
-  )
+  );
   const { gamesAndTrainingArray, playerTimelineBasedOnDates } =
-    getPlayerTimelineBasedOnDates(allGamesAndTrainings)
+    getPlayerTimelineBasedOnDates(allGamesAndTrainings);
 
   const { data, highestScore } = getTimelineForPlayers({
     labels,
     playerTimelineBasedOnDates,
     allGamesAndTrainings,
-  })
+  });
 
   const somePlayerHasScores = gamesAndTrainingArray?.some((gameOrTraining) =>
     gameOrTraining?.scores?.some((score) => score && score.points > 0)
-  )
+  );
 
   return (
     <ChartHasDataWrapper
@@ -126,7 +126,7 @@ const ScoreTimeline = ({
         data={data as any}
       />
     </ChartHasDataWrapper>
-  )
-}
+  );
+};
 
-export default ScoreTimeline
+export default ScoreTimeline;

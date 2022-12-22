@@ -1,27 +1,27 @@
-import { FieldArray } from 'formik'
+import { FieldArray } from 'formik';
 import {
   CreateScoreInput,
   CreateTrainingInput,
   FindTeamQuery,
   GetPlayersForTeamQuery,
   GetTrainingByIdQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import SingleScoreField from './SingleScoreField'
+import SingleScoreField from './SingleScoreField';
 
 export type ScoreFormValues = CreateTrainingInput & {
-  scores: CreateScoreInput[]
-  topTrainingScores: CreateScoreInput[]
-}
+  scores: CreateScoreInput[];
+  topTrainingScores: CreateScoreInput[];
+};
 
 type CreateScoreFieldArrayInputsProps = {
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
-    | GetTrainingByIdQuery['training']['players']
-  team?: FindTeamQuery['team']
-  showTop: boolean
-  setShowTop: (value: boolean) => void
-}
+    | GetTrainingByIdQuery['training']['players'];
+  team?: FindTeamQuery['team'];
+  showTop: boolean;
+  setShowTop: (value: boolean) => void;
+};
 
 const CreateScoreFieldArrayInputs = ({
   players,
@@ -40,10 +40,10 @@ const CreateScoreFieldArrayInputs = ({
             team={team}
             {...props}
           />
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
-export default CreateScoreFieldArrayInputs
+export default CreateScoreFieldArrayInputs;

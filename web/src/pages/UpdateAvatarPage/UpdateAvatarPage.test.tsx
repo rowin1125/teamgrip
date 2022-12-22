@@ -1,6 +1,6 @@
-import { render } from 'src/lib/testing/test-utils'
+import { render } from 'src/lib/testing/test-utils';
 
-import UpdateAvatarPage from './UpdateAvatarPage'
+import UpdateAvatarPage from './UpdateAvatarPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import UpdateAvatarPage from './UpdateAvatarPage'
 describe('UpdateAvatarPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<UpdateAvatarPage />)
-    }).not.toThrow()
-  })
-})
+      render(<UpdateAvatarPage />);
+    }).not.toThrow();
+  });
+});

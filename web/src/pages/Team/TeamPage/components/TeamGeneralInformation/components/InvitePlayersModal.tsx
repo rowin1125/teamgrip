@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Button,
@@ -11,16 +11,16 @@ import {
   ModalFooter,
   Heading,
   UseDisclosureProps,
-} from '@chakra-ui/react'
-import { FindTeamQuery } from 'types/graphql'
+} from '@chakra-ui/react';
+import { FindTeamQuery } from 'types/graphql';
 
-import InvitePlayers from './InvitePlayers'
+import InvitePlayers from './InvitePlayers';
 
 type InvitePlayersModalProps = {
-  team: FindTeamQuery['team']
-  defaultIndex?: number
-  setCurrentTabIndex: (index: number) => void
-} & UseDisclosureProps
+  team: FindTeamQuery['team'];
+  defaultIndex?: number;
+  setCurrentTabIndex: (index: number) => void;
+} & UseDisclosureProps;
 
 const InvitePlayersModal = ({
   team,
@@ -30,12 +30,12 @@ const InvitePlayersModal = ({
   onOpen,
   defaultIndex,
 }: InvitePlayersModalProps) => {
-  if (!onClose || !onOpen) return null
+  if (!onClose || !onOpen) return null;
 
   const handleOpenModel = () => {
-    setCurrentTabIndex(0)
-    onOpen()
-  }
+    setCurrentTabIndex(0);
+    onOpen();
+  };
 
   return (
     <>
@@ -64,7 +64,7 @@ const InvitePlayersModal = ({
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default InvitePlayersModal
+export default InvitePlayersModal;

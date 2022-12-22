@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { GetGameByIdQuery, GetPlayersForTeamQuery } from 'types/graphql'
+import { GetGameByIdQuery, GetPlayersForTeamQuery } from 'types/graphql';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 type SingleTopGameScoresProps = {
-  index: number
+  index: number;
   players?:
     | GetPlayersForTeamQuery['playersForTeam']
-    | GetGameByIdQuery['game']['players']
-}
+    | GetGameByIdQuery['game']['players'];
+};
 
 const SingleTopGameScores = ({ index, players }: SingleTopGameScoresProps) => (
   <>
@@ -34,6 +34,6 @@ const SingleTopGameScores = ({ index, players }: SingleTopGameScoresProps) => (
       mt={2}
     />
   </>
-)
+);
 
-export default SingleTopGameScores
+export default SingleTopGameScores;

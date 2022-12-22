@@ -1,20 +1,20 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Heading, Text } from '@chakra-ui/react'
+import { Box, Heading, Text } from '@chakra-ui/react';
 import {
   FindTeamByInvitationTokenQuery,
   GetPlayerByGhostInvitationQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
 type AcceptIntroTextProps = {
-  team: FindTeamByInvitationTokenQuery['teamByInvitationToken']
-  ghostPlayer: GetPlayerByGhostInvitationQuery['getGhostPlayerByInvitation']
-}
+  team: FindTeamByInvitationTokenQuery['teamByInvitationToken'];
+  ghostPlayer: GetPlayerByGhostInvitationQuery['getGhostPlayerByInvitation'];
+};
 
 const AcceptIntroText = ({ ghostPlayer, team }: AcceptIntroTextProps) => {
-  const hasGhostPlayer = !!ghostPlayer?.id
+  const hasGhostPlayer = !!ghostPlayer?.id;
 
   return (
     <>
@@ -45,7 +45,7 @@ const AcceptIntroText = ({ ghostPlayer, team }: AcceptIntroTextProps) => {
         weigeren
       </Text>
     </>
-  )
-}
+  );
+};
 
-export default AcceptIntroText
+export default AcceptIntroText;

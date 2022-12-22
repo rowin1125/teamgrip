@@ -1,64 +1,64 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import ResetPasswordForm from './components/ResetPasswordForm'
-import ResetPasswordWithImage from './components/ResetPasswordWithImage'
+import ResetPasswordForm from './components/ResetPasswordForm';
+import ResetPasswordWithImage from './components/ResetPasswordWithImage';
 
 const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
-  const [showLoginLink, setShowLoginLink] = useState(false)
+  const [showLoginLink, setShowLoginLink] = useState(false);
   const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } =
-    useAuth()
-  const [enabled, setEnabled] = useState(true)
-  const [loading, setLoading] = useState(false)
+    useAuth();
+  const [enabled, setEnabled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(routes.app())
-      toast.error('Je bent al ingelogd')
+      navigate(routes.app());
+      toast.error('Je bent al ingelogd');
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     const validateToken = async () => {
-      const response = await validateResetToken(resetToken)
+      const response = await validateResetToken(resetToken);
       if (response.error) {
-        setEnabled(false)
-        toast.error(response.error)
+        setEnabled(false);
+        toast.error(response.error);
       } else {
-        setEnabled(true)
+        setEnabled(true);
       }
-    }
-    validateToken()
-    setLoading(false)
-  }, [resetToken, validateResetToken])
+    };
+    validateToken();
+    setLoading(false);
+  }, [resetToken, validateResetToken]);
 
   const onSubmit = async (data: any) => {
-    setLoading(true)
+    setLoading(true);
     const response = await resetPassword({
       resetToken,
       password: data.password,
-    })
+    });
 
     if (response.error) {
-      toast.error(response.error)
+      toast.error(response.error);
       if (response.error.includes('hetzelfde')) {
-        setShowLoginLink(true)
+        setShowLoginLink(true);
       }
     } else {
-      toast.success('Wachtwoord aangepast')
-      await reauthenticate()
-      navigate(routes.login())
+      toast.success('Wachtwoord aangepast');
+      await reauthenticate();
+      navigate(routes.login());
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return (
     <>
@@ -98,7 +98,7 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
         </Flex>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default ResetPasswordPage
+export default ResetPasswordPage;

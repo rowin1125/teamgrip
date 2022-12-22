@@ -11,15 +11,15 @@
 //
 // See https://storybook.js.org/docs/react/writing-stories/args.
 
-import type { ComponentMeta } from '@storybook/react'
+import type { ComponentMeta } from '@storybook/react';
 
-import SpinnerLoader from './SpinnerLoader'
+import SpinnerLoader from './SpinnerLoader';
 
 export const generated = () => {
-  return <SpinnerLoader />
-}
+  return <SpinnerLoader />;
+};
 
 export default {
   title: 'Components/SpinnerLoader',
   component: SpinnerLoader,
-} as ComponentMeta<typeof SpinnerLoader>
+} as ComponentMeta<typeof SpinnerLoader>;

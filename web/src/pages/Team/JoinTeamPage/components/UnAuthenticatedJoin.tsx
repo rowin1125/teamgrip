@@ -6,15 +6,15 @@ import {
   TabPanels,
   Tabs,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import LoginForm from 'src/pages/LoginPage/LoginForm'
-import SignUpForm from 'src/pages/SignupPage/components/SignUpForm'
+import LoginForm from 'src/pages/LoginPage/LoginForm';
+import SignUpForm from 'src/pages/SignupPage/components/SignUpForm';
 
-import { useUnAuthenticated } from '../hooks/useUnAuthenticated'
+import { useUnAuthenticated } from '../hooks/useUnAuthenticated';
 
 const UnAuthenticatedJoin = () => {
-  const { handleSignIn, handleSignUp, loading } = useUnAuthenticated()
+  const { handleSignIn, handleSignUp, loading } = useUnAuthenticated();
 
   return (
     <Tabs size="lg" align="center" isFitted>
@@ -54,7 +54,7 @@ const UnAuthenticatedJoin = () => {
         </TabPanel>
       </TabPanels>
     </Tabs>
-  )
-}
+  );
+};
 
-export default UnAuthenticatedJoin
+export default UnAuthenticatedJoin;

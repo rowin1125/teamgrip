@@ -1,7 +1,7 @@
-import SpinnerOverlay from './SpinnerOverlay'
+import SpinnerOverlay from './SpinnerOverlay';
 
 export const generated = () => {
-  return <SpinnerOverlay />
-}
+  return <SpinnerOverlay />;
+};
 
-export default { title: 'Components/SpinnerOverlay' }
+export default { title: 'Components/SpinnerOverlay' };

@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React from 'react';
 
-import { Button, Flex, Icon, Text } from '@chakra-ui/react'
-import { AiOutlineEdit } from 'react-icons/ai'
+import { Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { AiOutlineEdit } from 'react-icons/ai';
 
-import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
-import RedwoodLink from 'src/components/RedwoodLink'
-import TextAlert from 'src/components/TextAlert/TextAlert'
+import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog';
+import RedwoodLink from 'src/components/RedwoodLink';
+import TextAlert from 'src/components/TextAlert/TextAlert';
 
 type TeamTableActionButtonsProps = {
-  theme?: 'dark' | 'light'
+  theme?: 'dark' | 'light';
   routes?: {
-    detail?: (params?: any) => string
-    update?: (params?: any) => string
-  }
-  id: string
-  onDelete?: (id: string) => Promise<void>
-}
+    detail?: (params?: any) => string;
+    update?: (params?: any) => string;
+  };
+  id: string;
+  onDelete?: (id: string) => Promise<void>;
+};
 
 const TeamTableActionButtons = ({
   routes,
@@ -50,7 +50,7 @@ const TeamTableActionButtons = ({
         </DeleteDialog>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default TeamTableActionButtons
+export default TeamTableActionButtons;

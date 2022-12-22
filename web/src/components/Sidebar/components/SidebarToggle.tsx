@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import { Flex, Tooltip, Button, Icon } from '@chakra-ui/react'
-import { CgPushChevronLeft, CgPushChevronRight } from 'react-icons/cg'
+import { Flex, Tooltip, Button, Icon } from '@chakra-ui/react';
+import { CgPushChevronLeft, CgPushChevronRight } from 'react-icons/cg';
 
 type SidebarToggleProps = {
-  navOpen: boolean
-  toggleNav: (navOpen: boolean) => void
-}
+  navOpen: boolean;
+  toggleNav: (navOpen: boolean) => void;
+};
 
 const SidebarToggle = ({ navOpen, toggleNav }: SidebarToggleProps) => {
   return (
@@ -36,7 +36,7 @@ const SidebarToggle = ({ navOpen, toggleNav }: SidebarToggleProps) => {
         </Button>
       </Tooltip>
     </Flex>
-  )
-}
+  );
+};
 
-export default SidebarToggle
+export default SidebarToggle;

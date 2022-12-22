@@ -1,33 +1,33 @@
-import nanoid from 'nanoid'
+import nanoid from 'nanoid';
 import {
   MutationResolvers,
   User as UserType,
   UserRelationResolvers,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { db } from 'src/lib/db'
-import { mailUser } from 'src/lib/email'
+import { db } from 'src/lib/db';
+import { mailUser } from 'src/lib/email';
 
 export const activateUserEmail = async ({
   email,
   token,
   ghostInvitation,
 }: {
-  email: string
-  token: string | null
-  ghostInvitation?: string
+  email: string;
+  token: string | null;
+  ghostInvitation?: string;
 }) => {
   const user = await db.user.findUnique({
     where: { email },
-  })
-  if (!user) throw new Error('User not found')
+  });
+  if (!user) throw new Error('User not found');
 
-  const encodedEmail = encodeURIComponent(user.email)
+  const encodedEmail = encodeURIComponent(user.email);
 
   const FRONTEND_URL =
     process.env.FRONTEND_URL ??
     process.env.REDWOOD_ENV_VERCEL_URL ??
-    'http://localhost:3000'
+    'http://localhost:3000';
 
   try {
     await mailUser({
@@ -43,23 +43,23 @@ export const activateUserEmail = async ({
           ghostInvitation ? `&ghostInvitation=${ghostInvitation}` : ''
         }`,
       },
-    })
+    });
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 
-  return user
-}
+  return user;
+};
 
 export const activateUser: MutationResolvers['activateUser'] = async ({
   input,
 }) => {
   const user = await db.user.findFirst({
     where: { verifiedToken: input.token },
-  })
+  });
 
   if (!user) {
-    throw new Error('Invalid token')
+    throw new Error('Invalid token');
   }
 
   await db.user.update({
@@ -68,38 +68,38 @@ export const activateUser: MutationResolvers['activateUser'] = async ({
       verified: true,
       verifiedToken: null,
     },
-  })
+  });
 
-  return user
-}
+  return user;
+};
 
 export const resendActivateUser: MutationResolvers['resendActivateUser'] =
   async ({ input }) => {
     let user = await db.user.findFirst({
       where: { email: input.email },
-    })
-    if (!user) throw new Error('User not found')
+    });
+    if (!user) throw new Error('User not found');
 
     if (!user.verifiedToken) {
-      const token = nanoid()
+      const token = nanoid();
       user = await db.user.update({
         where: { id: user.id },
         data: {
           verifiedToken: token,
         },
-      })
+      });
     }
 
-    await activateUserEmail({ email: user.email, token: user.verifiedToken })
+    await activateUserEmail({ email: user.email, token: user.verifiedToken });
 
-    return user
-  }
+    return user;
+  };
 
 export const forgotPasswordEmail = async ({ user }: { user: UserType }) => {
   const FRONTEND_URL =
     process.env.FRONTEND_URL ??
     process.env.REDWOOD_ENV_VERCEL_URL ??
-    'http://localhost:3000'
+    'http://localhost:3000';
   try {
     await mailUser({
       to: [
@@ -112,13 +112,13 @@ export const forgotPasswordEmail = async ({ user }: { user: UserType }) => {
       params: {
         recoverUrl: `${FRONTEND_URL}/wachtwoord-resetten?resetToken=${user.resetToken}`,
       },
-    })
+    });
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 
-  return user
-}
+  return user;
+};
 
 export const User: UserRelationResolvers = {
   userProfile: (_obj, { root }) =>
@@ -127,4 +127,4 @@ export const User: UserRelationResolvers = {
     db.user.findUnique({ where: { id: root.id } }).avatar(),
   player: (_obj, { root }) =>
     db.user.findUnique({ where: { id: root.id } }).player(),
-}
+};

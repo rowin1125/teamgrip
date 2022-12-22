@@ -1,7 +1,7 @@
-import Header from './PagesHeader'
+import Header from './PagesHeader';
 
 export const generated = () => {
-  return <Header />
-}
+  return <Header />;
+};
 
-export default { title: 'Components/Header' }
+export default { title: 'Components/Header' };

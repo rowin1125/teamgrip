@@ -2,12 +2,12 @@
 import {
   InviteGhostsPlayersMutation,
   InviteGhostsPlayersMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId'
+import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
 
 export const INVITE_GHOSTS_PLAYERS = gql`
   mutation InviteGhostsPlayersMutation($input: CreateGhostPlayersInput!) {
@@ -15,7 +15,7 @@ export const INVITE_GHOSTS_PLAYERS = gql`
       count
     }
   }
-`
+`;
 
 export const useInviteGhosts = () => {
   const [inviteGhostPlayers, { loading, error }] = useMutation<
@@ -23,9 +23,9 @@ export const useInviteGhosts = () => {
     InviteGhostsPlayersMutationVariables
   >(INVITE_GHOSTS_PLAYERS, {
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const handleInviteGhostsPlayers = async (input: any) => {
     const ghostPlayers = await inviteGhostPlayers({
@@ -38,18 +38,18 @@ export const useInviteGhosts = () => {
           variables: { teamId: input.teamId, limit: 50 },
         },
       ],
-    })
+    });
     if (!ghostPlayers.errors) {
       toast.success(
         `${ghostPlayers.data?.createManyGhostPlayers?.count} ghostspelers succesvol aangemaakt 👻`
-      )
+      );
     }
-    return ghostPlayers.data?.createManyGhostPlayers?.count
-  }
+    return ghostPlayers.data?.createManyGhostPlayers?.count;
+  };
 
   return {
     handleInviteGhostsPlayers,
     loading,
     error,
-  }
-}
+  };
+};

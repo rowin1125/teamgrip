@@ -1,7 +1,7 @@
-import NewSeasonPage from './NewSeasonPage'
+import NewSeasonPage from './NewSeasonPage';
 
 export const generated = () => {
-  return <NewSeasonPage />
-}
+  return <NewSeasonPage />;
+};
 
-export default { title: 'Pages/NewSeasonPage' }
+export default { title: 'Pages/NewSeasonPage' };

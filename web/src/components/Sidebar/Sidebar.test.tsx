@@ -1,6 +1,6 @@
-import { render } from 'src/lib/testing/test-utils'
+import { render } from 'src/lib/testing/test-utils';
 
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import Sidebar from './Sidebar'
 describe('Sidebar', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<Sidebar />)
-    }).not.toThrow()
-  })
-})
+      render(<Sidebar />);
+    }).not.toThrow();
+  });
+});

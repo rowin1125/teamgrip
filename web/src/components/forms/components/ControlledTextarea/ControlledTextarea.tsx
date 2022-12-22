@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   FormControl,
@@ -7,14 +7,14 @@ import {
   FormLabel,
   Textarea,
   TextareaProps,
-} from '@chakra-ui/react'
-import { useField } from 'formik'
+} from '@chakra-ui/react';
+import { useField } from 'formik';
 
 type ControlledTextareaProps = {
-  label: string
-  helperText?: string
-  id: string
-} & TextareaProps
+  label: string;
+  helperText?: string;
+  id: string;
+} & TextareaProps;
 
 const ControlledTextarea = ({
   label,
@@ -22,8 +22,8 @@ const ControlledTextarea = ({
   id,
   ...props
 }: ControlledTextareaProps) => {
-  const [field, meta] = useField(id)
-  const isInvalid = !!meta.error && !!meta.touched
+  const [field, meta] = useField(id);
+  const isInvalid = !!meta.error && !!meta.touched;
 
   return (
     <FormControl isInvalid={isInvalid} mb={8} maxW={80}>
@@ -36,7 +36,7 @@ const ControlledTextarea = ({
       )}
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>
-  )
-}
+  );
+};
 
-export default ControlledTextarea
+export default ControlledTextarea;

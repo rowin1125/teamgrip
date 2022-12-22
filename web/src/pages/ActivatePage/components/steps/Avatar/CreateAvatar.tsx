@@ -1,30 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { useMutation } from '@apollo/client'
-import { Box, Button, Flex, Heading, Icon } from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
-import { motion } from 'framer-motion'
-import { AnimatePresence } from 'framer-motion'
-import { BsCheckCircleFill } from 'react-icons/bs'
+import { useMutation } from '@apollo/client';
+import { Box, Button, Flex, Heading, Icon } from '@chakra-ui/react';
+import { Form, Formik } from 'formik';
+import { motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import { BsCheckCircleFill } from 'react-icons/bs';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { toast } from '@redwoodjs/web/toast';
 
-import { waitFor } from 'src/helpers/waitFor/waitFor'
+import { waitFor } from 'src/helpers/waitFor/waitFor';
 
-import Avatar from './components/Avatar'
-import AvatarFormFields from './components/AvatarFormFields'
+import Avatar from './components/Avatar';
+import AvatarFormFields from './components/AvatarFormFields';
 import {
   avatarOptions,
   generateRandomAvatarOptions,
-} from './helpers/generateRandomAvatar'
+} from './helpers/generateRandomAvatar';
 
 type CreateAvatarProps = {
-  setActivateStep: (step: number) => void
-  handlePlayVideo: () => void
-}
+  setActivateStep: (step: number) => void;
+  handlePlayVideo: () => void;
+};
 
 const CREATE_AVATAR_MUTATION = gql`
   mutation CreateAvatar($input: CreateAvatarInput!) {
@@ -32,37 +32,37 @@ const CREATE_AVATAR_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
-  const { currentUser, reauthenticate } = useAuth()
+  const { currentUser, reauthenticate } = useAuth();
   const [createAvatar, { loading }] = useMutation(CREATE_AVATAR_MUTATION, {
     onCompleted: reauthenticate,
-  })
-  const [showSuccess, setShowSuccess] = useState(false)
+  });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const onSubmit = async (data: Record<string, unknown>) => {
     try {
-      if (!currentUser) throw new Error('Je bent niet ingelogd')
+      if (!currentUser) throw new Error('Je bent niet ingelogd');
       if (currentUser?.avatar?.accessoriesType) {
-        toast.error('Je hebt al een avatar, je wordt naar home geredirect 👋')
-        await waitFor(3000)
-        navigate(routes.app())
-        return
+        toast.error('Je hebt al een avatar, je wordt naar home geredirect 👋');
+        await waitFor(3000);
+        navigate(routes.app());
+        return;
       }
       await createAvatar({
         variables: { input: { ...data, userId: currentUser?.id } },
-      })
-      setShowSuccess(true)
+      });
+      setShowSuccess(true);
       toast.success(
         'GOOOAAAAAAAAAAAAAL ⚽️\nAvatar is succesvol aangemaakt \n Je wordt geredirect naar de homepage '
-      )
-      await handlePlayVideo()
+      );
+      await handlePlayVideo();
     } catch (error: any) {
-      console.error(error)
-      toast.error(error?.message)
+      console.error(error);
+      toast.error(error?.message);
     }
-  }
+  };
 
   const generatedInitialValues = {
     avatarStyle: 'Circle',
@@ -79,7 +79,7 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
     eyebrowType: avatarOptions.eyebrowType[2],
     mouthType: avatarOptions.mouthType[8],
     skinColor: avatarOptions.skinColor[0],
-  }
+  };
 
   return (
     <>
@@ -89,9 +89,9 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
             <Formik initialValues={generatedInitialValues} onSubmit={onSubmit}>
               {({ setValues }) => {
                 const handleRandomValues = () => {
-                  const randomValues = generateRandomAvatarOptions()
-                  setValues({ avatarStyle: 'Circle', ...randomValues })
-                }
+                  const randomValues = generateRandomAvatarOptions();
+                  setValues({ avatarStyle: 'Circle', ...randomValues });
+                };
                 return (
                   <Box as={Form} w="full">
                     <Flex
@@ -123,7 +123,7 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
                       </Button>
                     </Flex>
                   </Box>
-                )
+                );
               }}
             </Formik>
           </motion.div>
@@ -150,7 +150,7 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
         )}
       </AnimatePresence>
     </>
-  )
-}
+  );
+};
 
-export default CreateAvatar
+export default CreateAvatar;

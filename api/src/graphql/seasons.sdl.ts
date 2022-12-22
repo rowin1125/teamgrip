@@ -42,4 +42,4 @@ export const schema = gql`
     ): Season! @requireAuth @isTeamOwner
     deleteSeason(id: String!): Season! @requireAuth @isTeamOwner
   }
-`
+`;

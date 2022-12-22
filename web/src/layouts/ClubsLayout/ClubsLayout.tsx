@@ -1,9 +1,9 @@
-import { Link, routes } from '@redwoodjs/router'
-import { Toaster } from '@redwoodjs/web/toast'
+import { Link, routes } from '@redwoodjs/router';
+import { Toaster } from '@redwoodjs/web/toast';
 
 type ClubLayoutProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const ClubsLayout = ({ children }: ClubLayoutProps) => {
   return (
@@ -21,7 +21,7 @@ const ClubsLayout = ({ children }: ClubLayoutProps) => {
       </header>
       <main className="rw-main">{children}</main>
     </div>
-  )
-}
+  );
+};
 
-export default ClubsLayout
+export default ClubsLayout;

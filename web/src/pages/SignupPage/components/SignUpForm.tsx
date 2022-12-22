@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Flex, Link } from '@chakra-ui/react'
-import { Formik, Form, FormikHelpers } from 'formik'
-import * as Yup from 'yup'
+import { Box, Button, Flex, Link } from '@chakra-ui/react';
+import { Formik, Form, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
-import RedwoodLink from 'src/components/RedwoodLink'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type SignUpFormProps = {
-  initialValues: Record<string, any>
-  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void
-  loading: boolean
-}
+  initialValues: Record<string, any>;
+  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void;
+  loading: boolean;
+};
 
 const SignUpForm = ({ initialValues, onSubmit, loading }: SignUpFormProps) => {
   const validationSchema = Yup.object({
@@ -26,7 +26,7 @@ const SignUpForm = ({ initialValues, onSubmit, loading }: SignUpFormProps) => {
       6,
       'Wachtwoord moet minimaal 6 karakters lang zijn...'
     ),
-  })
+  });
   return (
     <Formik
       initialValues={initialValues}
@@ -61,7 +61,7 @@ const SignUpForm = ({ initialValues, onSubmit, loading }: SignUpFormProps) => {
         </Box>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default SignUpForm
+export default SignUpForm;

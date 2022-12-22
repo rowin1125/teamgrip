@@ -8,14 +8,14 @@ import {
   Heading,
   Image,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import RedwoodLink from 'src/components/RedwoodLink';
 
-import manAtNightImage from '../../components/Hero/images/footbal-night-man.jpg'
+import manAtNightImage from '../../components/Hero/images/footbal-night-man.jpg';
 const HomePage = () => {
   return (
     <>
@@ -141,7 +141,7 @@ const HomePage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

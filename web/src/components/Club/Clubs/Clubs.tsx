@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { Link, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import { QUERY } from 'src/components/Club/ClubsCell'
+import { QUERY } from 'src/components/Club/ClubsCell';
 
 const DELETE_CLUB_MUTATION = gql`
   mutation DeleteClubMutation($id: String!) {
@@ -11,9 +11,9 @@ const DELETE_CLUB_MUTATION = gql`
       id
     }
   }
-`
+`;
 
-const MAX_STRING_LENGTH = 150
+const MAX_STRING_LENGTH = 150;
 
 // const formatEnum = (values: string | string[] | null | undefined) => {
 //   if (values) {
@@ -27,12 +27,12 @@ const MAX_STRING_LENGTH = 150
 // }
 
 const truncate = (text: string) => {
-  let output = text
+  let output = text;
   if (text && text.length > MAX_STRING_LENGTH) {
-    output = output.substring(0, MAX_STRING_LENGTH) + '...'
+    output = output.substring(0, MAX_STRING_LENGTH) + '...';
   }
-  return output
-}
+  return output;
+};
 
 // const jsonTruncate = (obj) => {
 //   return truncate(JSON.stringify(obj, null, 2))
@@ -45,8 +45,8 @@ const timeTag = (datetime: string) => {
         {new Date(datetime).toUTCString()}
       </time>
     )
-  )
-}
+  );
+};
 
 // const checkboxInputTag = (checked) => {
 //   return <input type="checkbox" checked={checked} disabled />
@@ -55,23 +55,23 @@ const timeTag = (datetime: string) => {
 const ClubsList = ({ clubs }: { clubs: any[] }) => {
   const [deleteClub] = useMutation(DELETE_CLUB_MUTATION, {
     onCompleted: () => {
-      toast.success('Club deleted')
+      toast.success('Club deleted');
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
     // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
-  })
+  });
 
   const onDeleteClick = (id: string) => {
     if (confirm('Are you sure you want to delete club ' + id + '?')) {
-      deleteClub({ variables: { id } })
+      deleteClub({ variables: { id } });
     }
-  }
+  };
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
@@ -123,7 +123,7 @@ const ClubsList = ({ clubs }: { clubs: any[] }) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default ClubsList
+export default ClubsList;

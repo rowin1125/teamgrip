@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { DrawerHeader, Heading, Image } from '@chakra-ui/react'
+import { DrawerHeader, Heading, Image } from '@chakra-ui/react';
 
 const FooterDrawerHeader = () => (
   <DrawerHeader
@@ -14,6 +14,6 @@ const FooterDrawerHeader = () => (
       TeamGrip
     </Heading>
   </DrawerHeader>
-)
+);
 
-export default FooterDrawerHeader
+export default FooterDrawerHeader;

@@ -55,4 +55,4 @@ export const schema = gql`
       @isTeamOwner
     deleteScore(id: String!): Score! @requireAuth @isTeamOwner
   }
-`
+`;

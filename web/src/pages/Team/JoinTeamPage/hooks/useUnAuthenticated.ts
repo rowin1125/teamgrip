@@ -1,52 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useParams } from '@redwoodjs/router'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { useParams } from '@redwoodjs/router';
+import { toast } from '@redwoodjs/web/dist/toast';
 
 export const useUnAuthenticated = () => {
-  const { invitationToken, ghostInvitation } = useParams()
+  const { invitationToken, ghostInvitation } = useParams();
 
-  const [loading, setLoading] = useState(false)
-  const { logIn, signUp } = useAuth()
+  const [loading, setLoading] = useState(false);
+  const { logIn, signUp } = useAuth();
 
   useEffect(() => {
-    if (invitationToken) return
+    if (invitationToken) return;
 
-    toast.error('Je hebt geen uitnodigingstoken')
-  }, [invitationToken])
+    toast.error('Je hebt geen uitnodigingstoken');
+  }, [invitationToken]);
 
   const handleSignUp = async (data: any, actions: any) => {
-    setLoading(true)
-    const response = await signUp({ ...data, invitationToken, ghostInvitation })
+    setLoading(true);
+    const response = await signUp({
+      ...data,
+      invitationToken,
+      ghostInvitation,
+    });
 
     if (response.message) {
-      toast.success(response.message)
-      actions.resetForm()
+      toast.success(response.message);
+      actions.resetForm();
     } else if (response.error) {
-      toast.error(response.error)
+      toast.error(response.error);
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   const handleSignIn = async (data: any) => {
-    setLoading(true)
-    const response = await logIn({ ...data })
+    setLoading(true);
+    const response = await logIn({ ...data });
 
     if (response.message) {
-      toast(response.message)
+      toast(response.message);
     } else if (response.error) {
-      toast.error(response.error)
+      toast.error(response.error);
     } else {
-      toast.success('Welcome back 🥳')
+      toast.success('Welcome back 🥳');
     }
-    setLoading(false)
-  }
+    setLoading(false);
+  };
 
   return {
     handleSignIn,
     handleSignUp,
     loading,
-  }
-}
+  };
+};

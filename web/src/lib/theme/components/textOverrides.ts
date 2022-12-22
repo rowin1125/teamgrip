@@ -1,4 +1,4 @@
-import { ComponentStyleConfig } from '@chakra-ui/react'
+import { ComponentStyleConfig } from '@chakra-ui/react';
 
 export const Text: ComponentStyleConfig = {
   baseStyle: {
@@ -6,4 +6,4 @@ export const Text: ComponentStyleConfig = {
     fontSize: 'lg',
   },
   defaultProps: {},
-}
+};

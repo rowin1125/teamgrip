@@ -1,7 +1,7 @@
-import GameDetailPage from './GameDetailPage'
+import GameDetailPage from './GameDetailPage';
 
 export const generated = () => {
-  return <GameDetailPage />
-}
+  return <GameDetailPage />;
+};
 
-export default { title: 'Pages/GameDetailPage' }
+export default { title: 'Pages/GameDetailPage' };

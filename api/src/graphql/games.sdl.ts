@@ -42,4 +42,4 @@ export const schema = gql`
     ): Game! @requireAuth @isTeamOwner
     deleteGame(id: String!): Game! @requireAuth @isTeamOwner
   }
-`
+`;

@@ -1,42 +1,42 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import ForgotPasswordForm from './components/ForgotPasswordForm'
-import ForgotPasswordWithImage from './components/ForgotpasswordWithImage'
+import ForgotPasswordForm from './components/ForgotPasswordForm';
+import ForgotPasswordWithImage from './components/ForgotpasswordWithImage';
 
 const ForgotPasswordPage = () => {
-  const [loading, setLoading] = useState(false)
-  const { isAuthenticated, forgotPassword } = useAuth()
+  const [loading, setLoading] = useState(false);
+  const { isAuthenticated, forgotPassword } = useAuth();
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(routes.app())
+      navigate(routes.app());
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   const onSubmit = async (data: any) => {
-    setLoading(true)
-    const response = await forgotPassword(data.username)
+    setLoading(true);
+    const response = await forgotPassword(data.username);
 
     if (response.error && !response?.error.includes('Username incorrect')) {
       // Prevent fishing, but still show the error when a valid error occurs
-      toast.error(response.error)
-      setLoading(false)
-      return
+      toast.error(response.error);
+      setLoading(false);
+      return;
     }
     toast.success(
       `Indien jou email ${data.username} is gevonden, krijg je een email met een link om je wachtwoord te resetten.`
-    )
+    );
 
-    navigate(routes.login())
-  }
+    navigate(routes.login());
+  };
 
   return (
     <>
@@ -73,7 +73,7 @@ const ForgotPasswordPage = () => {
         </Flex>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default ForgotPasswordPage
+export default ForgotPasswordPage;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
 
 import {
   ChakraProps,
@@ -9,16 +9,16 @@ import {
   RadioGroupProps,
   Stack,
   StackProps,
-} from '@chakra-ui/react'
-import { useField } from 'formik'
+} from '@chakra-ui/react';
+import { useField } from 'formik';
 
 type ControlledRadioGroupProps = {
-  id: string
-  label?: string
-  radioGroupProps?: RadioGroupProps
-  stackProps?: StackProps
-  children: ReactNode
-} & ChakraProps
+  id: string;
+  label?: string;
+  radioGroupProps?: RadioGroupProps;
+  stackProps?: StackProps;
+  children: ReactNode;
+} & ChakraProps;
 
 const ControlledRadioGroup = ({
   id,
@@ -28,11 +28,11 @@ const ControlledRadioGroup = ({
   children,
   ...rest
 }: ControlledRadioGroupProps) => {
-  const [meta, , { setValue }] = useField(id)
+  const [meta, , { setValue }] = useField(id);
 
   const handleChange = (value: string) => {
-    setValue(value)
-  }
+    setValue(value);
+  };
 
   return (
     <FormControl id={id} label={label} {...rest} mb={8}>
@@ -49,7 +49,7 @@ const ControlledRadioGroup = ({
         </RadioGroup>
       </Flex>
     </FormControl>
-  )
-}
+  );
+};
 
-export default ControlledRadioGroup
+export default ControlledRadioGroup;

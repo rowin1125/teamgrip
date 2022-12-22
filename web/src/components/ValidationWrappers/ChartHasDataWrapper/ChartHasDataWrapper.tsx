@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Heading, Icon } from '@chakra-ui/react'
-import { randNumber } from '@ngneat/falso'
+import { Box, Button, Flex, Heading, Icon } from '@chakra-ui/react';
+import { randNumber } from '@ngneat/falso';
 import {
   BarController,
   BarElement,
@@ -11,12 +11,12 @@ import {
   LineElement,
   PointElement,
   Tooltip,
-} from 'chart.js'
-import { Chart } from 'react-chartjs-2'
-import { MdOutlineSearchOff } from 'react-icons/md'
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { MdOutlineSearchOff } from 'react-icons/md';
 
-import RedwoodLink from 'src/components/RedwoodLink'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import RedwoodLink from 'src/components/RedwoodLink';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 ChartJS.register(
   LinearScale,
@@ -28,9 +28,9 @@ ChartJS.register(
   Tooltip,
   LineController,
   BarController
-)
+);
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 export const data = {
   labels,
@@ -58,16 +58,16 @@ export const data = {
       data: labels.map(() => randNumber({ min: -1000, max: 1000 })),
     },
   ],
-}
+};
 
 type ChartHasDataWrapperProps = {
-  children: JSX.Element
-  hasEntries: boolean
-  isLoading: boolean
-  to: string
-  buttonText: string
-  title: string
-}
+  children: JSX.Element;
+  hasEntries: boolean;
+  isLoading: boolean;
+  to: string;
+  buttonText: string;
+  title: string;
+};
 
 const ChartHasDataWrapper = ({
   children,
@@ -77,11 +77,11 @@ const ChartHasDataWrapper = ({
   title,
   to,
 }: ChartHasDataWrapperProps) => {
-  const { isTeamStaff } = useTeamPlayerAuth()
+  const { isTeamStaff } = useTeamPlayerAuth();
 
-  if (hasEntries) return children
+  if (hasEntries) return children;
 
-  const showLock = !isLoading && !hasEntries
+  const showLock = !isLoading && !hasEntries;
 
   return (
     <Box position="relative">
@@ -127,7 +127,7 @@ const ChartHasDataWrapper = ({
         <Chart type="bar" data={data} />
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default ChartHasDataWrapper
+export default ChartHasDataWrapper;

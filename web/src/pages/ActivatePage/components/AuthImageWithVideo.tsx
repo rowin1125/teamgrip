@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Center, Heading, Image, Text } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
+import { Box, Center, Heading, Image, Text } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 
-import footballNightMan from '../../SignupPage/login-bg.jpg'
+import footballNightMan from '../../SignupPage/login-bg.jpg';
 
 type AuthImageWithVideoProps = {
-  videoShown: boolean
+  videoShown: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  videoRef: any
-  showGetStartedTitle: boolean
-  showWelcomeTitle: boolean
-}
+  videoRef: any;
+  showGetStartedTitle: boolean;
+  showWelcomeTitle: boolean;
+};
 
 const variants = {
   hide: { opacity: 0 },
   show: { opacity: 1 },
-}
+};
 
 const textVariants = {
   hide: { opacity: 0, display: 'none' },
   show: { opacity: 1, display: 'block' },
-}
+};
 
 const AuthImageWithVideo = ({
   showGetStartedTitle,
@@ -139,7 +139,7 @@ const AuthImageWithVideo = ({
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default AuthImageWithVideo
+export default AuthImageWithVideo;

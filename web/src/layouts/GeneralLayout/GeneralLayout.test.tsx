@@ -1,6 +1,6 @@
-import { render } from 'src/lib/testing/test-utils'
+import { render } from 'src/lib/testing/test-utils';
 
-import GeneralLayout from './GeneralLayout'
+import GeneralLayout from './GeneralLayout';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import GeneralLayout from './GeneralLayout'
 describe('GeneralLayout', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<GeneralLayout />)
-    }).not.toThrow()
-  })
-})
+      render(<GeneralLayout />);
+    }).not.toThrow();
+  });
+});

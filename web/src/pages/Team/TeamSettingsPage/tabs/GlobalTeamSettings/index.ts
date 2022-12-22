@@ -1,1 +1,1 @@
-export { default } from './GlobalTeamSettings'
+export { default } from './GlobalTeamSettings';

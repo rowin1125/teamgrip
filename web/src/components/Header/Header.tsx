@@ -1,18 +1,18 @@
-import { Box, Button, Flex, Icon, IconButton } from '@chakra-ui/react'
-import styled from '@emotion/styled'
-import { CgBell } from 'react-icons/cg'
+import { Box, Button, Flex, Icon, IconButton } from '@chakra-ui/react';
+import styled from '@emotion/styled';
+import { CgBell } from 'react-icons/cg';
 
-import { useAuth } from '@redwoodjs/auth'
-import { Link, routes, useLocation } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { Link, routes, useLocation } from '@redwoodjs/router';
 
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs'
+import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 
-import ProfileMenu from './components/ProfileMenu'
+import ProfileMenu from './components/ProfileMenu';
 
 const Header = () => {
-  const { currentUser } = useAuth()
-  const { pathname } = useLocation()
-  const showBreadCrumbs = pathname.includes('app')
+  const { currentUser } = useAuth();
+  const { pathname } = useLocation();
+  const showBreadCrumbs = pathname.includes('app');
 
   return (
     <Box as="header" w="full" pl={8} pb={4}>
@@ -41,8 +41,8 @@ const Header = () => {
         </Flex>
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
 const StyledIconButton = styled(IconButton)`
   &:hover {
@@ -50,6 +50,6 @@ const StyledIconButton = styled(IconButton)`
       color: ${(props) => props.theme.colors.primary[500]};
     }
   }
-`
+`;
 
-export default Header
+export default Header;

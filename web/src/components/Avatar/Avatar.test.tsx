@@ -1,6 +1,6 @@
-import { render } from 'src/lib/testing/test-utils'
+import { render } from 'src/lib/testing/test-utils';
 
-import Avatar from './Avatar'
+import Avatar from './Avatar';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import Avatar from './Avatar'
 describe('Avatar', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<Avatar />)
-    }).not.toThrow()
-  })
-})
+      render(<Avatar />);
+    }).not.toThrow();
+  });
+});

@@ -1,10 +1,10 @@
-import { Router, Route, Set, Private } from '@redwoodjs/router'
+import { Router, Route, Set, Private } from '@redwoodjs/router';
 
-import ClubsLayout from 'src/layouts/ClubsLayout'
+import ClubsLayout from 'src/layouts/ClubsLayout';
 
-import AppLayout from './layouts/AppLayout/AppLayout'
-import AuthLayout from './layouts/AuthLayout/AuthLayout'
-import PageLayout from './layouts/PagesLayout/PagesLayout'
+import AppLayout from './layouts/AppLayout/AppLayout';
+import AuthLayout from './layouts/AuthLayout/AuthLayout';
+import PageLayout from './layouts/PagesLayout/PagesLayout';
 
 const Routes = () => {
   return (
@@ -62,7 +62,7 @@ const Routes = () => {
       {/* Cannot be nested inside a SET*/}
       <Route notfound page={NotFoundPage} />
     </Router>
-  )
-}
+  );
+};
 
-export default Routes
+export default Routes;

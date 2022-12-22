@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import ChartHasDataWrapper from './ChartHasDataWrapper'
+import ChartHasDataWrapper from './ChartHasDataWrapper';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import ChartHasDataWrapper from './ChartHasDataWrapper'
 describe('ChartHasDataWrapper', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<ChartHasDataWrapper />)
-    }).not.toThrow()
-  })
-})
+      render(<ChartHasDataWrapper />);
+    }).not.toThrow();
+  });
+});

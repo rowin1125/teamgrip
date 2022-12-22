@@ -34,4 +34,4 @@ export const schema = gql`
     activateUser(input: ActivateUserInput!): User! @skipAuth
     resendActivateUser(input: ResendActivateUserInput!): User! @skipAuth
   }
-`
+`;

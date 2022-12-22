@@ -1,5 +1,5 @@
-import { teams, team, createTeam, updateTeam, deleteTeam } from './teams'
-import type { StandardScenario } from './teams.scenarios'
+import { teams, team, createTeam, updateTeam, deleteTeam } from './teams';
+import type { StandardScenario } from './teams.scenarios';
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -9,39 +9,39 @@ import type { StandardScenario } from './teams.scenarios'
 
 describe('teams', () => {
   scenario('returns all teams', async (scenario: StandardScenario) => {
-    const result = await teams()
+    const result = await teams();
 
-    expect(result.length).toEqual(Object.keys(scenario.team).length)
-  })
+    expect(result.length).toEqual(Object.keys(scenario.team).length);
+  });
 
   scenario('returns a single team', async (scenario: StandardScenario) => {
-    const result = await team({ id: scenario.team.one.id })
+    const result = await team({ id: scenario.team.one.id });
 
-    expect(result).toEqual(scenario.team.one)
-  })
+    expect(result).toEqual(scenario.team.one);
+  });
 
   scenario('creates a team', async () => {
     const result = await createTeam({
       input: { name: 'String' },
-    })
+    });
 
-    expect(result.name).toEqual('String')
-  })
+    expect(result.name).toEqual('String');
+  });
 
   scenario('updates a team', async (scenario: StandardScenario) => {
-    const original = await team({ id: scenario.team.one.id })
+    const original = await team({ id: scenario.team.one.id });
     const result = await updateTeam({
       id: original.id,
       input: { name: 'String2' },
-    })
+    });
 
-    expect(result.name).toEqual('String2')
-  })
+    expect(result.name).toEqual('String2');
+  });
 
   scenario('deletes a team', async (scenario: StandardScenario) => {
-    const original = await deleteTeam({ id: scenario.team.one.id })
-    const result = await team({ id: original.id })
+    const original = await deleteTeam({ id: scenario.team.one.id });
+    const result = await team({ id: original.id });
 
-    expect(result).toEqual(null)
-  })
-})
+    expect(result).toEqual(null);
+  });
+});

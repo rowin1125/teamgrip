@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 import {
   CreateGameMutation,
@@ -7,21 +7,21 @@ import {
   CreateScoreInput,
   FindTeamQuery,
   GetPlayersForTeamQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { GAME_FRAGMENT } from 'src/graphql/fragments/GameFragment'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
-import { GET_GAMES_BY_TEAM_QUERY } from 'src/pages/Team/TeamPage/components/TeamGames/hooks/useGetGamesByTeamId'
+import { GAME_FRAGMENT } from 'src/graphql/fragments/GameFragment';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
+import { GET_GAMES_BY_TEAM_QUERY } from 'src/pages/Team/TeamPage/components/TeamGames/hooks/useGetGamesByTeamId';
 
 type UseCreateGameType = {
-  team: FindTeamQuery['team']
-  playersData?: GetPlayersForTeamQuery
-  showTop?: boolean
-}
+  team: FindTeamQuery['team'];
+  playersData?: GetPlayersForTeamQuery;
+  showTop?: boolean;
+};
 
 export const CREATE_GAME_MUTATION = gql`
   ${GAME_FRAGMENT}
@@ -33,7 +33,7 @@ export const CREATE_GAME_MUTATION = gql`
       ...GameFragment
     }
   }
-`
+`;
 
 export const scoreBlueprint: CreateScoreInput = {
   playerId: '',
@@ -42,14 +42,14 @@ export const scoreBlueprint: CreateScoreInput = {
   gameId: '',
   type: 'GAME',
   teamId: '',
-}
+};
 
 export const useCreateGame = ({
   team,
   playersData,
   showTop,
 }: UseCreateGameType) => {
-  const { currentUser, isTeamStaff } = useTeamPlayerAuth()
+  const { currentUser, isTeamStaff } = useTeamPlayerAuth();
 
   const [createGame, { loading: createGameLoading }] = useMutation<
     CreateGameMutation,
@@ -61,11 +61,11 @@ export const useCreateGame = ({
         variables: { id: currentUser?.player?.teamId || '' },
       },
     ],
-  })
+  });
 
   const handleCreateGame = async (values: any) => {
-    const { scores, topGameScores, ...input } = values
-    const allScores = [...scores, ...(showTop ? topGameScores : [])]
+    const { scores, topGameScores, ...input } = values;
+    const allScores = [...scores, ...(showTop ? topGameScores : [])];
 
     try {
       const game = await createGame({
@@ -76,35 +76,35 @@ export const useCreateGame = ({
           },
           scores: allScores,
         },
-      })
-      toast.success(`Wedstrijd aangemaakt`)
-      navigate(routes.gameDetail({ id: game?.data?.createGame.id || '' }))
+      });
+      toast.success(`Wedstrijd aangemaakt`);
+      navigate(routes.gameDetail({ id: game?.data?.createGame.id || '' }));
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  }
+  };
 
   const seasonMatchesThisYear = team?.season?.filter((season) =>
     season?.name?.includes(new Date().getFullYear().toString())
-  )?.[0]?.id
+  )?.[0]?.id;
 
-  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id
+  const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id;
 
   useEffect(() => {
     if (team && team.season?.length === 0) {
       toast.error(
         'Je moet eerst een seizoen aanmaken voor je een wedstrijd kan aanmaken'
-      )
-      navigate(routes.team())
+      );
+      navigate(routes.team());
     }
-  }, [team])
+  }, [team]);
 
   useEffect(() => {
-    if (isTeamStaff) return
+    if (isTeamStaff) return;
 
-    toast.error('Je hebt geen toegang voor deze pagina')
-    navigate(routes.team())
-  }, [currentUser, isTeamStaff])
+    toast.error('Je hebt geen toegang voor deze pagina');
+    navigate(routes.team());
+  }, [currentUser, isTeamStaff]);
 
   const initialScoresInputValues: CreateScoreInput[] =
     playersData?.playersForTeam.map((player) => ({
@@ -112,7 +112,7 @@ export const useCreateGame = ({
       seasonId: defaultSeasonId || '',
       playerId: player?.id || '',
       teamId: currentUser?.player?.teamId || '',
-    })) || []
+    })) || [];
 
   const initialTopGameScores: CreateScoreInput[] = [
     {
@@ -142,7 +142,7 @@ export const useCreateGame = ({
       teamId: team?.id || '',
       gameId: '',
     },
-  ]
+  ];
 
   return {
     defaultTeamSeasonId: defaultSeasonId,
@@ -150,5 +150,5 @@ export const useCreateGame = ({
     initialTopGameScores,
     handleCreateGame,
     createGameLoading,
-  }
-}
+  };
+};

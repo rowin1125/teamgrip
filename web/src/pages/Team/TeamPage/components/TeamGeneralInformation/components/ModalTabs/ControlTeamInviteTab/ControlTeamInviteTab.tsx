@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Button,
@@ -8,27 +8,27 @@ import {
   Input,
   Text,
   useClipboard,
-} from '@chakra-ui/react'
-import { BsWhatsapp } from 'react-icons/bs'
-import { MdContentCopy } from 'react-icons/md'
-import { TbCheck } from 'react-icons/tb'
-import { FindTeamQuery } from 'types/graphql'
+} from '@chakra-ui/react';
+import { BsWhatsapp } from 'react-icons/bs';
+import { MdContentCopy } from 'react-icons/md';
+import { TbCheck } from 'react-icons/tb';
+import { FindTeamQuery } from 'types/graphql';
 
-import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
-import TextAlert from 'src/components/TextAlert/TextAlert'
-import { useDeleteInvitationToken } from 'src/pages/Team/TeamPage/hooks/useDeleteInvitationToken'
+import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog';
+import TextAlert from 'src/components/TextAlert/TextAlert';
+import { useDeleteInvitationToken } from 'src/pages/Team/TeamPage/hooks/useDeleteInvitationToken';
 
-import ValidateTeamInvitation from '../../ValidateTeamInvitation'
+import ValidateTeamInvitation from '../../ValidateTeamInvitation';
 
 type ControlTeamInviteTabProps = {
-  team?: FindTeamQuery['team']
-}
+  team?: FindTeamQuery['team'];
+};
 
 const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
-  const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}`
-  const { hasCopied, onCopy } = useClipboard(inviteUrl)
+  const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}`;
+  const { hasCopied, onCopy } = useClipboard(inviteUrl);
 
-  const { handleDeleteInvitationToken, loading } = useDeleteInvitationToken()
+  const { handleDeleteInvitationToken, loading } = useDeleteInvitationToken();
   return (
     <ValidateTeamInvitation team={team}>
       <TextAlert status="warning">
@@ -81,7 +81,7 @@ const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
         </Button>
       </ButtonGroup>
     </ValidateTeamInvitation>
-  )
-}
+  );
+};
 
-export default ControlTeamInviteTab
+export default ControlTeamInviteTab;

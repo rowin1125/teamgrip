@@ -1,9 +1,9 @@
-import { randLastName, randFirstName } from '@ngneat/falso'
-import type { Prisma } from '@prisma/client'
-import { db } from 'api/src/lib/db'
+import { randLastName, randFirstName } from '@ngneat/falso';
+import type { Prisma } from '@prisma/client';
+import { db } from 'api/src/lib/db';
 
-import { generateRandomAvatarOptions } from '../helpers/generateRandomAvatar'
-import { waitFor } from '../seed'
+import { generateRandomAvatarOptions } from '../helpers/generateRandomAvatar';
+import { waitFor } from '../seed';
 
 export const userFixedAvatar: Omit<Prisma.AvatarCreateArgs['data'], 'userId'> =
   {
@@ -21,7 +21,7 @@ export const userFixedAvatar: Omit<Prisma.AvatarCreateArgs['data'], 'userId'> =
     mouthType: 'Smile',
     skinColor: 'Tanned',
     graphicType: 'Bat',
-  }
+  };
 
 export const users: Prisma.UserCreateArgs['data'][] = [
   {
@@ -53,27 +53,27 @@ export const users: Prisma.UserCreateArgs['data'][] = [
       },
     },
   },
-]
+];
 
 export const defaultUserProperties = {
   hashedPassword:
     '9fd0352cdfa734a293590d891ee176f42bf856f9e0cea82ff574d61a0326c8e5', // 123456
   salt: 'e2803df51c4dfe35f9dc9cb35630e69b',
   verified: true,
-}
+};
 
 const createRandomNumber = (min: number, max: number) =>
-  Math.floor(Math.random() * (max - min + 1)) + min
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 export const createUsers = async () => {
   Promise.all(
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { avatar, ...userCreateData } = userData
+      const { avatar, ...userCreateData } = userData;
       const firstname = userCreateData.email.includes('rowin')
         ? 'Rowin'
-        : randFirstName()
-      const lastname = randLastName()
+        : randFirstName();
+      const lastname = randLastName();
       await db.user
         .create({
           data: {
@@ -97,16 +97,16 @@ export const createUsers = async () => {
             where: {
               name: 'Zob',
             },
-          })
+          });
 
           await db.avatar.create({
             data: {
               ...userData.avatar.create,
               userId: user.id,
             },
-          })
+          });
 
-          const teamName = `Zaterdag-${createRandomNumber(1, 30)}`
+          const teamName = `Zaterdag-${createRandomNumber(1, 30)}`;
 
           if (user.email === 'user-member-of-team-and-club@gmail.com') {
             const firstTeam = await db.team.findFirst({
@@ -115,8 +115,8 @@ export const createUsers = async () => {
                   email: 'rowinmol648@gmail.com',
                 },
               },
-            })
-            await waitFor(4000, 'waiting..... ⌛️')
+            });
+            await waitFor(4000, 'waiting..... ⌛️');
 
             await db.player.update({
               where: {
@@ -130,8 +130,8 @@ export const createUsers = async () => {
                   },
                 },
               },
-            })
-            return user
+            });
+            return user;
           }
 
           const team = await db.team.create({
@@ -143,7 +143,7 @@ export const createUsers = async () => {
               },
               clubId: club.id,
             },
-          })
+          });
 
           await db.player.update({
             where: {
@@ -157,23 +157,23 @@ export const createUsers = async () => {
                 },
               },
             },
-          })
+          });
 
           await db.player.updateMany({
             where: {},
             data: {
               clubId: club.id,
             },
-          })
+          });
 
-          return user
-        })
+          return user;
+        });
     })
-  )
+  );
 
   // Create user without Team
-  const firstname = randFirstName()
-  const lastname = randLastName()
+  const firstname = randFirstName();
+  const lastname = randLastName();
   await db.user.create({
     data: {
       ...defaultUserProperties,
@@ -197,5 +197,5 @@ export const createUsers = async () => {
         },
       },
     },
-  })
-}
+  });
+};

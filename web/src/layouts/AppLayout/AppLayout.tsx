@@ -1,17 +1,17 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react';
 
-import { Toaster } from '@redwoodjs/web/dist/toast'
+import { Toaster } from '@redwoodjs/web/dist/toast';
 
-import Footer from 'src/components/Footer/Footer'
-import FooterMenu from 'src/components/FooterMenu/FooterMenu'
-import Header from 'src/components/Header/Header'
-import Hero from 'src/components/Hero/Hero'
-import NoSeasonAlert from 'src/components/NoSeasonAlert/NoSeasonAlert'
-import Sidebar from 'src/components/Sidebar/Sidebar'
+import Footer from 'src/components/Footer/Footer';
+import FooterMenu from 'src/components/FooterMenu/FooterMenu';
+import Header from 'src/components/Header/Header';
+import Hero from 'src/components/Hero/Hero';
+import NoSeasonAlert from 'src/components/NoSeasonAlert/NoSeasonAlert';
+import Sidebar from 'src/components/Sidebar/Sidebar';
 
 type AppLayoutProps = {
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 const AppLayout = ({ children }: AppLayoutProps) => (
   <Box>
@@ -37,6 +37,6 @@ const AppLayout = ({ children }: AppLayoutProps) => (
     <Footer />
     <FooterMenu />
   </Box>
-)
+);
 
-export default AppLayout
+export default AppLayout;

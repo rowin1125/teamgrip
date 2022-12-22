@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Flex } from '@chakra-ui/react'
-import { Formik, Form, FormikHelpers } from 'formik'
-import * as Yup from 'yup'
+import { Box, Button, Flex } from '@chakra-ui/react';
+import { Formik, Form, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
 
 type ForgotPasswordFormProps = {
-  initialValues: Record<string, any>
-  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void
-  loading: boolean
-}
+  initialValues: Record<string, any>;
+  onSubmit: (values: Record<string, any>, actions: FormikHelpers<any>) => void;
+  loading: boolean;
+};
 
 const ForgotPasswordForm = ({
   initialValues,
@@ -23,7 +23,7 @@ const ForgotPasswordForm = ({
       .email('Email moet wel een email zijn...')
       .required('Veld is verplicht')
       .min(4),
-  })
+  });
   return (
     <Formik
       initialValues={initialValues}
@@ -46,7 +46,7 @@ const ForgotPasswordForm = ({
         </Box>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default ForgotPasswordForm
+export default ForgotPasswordForm;

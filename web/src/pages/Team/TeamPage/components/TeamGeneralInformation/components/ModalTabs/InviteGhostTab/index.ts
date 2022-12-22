@@ -1,1 +1,1 @@
-export { default } from './InviteGhostTab'
+export { default } from './InviteGhostTab';

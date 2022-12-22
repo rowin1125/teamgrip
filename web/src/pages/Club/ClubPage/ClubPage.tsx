@@ -1,11 +1,11 @@
-import ClubCell from 'src/components/Club/ClubCell'
+import ClubCell from 'src/components/Club/ClubCell';
 
 type ClubPageProps = {
-  id: string
-}
+  id: string;
+};
 
 const ClubPage = ({ id }: ClubPageProps) => {
-  return <ClubCell id={id} />
-}
+  return <ClubCell id={id} />;
+};
 
-export default ClubPage
+export default ClubPage;

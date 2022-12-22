@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import DefaultLoader from './DefaultLoader'
+import DefaultLoader from './DefaultLoader';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import DefaultLoader from './DefaultLoader'
 describe('DefaultLoader', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<DefaultLoader />)
-    }).not.toThrow()
-  })
-})
+      render(<DefaultLoader />);
+    }).not.toThrow();
+  });
+});

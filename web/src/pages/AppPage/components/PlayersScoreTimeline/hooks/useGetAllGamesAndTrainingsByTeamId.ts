@@ -1,10 +1,10 @@
 import {
   GetAllGamesAndTrainingsByTeamId,
   GetAllGamesAndTrainingsByTeamIdVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useQuery } from '@redwoodjs/web'
+import { useAuth } from '@redwoodjs/auth';
+import { useQuery } from '@redwoodjs/web';
 
 export const GET_PLAYER_SCORE_TIMELINE = gql`
   query GetAllGamesAndTrainingsByTeamId($teamId: String!) {
@@ -35,10 +35,10 @@ export const GET_PLAYER_SCORE_TIMELINE = gql`
       }
     }
   }
-`
+`;
 
 export const useGetAllGamesAndTrainingsByTeamId = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const { data, loading, error } = useQuery<
     GetAllGamesAndTrainingsByTeamId,
     GetAllGamesAndTrainingsByTeamIdVariables
@@ -46,11 +46,11 @@ export const useGetAllGamesAndTrainingsByTeamId = () => {
     variables: {
       teamId: currentUser?.player?.teamId || '',
     },
-  })
+  });
 
   return {
     allGamesAndTrainings: data?.getAllGamesAndTrainingsByTeamId,
     loading,
     error,
-  }
-}
+  };
+};

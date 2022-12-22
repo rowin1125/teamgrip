@@ -1,7 +1,7 @@
-import TeamTable from './TeamTable'
+import TeamTable from './TeamTable';
 
 export const generated = () => {
-  return <TeamTable />
-}
+  return <TeamTable />;
+};
 
-export default { title: 'Components/TeamTable' }
+export default { title: 'Components/TeamTable' };

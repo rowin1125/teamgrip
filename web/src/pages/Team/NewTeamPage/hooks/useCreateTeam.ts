@@ -4,15 +4,15 @@ import {
   CreateTeamMutation,
   CreateTeamMutationVariables,
   GetClubsQuery,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { FIND_TEAM_QUERY } from 'src/hooks/api/query/useGetTeamById'
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import { FIND_TEAM_QUERY } from 'src/hooks/api/query/useGetTeamById';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 const CREATE_TEAM_MUTATION = gql`
   mutation CreateTeamMutation($input: CreateTeamInput!) {
@@ -21,11 +21,11 @@ const CREATE_TEAM_MUTATION = gql`
       name
     }
   }
-`
+`;
 
 export const useCreateTeam = (clubs?: GetClubsQuery['clubs']) => {
-  const { reauthenticate } = useAuth()
-  const { currentUser } = useTeamPlayerAuth()
+  const { reauthenticate } = useAuth();
+  const { currentUser } = useTeamPlayerAuth();
 
   const [createTeam, { loading }] = useMutation<
     CreateTeamMutation,
@@ -40,18 +40,18 @@ export const useCreateTeam = (clubs?: GetClubsQuery['clubs']) => {
         },
       },
     ],
-  })
+  });
 
   const handleCreateTeam = async (values: CreateTeamInput) => {
     const clubName = clubs
       ?.find((club) => club.id === values.clubId)
-      ?.name?.toLowerCase()
+      ?.name?.toLowerCase();
     const teamNameContainsClubName = values.name
       .toLowerCase()
-      .includes(clubName || '')
+      .includes(clubName || '');
     if (teamNameContainsClubName) {
-      toast.error('Clubnaam mag niet in teamnaam zitten')
-      return
+      toast.error('Clubnaam mag niet in teamnaam zitten');
+      return;
     }
 
     try {
@@ -62,16 +62,16 @@ export const useCreateTeam = (clubs?: GetClubsQuery['clubs']) => {
             clubTeamName: `${clubName}-${values.name}`,
           },
         },
-      })
-      toast.success(`Team ${team?.data?.createTeam.name} aangemaakt`)
-      navigate(routes.team())
+      });
+      toast.success(`Team ${team?.data?.createTeam.name} aangemaakt`);
+      navigate(routes.team());
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  }
+  };
 
   return {
     handleCreateTeam,
     loading,
-  }
-}
+  };
+};

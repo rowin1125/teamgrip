@@ -1,1 +1,1 @@
-export { default } from './RedwoodLink'
+export { default } from './RedwoodLink';

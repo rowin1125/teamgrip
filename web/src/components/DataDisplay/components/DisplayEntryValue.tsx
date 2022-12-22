@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-import { Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
 
 type DisplayEntryValueProps = {
-  label: string
-  value: string | boolean | number
-  isNested: boolean
-}
+  label: string;
+  value: string | boolean | number;
+  isNested: boolean;
+};
 
 const DisplayEntryValue = ({
   label,
@@ -31,6 +31,6 @@ const DisplayEntryValue = ({
       {value?.toString()}
     </Box>
   </>
-)
+);
 
-export default DisplayEntryValue
+export default DisplayEntryValue;

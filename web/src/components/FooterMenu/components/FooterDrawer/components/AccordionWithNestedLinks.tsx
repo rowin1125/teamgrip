@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   AccordionItem,
@@ -9,13 +9,13 @@ import {
   Flex,
   Text,
   Icon,
-} from '@chakra-ui/react'
-import { IconType } from 'react-icons'
+} from '@chakra-ui/react';
+import { IconType } from 'react-icons';
 
 type AccordionWithNestedLinksProps = {
-  children: React.ReactNode
-  icon: IconType
-}
+  children: React.ReactNode;
+  icon: IconType;
+};
 
 const AccordionWithNestedLinks = ({
   children,
@@ -43,6 +43,6 @@ const AccordionWithNestedLinks = ({
       <Flex flexDirection="column">{children}</Flex>
     </AccordionPanel>
   </AccordionItem>
-)
+);
 
-export default AccordionWithNestedLinks
+export default AccordionWithNestedLinks;

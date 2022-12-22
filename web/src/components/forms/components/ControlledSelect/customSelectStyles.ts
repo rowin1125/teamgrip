@@ -18,13 +18,13 @@ export const customSelectStyles = {
         backgroundColor: '#ddd',
       },
       cursor: 'pointer',
-    }
+    };
   },
   singleValue: (prevStyles: Record<string, unknown>) => {
     return {
       ...prevStyles,
       color: 'black',
-    }
+    };
   },
   control: (prevStyles: Record<string, unknown>) => ({
     ...prevStyles,
@@ -34,4 +34,4 @@ export const customSelectStyles = {
     ...prevStyles,
     color: 'black',
   }),
-}
+};

@@ -1,11 +1,11 @@
-import { Grid } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import AvatarSettings from './components/AvatarSettings'
-import GlobalSettings from './components/GlobalSettings'
-import ProfileSettings from './components/ProfileSettings'
-import SettingsIntro from './components/SettingsIntro'
+import AvatarSettings from './components/AvatarSettings';
+import GlobalSettings from './components/GlobalSettings';
+import ProfileSettings from './components/ProfileSettings';
+import SettingsIntro from './components/SettingsIntro';
 
 const SettingsPage = () => {
   return (
@@ -26,7 +26,7 @@ const SettingsPage = () => {
         <AvatarSettings />
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default SettingsPage
+export default SettingsPage;

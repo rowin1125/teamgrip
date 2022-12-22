@@ -1,7 +1,7 @@
-import TeamSettingsPage from './TeamSettingsPage'
+import TeamSettingsPage from './TeamSettingsPage';
 
 export const generated = () => {
-  return <TeamSettingsPage />
-}
+  return <TeamSettingsPage />;
+};
 
-export default { title: 'Pages/TeamSettingsPage' }
+export default { title: 'Pages/TeamSettingsPage' };

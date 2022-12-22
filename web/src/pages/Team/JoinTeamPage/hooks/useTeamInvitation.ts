@@ -3,14 +3,14 @@ import {
   PlayerJoinsTeamByGhostInvitationVariables,
   UpdatePlayerMutation,
   UpdatePlayerMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment'
+import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment';
 
 const UPDATE_PLAYER_MUTATION = gql`
   ${PLAYER_FRAGMENT}
@@ -19,7 +19,7 @@ const UPDATE_PLAYER_MUTATION = gql`
       ...PlayerFragment
     }
   }
-`
+`;
 
 const PLAYER_JOINS_TEAM_BY_GHOST_INVITATION = gql`
   ${PLAYER_FRAGMENT}
@@ -36,17 +36,17 @@ const PLAYER_JOINS_TEAM_BY_GHOST_INVITATION = gql`
       ...PlayerFragment
     }
   }
-`
+`;
 
 export const useTeamInvitation = () => {
-  const { reauthenticate } = useAuth()
+  const { reauthenticate } = useAuth();
 
   const [updatePlayer, { loading }] = useMutation<
     UpdatePlayerMutation,
     UpdatePlayerMutationVariables
   >(UPDATE_PLAYER_MUTATION, {
     onCompleted: reauthenticate,
-  })
+  });
 
   const handleJoinTeam = async (playerId: string, teamId: string) => {
     try {
@@ -59,14 +59,14 @@ export const useTeamInvitation = () => {
             isActivePlayer: true,
           },
         },
-      })
-      toast.success('Gefeliciteerd, je bent onderdeel van het team')
-      navigate(routes.team())
+      });
+      toast.success('Gefeliciteerd, je bent onderdeel van het team');
+      navigate(routes.team());
     } catch (error) {
-      console.error(error)
-      toast.error('Oeps er is iets fout gegaan 😢')
+      console.error(error);
+      toast.error('Oeps er is iets fout gegaan 😢');
     }
-  }
+  };
 
   const handleDeleteTeamInvitation = async (playerId: string) => {
     try {
@@ -77,14 +77,14 @@ export const useTeamInvitation = () => {
             teamInvitation: null,
           },
         },
-      })
-      toast.success('De uitnodiging is verwijderd 🗑️')
-      navigate(routes.app())
+      });
+      toast.success('De uitnodiging is verwijderd 🗑️');
+      navigate(routes.app());
     } catch (error) {
-      console.error(error)
-      toast.error('Oeps er is iets fout gegaan 😢')
+      console.error(error);
+      toast.error('Oeps er is iets fout gegaan 😢');
     }
-  }
+  };
 
   const [playerJoinsTeamByGhostInvitation, { loading: isGhostJoiningLoading }] =
     useMutation<
@@ -92,7 +92,7 @@ export const useTeamInvitation = () => {
       PlayerJoinsTeamByGhostInvitationVariables
     >(PLAYER_JOINS_TEAM_BY_GHOST_INVITATION, {
       onCompleted: reauthenticate,
-    })
+    });
 
   const handleJoinTeamAsGhost = async (
     playerId: string,
@@ -106,19 +106,19 @@ export const useTeamInvitation = () => {
           ghostId,
           teamId,
         },
-      })
-      toast.success('Gefeliciteerd, je bent onderdeel van het team')
-      navigate(routes.team())
+      });
+      toast.success('Gefeliciteerd, je bent onderdeel van het team');
+      navigate(routes.team());
     } catch (error) {
-      console.error(error)
-      toast.error('Oeps er is iets fout gegaan 😢')
+      console.error(error);
+      toast.error('Oeps er is iets fout gegaan 😢');
     }
-  }
+  };
 
   return {
     handleJoinTeamAsGhost,
     handleJoinTeam,
     handleDeleteTeamInvitation,
     loading: loading || isGhostJoiningLoading,
-  }
-}
+  };
+};

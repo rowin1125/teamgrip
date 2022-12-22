@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import NoSeasonAlert from './NoSeasonAlert'
+import NoSeasonAlert from './NoSeasonAlert';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import NoSeasonAlert from './NoSeasonAlert'
 describe('NoSeasonAlert', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<NoSeasonAlert />)
-    }).not.toThrow()
-  })
-})
+      render(<NoSeasonAlert />);
+    }).not.toThrow();
+  });
+});

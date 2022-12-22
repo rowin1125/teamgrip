@@ -1,8 +1,8 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import ClubForm from 'src/components/Club/ClubForm'
+import ClubForm from 'src/components/Club/ClubForm';
 
 const CREATE_CLUB_MUTATION = gql`
   mutation CreateClubMutation($input: CreateClubInput!) {
@@ -10,22 +10,22 @@ const CREATE_CLUB_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewClub = () => {
   const [createClub, { loading, error }] = useMutation(CREATE_CLUB_MUTATION, {
     onCompleted: () => {
-      toast.success('Club created')
-      navigate(routes.adminClubs())
+      toast.success('Club created');
+      navigate(routes.adminClubs());
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const onSave = (input) => {
-    createClub({ variables: { input } })
-  }
+    createClub({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -36,7 +36,7 @@ const NewClub = () => {
         <ClubForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewClub
+export default NewClub;

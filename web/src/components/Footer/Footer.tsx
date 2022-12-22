@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Flex, Icon, Text } from '@chakra-ui/react'
-import { CgCopyright } from 'react-icons/cg'
+import { Box, Flex, Icon, Text } from '@chakra-ui/react';
+import { CgCopyright } from 'react-icons/cg';
 
 type FooterProps = {
-  inverse?: boolean
-}
+  inverse?: boolean;
+};
 
 const Footer = ({ inverse }: FooterProps) => {
   return (
@@ -44,7 +44,7 @@ const Footer = ({ inverse }: FooterProps) => {
         </Text>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

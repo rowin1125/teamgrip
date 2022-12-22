@@ -1,1 +1,1 @@
-export { default } from './TopTeamPlayers'
+export { default } from './TopTeamPlayers';

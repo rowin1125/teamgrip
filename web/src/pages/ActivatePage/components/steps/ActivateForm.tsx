@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import { Box, Button, Heading } from '@chakra-ui/react'
-import { Formik, Form } from 'formik'
+import { Box, Button, Heading } from '@chakra-ui/react';
+import { Formik, Form } from 'formik';
 import {
   ActivateUserInput,
   ActivateUserMutation,
   ActivateUserMutationVariables,
-} from 'types/graphql'
-import * as Yup from 'yup'
+} from 'types/graphql';
+import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useParams } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { useParams } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import ControlledInput from 'src/components/forms/components/ControlledInput'
+import ControlledInput from 'src/components/forms/components/ControlledInput';
 
 const ACTIVATE_USER = gql`
   mutation ActivateUserMutation($input: ActivateUserInput!) {
@@ -24,57 +24,57 @@ const ACTIVATE_USER = gql`
       email
     }
   }
-`
+`;
 
 type ActivateFormProps = {
-  setActivateStep: (step: number) => void
-  handlePlayVideo: () => void
-}
+  setActivateStep: (step: number) => void;
+  handlePlayVideo: () => void;
+};
 
 const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
-  const [loadingLogin, setLoadingLogin] = useState(false)
-  const { logIn, currentUser } = useAuth()
-  const { token, email } = useParams()
-  const decodedEmail = decodeURI(email)
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const { logIn, currentUser } = useAuth();
+  const { token, email } = useParams();
+  const decodedEmail = decodeURI(email);
 
   const [activate, { loading }] = useMutation<
     ActivateUserMutation,
     ActivateUserMutationVariables
-  >(ACTIVATE_USER)
+  >(ACTIVATE_USER);
 
   const onSubmit = async (data: ActivateUserInput) => {
     try {
-      setLoadingLogin(true)
+      setLoadingLogin(true);
       const result = await logIn({
         username: decodedEmail,
         password: data.password,
         token,
-      })
+      });
       if ((result.error as string).includes('Username or password incorrect')) {
-        toast.error('Password incorrect')
-        setLoadingLogin(false)
-        return
+        toast.error('Password incorrect');
+        setLoadingLogin(false);
+        return;
       }
 
       // Workaround for making sure the password is correct before activating someone
       if ((result.error as string).includes('Please validate')) {
-        await activate({ variables: { input: { ...data, token } } })
+        await activate({ variables: { input: { ...data, token } } });
         await logIn({
           username: decodedEmail,
           password: data.password,
-        })
-        setActivateStep(1)
-        toast.success('Account actief!')
+        });
+        setActivateStep(1);
+        toast.success('Account actief!');
       }
-      setLoadingLogin(false)
+      setLoadingLogin(false);
     } catch (error: any) {
-      toast.error(error?.message)
+      toast.error(error?.message);
     }
-  }
+  };
 
   useEffect(() => {
-    if (currentUser?.verified) setActivateStep(1)
-  }, [currentUser, setActivateStep])
+    if (currentUser?.verified) setActivateStep(1);
+  }, [currentUser, setActivateStep]);
 
   return (
     <Formik
@@ -105,7 +105,7 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
         </Button>
       </Box>
     </Formik>
-  )
-}
+  );
+};
 
-export default ActivateForm
+export default ActivateForm;

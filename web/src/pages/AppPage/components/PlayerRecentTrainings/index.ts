@@ -1,1 +1,1 @@
-export { default } from './PlayerRecentTrainings'
+export { default } from './PlayerRecentTrainings';

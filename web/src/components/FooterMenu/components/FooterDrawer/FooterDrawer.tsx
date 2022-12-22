@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Accordion,
@@ -10,28 +10,28 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerOverlay,
-} from '@chakra-ui/react'
-import { CgHomeAlt, CgOptions } from 'react-icons/cg'
-import { MdFormatListBulleted } from 'react-icons/md'
-import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri'
-import { TbHome } from 'react-icons/tb'
+} from '@chakra-ui/react';
+import { CgHomeAlt, CgOptions } from 'react-icons/cg';
+import { MdFormatListBulleted } from 'react-icons/md';
+import { RiDashboard3Line, RiTeamFill } from 'react-icons/ri';
+import { TbHome } from 'react-icons/tb';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth'
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
-import AccordionDirectLink from './components/AccordionDirectLink'
-import AccordionWithNestedLinks from './components/AccordionWithNestedLinks'
-import FooterDrawerHeader from './components/FooterDrawerHeader'
+import AccordionDirectLink from './components/AccordionDirectLink';
+import AccordionWithNestedLinks from './components/AccordionWithNestedLinks';
+import FooterDrawerHeader from './components/FooterDrawerHeader';
 
 type FooterDrawerProps = {
-  isOpen: boolean
-  onClose: () => void
-  btnRef: React.RefObject<HTMLButtonElement>
-}
+  isOpen: boolean;
+  onClose: () => void;
+  btnRef: React.RefObject<HTMLButtonElement>;
+};
 
 const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
-  const { isTeamStaff } = useTeamPlayerAuth()
+  const { isTeamStaff } = useTeamPlayerAuth();
 
   return (
     <Drawer
@@ -124,7 +124,7 @@ const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
-  )
-}
+  );
+};
 
-export default FooterDrawer
+export default FooterDrawer;

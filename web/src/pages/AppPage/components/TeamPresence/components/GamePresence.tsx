@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Chart as ChartJS,
@@ -11,20 +11,20 @@ import {
   Tooltip,
   LineController,
   BarController,
-} from 'chart.js'
-import { Chart } from 'react-chartjs-2'
-import { GetPlayersPresenceQuery } from 'types/graphql'
+} from 'chart.js';
+import { Chart } from 'react-chartjs-2';
+import { GetPlayersPresenceQuery } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { routes } from '@redwoodjs/router';
 
-import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper'
-import { useScreenSize } from 'src/hooks/global/useScreenSize'
+import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';
+import { useScreenSize } from 'src/hooks/global/useScreenSize';
 
 type GamePresenceProps = {
-  teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId']
-  isLoading: boolean
-}
+  teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId'];
+  isLoading: boolean;
+};
 
 ChartJS.register(
   LinearScale,
@@ -36,14 +36,14 @@ ChartJS.register(
   Tooltip,
   LineController,
   BarController
-)
+);
 
 const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
-  const { isXl, is2xl } = useScreenSize()
-  const { currentUser } = useAuth()
-  if (!teamPresence) return null
+  const { isXl, is2xl } = useScreenSize();
+  const { currentUser } = useAuth();
+  if (!teamPresence) return null;
 
-  const labels = teamPresence.map((player) => player?.displayName)
+  const labels = teamPresence.map((player) => player?.displayName);
 
   const data = {
     labels,
@@ -57,11 +57,11 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
         borderWidth: 2,
       },
     ],
-  }
+  };
 
   const somePlayerHasGames = teamPresence.some(
     (player) => player?.games && player?.games.length > 0
-  )
+  );
 
   return (
     <ChartHasDataWrapper
@@ -105,7 +105,7 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
         data={data}
       />
     </ChartHasDataWrapper>
-  )
-}
+  );
+};
 
-export default GamePresence
+export default GamePresence;

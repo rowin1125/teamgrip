@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Box, Grid, GridItem, Heading } from '@chakra-ui/react';
 
-import { MetaTags } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web';
 
-import Card from 'src/components/Card/Card'
-import DataDisplay from 'src/components/DataDisplay/DataDisplay'
-import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader'
-import TeamTable from 'src/components/TeamTable'
+import Card from 'src/components/Card/Card';
+import DataDisplay from 'src/components/DataDisplay/DataDisplay';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
+import TeamTable from 'src/components/TeamTable';
 
-import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage'
+import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage';
 
-import { useGetClubById } from './hooks/useGetClubById'
+import { useGetClubById } from './hooks/useGetClubById';
 
 const ClubPage = () => {
-  const { club, clubLoading } = useGetClubById()
+  const { club, clubLoading } = useGetClubById();
 
   if (!club?.id && !clubLoading)
     return (
@@ -21,19 +21,19 @@ const ClubPage = () => {
         <MetaTags title="Mijn Club" description="Club page" />
         <TeamNotFoundMessage title="Mijn Club" type="club" />
       </>
-    )
+    );
 
   const totalAmountOfGames = club?.teams?.reduce((acc, team) => {
-    if (!team?.games?.length) return acc + 0
+    if (!team?.games?.length) return acc + 0;
 
-    return acc + team?.games?.length
-  }, 0)
+    return acc + team?.games?.length;
+  }, 0);
 
   const totalAmountOfTrainings = club?.teams?.reduce((acc, team) => {
-    if (!team?.trainings?.length) return acc + 0
+    if (!team?.trainings?.length) return acc + 0;
 
-    return acc + team?.trainings?.length
-  }, 0)
+    return acc + team?.trainings?.length;
+  }, 0);
 
   return (
     <>
@@ -83,7 +83,7 @@ const ClubPage = () => {
                     'Aantal spelers': team?.players.length,
                     'Aantal wedstrijden': team?.games.length,
                     'Aantal trainingen': team?.trainings.length,
-                  }
+                  };
                 })}
                 isLoading={clubLoading}
               />
@@ -92,7 +92,7 @@ const ClubPage = () => {
         </GridItem>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default ClubPage
+export default ClubPage;

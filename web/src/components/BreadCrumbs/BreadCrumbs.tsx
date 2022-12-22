@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Box,
@@ -6,18 +6,18 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import RedwoodLink from '../RedwoodLink'
+import RedwoodLink from '../RedwoodLink';
 
-import { useGetBreadCrumbs } from './hooks/useGetBreadCrumbs'
+import { useGetBreadCrumbs } from './hooks/useGetBreadCrumbs';
 
 export type BreadCrumbsProps = {
-  breadCrumbLabelOverride?: string
-}
+  breadCrumbLabelOverride?: string;
+};
 
 const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
-  const { breadCrumbs, subTitle } = useGetBreadCrumbs()
+  const { breadCrumbs, subTitle } = useGetBreadCrumbs();
 
   return (
     <>
@@ -31,7 +31,7 @@ const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
         flexDirection="row"
       >
         {breadCrumbs?.map((breadCrumb, index) => {
-          const isActive = breadCrumbs.length === index + 1
+          const isActive = breadCrumbs.length === index + 1;
 
           return (
             <BreadcrumbItem key={breadCrumb.href}>
@@ -43,7 +43,7 @@ const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
                 {breadCrumb.breadCrumb}
               </BreadcrumbLink>
             </BreadcrumbItem>
-          )
+          );
         })}
       </Breadcrumb>
       <Box mt={1} maxW={{ base: '40vw', xl: 'auto' }}>
@@ -58,7 +58,7 @@ const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
         </Text>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default BreadCrumbs
+export default BreadCrumbs;

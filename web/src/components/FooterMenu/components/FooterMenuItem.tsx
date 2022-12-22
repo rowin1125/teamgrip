@@ -1,34 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { forwardRef } from 'react'
+import React, { forwardRef } from 'react';
 
-import { Button, ButtonProps, Icon, IconProps } from '@chakra-ui/react'
-import { IconType } from 'react-icons'
+import { Button, ButtonProps, Icon, IconProps } from '@chakra-ui/react';
+import { IconType } from 'react-icons';
 
-import { useLocation } from '@redwoodjs/router'
+import { useLocation } from '@redwoodjs/router';
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import RedwoodLink from 'src/components/RedwoodLink';
 
-import FooterMenuItemWrapper from './FooterMenuItemWrapper'
+import FooterMenuItemWrapper from './FooterMenuItemWrapper';
 
 type FooterMenuItemProps = {
-  icon: IconType
-  to?: string
-  title: string
-  iconProps?: IconProps
-  children?: React.ReactNode
-} & ButtonProps
+  icon: IconType;
+  to?: string;
+  title: string;
+  iconProps?: IconProps;
+  children?: React.ReactNode;
+} & ButtonProps;
 
 export const FooterMenuItem = forwardRef<FooterMenuItemProps, any>(
   ({ icon: IconComponent, to, title, iconProps, children, ...props }, ref) => {
-    const { pathname } = useLocation()
+    const { pathname } = useLocation();
 
     const isHomepage =
-      title.toLocaleLowerCase() === 'dashboard' && pathname === '/app'
+      title.toLocaleLowerCase() === 'dashboard' && pathname === '/app';
     const active =
       (pathname.includes(title.toLocaleLowerCase()) && !isHomepage) ||
-      isHomepage
+      isHomepage;
 
-    const hasChildren = !!children
+    const hasChildren = !!children;
 
     return (
       <FooterMenuItemWrapper
@@ -47,8 +47,8 @@ export const FooterMenuItem = forwardRef<FooterMenuItemProps, any>(
           <Icon as={IconComponent} fontSize="lg" color="white" {...iconProps} />
         </Button>
       </FooterMenuItemWrapper>
-    )
+    );
   }
-)
+);
 
-export default FooterMenuItem
+export default FooterMenuItem;

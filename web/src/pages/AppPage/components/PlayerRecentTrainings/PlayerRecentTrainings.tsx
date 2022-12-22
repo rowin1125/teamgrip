@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { Heading } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -12,20 +12,20 @@ import {
   Tooltip,
   LineController,
   BarController,
-} from 'chart.js'
-import { format } from 'date-fns'
-import { Chart } from 'react-chartjs-2'
+} from 'chart.js';
+import { format } from 'date-fns';
+import { Chart } from 'react-chartjs-2';
 
-import { useAuth } from '@redwoodjs/auth'
-import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { routes } from '@redwoodjs/router';
 
-import Card from 'src/components/Card/Card'
-import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader'
-import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper'
-import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper'
-import { useScreenSize } from 'src/hooks/global/useScreenSize'
+import Card from 'src/components/Card/Card';
+import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
+import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';
+import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
+import { useScreenSize } from 'src/hooks/global/useScreenSize';
 
-import { useGetRecentTrainingPoints } from './hooks/useGetRecentTrainingPoints'
+import { useGetRecentTrainingPoints } from './hooks/useGetRecentTrainingPoints';
 
 ChartJS.register(
   LinearScale,
@@ -37,16 +37,16 @@ ChartJS.register(
   Tooltip,
   LineController,
   BarController
-)
+);
 
 const PlayerRecentTrainings = () => {
-  const { recentTrainings, loading } = useGetRecentTrainingPoints()
-  const { currentUser } = useAuth()
-  const { isXl } = useScreenSize()
+  const { recentTrainings, loading } = useGetRecentTrainingPoints();
+  const { currentUser } = useAuth();
+  const { isXl } = useScreenSize();
 
   const labels = recentTrainings?.map((training) =>
     format(new Date(training.date), 'dd/MM')
-  )
+  );
 
   const data = {
     labels,
@@ -59,13 +59,13 @@ const PlayerRecentTrainings = () => {
           const totalPointsOfCurrentPlayer = training.scores.reduce(
             (acc, score) => {
               if (score?.playerId === currentUser?.player?.id)
-                return acc + (score?.points ?? 0)
+                return acc + (score?.points ?? 0);
 
-              return acc
+              return acc;
             },
             0
-          )
-          return totalPointsOfCurrentPlayer
+          );
+          return totalPointsOfCurrentPlayer;
         }),
         borderColor: 'white',
         borderWidth: 2,
@@ -78,17 +78,17 @@ const PlayerRecentTrainings = () => {
           const averageTrainingScore =
             training.scores
               .map((score) => score?.points ?? 0)
-              .reduce((a, b) => a + b, 0) / training.scores.length
+              .reduce((a, b) => a + b, 0) / training.scores.length;
 
-          return averageTrainingScore
+          return averageTrainingScore;
         }),
       },
     ],
-  }
+  };
 
   const somePlayerHasRecentTrainings = recentTrainings?.some(
     (training) => training.scores.length > 0
-  )
+  );
 
   return (
     <Card bg="primary.500" color="white" h="full" minH="400px">
@@ -142,7 +142,7 @@ const PlayerRecentTrainings = () => {
         </SeasonLockWrapper>
       </SpinnerLoader>
     </Card>
-  )
-}
+  );
+};
 
-export default PlayerRecentTrainings
+export default PlayerRecentTrainings;

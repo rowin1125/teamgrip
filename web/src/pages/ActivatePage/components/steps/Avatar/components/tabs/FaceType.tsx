@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem } from '@chakra-ui/react';
 
-import ControlledSelect from 'src/components/forms/components/ControlledSelect'
+import ControlledSelect from 'src/components/forms/components/ControlledSelect';
 
-import { avatarOptions } from '../../helpers/generateRandomAvatar'
+import { avatarOptions } from '../../helpers/generateRandomAvatar';
 
 const FaceType = () => (
   <Grid templateColumns="repeat(4, 1fr)" gap={4}>
@@ -47,6 +47,6 @@ const FaceType = () => (
       />
     </GridItem>
   </Grid>
-)
+);
 
-export default FaceType
+export default FaceType;

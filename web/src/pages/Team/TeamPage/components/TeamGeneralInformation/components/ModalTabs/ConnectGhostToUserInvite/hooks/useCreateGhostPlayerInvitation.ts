@@ -1,14 +1,14 @@
 import {
   CreateGhostPlayerInvitationMutation,
   CreateGhostPlayerInvitationMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useAuth } from '@redwoodjs/auth';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment'
-import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId'
+import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment';
+import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
 
 export const CREATE_GHOST_PLAYER_INVITATION = gql`
   ${PLAYER_FRAGMENT}
@@ -17,16 +17,16 @@ export const CREATE_GHOST_PLAYER_INVITATION = gql`
       ...PlayerFragment
     }
   }
-`
+`;
 
 export const useCreateGhostPlayerInvitation = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
   const [createGhostPlayerInvitation, { loading, error }] = useMutation<
     CreateGhostPlayerInvitationMutation,
     CreateGhostPlayerInvitationMutationVariables
   >(CREATE_GHOST_PLAYER_INVITATION, {
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
     refetchQueries: [
       {
@@ -34,17 +34,17 @@ export const useCreateGhostPlayerInvitation = () => {
         variables: { teamId: currentUser?.player?.teamId },
       },
     ],
-  })
+  });
 
   const handleCreateInvitation = async (id: string) => {
     const ghostPlayer = await createGhostPlayerInvitation({
       variables: { id },
-    })
+    });
 
     if (!ghostPlayer.errors) {
-      toast.success('Uitnodiging succesvol aangemaakt 🥳')
+      toast.success('Uitnodiging succesvol aangemaakt 🥳');
     }
-  }
+  };
 
-  return { handleCreateInvitation, loading, error }
-}
+  return { handleCreateInvitation, loading, error };
+};

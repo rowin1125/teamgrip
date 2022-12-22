@@ -28,4 +28,4 @@ export const CLUB_FRAGMENT = gql`
       }
     }
   }
-`
+`;

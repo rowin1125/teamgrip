@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { Button, Divider, Flex, Icon, MenuItem } from '@chakra-ui/react'
-import { IconType } from 'react-icons'
-import { CgChevronRight } from 'react-icons/cg'
+import { Button, Divider, Flex, Icon, MenuItem } from '@chakra-ui/react';
+import { IconType } from 'react-icons';
+import { CgChevronRight } from 'react-icons/cg';
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type FooterMenuItemChildProps = {
-  children: React.ReactNode
-  to: string
-  divider?: boolean
-  icon: IconType
-}
+  children: React.ReactNode;
+  to: string;
+  divider?: boolean;
+  icon: IconType;
+};
 
 const FooterMenuItemChild = ({
   children,
@@ -20,8 +20,8 @@ const FooterMenuItemChild = ({
   icon,
   ...props
 }: FooterMenuItemChildProps) => {
-  const hasIcon = !!icon
-  const CustomIcon = icon
+  const hasIcon = !!icon;
+  const CustomIcon = icon;
 
   return (
     <>
@@ -45,7 +45,7 @@ const FooterMenuItemChild = ({
       </MenuItem>
       {divider && <Divider bg="primary.900" />}
     </>
-  )
-}
+  );
+};
 
-export default FooterMenuItemChild
+export default FooterMenuItemChild;

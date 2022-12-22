@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Box,
@@ -8,16 +8,16 @@ import {
   GridItem,
   Heading,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth'
-import { routes } from '@redwoodjs/router'
+import { useAuth } from '@redwoodjs/auth';
+import { routes } from '@redwoodjs/router';
 
-import Card from 'src/components/Card/Card'
-import RedwoodLink from 'src/components/RedwoodLink'
+import Card from 'src/components/Card/Card';
+import RedwoodLink from 'src/components/RedwoodLink';
 
 const ProfileSettings = () => {
-  const { currentUser } = useAuth()
+  const { currentUser } = useAuth();
 
   return (
     <GridItem
@@ -84,7 +84,7 @@ const ProfileSettings = () => {
         </Flex>
       </Card>
     </GridItem>
-  )
-}
+  );
+};
 
-export default ProfileSettings
+export default ProfileSettings;

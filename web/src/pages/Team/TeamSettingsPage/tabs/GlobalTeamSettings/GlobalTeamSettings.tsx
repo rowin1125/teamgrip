@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router'
+import { routes } from '@redwoodjs/router';
 
-import DataDisplay from 'src/components/DataDisplay/DataDisplay'
-import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog'
-import RedwoodLink from 'src/components/RedwoodLink'
-import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById'
+import DataDisplay from 'src/components/DataDisplay/DataDisplay';
+import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog';
+import RedwoodLink from 'src/components/RedwoodLink';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
-import { useDeleteTeamById } from './hooks/useDeleteTeamById'
+import { useDeleteTeamById } from './hooks/useDeleteTeamById';
 
 const GlobalTeamSettings = () => {
-  const { deleteTeamLoading, handleDeleteTeamById } = useDeleteTeamById()
-  const { team } = useGetTeamById()
-  if (!team) return null
+  const { deleteTeamLoading, handleDeleteTeamById } = useDeleteTeamById();
+  const { team } = useGetTeamById();
+  if (!team) return null;
 
   const staffAmount = team.players.filter(
     (player) => player?.playerType === 'STAFF'
-  )?.length
+  )?.length;
   const playerAmount = team.players.filter(
     (player) => player?.playerType === 'PLAYER'
-  )?.length
+  )?.length;
 
   return (
     <>
@@ -87,7 +87,7 @@ const GlobalTeamSettings = () => {
         </DeleteDialog>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default GlobalTeamSettings
+export default GlobalTeamSettings;

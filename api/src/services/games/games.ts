@@ -3,23 +3,23 @@ import type {
   MutationResolvers,
   CreateScoreInput,
   GameRelationResolvers,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { UserInputError } from '@redwoodjs/graphql-server'
+import { UserInputError } from '@redwoodjs/graphql-server';
 
-import { db } from 'src/lib/db'
+import { db } from 'src/lib/db';
 
 export const games: QueryResolvers['games'] = () => {
-  return db.game.findMany()
-}
+  return db.game.findMany();
+};
 
 export const game: QueryResolvers['game'] = async ({ id }) => {
   const game = await db.game.findUnique({
     where: { id },
-  })
+  });
 
-  return game
-}
+  return game;
+};
 
 export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
   return db.game.findMany({
@@ -32,8 +32,8 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
     orderBy: {
       date: 'desc',
     },
-  })
-}
+  });
+};
 
 export const getRecentGames: QueryResolvers['getRecentGames'] = async ({
   playerId,
@@ -57,10 +57,10 @@ export const getRecentGames: QueryResolvers['getRecentGames'] = async ({
       date: 'desc',
     },
     take: limit,
-  })
+  });
 
-  return games
-}
+  return games;
+};
 
 export const createGame: MutationResolvers['createGame'] = async ({
   input,
@@ -76,22 +76,22 @@ export const createGame: MutationResolvers['createGame'] = async ({
           })),
         },
       },
-    })
+    });
 
     const scoreData: CreateScoreInput[] = scores.map((score) => ({
       ...score,
       gameId: gameResult.id,
-    }))
+    }));
 
     await db.score.createMany({
       data: scoreData,
-    })
+    });
 
-    return gameResult
+    return gameResult;
   } catch (error) {
-    throw new UserInputError('Failed to upload')
+    throw new UserInputError('Failed to upload');
   }
-}
+};
 
 export const updateGame: MutationResolvers['updateGame'] = async ({
   id,
@@ -100,9 +100,9 @@ export const updateGame: MutationResolvers['updateGame'] = async ({
 }) => {
   const team = await db.team.findUnique({
     where: { id: input.teamId },
-  })
+  });
 
-  if (!team) throw new UserInputError('Team niet gevonden')
+  if (!team) throw new UserInputError('Team niet gevonden');
 
   try {
     const gameResult = await db.game.update({
@@ -118,28 +118,28 @@ export const updateGame: MutationResolvers['updateGame'] = async ({
           deleteMany: {},
         },
       },
-    })
+    });
 
     const scoreData: CreateScoreInput[] = scores.map((score) => ({
       ...score,
       gameId: gameResult.id,
-    }))
+    }));
 
     await db.score.createMany({
       data: scoreData,
-    })
+    });
 
-    return gameResult
+    return gameResult;
   } catch (error) {
-    throw new UserInputError('Failed to upload')
+    throw new UserInputError('Failed to upload');
   }
-}
+};
 
 export const deleteGame: MutationResolvers['deleteGame'] = ({ id }) => {
   return db.game.delete({
     where: { id },
-  })
-}
+  });
+};
 
 export const Game: GameRelationResolvers = {
   season: (_obj, { root }) =>
@@ -150,4 +150,4 @@ export const Game: GameRelationResolvers = {
     db.game.findUnique({ where: { id: root.id } }).scores(),
   team: (_obj, { root }) =>
     db.game.findUnique({ where: { id: root.id } }).team(),
-}
+};

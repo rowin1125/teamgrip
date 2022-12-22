@@ -1,31 +1,31 @@
-import { Alert, AlertProps, Flex, Icon } from '@chakra-ui/react'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { BsCheckCircle, BsExclamationTriangle } from 'react-icons/bs'
-import { RiInformationLine } from 'react-icons/ri'
+import { Alert, AlertProps, Flex, Icon } from '@chakra-ui/react';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { BsCheckCircle, BsExclamationTriangle } from 'react-icons/bs';
+import { RiInformationLine } from 'react-icons/ri';
 
 type TextAlertProps = {
-  children: React.ReactNode
-} & AlertProps
+  children: React.ReactNode;
+} & AlertProps;
 
 const TextAlert = ({ children, status, ...props }: TextAlertProps) => {
-  let AlertIcon
+  let AlertIcon;
 
   switch (status) {
     case 'success':
-      AlertIcon = BsCheckCircle
-      break
+      AlertIcon = BsCheckCircle;
+      break;
     case 'info':
-      AlertIcon = RiInformationLine
-      break
+      AlertIcon = RiInformationLine;
+      break;
     case 'error':
-      AlertIcon = AiOutlineCloseCircle
-      break
+      AlertIcon = AiOutlineCloseCircle;
+      break;
     case 'warning':
-      AlertIcon = BsExclamationTriangle
-      break
+      AlertIcon = BsExclamationTriangle;
+      break;
 
     default:
-      break
+      break;
   }
   return (
     <Alert borderRadius="xl" status={status} {...props}>
@@ -36,7 +36,7 @@ const TextAlert = ({ children, status, ...props }: TextAlertProps) => {
         </Flex>
       </Flex>
     </Alert>
-  )
-}
+  );
+};
 
-export default TextAlert
+export default TextAlert;

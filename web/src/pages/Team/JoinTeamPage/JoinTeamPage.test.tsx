@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import JoinTeamPage from './JoinTeamPage'
+import JoinTeamPage from './JoinTeamPage';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
@@ -8,7 +8,7 @@ import JoinTeamPage from './JoinTeamPage'
 describe('JoinTeamPage', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<JoinTeamPage />)
-    }).not.toThrow()
-  })
-})
+      render(<JoinTeamPage />);
+    }).not.toThrow();
+  });
+});

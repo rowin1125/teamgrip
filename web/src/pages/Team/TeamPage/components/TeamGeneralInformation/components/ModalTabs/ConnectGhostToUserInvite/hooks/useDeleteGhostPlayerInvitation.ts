@@ -1,12 +1,12 @@
 import {
   DeleteGhostPlayerInvitationMutation,
   DeleteGhostPlayerInvitationMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
-import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment'
+import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment';
 
 export const DELETE_GHOST_PLAYER_INVITATION = gql`
   ${PLAYER_FRAGMENT}
@@ -15,7 +15,7 @@ export const DELETE_GHOST_PLAYER_INVITATION = gql`
       ...PlayerFragment
     }
   }
-`
+`;
 
 export const useDeleteGhostPlayerInvitation = () => {
   const [deleteGhostPlayerInvitation, { loading, error }] = useMutation<
@@ -23,19 +23,19 @@ export const useDeleteGhostPlayerInvitation = () => {
     DeleteGhostPlayerInvitationMutationVariables
   >(DELETE_GHOST_PLAYER_INVITATION, {
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const handleDeleteGhostPlayerInvitation = async (id: string) => {
     const ghostPlayer = await deleteGhostPlayerInvitation({
       variables: { id },
-    })
+    });
 
     if (!ghostPlayer.errors) {
-      toast.success('Uitnodiging succesvol verwijderd 🗑️')
+      toast.success('Uitnodiging succesvol verwijderd 🗑️');
     }
-  }
+  };
 
-  return { handleDeleteGhostPlayerInvitation, loading, error }
-}
+  return { handleDeleteGhostPlayerInvitation, loading, error };
+};

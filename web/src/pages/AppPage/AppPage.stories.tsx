@@ -1,7 +1,7 @@
-import AppPage from './AppPage'
+import AppPage from './AppPage';
 
 export const generated = () => {
-  return <AppPage />
-}
+  return <AppPage />;
+};
 
-export default { title: 'Pages/AppPage' }
+export default { title: 'Pages/AppPage' };

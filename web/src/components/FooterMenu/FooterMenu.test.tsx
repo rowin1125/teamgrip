@@ -1,6 +1,6 @@
-import { render } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web';
 
-import FooterMenu from './FooterMenu'
+import FooterMenu from './FooterMenu';
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import FooterMenu from './FooterMenu'
 describe('FooterMenu', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<FooterMenu />)
-    }).not.toThrow()
-  })
-})
+      render(<FooterMenu />);
+    }).not.toThrow();
+  });
+});

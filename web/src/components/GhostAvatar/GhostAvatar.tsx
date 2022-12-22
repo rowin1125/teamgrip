@@ -1,10 +1,10 @@
-import { Box, Flex, Icon } from '@chakra-ui/react'
-import { BiQuestionMark } from 'react-icons/bi'
+import { Box, Flex, Icon } from '@chakra-ui/react';
+import { BiQuestionMark } from 'react-icons/bi';
 
 type GhostAvatarProps = {
-  w: string
-  h: string
-}
+  w: string;
+  h: string;
+};
 
 const GhostAvatar = ({ w, h, ...props }: GhostAvatarProps) => (
   <Box w={w} h={h} position="relative" {...props}>
@@ -139,6 +139,6 @@ const GhostAvatar = ({ w, h, ...props }: GhostAvatarProps) => (
       <Icon fontSize="xl" as={BiQuestionMark} top="0" />
     </Flex>
   </Box>
-)
+);
 
-export default GhostAvatar
+export default GhostAvatar;

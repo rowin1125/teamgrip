@@ -1,8 +1,8 @@
-import type { FindClubById } from 'types/graphql'
+import type { FindClubById } from 'types/graphql';
 
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
-import Club from 'src/components/Club/Club'
+import Club from 'src/components/Club/Club';
 
 export const QUERY = gql`
   query FindClubById($id: String!) {
@@ -13,16 +13,16 @@ export const QUERY = gql`
       name
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
-export const Empty = () => <div>Club not found</div>
+export const Empty = () => <div>Club not found</div>;
 
 export const Failure = ({ error }: CellFailureProps) => (
   <div className="rw-cell-error">{error?.message}</div>
-)
+);
 
 export const Success = ({ club }: CellSuccessProps<FindClubById>) => {
-  return <Club club={club} />
-}
+  return <Club club={club} />;
+};

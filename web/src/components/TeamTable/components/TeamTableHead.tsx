@@ -1,20 +1,20 @@
 /* eslint-disable react/jsx-key */
-import React from 'react'
+import React from 'react';
 
-import { Box, Icon, Th, Thead, Tr } from '@chakra-ui/react'
-import { CgChevronDown, CgChevronUp } from 'react-icons/cg'
-import { HeaderGroup } from 'react-table'
+import { Box, Icon, Th, Thead, Tr } from '@chakra-ui/react';
+import { CgChevronDown, CgChevronUp } from 'react-icons/cg';
+import { HeaderGroup } from 'react-table';
 
-import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper'
+import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaffWrapper/PlayerIsStaffWrapper';
 
-import { UseTeamTableReturnType } from '../hooks/useTeamTable'
+import { UseTeamTableReturnType } from '../hooks/useTeamTable';
 
 type TeamTableHeadProps = {
-  headerGroups: HeaderGroup<UseTeamTableReturnType>[]
-  theme?: 'dark' | 'light'
-  hiddenColumns?: string[]
-  showActions?: boolean
-}
+  headerGroups: HeaderGroup<UseTeamTableReturnType>[];
+  theme?: 'dark' | 'light';
+  hiddenColumns?: string[];
+  showActions?: boolean;
+};
 
 const TeamTableHead = ({
   headerGroups,
@@ -33,7 +33,7 @@ const TeamTableHead = ({
               column?.Header?.toString()?.toLocaleLowerCase()
             )
           )
-            return null
+            return null;
           return (
             <Th
               {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -53,7 +53,7 @@ const TeamTableHead = ({
                 ) : null}
               </Box>
             </Th>
-          )
+          );
         })}
         {showActions && (
           <PlayerIsStaffWrapper>
@@ -70,6 +70,6 @@ const TeamTableHead = ({
       </Tr>
     ))}
   </Thead>
-)
+);
 
-export default TeamTableHead
+export default TeamTableHead;

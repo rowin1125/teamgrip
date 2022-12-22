@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { Box, BoxProps, Button, Icon, IconProps, Text } from '@chakra-ui/react'
-import { IconType } from 'react-icons/lib'
+import { Box, BoxProps, Button, Icon, IconProps, Text } from '@chakra-ui/react';
+import { IconType } from 'react-icons/lib';
 
-import RedwoodLink from 'src/components/RedwoodLink'
+import RedwoodLink from 'src/components/RedwoodLink';
 
 type AccordionDirectLinkProps = {
-  to: string
-  children: React.ReactNode
-  nested?: boolean
-  icon: IconType
-  onClose: () => void
-  iconProps?: IconProps
-} & BoxProps
+  to: string;
+  children: React.ReactNode;
+  nested?: boolean;
+  icon: IconType;
+  onClose: () => void;
+  iconProps?: IconProps;
+} & BoxProps;
 
 const AccordionDirectLink = ({
   to,
@@ -50,6 +50,6 @@ const AccordionDirectLink = ({
       </Text>
     </Button>
   </Box>
-)
+);
 
-export default AccordionDirectLink
+export default AccordionDirectLink;

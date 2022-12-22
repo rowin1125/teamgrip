@@ -1,5 +1,5 @@
-import { Link, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
+import { Link, routes } from '@redwoodjs/router';
+import { MetaTags } from '@redwoodjs/web';
 
 const AboutPage = () => {
   return (
@@ -12,7 +12,7 @@ const AboutPage = () => {
       </p>
       <Link to={routes.home()}>Return home</Link>
     </>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;

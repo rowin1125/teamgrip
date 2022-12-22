@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
 
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText'
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
-import { ApiEntriesTypes } from '../DataDisplay'
+import { ApiEntriesTypes } from '../DataDisplay';
 
-import DataEntryToJsx from './DataEntryToJsx'
+import DataEntryToJsx from './DataEntryToJsx';
 
 type DisplayObjectFieldProps = {
-  objectKey: string
-  value: ApiEntriesTypes
-}
+  objectKey: string;
+  value: ApiEntriesTypes;
+};
 
 const DisplayObjectField = ({ objectKey, value }: DisplayObjectFieldProps) => (
   <>
@@ -22,6 +22,6 @@ const DisplayObjectField = ({ objectKey, value }: DisplayObjectFieldProps) => (
       <DataEntryToJsx entry={value} isNested={true} />
     </Box>
   </>
-)
+);
 
-export default DisplayObjectField
+export default DisplayObjectField;

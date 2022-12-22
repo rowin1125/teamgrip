@@ -1,10 +1,10 @@
 import {
   CreateInvitationTokenMutation,
   CreateInvitationTokenMutationVariables,
-} from 'types/graphql'
+} from 'types/graphql';
 
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
 export const CREATE_INVITATION_TOKEN = gql`
   mutation CreateInvitationTokenMutation($id: String!) {
@@ -14,7 +14,7 @@ export const CREATE_INVITATION_TOKEN = gql`
       invitationToken
     }
   }
-`
+`;
 
 export const useCreateInvitationToken = (teamId) => {
   const [createInvitationToken, { loading, error }] = useMutation<
@@ -22,19 +22,19 @@ export const useCreateInvitationToken = (teamId) => {
     CreateInvitationTokenMutationVariables
   >(CREATE_INVITATION_TOKEN, {
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const handleCreateInvitation = async () => {
     const invitationResult = await createInvitationToken({
       variables: { id: teamId },
-    })
+    });
 
     if (!invitationResult.errors) {
-      toast.success('Uitnodiging succesvol aangemaakt 🥳')
+      toast.success('Uitnodiging succesvol aangemaakt 🥳');
     }
-  }
+  };
 
-  return { handleCreateInvitation, loading, error }
-}
+  return { handleCreateInvitation, loading, error };
+};
