@@ -55,7 +55,7 @@ const AppPage = () => {
 
         {isActivePlayer && (
           <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-            <Flex justifyContent="center" w="full">
+            <Flex justifyContent="center" w="full" alignItems="center" h="full">
               <PlayerCard />
             </Flex>
           </GridItem>
