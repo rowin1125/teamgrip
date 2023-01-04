@@ -15,7 +15,7 @@ const PlayersScoreTimeline = () => {
 
   return (
     <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-      <Card bg="primary.500" color="white" h="full">
+      <Card bg="primary.500" color="white" h="full" minH="800px">
         <SpinnerLoader isLoading={loading}>
           <Heading color="white">Scoreverloop</Heading>
           <Box mt={8}>

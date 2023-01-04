@@ -22,6 +22,7 @@ const PlayerCard = () => {
         className="fut-player-card"
         position="relative"
         w={{ base: '300px', xl: '320px' }}
+        minH="507px"
       >
         <Fade
           in={playerWithTotalScoreLoading}
