@@ -38,7 +38,7 @@ const GhostPlayerUniqueInvite = ({
     useDeleteGhostPlayerInvitation();
 
   return (
-    <Flex my={4} w={{ base: 'full' }}>
+    <Flex flexDir={{ base: 'column', xl: 'row' }} my={4} w={{ base: 'full' }}>
       <Text
         minW="180px"
         textOverflow="ellipsis"
@@ -63,12 +63,13 @@ const GhostPlayerUniqueInvite = ({
         textOverflow="ellipsis"
         overflow="hidden"
         whiteSpace="nowrap"
-        maxW="50%"
+        maxW={{ base: 'auto', xl: '50%' }}
         isDisabled={!hasGhostInvitation}
+        mb={{ base: 4, xl: 0 }}
       />
       {hasGhostInvitation ? (
         <>
-          <Button onClick={onCopy} ml={4} color="white">
+          <Button onClick={onCopy} ml={{ base: 0, xl: 4 }} color="white">
             {hasCopied ? (
               <Icon as={TbCheck} color="white" />
             ) : (
@@ -76,7 +77,8 @@ const GhostPlayerUniqueInvite = ({
             )}
           </Button>
           <Button
-            ml={4}
+            ml={{ base: 0, xl: 4 }}
+            my={{ base: 4, xl: 0 }}
             as="a"
             target="_blank"
             href={`https://api.whatsapp.com/send?text=TeamGrip:+Je+ben+uitgenodigd+om+een+team+te+joinen.+Bekijk+nu+je+uitnodiging:+${encodeURI(
@@ -100,7 +102,7 @@ const GhostPlayerUniqueInvite = ({
         </>
       ) : (
         <Button
-          ml={4}
+          ml={{ base: 0, xl: 4 }}
           isLoading={loading}
           onClick={() => handleCreateInvitation(ghost?.id || '')}
         >
