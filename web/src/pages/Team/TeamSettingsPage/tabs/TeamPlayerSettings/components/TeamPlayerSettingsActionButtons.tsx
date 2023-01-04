@@ -36,6 +36,7 @@ const TeamPlayerSettingsActionButtons = ({
       />
       <DeleteDialog
         buttonProps={{
+          ml: 4,
           isDisabled: rowIsOwner,
         }}
         buttonVariant={'outline'}
