@@ -17,7 +17,14 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
     useGetPlayersAndScoresByTeamId(amount);
 
   return (
-    <Card w="100%" bg="primary.500" color="white" overflowX="auto" h="full">
+    <Card
+      w="100%"
+      bg="primary.500"
+      color="white"
+      overflowX="auto"
+      h="full"
+      minH="700px"
+    >
       <SpinnerLoader isLoading={playersWithTotalScoreLoading}>
         <SeasonLockWrapper>
           {playersWithTotalScore?.length === 0 && (
