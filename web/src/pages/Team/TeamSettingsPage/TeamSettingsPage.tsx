@@ -63,7 +63,7 @@ const TeamSettingsPage = () => {
           </Heading>
         </GridItem>
         <GridItem colSpan={{ base: 4, xl: 4 }} rowSpan={1}>
-          <Card>
+          <Card overflowX="scroll">
             <Tabs>
               <TabList>
                 <Tab>

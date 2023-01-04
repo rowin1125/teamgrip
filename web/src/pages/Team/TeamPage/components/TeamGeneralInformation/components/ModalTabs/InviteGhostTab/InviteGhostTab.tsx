@@ -93,12 +93,12 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
                     <Grid templateColumns="repeat(2, 1fr)" gap={4}>
                       {values.players.map((ghostPlayer, index) => {
                         return (
-                          <GridItem colSpan={1} key={index}>
+                          <GridItem colSpan={{ base: 2, xl: 1 }} key={index}>
                             {index > 0 && <Divider />}
                             <Heading as="h3" mt={6}>
                               Speler {index + 1}
                             </Heading>
-                            <Flex alignItems="center" pr={8}>
+                            <Flex alignItems="center" pr={8} w="full">
                               <ControlledInput
                                 labelProps={{ fontWeight: 'normal' }}
                                 label="Naam"
@@ -120,8 +120,14 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
                         );
                       })}
                     </Grid>
-                    <Button onClick={() => push(playersBlueprint)} mt={3}>
-                      <Icon as={FaPlus} />
+                    <Button
+                      onClick={() => push(playersBlueprint)}
+                      mt={3}
+                      leftIcon={<Icon as={FaPlus} />}
+                    >
+                      <Box as="span" mt="1px">
+                        Extra speler
+                      </Box>
                     </Button>
                   </Box>
                 )}
@@ -133,7 +139,11 @@ const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
                 type="submit"
                 isLoading={loading}
               >
-                Ghosts opslaan{' '}
+                {values.players.length > 1 ? (
+                  <>Ghost spelers aanmaken</>
+                ) : (
+                  <>Ghost speler aanmaken</>
+                )}
               </Button>
             </Form>
           )}

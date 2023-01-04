@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import { FindTeamQuery } from 'types/graphql';
 
 import TextAlert from 'src/components/TextAlert/TextAlert';
@@ -11,9 +11,13 @@ import { useGetGhostsPlayersForTeam } from './hooks/useGetGhostsPlayersForTeam';
 type ConnectGhostToUserInviteProps = {
   team?: FindTeamQuery['team'];
   onClose: () => void;
+  handleTabChange: (index: number) => void;
 };
 
-const ConnectGhostToUserInvite = ({ team }: ConnectGhostToUserInviteProps) => {
+const ConnectGhostToUserInvite = ({
+  team,
+  handleTabChange,
+}: ConnectGhostToUserInviteProps) => {
   const { ghostPlayers } = useGetGhostsPlayersForTeam();
 
   return (
@@ -31,15 +35,30 @@ const ConnectGhostToUserInvite = ({ team }: ConnectGhostToUserInviteProps) => {
         Maak unieke uitnodigingen per speler aan.
       </Heading>
       <Box mt={4}>
-        {ghostPlayers?.map((ghost) => {
-          return (
-            <GhostPlayerUniqueInvite
-              key={ghost?.id}
-              ghost={ghost}
-              team={team}
-            />
-          );
-        })}
+        {ghostPlayers && ghostPlayers.length > 0 ? (
+          ghostPlayers?.map((ghost) => {
+            return (
+              <GhostPlayerUniqueInvite
+                key={ghost?.id}
+                ghost={ghost}
+                team={team}
+              />
+            );
+          })
+        ) : (
+          <Text>
+            Er zijn geen ghost spelers gevonden. Maak eerst ghostspelers aan via
+            <Button
+              variant="link"
+              textDecor="underline"
+              _hover={{ textDecor: 'none' }}
+              onClick={() => handleTabChange(1)}
+            >
+              deze
+            </Button>{' '}
+            tab
+          </Text>
+        )}
       </Box>
     </ValidateTeamInvitation>
   );

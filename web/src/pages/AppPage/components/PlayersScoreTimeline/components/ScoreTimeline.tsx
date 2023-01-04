@@ -78,7 +78,7 @@ const ScoreTimeline = ({
       buttonText="Maak je eerste training aan"
     >
       <Chart
-        height={is2xl ? 200 : 800}
+        height={is2xl ? 200 : 900}
         type="bar"
         options={{
           responsive: true,

@@ -15,9 +15,11 @@ import { routes } from '@redwoodjs/router';
 
 import Card from 'src/components/Card/Card';
 import RedwoodLink from 'src/components/RedwoodLink';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
 const ProfileSettings = () => {
   const { currentUser } = useAuth();
+  const { team } = useGetTeamById();
 
   return (
     <GridItem
@@ -54,23 +56,29 @@ const ProfileSettings = () => {
               <GridItem colSpan={2}>
                 <Text>{currentUser?.email}</Text>
               </GridItem>
-              <GridItem colSpan={3}>
+              <GridItem colSpan={1}>
                 <Text fontWeight="bold" color="black">
                   Club:
                 </Text>
               </GridItem>
-              <GridItem colSpan={3}>
+              <GridItem colSpan={2}>
+                <Text>{team?.club?.name}</Text>
+              </GridItem>
+              <GridItem colSpan={1}>
                 <Text fontWeight="bold" color="black">
                   Team:
                 </Text>
               </GridItem>
+              <GridItem colSpan={2}>
+                <Text>{team?.name}</Text>
+              </GridItem>
               <GridItem colSpan={1}>
                 <Text fontWeight="bold" color="black">
-                  Totaal score:
+                  Team eigenaar:
                 </Text>
               </GridItem>
               <GridItem colSpan={2}>
-                <Text>0</Text>
+                {`${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname} `}
               </GridItem>
             </Grid>
           </Box>

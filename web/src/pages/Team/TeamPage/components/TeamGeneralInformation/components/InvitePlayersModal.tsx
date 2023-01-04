@@ -58,7 +58,7 @@ const InvitePlayersModal = ({
 
           <ModalFooter>
             <Button colorScheme="green" mr={3} onClick={onClose}>
-              Klaar
+              Sluiten
             </Button>
           </ModalFooter>
         </ModalContent>

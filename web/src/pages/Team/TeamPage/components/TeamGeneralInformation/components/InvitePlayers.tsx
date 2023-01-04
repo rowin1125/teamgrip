@@ -1,4 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { useState } from 'react';
 import { FindTeamQuery } from 'types/graphql';
 
 import ConnectGhostToUserInvite from './ModalTabs/ConnectGhostToUserInvite';
@@ -12,8 +13,16 @@ type InvitePlayersProps = {
 };
 
 const InvitePlayers = ({ team, defaultIndex, onClose }: InvitePlayersProps) => {
+  const [tabIndex, setTabIndex] = useState(defaultIndex || 0);
+  const handleTabChange = (index: number) => setTabIndex(index);
+
   return (
-    <Tabs size="lg" defaultIndex={defaultIndex}>
+    <Tabs
+      size="lg"
+      defaultIndex={tabIndex}
+      index={tabIndex}
+      onChange={handleTabChange}
+    >
       <TabList>
         <Tab fontWeight="bold">Team via een link</Tab>
         <Tab fontWeight="bold">Ghost spelers aanmaken</Tab>
@@ -28,7 +37,11 @@ const InvitePlayers = ({ team, defaultIndex, onClose }: InvitePlayersProps) => {
           <InviteGhostTab team={team} onClose={onClose} />
         </TabPanel>
         <TabPanel>
-          <ConnectGhostToUserInvite team={team} onClose={onClose} />
+          <ConnectGhostToUserInvite
+            team={team}
+            onClose={onClose}
+            handleTabChange={handleTabChange}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>

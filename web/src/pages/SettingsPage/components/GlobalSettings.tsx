@@ -18,9 +18,15 @@ const GlobalSettings = () => {
             Account emails
           </Text>
           <Stack spacing={4}>
-            <Switch color="gray.500">Score updates</Switch>
-            <Switch color="gray.500">Teamuitnodigingen</Switch>
-            <Switch color="gray.500">Club updates</Switch>
+            <Switch disabled color="gray.500">
+              Score updates
+            </Switch>
+            <Switch disabled color="gray.500">
+              Teamuitnodigingen
+            </Switch>
+            <Switch disabled color="gray.500">
+              Club updates
+            </Switch>
           </Stack>
         </Box>
         <Box>
@@ -28,9 +34,15 @@ const GlobalSettings = () => {
             Applicatie
           </Text>
           <Stack spacing={4}>
-            <Switch color="gray.500">Voetbalnieuws</Switch>
-            <Switch color="gray.500">Applicatie updates</Switch>
-            <Switch color="gray.500">Nieuwsbrief</Switch>
+            <Switch disabled color="gray.500">
+              Voetbalnieuws
+            </Switch>
+            <Switch disabled color="gray.500">
+              Applicatie updates
+            </Switch>
+            <Switch disabled color="gray.500">
+              Nieuwsbrief
+            </Switch>
           </Stack>
         </Box>
       </Card>
