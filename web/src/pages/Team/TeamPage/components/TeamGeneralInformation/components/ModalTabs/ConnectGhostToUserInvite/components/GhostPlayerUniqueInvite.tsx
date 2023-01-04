@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Box,
   Button,
   Flex,
   Icon,
@@ -68,8 +69,13 @@ const GhostPlayerUniqueInvite = ({
         mb={{ base: 4, xl: 0 }}
       />
       {hasGhostInvitation ? (
-        <>
-          <Button onClick={onCopy} ml={{ base: 0, xl: 4 }} color="white">
+        <Box display={{ base: 'flex', xl: 'flex' }}>
+          <Button
+            w="full"
+            onClick={onCopy}
+            ml={{ base: 0, xl: 4 }}
+            color="white"
+          >
             {hasCopied ? (
               <Icon as={TbCheck} color="white" />
             ) : (
@@ -77,8 +83,8 @@ const GhostPlayerUniqueInvite = ({
             )}
           </Button>
           <Button
-            ml={{ base: 0, xl: 4 }}
-            my={{ base: 4, xl: 0 }}
+            w="full"
+            mx={{ base: 4, xl: 4 }}
             as="a"
             target="_blank"
             href={`https://api.whatsapp.com/send?text=TeamGrip:+Je+ben+uitgenodigd+om+een+team+te+joinen.+Bekijk+nu+je+uitnodiging:+${encodeURI(
@@ -92,6 +98,9 @@ const GhostPlayerUniqueInvite = ({
             onDelete={handleDeleteGhostPlayerInvitation}
             id={ghost.id}
             loading={deleteLoading}
+            buttonProps={{
+              w: 'full',
+            }}
             title="Uitnodiging intrekken"
           >
             <TextAlert status="warning" mb={4}>
@@ -99,7 +108,7 @@ const GhostPlayerUniqueInvite = ({
             </TextAlert>
             <Text>Weet je zeker dat je deze uitnodiging wilt intrekken?</Text>
           </DeleteDialog>
-        </>
+        </Box>
       ) : (
         <Button
           ml={{ base: 0, xl: 4 }}

@@ -46,7 +46,6 @@ const DeleteDialog = ({
   return (
     <>
       <Button
-        ml={{ base: 0, xl: 4 }}
         colorScheme="red"
         onClick={onOpen}
         variant={buttonVariant}

@@ -61,6 +61,9 @@ const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
           id={team?.id || ''}
           onDelete={handleDeleteInvitationToken}
           title="De huidige uitnodiging is na het intrekken niet meer te gebruiken"
+          buttonProps={{
+            ml: 2,
+          }}
         >
           <Text mb={2}>
             De huidige uitnodiging is na het intrekken niet meer te gebruiken.
