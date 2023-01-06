@@ -28,6 +28,9 @@ const ClotheType = () => {
               value: option[0],
             }))}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       }
@@ -44,6 +47,9 @@ const ClotheType = () => {
               })
             )}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       )}
@@ -60,6 +66,9 @@ const ClotheType = () => {
               })
             )}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       )}

@@ -18,6 +18,9 @@ const FaceType = () => (
           value: option[0],
         }))}
         placeholder="Selecteer"
+        reactSelectProps={{
+          isSearchable: false,
+        }}
       />
     </GridItem>
 
@@ -31,6 +34,9 @@ const FaceType = () => (
           value: option[0],
         }))}
         placeholder="Selecteer"
+        reactSelectProps={{
+          isSearchable: false,
+        }}
       />
     </GridItem>
 
@@ -44,6 +50,9 @@ const FaceType = () => (
           value: option[0],
         }))}
         placeholder="Selecteer"
+        reactSelectProps={{
+          isSearchable: false,
+        }}
       />
     </GridItem>
   </Grid>

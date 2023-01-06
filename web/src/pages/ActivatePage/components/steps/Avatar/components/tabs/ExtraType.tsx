@@ -18,6 +18,9 @@ const ExtraType = () => (
           value: option[0],
         }))}
         placeholder="Selecteer"
+        reactSelectProps={{
+          isSearchable: false,
+        }}
       />
     </GridItem>
   </Grid>

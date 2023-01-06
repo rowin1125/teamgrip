@@ -44,6 +44,9 @@ const TopType = () => {
             value: option[0],
           }))}
           placeholder="Selecteer"
+          reactSelectProps={{
+            isSearchable: false,
+          }}
         />
       </GridItem>
       {!disableaccessoriesType && (
@@ -59,6 +62,9 @@ const TopType = () => {
               })
             )}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       )}
@@ -73,6 +79,9 @@ const TopType = () => {
               value: option[0],
             }))}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       )}
@@ -88,6 +97,9 @@ const TopType = () => {
               value: option[0],
             }))}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       )}
@@ -103,6 +115,9 @@ const TopType = () => {
             })
           )}
           placeholder="Selecteer"
+          reactSelectProps={{
+            isSearchable: false,
+          }}
         />
       </GridItem>
       {!disableFacialHairColor && (
@@ -118,6 +133,9 @@ const TopType = () => {
               })
             )}
             placeholder="Selecteer"
+            reactSelectProps={{
+              isSearchable: false,
+            }}
           />
         </GridItem>
       )}
