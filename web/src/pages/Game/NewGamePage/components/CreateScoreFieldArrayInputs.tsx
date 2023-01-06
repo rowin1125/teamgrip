@@ -28,6 +28,8 @@ const CreateScoreFieldArrayInputs = ({
   team,
   ...props
 }: CreateScoreFieldArrayInputsProps) => {
+  if (!players) return null;
+
   return (
     <FieldArray
       name="scores"

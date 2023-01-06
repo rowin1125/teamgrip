@@ -111,7 +111,7 @@ const TrainingDetailPage = () => {
               <TeamTable
                 isLoading={trainingLoading}
                 size="md"
-                theme="light"
+                theme="dark"
                 entries={topTrainingScores
                   ?.sort((scoreA, scoreB) => {
                     const scoreAIsNumber = typeof scoreA?.points === 'number';
@@ -138,7 +138,7 @@ const TrainingDetailPage = () => {
             overflowX="auto"
             mt={hasTopTrainings ? 10 : 0}
           >
-            <Heading as="h2" size="lg" mb={10}>
+            <Heading as="h2" size="lg" mb={10} color="white">
               Trainingresultaat
             </Heading>
             <TeamTable

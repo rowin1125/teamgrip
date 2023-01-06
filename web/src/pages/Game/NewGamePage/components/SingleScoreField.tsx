@@ -45,7 +45,6 @@ const SingleScoreField = ({
   showTop,
 }: SingleScoreFieldProps) => {
   const { values } = useFormikContext<ScoreFormValues>();
-  const [calculateNumber, setCalculateNumber] = useState('25');
 
   const { handlePush, playersScoreArray, benchPlayers, handleRemove } =
     useScoreFieldArrayActions({
@@ -54,12 +53,6 @@ const SingleScoreField = ({
       remove,
       team,
     });
-
-  const handleCalculateNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setCalculateNumber(value);
-  };
 
   return (
     <Box>
@@ -109,22 +102,11 @@ const SingleScoreField = ({
         handlePush={handlePush}
       />
 
-      <FormControl mb={8}>
-        <FormLabel fontWeight="bold" fontSize="xl">
-          Rekennummer
-        </FormLabel>
-        <Input value={calculateNumber} onChange={handleCalculateNumber} />
-        <FormHelperText>
-          Hulp getal voor het invoeren van de scores hieronder
-        </FormHelperText>
-      </FormControl>
-
       <Heading fontSize="xl" mb={4}>
         Wedstrijdpunten
       </Heading>
       {playersScoreArray?.map((score, index) => (
         <ScoreFieldArrayRow
-          calculateNumber={calculateNumber}
           score={score}
           index={index}
           handleRemove={handleRemove}

@@ -1,15 +1,12 @@
-import React from 'react';
-
-import { Button, Flex, Grid, GridItem, Icon, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Heading, Icon } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
-import { CgClose } from 'react-icons/cg';
-import { FaMinus, FaPlus } from 'react-icons/fa';
 import {
-  CreateScoreInput,
   CreateGameInput,
+  CreateScoreInput,
   GetPlayersForTeamQuery,
 } from 'types/graphql';
 
+import { BiTrash } from 'react-icons/bi';
 import ControlledInput from 'src/components/forms/components/ControlledInput';
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
@@ -22,34 +19,22 @@ type ScoreFieldArrayRowProps = {
   players: GetPlayersForTeamQuery['playersForTeam'];
   score: CreateScoreInput;
   handleRemove: (currentPlayer: Record<string, unknown>, index: number) => void;
-  calculateNumber: string;
 };
 
 const ScoreFieldArrayRow = ({
   index,
   players,
   score,
-  calculateNumber,
   handleRemove,
 }: ScoreFieldArrayRowProps) => {
   const { values, setFieldValue } = useFormikContext<FormikValues>();
 
   const id = `scores.${index}.points`;
   const currentPlayer = players.find((item) => item?.id === score.playerId);
+  const matchScorePointsOptions = [70, 80, 90, 100];
 
-  const handleAddPoints = () => {
-    const currentValue = values.scores[index].points;
-    setFieldValue(id, +currentValue + +calculateNumber);
-  };
-  const handleMinusPoints = () => {
-    const currentValue = values.scores[index].points;
-
-    if (currentValue - +calculateNumber < 0) {
-      setFieldValue(id, 0);
-      return;
-    }
-    setFieldValue(id, currentValue - +calculateNumber);
-  };
+  const handleChangeCurrentPoints = (points: number) =>
+    setFieldValue(id, points);
 
   return (
     <Grid
@@ -59,17 +44,9 @@ const ScoreFieldArrayRow = ({
     >
       <GridItem colSpan={{ base: 12, xl: 9 }}>
         <Flex
-          flexDirection={{ base: 'column', xl: 'row' }}
+          flexDirection={{ base: 'column', xl: 'column' }}
           mb={{ base: 8, xl: 0 }}
         >
-          <Flex mt={6} mr={6} display={{ base: 'none', xl: 'flex' }}>
-            <Button colorScheme="red" onClick={handleMinusPoints}>
-              <Icon as={FaMinus} />{' '}
-              <Text color="white" position="relative" top="2px">
-                {calculateNumber}
-              </Text>
-            </Button>
-          </Flex>
           <ControlledInput
             label={capitalizeText(currentPlayer?.displayName || '')}
             labelProps={{ m: 0 }}
@@ -79,30 +56,43 @@ const ScoreFieldArrayRow = ({
             type="number"
             formControlProps={{
               mb: { base: 2, xl: 8 },
+              display: 'none',
             }}
           />
-          <Flex pt={{ base: 0, xl: 6 }} ml={{ base: 0, xl: 4 }}>
-            <Flex mr={6} display={{ base: 'flex', xl: 'none' }}>
-              <Button colorScheme="red" onClick={handleMinusPoints}>
-                <Icon as={FaMinus} />{' '}
-                <Text color="white" position="relative" top="2px">
-                  {calculateNumber}
-                </Text>
-              </Button>
+          <Heading as="h3" fontSize="lg">
+            {capitalizeText(currentPlayer?.displayName || '')}
+          </Heading>
+
+          <Flex
+            pb={{ base: 0, xl: 6 }}
+            pt={{ base: 0, xl: 2 }}
+            ml={{ base: 0, xl: 0 }}
+          >
+            <Flex mt={2}>
+              {matchScorePointsOptions.map((item) => {
+                const currentPoints = values.scores[index].points;
+                const buttonIsActive = currentPoints === item;
+
+                return (
+                  <Button
+                    key={`${item}-${currentPlayer?.displayName}`}
+                    colorScheme="primary"
+                    variant={buttonIsActive ? 'solid' : 'outline'}
+                    onClick={() => handleChangeCurrentPoints(item)}
+                    mx={1}
+                  >
+                    {item}
+                  </Button>
+                );
+              })}
             </Flex>
-            <Button colorScheme="green" onClick={handleAddPoints}>
-              <Icon as={FaPlus} />{' '}
-              <Text color="white" position="relative" top="2px">
-                {calculateNumber}
-              </Text>
-            </Button>
 
             {currentPlayer && (
               <Button
                 variant="ghost"
                 onClick={() => handleRemove(currentPlayer, index)}
               >
-                <Icon as={CgClose} color="red" />
+                <Icon as={BiTrash} color="red" />
               </Button>
             )}
           </Flex>
