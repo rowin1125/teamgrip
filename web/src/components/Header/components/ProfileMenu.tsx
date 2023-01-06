@@ -33,7 +33,7 @@ const ProfileMenu = () => {
   const hideAppButton = !pathname.includes('app');
 
   return (
-    <Flex alignItems="center">
+    <Flex alignItems="center" zIndex={99999}>
       {hideAppButton && (
         <Button
           as={RedwoodLink}
