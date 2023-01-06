@@ -23,9 +23,9 @@ const ClotheType = () => {
             m={0}
             id="clotheType"
             label="Kleding"
-            options={avatarOptions.clotheType.map((option) => ({
-              label: option,
-              value: option,
+            options={Object.entries(avatarOptions.clotheType).map((option) => ({
+              label: option[1],
+              value: option[0],
             }))}
             placeholder="Selecteer"
           />
@@ -37,10 +37,12 @@ const ClotheType = () => {
             m={0}
             id="clotheColor"
             label="Kleding kleur"
-            options={avatarOptions.clotheColor.map((option) => ({
-              label: option,
-              value: option,
-            }))}
+            options={Object.entries(avatarOptions.clotheColor).map(
+              (option) => ({
+                label: option[1],
+                value: option[0],
+              })
+            )}
             placeholder="Selecteer"
           />
         </GridItem>
@@ -51,10 +53,12 @@ const ClotheType = () => {
             m={0}
             id="graphicType"
             label="Symbool"
-            options={avatarOptions.graphicType.map((option) => ({
-              label: option,
-              value: option,
-            }))}
+            options={Object.entries(avatarOptions.graphicType).map(
+              (option) => ({
+                label: option[1],
+                value: option[0],
+              })
+            )}
             placeholder="Selecteer"
           />
         </GridItem>

@@ -13,9 +13,9 @@ const ExtraType = () => (
         m={0}
         id="skinColor"
         label="Huidskleur"
-        options={avatarOptions.skinColor.map((option) => ({
-          label: option,
-          value: option,
+        options={Object.entries(avatarOptions.skinColor).map((option) => ({
+          label: option[1],
+          value: option[0],
         }))}
         placeholder="Selecteer"
       />

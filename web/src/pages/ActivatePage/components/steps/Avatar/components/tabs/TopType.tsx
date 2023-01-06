@@ -30,6 +30,8 @@ const TopType = () => {
     'Hijab',
   ].includes(values.topType);
 
+  const hairColorMap = {};
+
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4}>
       <GridItem colSpan={{ base: 4, xl: 2 }}>
@@ -37,9 +39,9 @@ const TopType = () => {
           m={0}
           id="topType"
           label="Haar / hoed"
-          options={avatarOptions.topType.map((option) => ({
-            label: option,
-            value: option,
+          options={Object.entries(avatarOptions.topType).map((option) => ({
+            label: option[1],
+            value: option[0],
           }))}
           placeholder="Selecteer"
         />
@@ -50,10 +52,12 @@ const TopType = () => {
             m={0}
             id="accessoriesType"
             label="Accessoires"
-            options={avatarOptions.accessoriesType.map((option) => ({
-              label: option,
-              value: option,
-            }))}
+            options={Object.entries(avatarOptions.accessoriesType).map(
+              (option) => ({
+                label: option[1],
+                value: option[0],
+              })
+            )}
             placeholder="Selecteer"
           />
         </GridItem>
@@ -64,9 +68,9 @@ const TopType = () => {
             m={0}
             id="hairColor"
             label="Haar kleur"
-            options={avatarOptions.hairColor.map((option) => ({
-              label: option,
-              value: option,
+            options={Object.entries(avatarOptions.hairColor).map((option) => ({
+              label: option[1],
+              value: option[0],
             }))}
             placeholder="Selecteer"
           />
@@ -79,9 +83,9 @@ const TopType = () => {
             m={0}
             id="hatColor"
             label="Hoed kleur"
-            options={avatarOptions.hatColor.map((option) => ({
-              label: option,
-              value: option,
+            options={Object.entries(avatarOptions.hatColor).map((option) => ({
+              label: option[1],
+              value: option[0],
             }))}
             placeholder="Selecteer"
           />
@@ -92,10 +96,12 @@ const TopType = () => {
           m={0}
           id="facialHairType"
           label="Baard"
-          options={avatarOptions.facialHairType.map((option) => ({
-            label: option,
-            value: option,
-          }))}
+          options={Object.entries(avatarOptions.facialHairType).map(
+            (option) => ({
+              label: option[1],
+              value: option[0],
+            })
+          )}
           placeholder="Selecteer"
         />
       </GridItem>
@@ -105,10 +111,12 @@ const TopType = () => {
             m={0}
             id="facialHairColor"
             label="baard kleur"
-            options={avatarOptions.facialHairColor.map((option) => ({
-              label: option,
-              value: option,
-            }))}
+            options={Object.entries(avatarOptions.facialHairColor).map(
+              (option) => ({
+                label: option[1],
+                value: option[0],
+              })
+            )}
             placeholder="Selecteer"
           />
         </GridItem>

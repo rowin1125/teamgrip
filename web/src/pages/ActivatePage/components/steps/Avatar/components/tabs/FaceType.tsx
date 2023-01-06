@@ -13,9 +13,9 @@ const FaceType = () => (
         m={0}
         id="eyeType"
         label="Ogen"
-        options={avatarOptions.eyeType.map((option) => ({
-          label: option,
-          value: option,
+        options={Object.entries(avatarOptions.eyeType).map((option) => ({
+          label: option[1],
+          value: option[0],
         }))}
         placeholder="Selecteer"
       />
@@ -26,9 +26,9 @@ const FaceType = () => (
         m={0}
         id="eyebrowType"
         label="Wenkbrouwen"
-        options={avatarOptions.eyebrowType.map((option) => ({
-          label: option,
-          value: option,
+        options={Object.entries(avatarOptions.eyebrowType).map((option) => ({
+          label: option[1],
+          value: option[0],
         }))}
         placeholder="Selecteer"
       />
@@ -39,9 +39,9 @@ const FaceType = () => (
         m={0}
         id="mouthType"
         label="Mond"
-        options={avatarOptions.mouthType.map((option) => ({
-          label: option,
-          value: option,
+        options={Object.entries(avatarOptions.mouthType).map((option) => ({
+          label: option[1],
+          value: option[0],
         }))}
         placeholder="Selecteer"
       />
