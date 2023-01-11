@@ -89,7 +89,7 @@ const HomePage = () => {
                     <Button
                       isLoading={loading}
                       as={RedwoodLink}
-                      to={routes.signup()}
+                      to={routes.app()}
                       mt={{ base: 4, xl: 0 }}
                       colorScheme="secondary"
                     >
