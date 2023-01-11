@@ -32,6 +32,8 @@ const Pagination = ({
     currentPage,
   });
 
+  if (total <= limit) return null;
+
   return (
     <Flex mt={8} justifyContent="center">
       <Button
