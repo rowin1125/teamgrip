@@ -18,7 +18,8 @@ const validate: ValidatorDirectiveFunc = async ({ context }) => {
     where: { id: context.currentUser.player.teamId },
   });
 
-  if (context.currentUser?.roles === 'ADMIN') return;
+  const isAdmin = context.currentUser?.roles === 'ADMIN';
+  if (isAdmin) return;
 
   if (!team) throw new UserInputError('Team niet gevonden');
   if (team.ownerId !== context.currentUser.id)
