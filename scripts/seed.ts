@@ -1,6 +1,8 @@
+import { createSeason } from './models/Season';
 import { createClub } from './models/Club';
 import { createUsersAndConnectToTeam } from './models/Team';
 import { createUsers } from './models/User';
+import { createScores } from './models/Scores';
 
 export const waitFor = (ms: number, message?: string) =>
   new Promise((resolve) => {
@@ -14,13 +16,12 @@ export default async () => {
       "\nRunning seeder in './scripts/seed.{js,ts}'\nMake sure to keep this up to date 🤠\n"
     );
 
-    // ClUB SEED
     await createClub();
-    // USER SEEDING
     await createUsers();
-    // CREATE USER/PLAYER AND ASSIGN TO TEAM
-    await waitFor(5000, 'Seeeeeeeding 💦 🚀');
     await createUsersAndConnectToTeam();
+    const season = await createSeason();
+    await createScores(season);
+
     console.log('Seeded successfully! 👨‍👩‍👦‍👦');
   } catch (error) {
     console.warn('Please define your seed data.');

@@ -66,7 +66,7 @@ const createRandomNumber = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
 export const createUsers = async () => {
-  Promise.all(
+  const createdUsers = await Promise.all(
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { avatar, ...userCreateData } = userData;
@@ -74,102 +74,115 @@ export const createUsers = async () => {
         ? 'Rowin'
         : randFirstName();
       const lastname = randLastName();
-      await db.user
-        .create({
-          data: {
-            ...defaultUserProperties,
-            ...userCreateData,
-            userProfile: {
-              create: {
-                firstname,
-                lastname,
-              },
-            },
-            player: {
-              create: {
-                displayName: `${firstname} ${lastname}`,
-              },
+      const user = await db.user.create({
+        data: {
+          ...defaultUserProperties,
+          ...userCreateData,
+          userProfile: {
+            create: {
+              firstname,
+              lastname,
             },
           },
-        })
-        .then(async (user) => {
-          const club = await db.club.findFirst({
-            where: {
-              name: 'Zob',
+          player: {
+            create: {
+              displayName: `${firstname} ${lastname}`,
             },
-          });
+          },
+        },
+      });
 
-          await db.avatar.create({
-            data: {
-              ...userData.avatar.create,
-              userId: user.id,
-            },
-          });
+      if (!user) throw new Error('User not created');
 
-          const teamName = `Zaterdag-${createRandomNumber(1, 30)}`;
+      await db.avatar.create({
+        data: {
+          ...userData?.avatar?.create,
+          userId: user.id,
+        },
+      });
 
-          if (user.email === 'user-member-of-team-and-club@gmail.com') {
-            const firstTeam = await db.team.findFirst({
-              where: {
-                owner: {
-                  email: 'rowinmol648@gmail.com',
-                },
-              },
-            });
-            await waitFor(4000, 'waiting..... ⌛️');
-
-            await db.player.update({
-              where: {
-                userId: user.id,
-              },
-              data: {
-                isActivePlayer: true,
-                team: {
-                  connect: {
-                    id: firstTeam.id,
-                  },
-                },
-              },
-            });
-            return user;
-          }
-
-          const team = await db.team.create({
-            data: {
-              name: teamName,
-              ownerId: user.id,
-              players: {
-                connect: [{ userId: user.id }],
-              },
-              clubId: club.id,
-            },
-          });
-
-          await db.player.update({
-            where: {
-              userId: user.id,
-            },
-            data: {
-              playerType: 'STAFF',
-              team: {
-                connect: {
-                  id: team.id,
-                },
-              },
-            },
-          });
-
-          await db.player.updateMany({
-            where: {},
-            data: {
-              clubId: club.id,
-            },
-          });
-
-          return user;
-        });
+      return user;
     })
   );
+
+  const user = createdUsers.find(
+    (user) => user.email === 'rowinmol648@gmail.com'
+  );
+
+  if (!user) throw new Error('Rowin not found');
+
+  const club = await db.club.findFirst({
+    where: {
+      name: 'Zob',
+    },
+  });
+
+  if (!club) throw new Error('No club found');
+
+  const teamName = `Zaterdag-${createRandomNumber(1, 30)}`;
+
+  await waitFor(4000, 'waiting..... ⌛️');
+
+  if (user.email === 'user-member-of-team-and-club@gmail.com') {
+    const firstTeam = await db.team.findFirst({
+      where: {
+        owner: {
+          email: 'rowinmol648@gmail.com',
+        },
+      },
+    });
+    if (!firstTeam) throw new Error('No team found');
+
+    await waitFor(4000, 'waiting..... ⌛️');
+
+    await db.player.update({
+      where: {
+        userId: user.id,
+      },
+      data: {
+        isActivePlayer: true,
+        team: {
+          connect: {
+            id: firstTeam.id,
+          },
+        },
+      },
+    });
+    return user;
+  }
+
+  const team = await db.team.create({
+    data: {
+      name: teamName,
+      ownerId: user.id,
+      players: {
+        connect: [{ userId: user.id }],
+      },
+      clubId: club.id,
+    },
+  });
+
+  await db.player.update({
+    where: {
+      userId: user.id,
+    },
+    data: {
+      playerType: 'STAFF',
+      isActivePlayer: true,
+      team: {
+        connect: {
+          id: team.id,
+        },
+      },
+    },
+  });
+
+  await db.player.updateMany({
+    where: {},
+    data: {
+      clubId: club.id,
+    },
+  });
 
   // Create user without Team
   const firstname = randFirstName();
@@ -198,4 +211,6 @@ export const createUsers = async () => {
       },
     },
   });
+
+  return createdUsers;
 };
