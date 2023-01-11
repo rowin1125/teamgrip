@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Heading, Button, Box } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 import { format } from 'date-fns';
 
 import { routes } from '@redwoodjs/router';
@@ -10,11 +10,14 @@ import RedwoodLink from 'src/components/RedwoodLink';
 import TeamTable from 'src/components/TeamTable';
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
+import Pagination from 'src/components/Pagination/Pagination';
 import { useDeleteTrainingById } from './hooks/useDeleteTrainingById';
 import { useGetTrainingsByTeam } from './hooks/useGetTrainingsByTeam';
 
 const TeamTrainings = () => {
-  const { trainings, trainingsLoading } = useGetTrainingsByTeam();
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const { trainings, total, trainingsLoading, limit } =
+    useGetTrainingsByTeam(currentPage);
   const { handleDeleteTrainingById } = useDeleteTrainingById();
   const { isTeamStaff } = useTeamPlayerAuth();
 
@@ -72,6 +75,12 @@ const TeamTrainings = () => {
           showActions
         />
       </Box>
+      <Pagination
+        total={total}
+        limit={limit}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Card>
   );
 };

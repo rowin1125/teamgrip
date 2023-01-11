@@ -12,9 +12,13 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 import { useDeleteGameById } from './hooks/useDeleteGameById';
 import { useGetGamesByTeamId } from './hooks/useGetGamesByTeamId';
+import Pagination from 'src/components/Pagination/Pagination';
 
 const TeamGames = () => {
-  const { games, gamesLoading } = useGetGamesByTeamId();
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const { games, gamesLoading, limit, total } =
+    useGetGamesByTeamId(currentPage);
   const { handleDeleteGameById } = useDeleteGameById();
   const { isTeamStaff } = useTeamPlayerAuth();
 
@@ -69,6 +73,12 @@ const TeamGames = () => {
           showActions
         />
       </Box>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        total={total}
+        limit={limit}
+      />
     </Card>
   );
 };

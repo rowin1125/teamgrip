@@ -22,10 +22,16 @@ export const training: QueryResolvers['training'] = ({ id }) => {
   });
 };
 
-export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
+export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = async ({
   id,
+  limit,
+  page,
 }) => {
-  return db.training.findMany({
+  const offset = (page - 1) * limit;
+
+  const trainings = await db.training.findMany({
+    take: limit,
+    skip: offset,
     where: {
       teamId: id,
       season: {
@@ -36,6 +42,11 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = ({
       date: 'desc',
     },
   });
+
+  return {
+    trainings,
+    total: db.training.count(),
+  };
 };
 
 export const getRecentTrainings: QueryResolvers['getRecentTrainings'] = async ({
