@@ -9,6 +9,7 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
+import { useAuth } from '@redwoodjs/auth';
 
 import { routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
@@ -17,6 +18,9 @@ import RedwoodLink from 'src/components/RedwoodLink';
 
 import manAtNightImage from '../../components/Hero/images/footbal-night-man.jpg';
 const HomePage = () => {
+  const { currentUser, loading } = useAuth();
+  console.log('currentUser', currentUser);
+
   return (
     <>
       <MetaTags
@@ -81,18 +85,37 @@ const HomePage = () => {
                   TeamGrip heb je alles in één overzichtelijke omgeving.
                 </Text>
                 <Flex flexDir={{ base: 'column', xl: 'row' }} mt={8}>
-                  <Button as={RedwoodLink} to={routes.login()}>
-                    Login
-                  </Button>
-                  <Button
-                    as={RedwoodLink}
-                    to={routes.signup()}
-                    ml={{ base: 0, xl: 4 }}
-                    mt={{ base: 4, xl: 0 }}
-                    colorScheme="secondary"
-                  >
-                    Maak een account
-                  </Button>
+                  {currentUser ? (
+                    <Button
+                      isLoading={loading}
+                      as={RedwoodLink}
+                      to={routes.app()}
+                      mt={{ base: 4, xl: 0 }}
+                      colorScheme="secondary"
+                    >
+                      Naar de app
+                    </Button>
+                  ) : (
+                    <>
+                      <Button
+                        isLoading={loading}
+                        as={RedwoodLink}
+                        to={routes.login()}
+                      >
+                        Login
+                      </Button>
+                      <Button
+                        isLoading={loading}
+                        as={RedwoodLink}
+                        to={routes.signup()}
+                        ml={{ base: 0, xl: 4 }}
+                        mt={{ base: 4, xl: 0 }}
+                        colorScheme="secondary"
+                      >
+                        Maak een account
+                      </Button>
+                    </>
+                  )}
                 </Flex>
               </Flex>
             </Box>

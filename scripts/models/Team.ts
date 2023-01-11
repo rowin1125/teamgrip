@@ -8,7 +8,7 @@ import { generateRandomAvatarOptions } from '../helpers/generateRandomAvatar';
 import { defaultUserProperties } from './User';
 
 export const users: Prisma.UserCreateArgs['data'][] = [
-  ...Array.from(Array(20).keys()).map<any>(() => ({
+  ...Array.from(Array(8).keys()).map<any>(() => ({
     email: randEmail(),
     roles: 'USER',
     avatar: {
@@ -20,8 +20,8 @@ export const users: Prisma.UserCreateArgs['data'][] = [
   })),
 ];
 
-export const createUsersAndConnectToTeam = async () =>
-  Promise.all(
+export const createUsersAndConnectToTeam = async () => {
+  const usersAndTeams = await Promise.all(
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
       const firstname = randFirstName();
       const lastname = randLastName();
@@ -38,6 +38,9 @@ export const createUsersAndConnectToTeam = async () =>
               },
             },
           },
+          include: {
+            team: true,
+          },
         });
         const team = await db.team.findFirst({
           where: {
@@ -46,6 +49,9 @@ export const createUsersAndConnectToTeam = async () =>
             },
           },
         });
+
+        if (!team) throw new Error('No team for rowin found');
+
         const club = await db.club.findFirst();
         await db.player.create({
           data: {
@@ -68,8 +74,13 @@ export const createUsersAndConnectToTeam = async () =>
             },
           },
         });
+
+        return user;
       } catch (error) {
         console.log(error);
       }
     })
   );
+
+  return usersAndTeams;
+};

@@ -12,10 +12,16 @@ export const schema = gql`
     teamId: String!
   }
 
+  type PaginatedGames {
+    games: [Game]!
+    total: Int!
+  }
+
   type Query {
     games: [Game!]! @requireAuth
     game(id: String!): Game! @requireAuth
-    gamesByTeamId(id: String!): [Game]! @requireAuth
+    gamesByTeamId(id: String!, limit: Int!, page: Int!): PaginatedGames
+      @requireAuth
     getRecentGames(playerId: String!, limit: Int!): [Game!]! @requireAuth
   }
 

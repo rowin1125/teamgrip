@@ -21,8 +21,16 @@ export const game: QueryResolvers['game'] = async ({ id }) => {
   return game;
 };
 
-export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
-  return db.game.findMany({
+export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = async ({
+  id,
+  limit,
+  page,
+}) => {
+  const offset = (page - 1) * limit;
+
+  const games = await db.game.findMany({
+    take: limit,
+    skip: offset,
     where: {
       teamId: id,
       season: {
@@ -33,6 +41,11 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = ({ id }) => {
       date: 'desc',
     },
   });
+
+  return {
+    games,
+    total: db.game.count(),
+  };
 };
 
 export const getRecentGames: QueryResolvers['getRecentGames'] = async ({
