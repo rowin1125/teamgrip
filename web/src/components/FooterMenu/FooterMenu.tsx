@@ -16,7 +16,7 @@ import FooterMenuItemChild from './components/FooterMenuItemChild';
 export const footerMenuHeight = '70px';
 
 const FooterMenu = () => {
-  const { isTeamStaff } = useTeamPlayerAuth();
+  const { isTeamPlayer, isTeamStaff } = useTeamPlayerAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef(null);
 
@@ -39,7 +39,7 @@ const FooterMenu = () => {
               fontSize: 'xl',
             }}
           />
-          {!isTeamStaff && (
+          {isTeamPlayer && (
             <FooterMenuItem title="Team" icon={RiTeamFill} to={routes.team()} />
           )}
           {isTeamStaff && (
