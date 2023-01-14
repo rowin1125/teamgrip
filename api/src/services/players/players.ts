@@ -124,6 +124,9 @@ export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] 
         season: {
           active: true,
         },
+        player: {
+          isActivePlayer: true,
+        },
         playerId: context.currentUser.player.id,
       },
     });
