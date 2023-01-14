@@ -7,9 +7,9 @@ type PlayerIsStaffWrapperProps = {
 };
 
 const PlayerIsStaffWrapper = ({ children }: PlayerIsStaffWrapperProps) => {
-  const { isTeamStaff, loading } = useTeamPlayerAuth();
+  const { isTeamPlayer, loading } = useTeamPlayerAuth();
 
-  if (!loading && !isTeamStaff) return null;
+  if (!loading && isTeamPlayer) return null;
 
   return children || null;
 };

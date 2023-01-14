@@ -215,6 +215,9 @@ export const createInvitationToken: MutationResolvers['createInvitationToken'] =
     let team = await db.team.findUnique({ where: { id } });
     if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`);
 
+    if (currentUser.id !== team.ownerId)
+      throw new UserInputError('Je bent niet de eigenaar van het team');
+
     const invitationToken = nanoid();
 
     try {
@@ -237,6 +240,9 @@ export const deleteInvitationToken: MutationResolvers['deleteInvitationToken'] =
 
     let team = await db.team.findUnique({ where: { id } });
     if (!team) throw new UserInputError(`Geen team gevonden met het id: ${id}`);
+
+    if (currentUser.id !== team.ownerId)
+      throw new UserInputError('Je bent niet de eigenaar van het team');
 
     try {
       team = await db.team.update({
