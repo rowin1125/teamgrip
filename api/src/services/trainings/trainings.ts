@@ -45,7 +45,15 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = async ({
 
   return {
     trainings,
-    total: db.training.count(),
+    total: db.training.count({
+      where: {
+        teamId: id,
+        season: {
+          teamId: id,
+          active: true,
+        },
+      },
+    }),
   };
 };
 

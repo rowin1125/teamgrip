@@ -44,7 +44,14 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = async ({
 
   return {
     games,
-    total: db.game.count(),
+    total: db.game.count({
+      where: {
+        teamId: id,
+        season: {
+          active: true,
+        },
+      },
+    }),
   };
 };
 
