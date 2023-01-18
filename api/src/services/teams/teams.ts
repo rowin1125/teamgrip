@@ -149,9 +149,11 @@ export const updateTeam: MutationResolvers['updateTeam'] = async ({
   input,
 }) => {
   try {
-    const { ownerIsPlayer, ...data } = input;
+    const { ownerIsPlayer, ownerId, ...data } = input;
     const teamResult = await db.team.update({
-      data,
+      data: {
+        ...data,
+      },
       where: { id },
     });
 
