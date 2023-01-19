@@ -13,10 +13,9 @@ export const getBestGamePlayer = (game: Game) => {
   const orderBasedOnHighestPoints = Object.entries(
     combinedPointsForPlayers || []
   ).sort((a, b) => {
-    if (!a[1] || !b[1]) return 0;
-
     if (a[1] < b[1]) return 1;
     if (a[1] > b[1]) return -1;
+
     return 0;
   });
 
