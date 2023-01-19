@@ -37,7 +37,11 @@ export const useUpdateGameById = (id: string, showTop: boolean) => {
     refetchQueries: [
       {
         query: GET_GAMES_BY_TEAM_QUERY,
-        variables: { id: currentUser?.player?.teamId || '' },
+        variables: {
+          id: currentUser?.player?.teamId || '',
+          limit: 10,
+          page: 1,
+        },
       },
     ],
   });

@@ -13,6 +13,8 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 import Pagination from 'src/components/Pagination/Pagination';
 import { useDeleteTrainingById } from './hooks/useDeleteTrainingById';
 import { useGetTrainingsByTeam } from './hooks/useGetTrainingsByTeam';
+import { getBestTrainingPlayer } from './helpers/getBestTrainingPlayer';
+import { Training } from 'types/graphql';
 
 const TeamTrainings = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -22,13 +24,7 @@ const TeamTrainings = () => {
   const { isTeamStaff } = useTeamPlayerAuth();
 
   const trainingEntries = trainings?.map((training) => {
-    const bestPlayerOfTraining = training?.scores?.slice()?.sort((a, b) => {
-      if (!a?.points || !b?.points) return 0;
-
-      if (a.points < b.points) return -1;
-      if (a.points > b.points) return 1;
-      return 0;
-    })?.[0];
+    const bestPlayer = getBestTrainingPlayer(training as Training);
 
     return {
       id: training?.id,
@@ -37,7 +33,7 @@ const TeamTrainings = () => {
         : '',
       aantal: training?.scores.filter((score) => score?.type === 'TRAINING')
         .length,
-      'Top speler': bestPlayerOfTraining?.player?.displayName,
+      MVP: bestPlayer?.displayName,
       season: training?.season?.name,
     };
   });

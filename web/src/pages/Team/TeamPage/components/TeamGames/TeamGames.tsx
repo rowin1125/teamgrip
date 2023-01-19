@@ -13,6 +13,8 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 import { useDeleteGameById } from './hooks/useDeleteGameById';
 import { useGetGamesByTeamId } from './hooks/useGetGamesByTeamId';
 import Pagination from 'src/components/Pagination/Pagination';
+import { getBestGamePlayer } from './helpers/getBestGamePlayer';
+import { Game } from 'types/graphql';
 
 const TeamGames = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -23,6 +25,7 @@ const TeamGames = () => {
   const { isTeamStaff } = useTeamPlayerAuth();
 
   const gameEntries = games?.map((game) => {
+    const bestPlayer = getBestGamePlayer(game as Game);
     const bestPlayerOfGame = game?.scores?.slice()?.sort((a, b) => {
       if (!a?.points || !b?.points) return 0;
 
@@ -35,7 +38,7 @@ const TeamGames = () => {
       id: game?.id,
       datum: game?.date ? format(new Date(game.date), 'dd-MM-yyyy') : '',
       aantal: game?.scores.filter((score) => score?.type === 'GAME').length,
-      'M-O-T-M': bestPlayerOfGame?.player?.displayName,
+      MVP: bestPlayer?.displayName,
       season: game?.season?.name,
     };
   });
