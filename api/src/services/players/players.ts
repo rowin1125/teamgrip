@@ -72,6 +72,9 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
       },
       where: {
         teamId,
+        player: {
+          isActivePlayer: true,
+        },
         season: {
           active: true,
         },
