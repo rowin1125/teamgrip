@@ -75,7 +75,7 @@ const UpdateAvatarPage = () => {
     };
   }
 
-  if (!currentUser?.avatar) return null;
+  if (!avatarValues) return null;
 
   return (
     <>
