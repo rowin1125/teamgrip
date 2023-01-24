@@ -59,19 +59,19 @@ const UpdateAvatarPage = () => {
   } else {
     avatarValues = {
       avatarStyle: 'Circle',
-      topType: avatarOptions.topType.NoHair,
-      accessoriesType: avatarOptions.accessoriesType.Blank,
-      hatColor: avatarOptions.hatColor.Black,
-      hairColor: avatarOptions.hairColor.Black,
-      facialHairType: avatarOptions.facialHairType.BeardMagestic,
-      facialHairColor: avatarOptions.facialHairColor.Black,
-      clotheType: avatarOptions.clotheType.CollarSweater,
-      clotheColor: avatarOptions.clotheColor.PastelBlue,
-      graphicType: avatarOptions.graphicType.Bear,
-      eyeType: avatarOptions.eyeType.Default,
-      eyebrowType: avatarOptions.eyebrowType.Default,
-      mouthType: avatarOptions.mouthType.Default,
-      skinColor: avatarOptions.skinColor.DarkBrown,
+      topType: 'NoHair',
+      accessoriesType: 'Blank',
+      hatColor: 'Black',
+      hairColor: 'Black',
+      facialHairType: 'BeardMagestic',
+      facialHairColor: 'Black',
+      clotheType: 'CollarSweater',
+      clotheColor: 'PastelBlue',
+      graphicType: 'Bear',
+      eyeType: 'Default',
+      eyebrowType: 'Default',
+      mouthType: 'Default',
+      skinColor: 'DarkBrown',
     };
   }
 
