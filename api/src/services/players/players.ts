@@ -251,16 +251,18 @@ export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTea
     const currentUser = context?.currentUser;
     const team = await db.team.findUnique({ where: { id: teamId } });
 
-    if (!currentPlayer || !team?.clubId || !currentUser)
+    if (!team?.clubId || !currentUser)
       throw new Error('Player or team not found');
 
-    const deleteCurrentPlayerFromUser = db.player.delete({
-      where: {
-        id,
-      },
-    });
+    if (currentPlayer) {
+      await db.player.delete({
+        where: {
+          id,
+        },
+      });
+    }
 
-    const newCurrentUserPlayer = db.player.update({
+    const newCurrentUserPlayer = await db.player.update({
       where: { id: ghostId },
       data: {
         user: {
@@ -276,17 +278,14 @@ export const playerJoinsTeamByGhostInvitation: MutationResolvers['playerJoinsTea
         isActivePlayer: true,
         teamInvitation: null,
         ghostInvitation: null,
-        displayName: currentPlayer.displayName,
+        displayName:
+          currentPlayer?.displayName ||
+          `${currentUser.userProfile?.firstname} ${currentUser.userProfile?.lastname}`,
         isGhost: false,
       },
     });
 
-    const updatePlayersResult = await db.$transaction([
-      deleteCurrentPlayerFromUser,
-      newCurrentUserPlayer,
-    ]);
-
-    return updatePlayersResult[1];
+    return newCurrentUserPlayer;
   };
 
 export const updatePlayer: MutationResolvers['updatePlayer'] = ({
