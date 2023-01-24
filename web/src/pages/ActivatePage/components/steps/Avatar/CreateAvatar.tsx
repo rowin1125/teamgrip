@@ -66,19 +66,19 @@ const CreateAvatar = ({ handlePlayVideo }: CreateAvatarProps) => {
 
   const generatedInitialValues = {
     avatarStyle: 'Circle',
-    topType: avatarOptions.topType[24],
-    accessoriesType: avatarOptions.accessoriesType[0],
-    hatColor: avatarOptions.hatColor[0],
-    hairColor: avatarOptions.hairColor[0],
-    facialHairType: avatarOptions.facialHairType[0],
-    facialHairColor: avatarOptions.facialHairColor[0],
-    clotheType: avatarOptions.clotheType[3],
-    clotheColor: avatarOptions.clotheColor[0],
-    graphicType: avatarOptions.graphicType[0],
-    eyeType: avatarOptions.eyeType[5],
-    eyebrowType: avatarOptions.eyebrowType[2],
-    mouthType: avatarOptions.mouthType[8],
-    skinColor: avatarOptions.skinColor[0],
+    topType: avatarOptions.topType.NoHair,
+    accessoriesType: avatarOptions.accessoriesType.Blank,
+    hatColor: avatarOptions.hatColor.Black,
+    hairColor: avatarOptions.hairColor.Black,
+    facialHairType: avatarOptions.facialHairType.BeardMagestic,
+    facialHairColor: avatarOptions.facialHairColor.Black,
+    clotheType: avatarOptions.clotheType.CollarSweater,
+    clotheColor: avatarOptions.clotheColor.PastelBlue,
+    graphicType: avatarOptions.graphicType.Bear,
+    eyeType: avatarOptions.eyeType.Default,
+    eyebrowType: avatarOptions.eyebrowType.Default,
+    mouthType: avatarOptions.mouthType.Default,
+    skinColor: avatarOptions.skinColor.DarkBrown,
   };
 
   return (
