@@ -26,6 +26,18 @@ export const updateAvatar: MutationResolvers['updateAvatar'] = ({
   id,
   input,
 }) => {
+  const currentAvatar = db.avatar.findUnique({ where: { id } });
+
+  if (!currentAvatar) {
+    return db.avatar.create({
+      data: {
+        ...input,
+        user: {
+          connect: { id },
+        },
+      },
+    });
+  }
   return db.avatar.update({
     data: input,
     where: { id },

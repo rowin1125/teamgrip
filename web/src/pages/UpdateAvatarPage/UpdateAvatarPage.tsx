@@ -11,7 +11,10 @@ import Card from 'src/components/Card/Card';
 
 import Avatar from '../ActivatePage/components/steps/Avatar/components/Avatar';
 import AvatarFormFields from '../ActivatePage/components/steps/Avatar/components/AvatarFormFields';
-import { generateRandomAvatarOptions } from '../ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
+import {
+  avatarOptions,
+  generateRandomAvatarOptions,
+} from '../ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
 
 const UPDATE_AVATAR_MUTATION = gql`
   mutation UpdateAvatar($id: String!, $input: UpdateAvatarInput!) {
@@ -48,10 +51,31 @@ const UpdateAvatarPage = () => {
     }
   };
 
-  if (!currentUser?.avatar) return null;
+  let avatarValues;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, ...initalAvatarValues } = currentUser.avatar;
+  if (currentUser?.avatar) {
+    const { id, ...initalAvatarValues } = currentUser.avatar;
+    avatarValues = initalAvatarValues;
+  } else {
+    avatarValues = {
+      avatarStyle: 'Circle',
+      topType: avatarOptions.topType.NoHair,
+      accessoriesType: avatarOptions.accessoriesType.Blank,
+      hatColor: avatarOptions.hatColor.Black,
+      hairColor: avatarOptions.hairColor.Black,
+      facialHairType: avatarOptions.facialHairType.BeardMagestic,
+      facialHairColor: avatarOptions.facialHairColor.Black,
+      clotheType: avatarOptions.clotheType.CollarSweater,
+      clotheColor: avatarOptions.clotheColor.PastelBlue,
+      graphicType: avatarOptions.graphicType.Bear,
+      eyeType: avatarOptions.eyeType.Default,
+      eyebrowType: avatarOptions.eyebrowType.Default,
+      mouthType: avatarOptions.mouthType.Default,
+      skinColor: avatarOptions.skinColor.DarkBrown,
+    };
+  }
+
+  if (!currentUser?.avatar) return null;
 
   return (
     <>
@@ -61,7 +85,7 @@ const UpdateAvatarPage = () => {
         <GridItem colSpan={{ base: 3, xl: 2 }}>
           <Card>
             <Heading>Update jouw avatar</Heading>
-            <Formik initialValues={initalAvatarValues} onSubmit={onSubmit}>
+            <Formik initialValues={avatarValues} onSubmit={onSubmit}>
               {({ setValues }) => {
                 const handleRandomValues = () => {
                   const randomValues = generateRandomAvatarOptions();
