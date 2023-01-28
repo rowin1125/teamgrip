@@ -7,6 +7,7 @@ import Card from 'src/components/Card/Card';
 import DataDisplay from 'src/components/DataDisplay/DataDisplay';
 import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 import TeamTable from 'src/components/TeamTable';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 import TeamNotFoundMessage from '../Team/TeamPage/components/TeamNotFoundMessage';
 
@@ -79,7 +80,10 @@ const ClubPage = () => {
                 entries={club?.teams.map((team) => {
                   return {
                     name: team?.name,
-                    'Team eigenaar': `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}`,
+                    'Team eigenaar': allWordsCapitalized(
+                      `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}` ||
+                        'Onbekend'
+                    ),
                     'Aantal spelers': team?.players.length,
                     'Aantal wedstrijden': team?.games.length,
                     'Aantal trainingen': team?.trainings.length,

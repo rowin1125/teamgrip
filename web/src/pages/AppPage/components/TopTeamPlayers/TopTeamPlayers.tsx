@@ -7,6 +7,10 @@ import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
 import TeamTable from 'src/components/TeamTable';
 import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
 import { useGetPlayersAndScoresByTeamId } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
+import {
+  allWordsCapitalized,
+  capitalizeText,
+} from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 type TopTeamPlayersProps = {
   amount?: number;
@@ -41,7 +45,7 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
               entries={playersWithTotalScore?.map((player, index) => ({
                 Rank: index + 1,
                 Punten: player?.totalScore,
-                Naam: player?.displayName,
+                Naam: allWordsCapitalized(player?.displayName || 'Onbekend'),
                 Avatar: player?.user?.avatar,
               }))}
               isLoading={playersWithTotalScoreLoading}

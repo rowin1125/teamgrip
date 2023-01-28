@@ -14,9 +14,22 @@ export const schema = gql`
 `;
 
 const validate: ValidatorDirectiveFunc = async ({ context }) => {
+  if (!context.currentUser) {
+    throw new UserInputError(
+      '(Owner): Geen gebruiker gevonden bij authenticatie 👮‍♂️'
+    );
+  }
+  if (!context.currentUser?.player?.teamId) {
+    throw new UserInputError(
+      '(Owner): Geen team gevonden bij authenticatie 👮‍♂️'
+    );
+  }
   const team = await db.team.findUnique({
     where: { id: context.currentUser.player.teamId },
   });
+
+  const isAdmin = context.currentUser?.roles === 'ADMIN';
+  if (isAdmin) return;
 
   if (!team) throw new UserInputError('Team niet gevonden');
   if (team.ownerId !== context.currentUser.id)

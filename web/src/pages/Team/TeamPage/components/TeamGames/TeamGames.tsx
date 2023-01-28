@@ -15,6 +15,7 @@ import { useGetGamesByTeamId } from './hooks/useGetGamesByTeamId';
 import Pagination from 'src/components/Pagination/Pagination';
 import { getBestGamePlayer } from './helpers/getBestGamePlayer';
 import { Game } from 'types/graphql';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 const TeamGames = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -38,7 +39,7 @@ const TeamGames = () => {
       id: game?.id,
       datum: game?.date ? format(new Date(game.date), 'dd-MM-yyyy') : '',
       aantal: game?.scores.filter((score) => score?.type === 'GAME').length,
-      MVP: bestPlayer?.displayName,
+      MVP: allWordsCapitalized(bestPlayer?.displayName || 'Onbekend'),
       season: game?.season?.name,
     };
   });
