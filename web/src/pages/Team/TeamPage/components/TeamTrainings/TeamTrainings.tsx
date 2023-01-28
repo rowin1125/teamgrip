@@ -15,6 +15,7 @@ import { useDeleteTrainingById } from './hooks/useDeleteTrainingById';
 import { useGetTrainingsByTeam } from './hooks/useGetTrainingsByTeam';
 import { getBestTrainingPlayer } from './helpers/getBestTrainingPlayer';
 import { Training } from 'types/graphql';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 const TeamTrainings = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -33,7 +34,7 @@ const TeamTrainings = () => {
         : '',
       aantal: training?.scores.filter((score) => score?.type === 'TRAINING')
         .length,
-      MVP: bestPlayer?.displayName,
+      MVP: allWordsCapitalized(bestPlayer?.displayName || 'Onbekend'),
       season: training?.season?.name,
     };
   });

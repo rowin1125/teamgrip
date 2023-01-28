@@ -16,6 +16,7 @@ import { routes } from '@redwoodjs/router';
 
 import Card from 'src/components/Card/Card';
 import RedwoodLink from 'src/components/RedwoodLink';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 const SettingsIntro = () => {
   const { currentUser } = useAuth();
@@ -41,8 +42,11 @@ const SettingsIntro = () => {
             </Box>
             <Box ml={8}>
               <Heading>
-                {currentUser?.userProfile?.firstname}{' '}
-                {currentUser?.userProfile?.lastname}
+                {allWordsCapitalized(
+                  `${currentUser?.userProfile?.firstname} ${
+                    currentUser?.userProfile?.lastname || 'Onbekend'
+                  }`
+                )}
               </Heading>
               <Text>{currentUser?.email}</Text>
             </Box>

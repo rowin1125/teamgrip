@@ -13,7 +13,10 @@ import { FindTeamQuery } from 'types/graphql';
 
 import Card from 'src/components/Card/Card';
 import TeamTable from 'src/components/TeamTable';
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
+import {
+  allWordsCapitalized,
+  capitalizeText,
+} from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 import { useGetPlayersAndScoresByTeamId } from '../../hooks/useGetPlayersAndScoresByTeamId';
 
@@ -71,7 +74,7 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
           entries={playersWithTotalScore?.map((player, index) => ({
             Rank: index + 1,
             Punten: player?.totalScore,
-            Naam: `${capitalizeText(player?.displayName || '')}`,
+            Naam: `${allWordsCapitalized(player?.displayName || 'Onbekend')}`,
             Avatar: player?.user?.avatar,
           }))}
           isLoading={playersWithTotalScoreLoading}

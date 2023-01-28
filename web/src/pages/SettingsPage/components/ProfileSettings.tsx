@@ -16,6 +16,10 @@ import { routes } from '@redwoodjs/router';
 import Card from 'src/components/Card/Card';
 import RedwoodLink from 'src/components/RedwoodLink';
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+import {
+  allWordsCapitalized,
+  capitalizeText,
+} from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 const ProfileSettings = () => {
   const { currentUser } = useAuth();
@@ -38,7 +42,11 @@ const ProfileSettings = () => {
                 </Text>
               </GridItem>
               <GridItem colSpan={2}>
-                <Text>{currentUser?.userProfile?.firstname}</Text>
+                <Text>
+                  {capitalizeText(
+                    currentUser?.userProfile?.firstname || 'Onbekend'
+                  )}
+                </Text>
               </GridItem>
               <GridItem colSpan={1}>
                 <Text fontWeight="bold" color="black">
@@ -46,7 +54,11 @@ const ProfileSettings = () => {
                 </Text>
               </GridItem>
               <GridItem colSpan={2}>
-                <Text>{currentUser?.userProfile?.lastname}</Text>
+                <Text>
+                  {capitalizeText(
+                    currentUser?.userProfile?.lastname || 'Onbekend'
+                  )}
+                </Text>
               </GridItem>
               <GridItem colSpan={1}>
                 <Text fontWeight="bold" color="black">
@@ -78,7 +90,10 @@ const ProfileSettings = () => {
                 </Text>
               </GridItem>
               <GridItem colSpan={2}>
-                {`${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname} `}
+                {allWordsCapitalized(
+                  `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}` ||
+                    'Onbekend'
+                )}
               </GridItem>
             </Grid>
           </Box>

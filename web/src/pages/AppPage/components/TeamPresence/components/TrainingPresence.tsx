@@ -20,6 +20,7 @@ import { routes } from '@redwoodjs/router';
 
 import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';
 import { useScreenSize } from 'src/hooks/global/useScreenSize';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 type TrainingPresenceProps = {
   teamPresence?: GetPlayersPresenceQuery['getPlayersPresenceByTeamId'];
@@ -46,7 +47,9 @@ const TrainingPresence = ({
   const { currentUser } = useAuth();
   if (!teamPresence) return null;
 
-  const labels = teamPresence?.map((player) => player?.displayName);
+  const labels = teamPresence?.map((player) =>
+    allWordsCapitalized(player?.displayName || 'Onbekend')
+  );
 
   const data = {
     labels,

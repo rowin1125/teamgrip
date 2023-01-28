@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from 'date-fns';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql';
 
 import { getRandomColor } from './getRandomColor';
@@ -78,7 +79,7 @@ export const getTimelineForPlayers = ({
 
       return {
         type: 'line' as const,
-        label: playerName,
+        label: capitalizeText(playerName || 'Onbekend'),
         backgroundColor: randomColor,
         data: scoreTimeline.map((tl) => tl.points),
         borderColor: randomColor,
