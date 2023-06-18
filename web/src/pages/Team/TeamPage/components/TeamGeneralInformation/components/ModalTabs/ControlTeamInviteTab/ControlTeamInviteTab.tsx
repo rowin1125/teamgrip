@@ -25,7 +25,7 @@ type ControlTeamInviteTabProps = {
 };
 
 const ControlTeamInviteTab = ({ team }: ControlTeamInviteTabProps) => {
-  const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}`;
+  const inviteUrl = `${process.env.REDWOOD_ENV_VERCEL_URL}/app/team/join?invitationToken=${team?.invitationToken}`;
   const { hasCopied, onCopy } = useClipboard(inviteUrl);
 
   const { handleDeleteInvitationToken, loading } = useDeleteInvitationToken();
