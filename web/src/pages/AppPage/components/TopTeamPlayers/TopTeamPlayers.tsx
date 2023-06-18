@@ -31,15 +31,16 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
     >
       <SpinnerLoader isLoading={playersWithTotalScoreLoading}>
         <SeasonLockWrapper>
-          {playersWithTotalScore?.length === 0 && (
+          {playersWithTotalScore?.length === 0 ? (
             <>
               <Heading color="white">Top {amount} van het team </Heading>
               <Text>Er zijn nog geen gegevens op te laten zien</Text>
             </>
+          ) : (
+            <Heading color="white">Top {amount} van het team </Heading>
           )}
 
           <>
-            <Heading color="white">Top {amount} van het team </Heading>
             <TeamTable
               size="sm"
               entries={playersWithTotalScore?.map((player, index) => ({

@@ -6,9 +6,11 @@ import AppLayout from './layouts/AppLayout/AppLayout';
 import AuthLayout from './layouts/AuthLayout/AuthLayout';
 import PageLayout from './layouts/PagesLayout/PagesLayout';
 
+import { useAuth } from './auth';
+
 const Routes = () => {
   return (
-    <Router>
+    <Router useAuth={useAuth}>
       <Private unauthenticated="home" roles={['ADMIN']}>
         <Set wrap={ClubsLayout}>
           <Route path="/app/admin/clubs/new" page={ClubNewClubPage} name="adminNewClub" />
@@ -55,7 +57,7 @@ const Routes = () => {
       </Set>
       {/* PAGES */}
       <Set wrap={PageLayout}>
-        <Route path="/" page={HomePage} name="home" prerender />
+        <Route path="/" page={HomePage} name="home" />
         <Route path="/over" page={AboutPage} name="about" />
       </Set>
 

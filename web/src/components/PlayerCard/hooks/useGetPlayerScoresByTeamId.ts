@@ -3,7 +3,7 @@ import {
   GetPlayerScoresByTeamIdVariables,
 } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 export const GET_PLAYER_SCORES_BY_TEAM_ID = gql`

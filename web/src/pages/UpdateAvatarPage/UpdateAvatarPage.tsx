@@ -2,7 +2,7 @@
 import { Box, Button, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { navigate, routes } from '@redwoodjs/router';
 import { MetaTags, useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/dist/toast';

@@ -17,7 +17,7 @@ import { Form, Formik } from 'formik';
 import { AiOutlineEdit } from 'react-icons/ai';
 import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 
 import ControlledSelect from 'src/components/forms/components/ControlledSelect';
 import TextAlert from 'src/components/TextAlert/TextAlert';

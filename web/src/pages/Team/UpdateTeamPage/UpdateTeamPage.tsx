@@ -2,7 +2,7 @@ import { Grid, GridItem, Heading, Box, Button } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { MetaTags } from '@redwoodjs/web';
 
 import Card from 'src/components/Card/Card';

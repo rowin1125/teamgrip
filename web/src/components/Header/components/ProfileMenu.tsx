@@ -11,7 +11,7 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { Link as RedwoodLink, routes, useLocation } from '@redwoodjs/router';
 import { toast } from '@redwoodjs/web/toast';
 

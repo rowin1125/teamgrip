@@ -1,6 +1,6 @@
 import { Box, Fade, Flex, Spinner } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 
 import Avatar from '../Avatar/Avatar';
 

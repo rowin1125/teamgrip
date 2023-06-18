@@ -3,7 +3,7 @@ import {
   TrainingByTeamIdQueryVariables,
 } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 import { useEffect } from 'react';

@@ -10,7 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { routes } from '@redwoodjs/router';
 
 import Card from 'src/components/Card/Card';

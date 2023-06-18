@@ -14,21 +14,32 @@ enum Role {
 }
 
 model User {
-  id                  String       @id @default(cuid())
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @default(now()) @updatedAt
-  email               String       @unique
+  id                  String           @id @default(cuid())
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @default(now()) @updatedAt
+  email               String           @unique
   hashedPassword      String?
   salt                String?
   resetToken          String?
   resetTokenExpiresAt DateTime?
-  verified            Boolean      @default(false)
+  verified            Boolean          @default(false)
   verifiedToken       String?
-  roles               Role         @default(USER)
+  roles               Role             @default(USER)
   userProfile         UserProfile?
   avatar              Avatar?
   player              Player?
   team                Team[]
+  webAuthnChallenge   String?          @unique
+  credentials         UserCredential[]
+}
+
+model UserCredential {
+  id         String  @id
+  userId     String  @unique
+  user       User    @relation(fields: [userId], references: [id])
+  publicKey  Bytes
+  transports String?
+  counter    BigInt
 }
 
 model UserProfile {

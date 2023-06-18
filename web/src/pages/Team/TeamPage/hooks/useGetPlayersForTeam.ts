@@ -3,7 +3,7 @@ import {
   GetPlayersForTeamQueryVariables,
 } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 export const GET_PLAYERS_FOR_TEAM_QUERY = gql`

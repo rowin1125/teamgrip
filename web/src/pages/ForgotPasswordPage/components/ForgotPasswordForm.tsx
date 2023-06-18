@@ -6,6 +6,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import ControlledInput from 'src/components/forms/components/ControlledInput';
+import RedwoodLink from 'src/components/RedwoodLink/RedwoodLink';
 
 type ForgotPasswordFormProps = {
   initialValues: Record<string, any>;
@@ -38,7 +39,22 @@ const ForgotPasswordForm = ({
             placeholder="ronald@mesi.com"
           />
 
-          <Flex alignItems="center" justifyContent="space-between" mt={4}>
+          <Flex
+            alignItems="center"
+            mt={4}
+            flexDir={{ base: 'column', xl: 'row' }}
+          >
+            <Button
+              as={RedwoodLink}
+              to={'/login'}
+              colorScheme="secondary"
+              variant="outline"
+              isLoading={loading}
+              mr={{ lg: 4 }}
+              mb={{ base: 4, xl: 0 }}
+            >
+              Terug naar login
+            </Button>
             <Button colorScheme="secondary" type="submit" isLoading={loading}>
               Herstel je wachtwoord
             </Button>

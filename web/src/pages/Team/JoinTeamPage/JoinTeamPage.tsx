@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { MetaTags } from '@redwoodjs/web';
 
 import Card from 'src/components/Card/Card';
