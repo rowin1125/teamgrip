@@ -9,7 +9,7 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react';
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 
 import { routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
@@ -19,7 +19,6 @@ import RedwoodLink from 'src/components/RedwoodLink';
 import manAtNightImage from '../../components/Hero/images/footbal-night-man.jpg';
 const HomePage = () => {
   const { currentUser, loading } = useAuth();
-  console.log('currentUser', currentUser);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 
 export const useTeamPlayerAuth = () => {
   const { currentUser, loading } = useAuth();

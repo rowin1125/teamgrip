@@ -2,11 +2,10 @@ import { Box, Flex, Spinner } from '@chakra-ui/react';
 import AvatarComponent from 'avataaars';
 import { Avatar as AdditionalAvatarProps } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
-
 import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
 
 import TeamGripAvatar from './components/TeamGripAvatar';
+import { useAuth } from 'src/auth';
 
 type AvatarProps = {
   size?: string;

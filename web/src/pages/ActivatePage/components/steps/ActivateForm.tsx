@@ -10,7 +10,7 @@ import {
 } from 'types/graphql';
 import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useParams } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';

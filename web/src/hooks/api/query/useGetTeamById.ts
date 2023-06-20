@@ -1,6 +1,6 @@
 import { FindTeamQuery, FindTeamQueryVariables } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 import { TEAM_FRAGMENT } from 'src/graphql/fragments/TeamFragment';

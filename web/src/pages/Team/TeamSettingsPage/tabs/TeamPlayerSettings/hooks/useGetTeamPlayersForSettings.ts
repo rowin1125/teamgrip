@@ -3,7 +3,7 @@ import {
   GetTeamPlayersForSettingsVariables,
 } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 export const GET_TEAM_PLAYERS_FOR_SETTINGS = gql`

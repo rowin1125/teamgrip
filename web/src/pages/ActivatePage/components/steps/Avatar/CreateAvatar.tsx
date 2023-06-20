@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
 import { BsCheckCircleFill } from 'react-icons/bs';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { navigate, routes } from '@redwoodjs/router';
 import { toast } from '@redwoodjs/web/toast';
 

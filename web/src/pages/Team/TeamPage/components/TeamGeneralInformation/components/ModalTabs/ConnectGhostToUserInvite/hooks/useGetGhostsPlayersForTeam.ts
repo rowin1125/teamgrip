@@ -3,7 +3,7 @@ import {
   GetGhostPlayersForTeamQueryVariables,
 } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment';

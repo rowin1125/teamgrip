@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import Avatar from 'avataaars';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { navigate, routes } from '@redwoodjs/router';
 
 import Card from 'src/components/Card/Card';

@@ -72,7 +72,7 @@ const ClubPage = () => {
         <GridItem colSpan={{ base: 12, xl: 8 }}>
           <Card bg="primary.500" color="white">
             <Heading as="h1" size="lg" color="white">
-              Team bij {club?.name}
+              Team(s) bij {club?.name}
             </Heading>
 
             <Box overflowX="auto">

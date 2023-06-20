@@ -1,6 +1,6 @@
 import { GamesByTeamIdQuery, GamesByTeamIdQueryVariables } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 import { GAME_FRAGMENT } from 'src/graphql/fragments/GameFragment';

@@ -6,7 +6,7 @@ import {
 } from 'types/graphql';
 import * as Yup from 'yup';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { navigate, routes } from '@redwoodjs/router';
 import { MetaTags, useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/dist/toast';

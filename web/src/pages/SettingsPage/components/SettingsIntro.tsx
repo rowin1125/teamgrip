@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { GiLaurelsTrophy } from 'react-icons/gi';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { routes } from '@redwoodjs/router';
 
 import Card from 'src/components/Card/Card';

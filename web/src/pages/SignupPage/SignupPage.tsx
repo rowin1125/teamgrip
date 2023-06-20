@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { Box, Flex, Heading } from '@chakra-ui/react';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { navigate, routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
@@ -36,8 +36,9 @@ const SignupPage = () => {
     const response = await signUp({ ...data });
 
     if (response.message) {
-      toast.success(response.message);
+      toast.success(response.message, { duration: 10000 });
       actions.resetForm();
+      navigate(routes.login());
     } else if (response.error) {
       toast.error(response.error);
     }

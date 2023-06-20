@@ -1,6 +1,6 @@
 import { GetClubByIdQuery, GetClubByIdQueryVariables } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
 import { CLUB_FRAGMENT } from 'src/graphql/fragments/ClubFragment';

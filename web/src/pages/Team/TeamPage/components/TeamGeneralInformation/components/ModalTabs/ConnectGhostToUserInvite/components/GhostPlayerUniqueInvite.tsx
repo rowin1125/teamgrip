@@ -32,7 +32,7 @@ const GhostPlayerUniqueInvite = ({
   const { handleCreateInvitation, loading } = useCreateGhostPlayerInvitation();
   const hasGhostInvitation = !!ghost?.ghostInvitation;
 
-  const inviteUrl = `${process.env.FRONTEND_URL}/app/team/join?invitationToken=${team?.invitationToken}&ghostInvitation=${ghost?.ghostInvitation}`;
+  const inviteUrl = `${process.env.REDWOOD_ENV_VERCEL_URL}/app/team/join?invitationToken=${team?.invitationToken}&ghostInvitation=${ghost?.ghostInvitation}`;
 
   const { hasCopied, onCopy } = useClipboard(inviteUrl);
   const { handleDeleteGhostPlayerInvitation, loading: deleteLoading } =

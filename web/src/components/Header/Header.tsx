@@ -11,13 +11,13 @@ import {
 import styled from '@emotion/styled';
 import { CgBell } from 'react-icons/cg';
 
-import { useAuth } from '@redwoodjs/auth';
 import { Link, routes, useLocation } from '@redwoodjs/router';
 
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import RedwoodLink from '../RedwoodLink';
 
 import ProfileMenu from './components/ProfileMenu';
+import { useAuth } from 'src/auth';
 
 const Header = () => {
   const { currentUser } = useAuth();

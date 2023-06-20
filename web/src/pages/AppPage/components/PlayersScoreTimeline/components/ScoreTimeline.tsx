@@ -16,7 +16,7 @@ import {
 import { Chart } from 'react-chartjs-2';
 import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { routes } from '@redwoodjs/router';
 
 import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';

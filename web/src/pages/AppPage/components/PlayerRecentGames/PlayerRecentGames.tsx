@@ -16,7 +16,7 @@ import {
 import { format } from 'date-fns';
 import { Chart } from 'react-chartjs-2';
 
-import { useAuth } from '@redwoodjs/auth';
+import { useAuth } from 'src/auth';
 import { routes } from '@redwoodjs/router';
 
 import Card from 'src/components/Card/Card';
