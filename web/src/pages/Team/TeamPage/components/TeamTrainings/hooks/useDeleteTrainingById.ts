@@ -32,7 +32,7 @@ export const useDeleteTrainingById = () => {
     refetchQueries: [
       {
         query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
-        variables: { teamId: currentUser?.player?.teamId || '' },
+        variables: { teamId: currentUser?.player?.teamId || '', limit: 50 },
       },
       {
         query: GET_TRAININGS_BY_TEAM_QUERY,

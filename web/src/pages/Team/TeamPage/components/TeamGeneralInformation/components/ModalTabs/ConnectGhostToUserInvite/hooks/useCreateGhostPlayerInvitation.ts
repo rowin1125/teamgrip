@@ -31,7 +31,7 @@ export const useCreateGhostPlayerInvitation = () => {
     refetchQueries: [
       {
         query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
-        variables: { teamId: currentUser?.player?.teamId },
+        variables: { teamId: currentUser?.player?.teamId, limit: 50 },
       },
     ],
   });
