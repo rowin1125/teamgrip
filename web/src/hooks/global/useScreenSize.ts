@@ -1,15 +1,15 @@
-import { useMediaQuery } from '@chakra-ui/react';
+import { useBreakpoint, useMediaQuery } from '@chakra-ui/react';
 
 export const useScreenSize = () => {
-  const [isSmallerThanSm] = useMediaQuery('(max-width: 30em)');
-  const [isSm] = useMediaQuery('(min-width: 30em)');
-  const [isMd] = useMediaQuery('(min-width: 48em)');
-  const [isLg] = useMediaQuery('(min-width: 62em)');
-  const [isXl] = useMediaQuery('(min-width: 80em)');
-  const [is2xl] = useMediaQuery('(min-width: 96em)');
+  const breakpoint = useBreakpoint({ ssr: false });
+
+  const isSm = breakpoint === 'base' || breakpoint === 'sm';
+  const isMd = breakpoint === 'md';
+  const isLg = breakpoint === 'lg';
+  const isXl = breakpoint === 'xl';
+  const is2xl = breakpoint === '2xl';
 
   return {
-    isSmallerThanSm,
     isSm,
     isMd,
     isLg,

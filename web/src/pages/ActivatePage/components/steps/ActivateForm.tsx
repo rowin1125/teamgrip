@@ -48,9 +48,9 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
       const result = await logIn({
         username: decodedEmail,
         password: data.password,
-        token,
       });
-      if ((result.error as string).includes('Username or password incorrect')) {
+
+      if ((result.error as string).includes('Incorrect password')) {
         toast.error('Password incorrect');
         setLoadingLogin(false);
         return;
@@ -65,7 +65,10 @@ const ActivateForm = ({ setActivateStep }: ActivateFormProps) => {
         });
         setActivateStep(1);
         toast.success('Account actief!');
+
+        return;
       }
+
       setLoadingLogin(false);
     } catch (error: any) {
       toast.error(error?.message);
