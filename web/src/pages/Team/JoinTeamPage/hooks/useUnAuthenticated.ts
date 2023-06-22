@@ -5,7 +5,11 @@ import { useAuth } from 'src/auth';
 import { useParams } from '@redwoodjs/router';
 import { toast } from '@redwoodjs/web/dist/toast';
 
-export const useUnAuthenticated = () => {
+type UseUnAuthenticatedType = {
+  setTabIndex: (index: number) => void;
+};
+
+export const useUnAuthenticated = ({ setTabIndex }: UseUnAuthenticatedType) => {
   const { invitationToken, ghostInvitation } = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -28,6 +32,7 @@ export const useUnAuthenticated = () => {
     if (response.message) {
       toast.success(response.message);
       actions.resetForm();
+      setTabIndex(0);
     } else if (response.error) {
       toast.error(response.error);
     }

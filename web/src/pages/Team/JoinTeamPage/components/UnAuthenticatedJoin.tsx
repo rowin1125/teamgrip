@@ -12,12 +12,22 @@ import LoginForm from 'src/pages/LoginPage/LoginForm';
 import SignUpForm from 'src/pages/SignupPage/components/SignUpForm';
 
 import { useUnAuthenticated } from '../hooks/useUnAuthenticated';
+import { useState } from 'react';
 
 const UnAuthenticatedJoin = () => {
-  const { handleSignIn, handleSignUp, loading } = useUnAuthenticated();
+  const [tabIndex, setTabIndex] = useState(0);
+  const { handleSignIn, handleSignUp, loading } = useUnAuthenticated({
+    setTabIndex,
+  });
 
   return (
-    <Tabs size="lg" align="center" isFitted>
+    <Tabs
+      size="lg"
+      align="center"
+      isFitted
+      index={tabIndex}
+      onChange={(index) => setTabIndex(index)}
+    >
       <TabList>
         <Tab fontWeight="bold">
           <Text color="white">Login</Text>

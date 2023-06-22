@@ -40,9 +40,7 @@ export async function mailUser(options: MailUserOptions) {
       );
     })
     .catch((err) => {
-      console.log('err', err);
-      console.log(err.message);
-      console.log(err.status);
+      console.error('err', err);
     });
 }
 
