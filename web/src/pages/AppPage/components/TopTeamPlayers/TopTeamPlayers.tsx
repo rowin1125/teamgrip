@@ -27,7 +27,7 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
       color="white"
       overflowX="auto"
       h="full"
-      minH="300px"
+      minH="700px"
     >
       <SpinnerLoader isLoading={playersWithTotalScoreLoading}>
         <SeasonLockWrapper>

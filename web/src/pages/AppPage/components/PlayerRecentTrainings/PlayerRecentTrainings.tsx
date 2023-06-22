@@ -91,7 +91,7 @@ const PlayerRecentTrainings = () => {
   );
 
   return (
-    <Card bg="primary.500" color="white" h="full" minH="300px">
+    <Card bg="primary.500" color="white" h="full" minH="700px">
       <SpinnerLoader isLoading={loading}>
         <SeasonLockWrapper>
           <Heading color="white" mb={8}>

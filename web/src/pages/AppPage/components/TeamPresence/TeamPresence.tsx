@@ -19,7 +19,7 @@ const TeamPresence = () => {
     <>
       <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
         <SpinnerLoader isLoading={teamPresenceLoading}>
-          <Card bg="primary.500" color="white" minH="300px">
+          <Card bg="primary.500" color="white" minH="700px">
             <Heading color="white">Training aanwezigheid</Heading>
 
             <Box mt={8}>
@@ -35,7 +35,7 @@ const TeamPresence = () => {
       </GridItem>
       <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
         <SpinnerLoader isLoading={teamPresenceLoading}>
-          <Card bg="primary.500" color="white" minH="300px" mt={{ xl: 0 }}>
+          <Card bg="primary.500" color="white" minH="700px" mt={{ xl: 0 }}>
             <Heading color="white">Wedstrijd aanwezigheid</Heading>
 
             <Box mt={{ xl: 8 }}>
