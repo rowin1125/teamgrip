@@ -25,14 +25,34 @@ export const team: QueryResolvers['team'] = ({ id }) => {
 
 export const getAllGamesAndTrainingsByTeamId: QueryResolvers['getAllGamesAndTrainingsByTeamId'] =
   async ({ teamId }) => {
-    const scoreSelectParams = {
+    const team = await db.team.findFirst({
       where: {
+        id: teamId,
+      },
+      include: {
+        players: {
+          select: {
+            id: true,
+            displayName: true,
+          },
+        },
+      },
+    });
+
+    const allGames = await db.game.findMany({
+      where: {
+        teamId,
         season: {
           active: true,
         },
       },
       include: {
         scores: {
+          where: {
+            season: {
+              active: true,
+            },
+          },
           select: {
             playerId: true,
             trainingId: true,
@@ -41,16 +61,39 @@ export const getAllGamesAndTrainingsByTeamId: QueryResolvers['getAllGamesAndTrai
           },
         },
       },
-    };
-    return await db.team.findFirst({
+    });
+
+    const allTrainings = await db.training.findMany({
       where: {
-        id: teamId,
+        teamId,
+        season: {
+          active: true,
+        },
       },
       include: {
-        games: scoreSelectParams,
-        trainings: scoreSelectParams,
+        scores: {
+          where: {
+            season: {
+              active: true,
+            },
+          },
+          select: {
+            playerId: true,
+            trainingId: true,
+            points: true,
+            gameId: true,
+          },
+        },
       },
     });
+
+    const allGamesAndTrainings = {
+      players: team?.players,
+      games: allGames,
+      trainings: allTrainings,
+    };
+
+    return allGamesAndTrainings;
   };
 
 export const teamExtraDetails: QueryResolvers['teamExtraDetails'] = ({

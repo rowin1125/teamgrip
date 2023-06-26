@@ -58,7 +58,11 @@ export const useCreateGame = ({
     refetchQueries: [
       {
         query: GET_GAMES_BY_TEAM_QUERY,
-        variables: { id: currentUser?.player?.teamId || '' },
+        variables: {
+          id: currentUser?.player?.teamId || '',
+          limit: 10,
+          page: 1,
+        },
       },
     ],
   });
@@ -84,8 +88,8 @@ export const useCreateGame = ({
     }
   };
 
-  const seasonMatchesThisYear = team?.season?.filter((season) =>
-    season?.name?.includes(new Date().getFullYear().toString())
+  const seasonMatchesThisYear = team?.season?.filter(
+    (season) => season?.active
   )?.[0]?.id;
 
   const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id;

@@ -163,7 +163,6 @@ export const handler = async (
           },
         });
       } catch (error) {
-        console.log('error', error);
         throw new Error('Failed to sign up');
       }
 

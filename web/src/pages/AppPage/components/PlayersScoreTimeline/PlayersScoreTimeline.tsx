@@ -19,7 +19,7 @@ const PlayersScoreTimeline = () => {
         bg="primary.500"
         color="white"
         h="full"
-        minH={{ base: '900px', xl: 'auto' }}
+        minH={{ base: '600px', xl: '300px' }}
       >
         <SpinnerLoader isLoading={loading}>
           <Heading color="white">Scoreverloop</Heading>

@@ -69,7 +69,7 @@ const TeamTable = ({
           />
         </Table>
       )}
-      {entries && !tableHasRows && <NoEntries />}
+      {entries && !tableHasRows && <NoEntries theme={theme} />}
     </TableLoader>
   );
 };

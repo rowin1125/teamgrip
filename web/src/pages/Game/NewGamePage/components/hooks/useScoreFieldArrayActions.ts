@@ -35,8 +35,8 @@ export const useScoreFieldArrayActions = ({
 
   const [benchPlayers, setBenchPlayers] = useState(initialBenchPlayers);
 
-  const seasonMatchesThisYear = team?.season?.filter((season) =>
-    season?.name?.includes(new Date().getFullYear().toString())
+  const seasonMatchesThisYear = team?.season?.filter(
+    (season) => season?.active
   )?.[0]?.id;
 
   const defaultSeasonId = seasonMatchesThisYear ?? team?.season[0]?.id;

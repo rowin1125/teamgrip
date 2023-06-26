@@ -48,23 +48,35 @@ export const createSeason: MutationResolvers['createSeason'] = async ({
   teamId,
 }) => {
   try {
-    const seasonActive = await db.season.findFirst({
+    const activeSeason = await db.season.findFirst({
       where: {
-        teamId,
+        teamId: teamId,
         active: true,
       },
     });
 
-    if (seasonActive && input.active) {
-      throw new UserInputError('Er is al een actief seizoen');
+    let requestArray = [];
+
+    if (!!activeSeason && input.active) {
+      requestArray.push(
+        db.season.update({
+          where: { id: activeSeason.id },
+          data: { active: false },
+        })
+      );
     }
 
-    const season = await db.season.create({
-      data: {
-        ...input,
-        teamId,
-      },
-    });
+    requestArray.push(
+      db.season.create({
+        data: {
+          ...input,
+          teamId,
+        },
+      })
+    );
+
+    const [season, season2] = await db.$transaction(requestArray);
+
     return season;
   } catch (error) {
     if (error.code === 'P2002') throw new UserInputError('Seizoen bestaat al');
@@ -78,20 +90,36 @@ export const updateSeason: MutationResolvers['updateSeason'] = async ({
   input,
   teamId,
 }) => {
-  const seasonActive = await db.season.findFirst({
+  let requestArray = [];
+
+  const activeSeason = await db.season.findFirst({
     where: {
       teamId: teamId,
       active: true,
     },
   });
 
-  if (seasonActive && seasonActive.id !== id && input.active) {
-    throw new UserInputError('Er is al een actief seizoen');
+  if (!!activeSeason && input.active) {
+    requestArray.push(
+      db.season.update({
+        where: { id: activeSeason.id },
+        data: { active: false },
+      })
+    );
   }
-  return db.season.update({
-    data: input,
-    where: { id },
-  });
+
+  requestArray.push(
+    db.season.update({
+      data: {
+        ...input,
+      },
+      where: { id },
+    })
+  );
+
+  const [season, season2] = await db.$transaction(requestArray);
+
+  return season2;
 };
 
 export const deleteSeason: MutationResolvers['deleteSeason'] = async ({

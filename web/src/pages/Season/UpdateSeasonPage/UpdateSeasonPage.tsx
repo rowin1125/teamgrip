@@ -17,12 +17,16 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 import { useGetSeasonById } from './hooks/useGetSeasonById';
 import { useUpdateSeasonById } from './hooks/useUpdateSeasonById';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
+
+export const seasonList = ['2021-2022', '2022-2023', '2023-2024', '2024-2025'];
 
 const UpdateSeasonPage = () => {
   const { currentUser, isTeamStaff } = useTeamPlayerAuth();
   const { season, seasonLoading } = useGetSeasonById();
   const { handleUpdateSeason, handleUpdateSeasonLoading } =
     useUpdateSeasonById();
+  const { team } = useGetTeamById();
 
   useEffect(() => {
     if (isTeamStaff) return;
@@ -36,6 +40,9 @@ const UpdateSeasonPage = () => {
   });
 
   if (!season || seasonLoading) return null;
+
+  const seasonList = ['2021-2022', '2022-2023', '2023-2024', '2024-2025'];
+  const activeSeason = team?.season.find((season) => season?.active);
 
   return (
     <>
@@ -54,44 +61,54 @@ const UpdateSeasonPage = () => {
             <Formik
               onSubmit={handleUpdateSeason}
               initialValues={{
-                name: season?.name,
-                seasonTeamName: season?.name,
+                name: season.name,
+                seasonTeamName: season.name,
                 active: season.active,
               }}
               validationSchema={validationSchema}
             >
-              <Box as={Form} w="full" maxW="500px">
-                <ControlledSelect
-                  id="name"
-                  label="Seizoen"
-                  options={['2022-2023', '2023-2024'].map((season) => ({
-                    label:
-                      season === '2022-2023'
-                        ? `${capitalizeText(season)} - DIT JAAR 📅`
-                        : capitalizeText(season),
-                    value: season,
-                  }))}
-                  placeholder="Selecteer"
-                  reactSelectProps={{ isClearable: true }}
-                />
+              {({ values }) => (
+                <Box as={Form} w="full" maxW="500px">
+                  <ControlledSelect
+                    id="name"
+                    label="Seizoen"
+                    options={seasonList.map((season) => ({
+                      label: capitalizeText(season),
+                      value: season,
+                    }))}
+                    placeholder="Selecteer"
+                    reactSelectProps={{ isClearable: true }}
+                  />
 
-                <ControlledSwitch
-                  id="active"
-                  label="Status"
-                  helperText="Alleen actieve seizoen kun je gebruiken voor het aanmaken van wedstrijden en trainingen"
-                >
-                  Seizoen is actief?
-                </ControlledSwitch>
+                  <ControlledSwitch
+                    id="active"
+                    label="Status"
+                    helperText="Alleen actieve seizoen kun je gebruiken voor het aanmaken van wedstrijden en trainingen"
+                  >
+                    Seizoen is actief?
+                  </ControlledSwitch>
 
-                <Button
-                  mt={4}
-                  colorScheme="secondary"
-                  type="submit"
-                  isLoading={handleUpdateSeasonLoading}
-                >
-                  Update seizoen
-                </Button>
-              </Box>
+                  {values.active && activeSeason && (
+                    <TextAlert my={8} status="warning">
+                      <Text>
+                        Er is al een actief seizoen:{' '}
+                        <strong>{activeSeason?.name}</strong>. Als je een nieuw
+                        seizoen start, wordt het huidige seizoen automatisch
+                        gedeactiveerd.
+                      </Text>
+                    </TextAlert>
+                  )}
+
+                  <Button
+                    mt={4}
+                    colorScheme="secondary"
+                    type="submit"
+                    isLoading={handleUpdateSeasonLoading}
+                  >
+                    Update seizoen
+                  </Button>
+                </Box>
+              )}
             </Formik>
           </Card>
         </GridItem>

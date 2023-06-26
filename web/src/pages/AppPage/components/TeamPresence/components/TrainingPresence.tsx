@@ -80,7 +80,7 @@ const TrainingPresence = ({
       buttonText="Maak je eerste training aan"
     >
       <Chart
-        height={is2xl ? 100 : 400}
+        height={is2xl ? 150 : 200}
         type="bar"
         options={{
           responsive: true,

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  CreateGhostPlayersInput,
   InviteGhostsPlayersMutation,
   InviteGhostsPlayersMutationVariables,
 } from 'types/graphql';
@@ -8,6 +9,7 @@ import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/dist/toast';
 
 import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
+import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 export const INVITE_GHOSTS_PLAYERS = gql`
   mutation InviteGhostsPlayersMutation($input: CreateGhostPlayersInput!) {
@@ -18,6 +20,8 @@ export const INVITE_GHOSTS_PLAYERS = gql`
 `;
 
 export const useInviteGhosts = () => {
+  const { currentUser } = useTeamPlayerAuth();
+
   const [inviteGhostPlayers, { loading, error }] = useMutation<
     InviteGhostsPlayersMutation,
     InviteGhostsPlayersMutationVariables
@@ -25,19 +29,19 @@ export const useInviteGhosts = () => {
     onError: (error) => {
       toast.error(error.message);
     },
+    refetchQueries: [
+      {
+        query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
+        variables: { teamId: currentUser?.player?.teamId, limit: 50 },
+      },
+    ],
   });
 
-  const handleInviteGhostsPlayers = async (input: any) => {
+  const handleInviteGhostsPlayers = async (input: CreateGhostPlayersInput) => {
     const ghostPlayers = await inviteGhostPlayers({
       variables: {
-        input: input,
+        input,
       },
-      refetchQueries: [
-        {
-          query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
-          variables: { teamId: input.teamId, limit: 50 },
-        },
-      ],
     });
     if (!ghostPlayers.errors) {
       toast.success(
