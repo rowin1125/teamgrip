@@ -16,12 +16,19 @@ export const schema = gql`
     games: [Game]!
   }
 
+  type AllGamesAndTrainings {
+    players: [Player]!
+    games: [Game]!
+    trainings: [Training]!
+  }
+
   type Query {
     teams: [Team!]! @requireAuth
     team(id: String!): Team @requireAuth
     teamByInvitationToken(invitationToken: String!): Team @requireAuth
     teamExtraDetails(id: String!): Team @requireAuth
-    getAllGamesAndTrainingsByTeamId(teamId: String!): Team @requireAuth
+    getAllGamesAndTrainingsByTeamId(teamId: String!): AllGamesAndTrainings
+      @requireAuth
   }
 
   input CreateTeamInput {
