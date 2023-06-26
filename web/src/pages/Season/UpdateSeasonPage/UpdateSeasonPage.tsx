@@ -73,10 +73,7 @@ const UpdateSeasonPage = () => {
                     id="name"
                     label="Seizoen"
                     options={seasonList.map((season) => ({
-                      label:
-                        season === '2022-2023'
-                          ? `${capitalizeText(season)} - DIT JAAR 📅`
-                          : capitalizeText(season),
+                      label: capitalizeText(season),
                       value: season,
                     }))}
                     placeholder="Selecteer"
