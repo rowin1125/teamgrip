@@ -30,11 +30,16 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
   const playerHasInvitation = currentUser?.player?.teamInvitation;
 
   return (
-    <Flex mt={2} justifyContent="flex-end">
+    <Flex
+      mt={2}
+      justifyContent="flex-end"
+      direction={{ base: 'column', xl: 'row' }}
+    >
       {playerHasInvitation ? (
         <Button
           variant="outline"
           colorScheme="red"
+          mb={{ base: 4, xl: 0 }}
           onClick={() =>
             handleDeleteTeamInvitation(currentUser?.player?.id || '')
           }
@@ -42,23 +47,26 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
           Verwijder uitnodiging
         </Button>
       ) : (
-        <Button onClick={() => navigate(routes.app())}>Annuleer</Button>
+        <Button mb={{ base: 4, xl: 0 }} onClick={() => navigate(routes.app())}>
+          Annuleer
+        </Button>
       )}
       <Button
-        ml={4}
-        colorScheme={hasGhostPlayer ? 'orange' : 'secondary'}
+        mb={{ base: 4, xl: 0 }}
+        ml={{ base: 0, xl: 4 }}
+        colorScheme={hasGhostPlayer ? 'red' : 'secondary'}
         isLoading={loading}
         onClick={() =>
           handleJoinTeam(currentUser?.player?.id || '', team?.id || '')
         }
       >
-        Join het team
+        Join zonder gegevens ⚠️
       </Button>
 
       {hasGhostPlayer && (
         <Button
-          ml={4}
-          colorScheme="secondary"
+          ml={{ base: 0, xl: 4 }}
+          colorScheme="green"
           isLoading={loading}
           onClick={() =>
             handleJoinTeamAsGhost(
@@ -69,7 +77,7 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
           }
         >
           {hasGhostPlayer
-            ? `Join als ${ghostPlayer.displayName}`
+            ? `Join als ${ghostPlayer.displayName} 🥳`
             : 'Join het team'}
         </Button>
       )}
