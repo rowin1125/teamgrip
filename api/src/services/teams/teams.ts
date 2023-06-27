@@ -138,17 +138,25 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
 }) => {
   try {
     const currentUser = context.currentUser;
-    const playerAlreadyPartOfTeam = await db.team.findFirst({
+    const user = await db.user.findFirst({
       where: {
-        players: {
-          some: {
-            userId: currentUser.id,
-          },
-        },
+        id: currentUser?.id,
+      },
+      include: {
+        player: true,
+        team: true,
       },
     });
 
-    if (playerAlreadyPartOfTeam)
+    if (!user?.player) {
+      await db.player.create({
+        data: {
+          userId: currentUser?.id,
+        },
+      });
+    }
+
+    if (user?.team.length)
       throw new UserInputError('Je maakt al deel uit van een Team');
 
     const createTeam = db.team.create({
@@ -156,7 +164,7 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
         ...input,
         players: {
           connect: {
-            userId: currentUser.id,
+            userId: currentUser?.id,
           },
         },
       },
@@ -164,7 +172,7 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
 
     const playerUpdate = db.player.update({
       where: {
-        userId: currentUser.id,
+        userId: currentUser?.id,
       },
       data: {
         isActivePlayer: ownerIsPlayer,
