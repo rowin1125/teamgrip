@@ -28,7 +28,7 @@ type TeamListProps = {
 
 const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
   const { playersWithTotalScore, playersWithTotalScoreLoading } =
-    useGetPlayersAndScoresByTeamId();
+    useGetPlayersAndScoresByTeamId(50);
 
   return (
     <Card w="100%" bg="primary.500" color="white" overflowX="auto">

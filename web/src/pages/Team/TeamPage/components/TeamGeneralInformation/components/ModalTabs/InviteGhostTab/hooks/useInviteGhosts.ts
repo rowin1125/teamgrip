@@ -27,6 +27,13 @@ export const useInviteGhosts = () => {
     InviteGhostsPlayersMutation,
     InviteGhostsPlayersMutationVariables
   >(INVITE_GHOSTS_PLAYERS, {
+    onCompleted: (data) => {
+      if (data.createManyGhostPlayers?.count) {
+        toast.success(
+          `${data.createManyGhostPlayers.count} ghostspelers succesvol aangemaakt 👻`
+        );
+      }
+    },
     onError: (error) => {
       toast.error(error.message);
     },
@@ -43,17 +50,11 @@ export const useInviteGhosts = () => {
   });
 
   const handleInviteGhostsPlayers = async (input: CreateGhostPlayersInput) => {
-    const ghostPlayers = await inviteGhostPlayers({
+    await inviteGhostPlayers({
       variables: {
         input,
       },
     });
-    if (!ghostPlayers.errors) {
-      toast.success(
-        `${ghostPlayers.data?.createManyGhostPlayers?.count} ghostspelers succesvol aangemaakt 👻`
-      );
-    }
-    return ghostPlayers.data?.createManyGhostPlayers?.count;
   };
 
   return {

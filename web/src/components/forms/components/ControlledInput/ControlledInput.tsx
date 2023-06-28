@@ -20,8 +20,8 @@ type ControlledInputProps = {
   helperText?: string;
   id: string;
   labelProps?: FormLabelProps;
-  inputRightAddonText?: string;
-  inputLeftAddonText?: string;
+  inputRightAddonText?: string | React.ReactNode;
+  inputLeftAddonText?: string | React.ReactNode;
   fullWidth?: boolean;
   formControlProps?: FormControlProps;
   transformValue?: (value: string) => string;
