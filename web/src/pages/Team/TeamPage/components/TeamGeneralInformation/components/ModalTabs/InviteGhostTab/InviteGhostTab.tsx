@@ -43,10 +43,10 @@ const validationSchema = Yup.object({
 });
 
 const InviteGhostTab = ({ team, handleTabChange }: InviteGhostTabProps) => {
+  const { handleInviteGhostsPlayers, loading } = useInviteGhosts();
   const handleSubmit = async (values: any, actions: any) => {
     try {
-      const playerCountCreated = await handleInviteGhostsPlayers(values);
-      if (!playerCountCreated) return;
+      await handleInviteGhostsPlayers(values);
 
       actions.resetForm();
       handleTabChange(2);
@@ -54,7 +54,6 @@ const InviteGhostTab = ({ team, handleTabChange }: InviteGhostTabProps) => {
       console.error(error);
     }
   };
-  const { handleInviteGhostsPlayers, loading } = useInviteGhosts();
 
   const playersBlueprint = {
     displayName: '',
@@ -98,24 +97,21 @@ const InviteGhostTab = ({ team, handleTabChange }: InviteGhostTabProps) => {
                             <Heading as="h3" mt={6}>
                               Speler {index + 1}
                             </Heading>
-                            <Flex alignItems="center" pr={8} w="full">
-                              <ControlledInput
-                                labelProps={{ fontWeight: 'normal' }}
-                                label="Naam"
-                                id={`players.${index}.displayName`}
-                                mr={2}
-                              />
-
-                              <IconButton
-                                icon={<CgClose color="gray" />}
-                                variant="ghost"
-                                fontSize={20}
-                                position="relative"
-                                top="8px"
-                                aria-label="Clear surcharges"
-                                onClick={() => remove(index)}
-                              />
-                            </Flex>
+                            <ControlledInput
+                              labelProps={{ fontWeight: 'normal' }}
+                              label="Naam"
+                              id={`players.${index}.displayName`}
+                              inputRightAddonText={
+                                <IconButton
+                                  icon={<CgClose color="gray" />}
+                                  variant="ghost"
+                                  fontSize={20}
+                                  position="relative"
+                                  aria-label="Clear surcharges"
+                                  onClick={() => remove(index)}
+                                />
+                              }
+                            />
                           </GridItem>
                         );
                       })}
@@ -126,7 +122,7 @@ const InviteGhostTab = ({ team, handleTabChange }: InviteGhostTabProps) => {
                       leftIcon={<Icon as={FaPlus} />}
                     >
                       <Box as="span" mt="1px">
-                        Extra speler
+                        Nog een speler toevoegen
                       </Box>
                     </Button>
                   </Box>
