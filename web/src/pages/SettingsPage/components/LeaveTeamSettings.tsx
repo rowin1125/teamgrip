@@ -17,7 +17,6 @@ const LeaveTeamSettings = () => {
       mb={{ base: 10, xl: 0 }}
     >
       <Card h="full">
-        <Heading></Heading>
         <Heading as="h3" size="md" color="red.500">
           Danger-zone
         </Heading>
