@@ -11,6 +11,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Text,
   UseDisclosureProps,
 } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
@@ -64,12 +65,15 @@ const TeamPlayerSettingsEditPlayerType = ({
   return (
     <>
       <Button
-        ml={4}
         colorScheme="orange"
+        variant="link"
         onClick={onOpen}
         isDisabled={rowIsOwner || isCurrentPlayerRole}
       >
-        <Icon as={AiOutlineEdit} />
+        <Icon as={AiOutlineEdit} />{' '}
+        <Text fontSize="sm" ml={4}>
+          Wijzig speler
+        </Text>
       </Button>
 
       <Modal isOpen={isOpen || false} onClose={onClose} size="xl">

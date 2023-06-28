@@ -98,6 +98,8 @@ model Player {
   trainings       Training[]
   scores          Score[]
   games           Game[]
+  historyTeams    Team[]     @relation("HistoryPlayers")
+  historySeasons  Season[]
 }
 
 model Team {
@@ -107,6 +109,7 @@ model Team {
   name            String
   clubTeamName    String     @unique @default(cuid())
   players         Player[]
+  historyPlayers  Player[]   @relation("HistoryPlayers")
   club            Club?      @relation(fields: [clubId], references: [id], onDelete: Cascade)
   clubId          String?
   owner           User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
@@ -190,4 +193,5 @@ model Season {
   trainings      Training[]
   scores         Score[]
   games          Game[]
+  removedPlayers Player[]
 }

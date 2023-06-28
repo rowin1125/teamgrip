@@ -10,6 +10,7 @@ import { removeNulls } from '@redwoodjs/api';
 import { db } from 'src/lib/db';
 
 import { mergePlayersAndScores } from './helpers/mergePlayersAndScores';
+import { UserInputError } from '@redwoodjs/graphql-server';
 
 export const players: QueryResolvers['players'] = () => {
   return db.player.findMany();
@@ -18,9 +19,27 @@ export const players: QueryResolvers['players'] = () => {
 export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
   teamId,
 }) => {
+  const activeSeason = await db.season.findFirst({
+    where: {
+      active: true,
+      teamId,
+    },
+  });
+
   return db.player.findMany({
     where: {
-      teamId,
+      OR: [
+        {
+          teamId,
+        },
+        {
+          historySeasons: {
+            some: {
+              id: activeSeason?.id,
+            },
+          },
+        },
+      ],
       AND: {
         isActivePlayer: true,
       },
@@ -44,9 +63,27 @@ export const playersForTeam: QueryResolvers['playersForTeam'] = async ({
 
 export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByTeamId'] =
   async ({ teamId, limit }) => {
+    const activeSeason = await db.season.findFirst({
+      where: {
+        active: true,
+        teamId,
+      },
+    });
+
     const playersWithoutScores = await db.player.findMany({
       where: {
-        teamId,
+        OR: [
+          {
+            teamId,
+          },
+          {
+            historySeasons: {
+              some: {
+                id: activeSeason?.id,
+              },
+            },
+          },
+        ],
         AND: {
           isActivePlayer: true,
         },
@@ -143,9 +180,27 @@ export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] 
 
 export const getPlayersPresenceByTeamId: QueryResolvers['getPlayersPresenceByTeamId'] =
   async ({ teamId }) => {
+    const activeSeason = await db.season.findFirst({
+      where: {
+        active: true,
+        teamId,
+      },
+    });
+
     const players = await db.player.findMany({
       where: {
-        teamId,
+        OR: [
+          {
+            teamId,
+          },
+          {
+            historySeasons: {
+              some: {
+                id: activeSeason?.id,
+              },
+            },
+          },
+        ],
         AND: {
           isActivePlayer: true,
         },
@@ -196,6 +251,19 @@ export const player: QueryResolvers['player'] = ({ id }) => {
     where: { id },
   });
 };
+
+export const getHistoryPlayersByTeamId: QueryResolvers['getHistoryPlayersByTeamId'] =
+  async ({ teamId }) => {
+    return db.player.findMany({
+      where: {
+        historyTeams: {
+          some: {
+            id: teamId,
+          },
+        },
+      },
+    });
+  };
 
 export const createPlayer: MutationResolvers['createPlayer'] = ({ input }) => {
   return db.player.create({
@@ -298,10 +366,128 @@ export const updatePlayer: MutationResolvers['updatePlayer'] = ({
   });
 };
 
-export const deletePlayer: MutationResolvers['deletePlayer'] = ({ id }) => {
-  return db.player.delete({
+export const rejoinTeamFromHistory: MutationResolvers['rejoinTeamFromHistory'] =
+  async ({ id, teamId }) => {
+    const activeSeasonForTeam = await db.season.findFirst({
+      where: {
+        active: true,
+        teamId,
+      },
+    });
+
+    const player = await db.player.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        historySeasons: true,
+        team: true,
+        historyTeams: true,
+      },
+    });
+
+    if (!!player?.team?.id)
+      throw new UserInputError('Player is already in a team');
+
+    const playerHistorySeasonIsEqualToActiveTeamSeason =
+      player?.historySeasons?.some(
+        (season) => season.id === activeSeasonForTeam?.id
+      );
+
+    const removeHistorySeasonDataInput =
+      playerHistorySeasonIsEqualToActiveTeamSeason
+        ? {
+            historySeasons: {
+              disconnect: {
+                id: activeSeasonForTeam?.id,
+              },
+            },
+          }
+        : null;
+
+    const updatedPlayer = await db.player.update({
+      where: {
+        id,
+      },
+      data: {
+        ...removeHistorySeasonDataInput,
+        isActivePlayer: true,
+        teamInvitation: null,
+        historyTeams: {
+          disconnect: {
+            id: teamId,
+          },
+        },
+        team: {
+          connect: {
+            id: teamId,
+          },
+        },
+      },
+    });
+
+    return updatedPlayer;
+  };
+
+export const deletePlayer: MutationResolvers['deletePlayer'] = async ({
+  id,
+}) => {
+  const player = await db.player.findUnique({
     where: { id },
+    include: {
+      team: {
+        include: {
+          season: {
+            where: {
+              active: true,
+            },
+          },
+        },
+      },
+    },
   });
+
+  if (player?.isGhost) {
+    await db.player.delete({
+      where: { id },
+    });
+    return player;
+  }
+
+  if (!player || !player.teamId) throw new UserInputError('Player not found');
+
+  await db.team.update({
+    where: { id: player.teamId! },
+    data: {
+      players: {
+        update: {
+          where: {
+            id: player.id,
+          },
+          data: {
+            historySeasons: {
+              connect: {
+                id: player.team?.season?.[0]?.id,
+              },
+            },
+            club: {
+              disconnect: true,
+            },
+          },
+        },
+        disconnect: {
+          id: player.id,
+        },
+      },
+      historyPlayers: {
+        connect: {
+          id: player.id,
+        },
+      },
+    },
+  });
+
+  return player;
 };
 
 export const Player: PlayerRelationResolvers = {

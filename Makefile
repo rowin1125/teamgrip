@@ -27,7 +27,6 @@ do-db-reset-and-create-migration:
 	@docker-compose up -d
 	@yarn rw prisma migrate dev
 	@yarn rw prisma migrate deploy
-	@yarn rw prisma db seed
 
 do-seed:
 	@yarn rw prisma db seed

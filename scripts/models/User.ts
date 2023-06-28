@@ -34,6 +34,16 @@ export const users: Prisma.UserCreateArgs['data'][] = [
     },
   },
   {
+    email: 'demi.rowin@gmail.com',
+    roles: 'USER',
+    avatar: {
+      create: {
+        avatarStyle: 'Circle',
+        ...generateRandomAvatarOptions(),
+      },
+    },
+  },
+  {
     email: 'user-owner-of-team-and-club@gmail.com',
     roles: 'USER',
     avatar: {
@@ -70,9 +80,15 @@ export const createUsers = async () => {
     users.map(async (userData: Prisma.UserCreateArgs['data']) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { avatar, ...userCreateData } = userData;
-      const firstname = userCreateData.email.includes('rowin')
-        ? 'Rowin'
-        : randFirstName();
+      let firstname = '';
+      if (userCreateData.email.includes('demi.rowin')) {
+        firstname = 'Demi';
+      } else if (userCreateData.email.includes('rowin')) {
+        firstname = 'Rowin';
+      } else {
+        firstname = randFirstName();
+      }
+
       const lastname = randLastName();
       const user = await db.user.create({
         data: {

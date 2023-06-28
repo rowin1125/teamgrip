@@ -15,7 +15,7 @@ export const createSeason = async () => {
     data: {
       name: '2021-2022',
       active: true,
-      seasonTeamName: 'zaterdag-1-2021-2022',
+      seasonTeamName: 'Zob-zaterdag-1-2021-2022',
       team: {
         connect: {
           id: teamWithRowin.id,

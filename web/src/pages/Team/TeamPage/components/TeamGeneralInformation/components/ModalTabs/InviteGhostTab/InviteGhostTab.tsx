@@ -28,7 +28,7 @@ import { useInviteGhosts } from './hooks/useInviteGhosts';
 
 type InviteGhostTabProps = {
   team?: FindTeamQuery['team'];
-  onClose: () => void;
+  handleTabChange: (index: number) => void;
 };
 
 const validationSchema = Yup.object({
@@ -42,14 +42,14 @@ const validationSchema = Yup.object({
   teamId: Yup.string().required(),
 });
 
-const InviteGhostTab = ({ team, onClose }: InviteGhostTabProps) => {
+const InviteGhostTab = ({ team, handleTabChange }: InviteGhostTabProps) => {
   const handleSubmit = async (values: any, actions: any) => {
     try {
       const playerCountCreated = await handleInviteGhostsPlayers(values);
       if (!playerCountCreated) return;
 
       actions.resetForm();
-      onClose();
+      handleTabChange(2);
     } catch (error) {
       console.error(error);
     }

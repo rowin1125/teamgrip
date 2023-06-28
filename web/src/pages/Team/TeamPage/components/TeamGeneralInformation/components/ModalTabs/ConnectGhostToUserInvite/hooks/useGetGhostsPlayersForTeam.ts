@@ -8,7 +8,7 @@ import { useQuery } from '@redwoodjs/web';
 
 import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment';
 
-const GET_GHOST_PLAYERS_FOR_BY_TEAM_ID = gql`
+export const GET_GHOST_PLAYERS_FOR_BY_TEAM_ID = gql`
   ${PLAYER_FRAGMENT}
   query GetGhostPlayersForTeamQuery($teamId: String!) {
     getGhostPlayersByTeamId(teamId: $teamId) {

@@ -34,7 +34,7 @@ const InvitePlayers = ({ team, defaultIndex, onClose }: InvitePlayersProps) => {
           <ControlTeamInviteTab team={team} />
         </TabPanel>
         <TabPanel>
-          <InviteGhostTab team={team} onClose={onClose} />
+          <InviteGhostTab team={team} handleTabChange={handleTabChange} />
         </TabPanel>
         <TabPanel>
           <ConnectGhostToUserInvite

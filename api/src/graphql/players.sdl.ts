@@ -41,6 +41,7 @@ export const schema = gql`
       @requireAuth
     getPlayerScoresByTeamId(teamId: String!): Player @requireAuth
     getPlayersPresenceByTeamId(teamId: String!): [Player]! @requireAuth
+    getHistoryPlayersByTeamId(teamId: String!): [Player]! @requireAuth
   }
 
   input CreatePlayerInput {
@@ -87,6 +88,7 @@ export const schema = gql`
       ghostId: String!
       teamId: String!
     ): Player! @requireAuth
+    rejoinTeamFromHistory(id: String!, teamId: String!): Player! @requireAuth
 
     createPlayer(input: CreatePlayerInput!): Player! @requireAuth
     updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @requireAuth

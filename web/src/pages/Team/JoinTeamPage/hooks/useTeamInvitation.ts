@@ -1,6 +1,8 @@
 import {
   PlayerJoinsTeamByGhostInvitation,
   PlayerJoinsTeamByGhostInvitationVariables,
+  PlayerRejoinsTeamFromHistory,
+  PlayerRejoinsTeamFromHistoryVariables,
   UpdatePlayerMutation,
   UpdatePlayerMutationVariables,
 } from 'types/graphql';
@@ -11,6 +13,7 @@ import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/dist/toast';
 
 import { PLAYER_FRAGMENT } from 'src/graphql/fragments/PlayerFragment';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
 const UPDATE_PLAYER_MUTATION = gql`
   ${PLAYER_FRAGMENT}
@@ -38,8 +41,18 @@ const PLAYER_JOINS_TEAM_BY_GHOST_INVITATION = gql`
   }
 `;
 
+const PLAYER_REJOINS_TEAM_FROM_HISTORY = gql`
+  ${PLAYER_FRAGMENT}
+  mutation PlayerRejoinsTeamFromHistory($id: String!, $teamId: String!) {
+    rejoinTeamFromHistory(id: $id, teamId: $teamId) {
+      ...PlayerFragment
+    }
+  }
+`;
+
 export const useTeamInvitation = () => {
-  const { reauthenticate } = useAuth();
+  const { reauthenticate, currentUser } = useAuth();
+  const { team } = useGetTeamById();
 
   const [updatePlayer, { loading }] = useMutation<
     UpdatePlayerMutation,
@@ -48,23 +61,45 @@ export const useTeamInvitation = () => {
     onCompleted: reauthenticate,
   });
 
+  const [playerRejoinsTeamFromHistory, { loading: rejoinLoading }] =
+    useMutation<
+      PlayerRejoinsTeamFromHistory,
+      PlayerRejoinsTeamFromHistoryVariables
+    >(PLAYER_REJOINS_TEAM_FROM_HISTORY, {
+      onCompleted: reauthenticate,
+    });
+
   const handleJoinTeam = async (playerId: string, teamId: string) => {
+    const isPartOfTeam = !!team;
+    const isOwner = team?.owner?.id === currentUser?.id;
+    if (isOwner) {
+      toast.error(
+        'Je bent eigenaar van een team, verwijder eerst dit team en open vervolgens opnieuw de link',
+        {
+          duration: 10000,
+        }
+      );
+      navigate(routes.teamSettings());
+      return;
+    }
+    if (isPartOfTeam) {
+      toast.error(
+        'Je bent al onderdeel van een team, verlaat eerst je huidige team'
+      );
+      return;
+    }
     try {
-      await updatePlayer({
+      await playerRejoinsTeamFromHistory({
         variables: {
           id: playerId,
-          input: {
-            teamId: teamId,
-            teamInvitation: null,
-            isActivePlayer: true,
-          },
+          teamId,
         },
       });
+
       toast.success('Gefeliciteerd, je bent onderdeel van het team');
       navigate(routes.team());
-    } catch (error) {
-      console.error(error);
-      toast.error('Oeps er is iets fout gegaan 😢');
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 

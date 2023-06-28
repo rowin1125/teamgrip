@@ -11,9 +11,6 @@ import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/dist/toast';
 
-import { FIND_TEAM_QUERY } from 'src/hooks/api/query/useGetTeamById';
-import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
-
 const CREATE_TEAM_MUTATION = gql`
   mutation CreateTeamMutation($input: CreateTeamInput!) {
     createTeam(input: $input) {
@@ -25,7 +22,6 @@ const CREATE_TEAM_MUTATION = gql`
 
 export const useCreateTeam = (clubs?: GetClubsQuery['clubs']) => {
   const { reauthenticate } = useAuth();
-  const { currentUser } = useTeamPlayerAuth();
 
   const [createTeam, { loading }] = useMutation<
     CreateTeamMutation,

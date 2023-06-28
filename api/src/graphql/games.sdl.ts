@@ -22,7 +22,8 @@ export const schema = gql`
     game(id: String!): Game! @requireAuth
     gamesByTeamId(id: String!, limit: Int!, page: Int!): PaginatedGames
       @requireAuth
-    getRecentGames(playerId: String!, limit: Int!): [Game!]! @requireAuth
+    getRecentGames(playerId: String!, limit: Int!, teamId: String!): [Game!]!
+      @requireAuth
   }
 
   input CreateGameInput {
