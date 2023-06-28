@@ -60,9 +60,11 @@ export const trainingByTeamId: QueryResolvers['trainingByTeamId'] = async ({
 export const getRecentTrainings: QueryResolvers['getRecentTrainings'] = async ({
   playerId,
   limit,
+  teamId,
 }) => {
   const trainings = await db.training.findMany({
     where: {
+      teamId,
       players: {
         some: {
           id: playerId,

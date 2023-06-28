@@ -10,6 +10,7 @@ import { toast } from '@redwoodjs/web/dist/toast';
 
 import { GET_PLAYERS_AND_SCORES_BY_TEAM_ID } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
+import { GET_GHOST_PLAYERS_FOR_BY_TEAM_ID } from '../../ConnectGhostToUserInvite/hooks/useGetGhostsPlayersForTeam';
 
 export const INVITE_GHOSTS_PLAYERS = gql`
   mutation InviteGhostsPlayersMutation($input: CreateGhostPlayersInput!) {
@@ -33,6 +34,10 @@ export const useInviteGhosts = () => {
       {
         query: GET_PLAYERS_AND_SCORES_BY_TEAM_ID,
         variables: { teamId: currentUser?.player?.teamId, limit: 50 },
+      },
+      {
+        query: GET_GHOST_PLAYERS_FOR_BY_TEAM_ID,
+        variables: { teamId: currentUser?.player?.teamId },
       },
     ],
   });

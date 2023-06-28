@@ -53,6 +53,7 @@ export const createUsersAndConnectToTeam = async () => {
         if (!team) throw new Error('No team for rowin found');
 
         const club = await db.club.findFirst();
+
         await db.player.create({
           data: {
             displayName: `${firstname} ${lastname}`,
@@ -69,7 +70,20 @@ export const createUsersAndConnectToTeam = async () => {
             },
             club: {
               connect: {
-                id: club.id,
+                id: club?.id,
+              },
+            },
+          },
+        });
+
+        await db.team.update({
+          where: {
+            id: team.id,
+          },
+          data: {
+            club: {
+              connect: {
+                id: club?.id,
               },
             },
           },

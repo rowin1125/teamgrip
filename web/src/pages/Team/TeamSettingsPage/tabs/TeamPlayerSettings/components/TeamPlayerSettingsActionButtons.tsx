@@ -1,12 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
 
-import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import {
+  Flex,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
 
 import DeleteDialog from 'src/components/DeleteDialog/DeleteDialog';
 import TextAlert from 'src/components/TextAlert/TextAlert';
 import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
+import { SlOptionsVertical } from 'react-icons/sl';
 import TeamPlayerSettingsEditPlayerType from './TeamPlayerSettingsEditPlayerType';
 
 type TeamPlayerSettingsActionButtonsProps = {
@@ -26,34 +35,54 @@ const TeamPlayerSettingsActionButtons = ({
 
   return (
     <Flex>
-      <TeamPlayerSettingsEditPlayerType
-        onClose={onClose}
-        isOpen={isOpen}
-        onOpen={onOpen}
-        entries={entries}
-        row={row}
-        rowIsOwner={rowIsOwner}
-      />
-      <DeleteDialog
-        buttonProps={{
-          ml: 4,
-          isDisabled: rowIsOwner,
-        }}
-        buttonVariant={'outline'}
-        onDelete={onDelete}
-        id={row.id}
-        title="Training verwijderen"
-      >
-        <TextAlert status="warning">
-          <i>Weet je zeker dat je deze speler wilt verwijderen uit je team?</i>
-        </TextAlert>
-        <Text mt={4}>
-          Bij het drukken op <strong>delete</strong> zal de speler worden
-          verwijderd en alle bijbehorende gegevens die gekoppeld zijn aan dit
-          team verloren gaan.
-        </Text>
-      </DeleteDialog>
-      <Button variant="ghost" colorScheme="red"></Button>
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label="Options"
+          icon={<SlOptionsVertical />}
+          variant="ghost"
+        />
+        <MenuList>
+          <MenuItem as="div" mb={2}>
+            <TeamPlayerSettingsEditPlayerType
+              onClose={onClose}
+              isOpen={isOpen}
+              onOpen={onOpen}
+              entries={entries}
+              row={row}
+              rowIsOwner={rowIsOwner}
+            />
+          </MenuItem>
+          <MenuItem as="div">
+            <DeleteDialog
+              buttonProps={{
+                isDisabled: rowIsOwner,
+              }}
+              buttonVariant={'link'}
+              onDelete={onDelete}
+              id={row.id}
+              title="Training verwijderen"
+              buttonLabel="Verwijderen uit team"
+              buttonLabelProps={{
+                color: 'black',
+                fontSize: 'sm',
+              }}
+              deleteButtonLabel="Verwijderen 🗑️"
+            >
+              <TextAlert status="warning">
+                <i>
+                  Weet je zeker dat je deze speler wilt verwijderen uit je team?
+                </i>
+              </TextAlert>
+              <Text mt={4}>
+                Alle scores van de wedstrijden en trainingen zullen{' '}
+                <strong>wel</strong> worden behouden. Je kunt de speler altijd
+                weer toevoegen aan je team via het kopje `historische spelers`.
+              </Text>
+            </DeleteDialog>
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   );
 };

@@ -6,8 +6,17 @@ import AvatarSettings from './components/AvatarSettings';
 import GlobalSettings from './components/GlobalSettings';
 import ProfileSettings from './components/ProfileSettings';
 import SettingsIntro from './components/SettingsIntro';
+import LeaveTeamSettings from './components/LeaveTeamSettings';
+import { useAuth } from 'src/auth';
+import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
 const SettingsPage = () => {
+  const { currentUser } = useAuth();
+  const { team } = useGetTeamById();
+
+  const isOwner = team?.owner?.id === currentUser?.id;
+  const showDeletePlayerVisible = !isOwner && currentUser?.player?.teamId;
+
   return (
     <>
       <MetaTags
@@ -24,6 +33,7 @@ const SettingsPage = () => {
         <GlobalSettings />
         <ProfileSettings />
         <AvatarSettings />
+        {showDeletePlayerVisible && <LeaveTeamSettings />}
       </Grid>
     </>
   );

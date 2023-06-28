@@ -25,6 +25,7 @@ import TeamNotFoundMessage from '../TeamPage/components/TeamNotFoundMessage';
 import GlobalTeamSettings from './tabs/GlobalTeamSettings/GlobalTeamSettings';
 import TeamPlayerSettings from './tabs/TeamPlayerSettings';
 import TeamSeasonSettings from './tabs/TeamSeasonSettings';
+import TeamHistoryPlayersSettings from './tabs/TeamHistoryPlayersSettings/TeamHistoryPlayersSettings';
 
 const TeamSettingsPage = () => {
   const { team, loading } = useGetTeamById();
@@ -75,6 +76,9 @@ const TeamSettingsPage = () => {
                 <Tab>
                   <Text fontWeight="bold">Seizoenen beheren</Text>
                 </Tab>
+                <Tab>
+                  <Text fontWeight="bold">Historische spelers</Text>
+                </Tab>
               </TabList>
 
               <TabPanels>
@@ -86,6 +90,9 @@ const TeamSettingsPage = () => {
                 </TabPanel>
                 <TabPanel>
                   <TeamSeasonSettings />
+                </TabPanel>
+                <TabPanel>
+                  <TeamHistoryPlayersSettings />
                 </TabPanel>
               </TabPanels>
             </Tabs>

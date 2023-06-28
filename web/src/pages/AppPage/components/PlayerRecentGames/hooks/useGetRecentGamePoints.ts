@@ -8,8 +8,12 @@ import { useQuery } from '@redwoodjs/web';
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
 export const GET_RECENT_TRAININGS_QUERY = gql`
-  query GetRecentGamesQuery($playerId: String!, $limit: Int!) {
-    getRecentGames(playerId: $playerId, limit: $limit) {
+  query GetRecentGamesQuery(
+    $playerId: String!
+    $limit: Int!
+    $teamId: String!
+  ) {
+    getRecentGames(playerId: $playerId, limit: $limit, teamId: $teamId) {
       id
       date
       scores {
@@ -31,6 +35,7 @@ export const useGetRecentGamePoints = () => {
     variables: {
       playerId: currentUser?.player?.id || '',
       limit: 10,
+      teamId: currentUser?.player?.teamId || '',
     },
   });
 

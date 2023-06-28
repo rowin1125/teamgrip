@@ -103,20 +103,8 @@ export const teamExtraDetails: QueryResolvers['teamExtraDetails'] = ({
     where: { id },
     include: {
       club: true,
-      players: {
-        include: {
-          games: {
-            include: {
-              _count: true,
-            },
-          },
-          trainings: {
-            include: {
-              _count: true,
-            },
-          },
-        },
-      },
+      historyPlayers: true,
+      players: true,
       games: true,
       trainings: true,
     },

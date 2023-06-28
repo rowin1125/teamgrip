@@ -60,7 +60,7 @@ const AcceptButtons = ({ ghostPlayer, team }: AcceptButtonsProps) => {
           handleJoinTeam(currentUser?.player?.id || '', team?.id || '')
         }
       >
-        Join zonder gegevens ⚠️
+        {hasGhostPlayer ? 'Join zonder gegevens ⚠️' : 'Join'}
       </Button>
 
       {hasGhostPlayer && (

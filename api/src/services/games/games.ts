@@ -58,9 +58,11 @@ export const gamesByTeamId: QueryResolvers['gamesByTeamId'] = async ({
 export const getRecentGames: QueryResolvers['getRecentGames'] = async ({
   playerId,
   limit,
+  teamId,
 }) => {
   const games = await db.game.findMany({
     where: {
+      teamId,
       players: {
         some: {
           id: playerId,

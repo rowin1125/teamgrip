@@ -14,6 +14,7 @@ export const schema = gql`
     season: [Season]!
     trainings: [Training]!
     games: [Game]!
+    historyPlayers: [Player]!
   }
 
   type AllGamesAndTrainings {
