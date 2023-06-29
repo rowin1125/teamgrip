@@ -20,10 +20,11 @@ import {
   allWordsCapitalized,
   capitalizeText,
 } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const ProfileSettings = () => {
   const { currentUser } = useAuth();
-  const { team } = useGetTeamById();
+  const { team, loading } = useGetTeamById();
 
   return (
     <GridItem
@@ -32,79 +33,81 @@ const ProfileSettings = () => {
       mb={{ base: 10, xl: 0 }}
     >
       <Card h="full">
-        <Flex flexDirection="column" justifyContent="space-between" h="full">
-          <Box>
-            <Heading size="md">Mijn profiel</Heading>
-            <Grid templateColumns="repeat(3, 1fr)" mt={4} gap={2}>
-              <GridItem colSpan={1}>
-                <Text fontWeight="bold" color="black">
-                  Voornaam:
-                </Text>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <Text>
-                  {capitalizeText(
-                    currentUser?.userProfile?.firstname || 'Onbekend'
+        <DefaultLoader isLoading={loading}>
+          <Flex flexDirection="column" justifyContent="space-between" h="full">
+            <Box>
+              <Heading size="md">Mijn profiel</Heading>
+              <Grid templateColumns="repeat(3, 1fr)" mt={4} gap={2}>
+                <GridItem colSpan={1}>
+                  <Text fontWeight="bold" color="black">
+                    Voornaam:
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <Text>
+                    {capitalizeText(
+                      currentUser?.userProfile?.firstname || 'Onbekend'
+                    )}
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text fontWeight="bold" color="black">
+                    Achternaam:
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <Text>
+                    {capitalizeText(
+                      currentUser?.userProfile?.lastname || 'Onbekend'
+                    )}
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text fontWeight="bold" color="black">
+                    Email:
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <Text>{currentUser?.email}</Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text fontWeight="bold" color="black">
+                    Club:
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <Text>{team?.club?.name}</Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text fontWeight="bold" color="black">
+                    Team:
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  <Text>{team?.name}</Text>
+                </GridItem>
+                <GridItem colSpan={1}>
+                  <Text fontWeight="bold" color="black">
+                    Team eigenaar:
+                  </Text>
+                </GridItem>
+                <GridItem colSpan={2}>
+                  {allWordsCapitalized(
+                    `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}` ||
+                      'Onbekend'
                   )}
-                </Text>
-              </GridItem>
-              <GridItem colSpan={1}>
-                <Text fontWeight="bold" color="black">
-                  Achternaam:
-                </Text>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <Text>
-                  {capitalizeText(
-                    currentUser?.userProfile?.lastname || 'Onbekend'
-                  )}
-                </Text>
-              </GridItem>
-              <GridItem colSpan={1}>
-                <Text fontWeight="bold" color="black">
-                  Email:
-                </Text>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <Text>{currentUser?.email}</Text>
-              </GridItem>
-              <GridItem colSpan={1}>
-                <Text fontWeight="bold" color="black">
-                  Club:
-                </Text>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <Text>{team?.club?.name}</Text>
-              </GridItem>
-              <GridItem colSpan={1}>
-                <Text fontWeight="bold" color="black">
-                  Team:
-                </Text>
-              </GridItem>
-              <GridItem colSpan={2}>
-                <Text>{team?.name}</Text>
-              </GridItem>
-              <GridItem colSpan={1}>
-                <Text fontWeight="bold" color="black">
-                  Team eigenaar:
-                </Text>
-              </GridItem>
-              <GridItem colSpan={2}>
-                {allWordsCapitalized(
-                  `${team?.owner?.userProfile.firstname} ${team?.owner?.userProfile.lastname}` ||
-                    'Onbekend'
-                )}
-              </GridItem>
-            </Grid>
-          </Box>
-          <Button
-            as={RedwoodLink}
-            to={routes.updateUser()}
-            mt={{ base: 8, xl: 0 }}
-          >
-            Wijzig profiel
-          </Button>
-        </Flex>
+                </GridItem>
+              </Grid>
+            </Box>
+            <Button
+              as={RedwoodLink}
+              to={routes.updateUser()}
+              mt={{ base: 8, xl: 0 }}
+            >
+              Wijzig profiel
+            </Button>
+          </Flex>
+        </DefaultLoader>
       </Card>
     </GridItem>
   );

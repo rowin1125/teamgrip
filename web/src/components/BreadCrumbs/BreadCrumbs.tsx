@@ -11,6 +11,7 @@ import {
 import RedwoodLink from '../RedwoodLink';
 
 import { useGetBreadCrumbs } from './hooks/useGetBreadCrumbs';
+import { truncateText } from 'src/helpers/textHelpers/truncateText/truncateText';
 
 export type BreadCrumbsProps = {
   breadCrumbLabelOverride?: string;
@@ -34,13 +35,13 @@ const BreadCrumbs = ({ breadCrumbLabelOverride }: BreadCrumbsProps) => {
           const isActive = breadCrumbs.length === index + 1;
 
           return (
-            <BreadcrumbItem key={breadCrumb.href}>
+            <BreadcrumbItem key={breadCrumb.href} mx={0}>
               <BreadcrumbLink
                 as={RedwoodLink}
                 to={breadCrumb.href}
                 isCurrentPage={isActive}
               >
-                {breadCrumb.breadCrumb}
+                {truncateText(breadCrumb.breadCrumb, 15)}
               </BreadcrumbLink>
             </BreadcrumbItem>
           );

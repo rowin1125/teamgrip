@@ -1,25 +1,32 @@
-import { Skeleton } from '@chakra-ui/react';
+import { Center, Spinner } from '@chakra-ui/react';
 
 type DefaultLoaderProps = {
   children?: React.ReactNode;
   isLoading: boolean;
   theme?: 'dark' | 'light';
+  minH?: string;
 };
 
-const DefaultLoader = ({ children, isLoading, theme }: DefaultLoaderProps) => {
+const DefaultLoader = ({
+  children,
+  isLoading,
+  theme,
+  minH = '400px',
+}: DefaultLoaderProps) => {
   const isDarkTheme = theme === 'dark';
 
+  if (!isLoading) return children;
+
   return (
-    <Skeleton
+    <Center
+      minH={minH}
+      w="full"
+      backdropFilter="blur(5px)"
+      bg={isDarkTheme ? 'gray.800' : 'white'}
       rounded="2xl"
-      isLoaded={!isLoading}
-      opacity={1}
-      startColor={isDarkTheme ? 'primary.200' : 'gray.50'}
-      speed={1.3}
-      endColor={isDarkTheme ? 'primary.900' : 'gray.300'}
     >
-      {children}
-    </Skeleton>
+      <Spinner size="xl" thickness="6px" />
+    </Center>
   );
 };
 

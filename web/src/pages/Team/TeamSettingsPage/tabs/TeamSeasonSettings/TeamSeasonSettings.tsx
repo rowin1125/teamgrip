@@ -8,21 +8,21 @@ import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 
 import { useDeleteSeasonById } from './hooks/useDeleteSeasonById';
 import { useGetSeasonsByTeamId } from './hooks/useGetSeasonsByTeamId';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const TeamSeasonSettings = () => {
   const { seasons, loading } = useGetSeasonsByTeamId();
-  const { team } = useGetTeamById();
+  const { team, loading: teamLoading } = useGetTeamById();
   const { handleDeleteSeason } = useDeleteSeasonById();
-
-  if (loading) return null;
 
   return (
     <Box>
       <Flex
+        mt={8}
         justifyContent="space-between"
         flexDirection={{ base: 'column', xl: 'row' }}
       >
-        <Heading as="h2" size="lg" mt={8}>
+        <Heading as="h2" size="lg">
           Beheer jouw seizoenen
         </Heading>
         {team && (
@@ -40,28 +40,30 @@ const TeamSeasonSettings = () => {
       </Flex>
 
       <Box overflowX="auto">
-        <TeamTable
-          theme="light"
-          size="sm"
-          entries={seasons?.map((season) => {
-            const seasonScoresAmount = season?.scores?.length;
+        <DefaultLoader isLoading={loading || teamLoading}>
+          <TeamTable
+            theme="light"
+            size="sm"
+            entries={seasons?.map((season) => {
+              const seasonScoresAmount = season?.scores?.length;
 
-            return {
-              id: season?.id,
-              Seizoensnaam: season?.name,
-              Actief: season?.active ? 'Ja' : 'Nee',
-              'Aantal trainingen': season?.trainings.length,
-              'Aantal wedstrijden': season?.games.length,
-              'Aantal scores': seasonScoresAmount,
-            };
-          })}
-          hiddenColumns={['id']}
-          routes={{
-            update: routes.updateSeason,
-          }}
-          onDelete={handleDeleteSeason}
-          showActions
-        />
+              return {
+                id: season?.id,
+                Seizoensnaam: season?.name,
+                Actief: season?.active ? 'Ja' : 'Nee',
+                'Aantal trainingen': season?.trainings.length,
+                'Aantal wedstrijden': season?.games.length,
+                'Aantal scores': seasonScoresAmount,
+              };
+            })}
+            hiddenColumns={['id']}
+            routes={{
+              update: routes.updateSeason,
+            }}
+            onDelete={handleDeleteSeason}
+            showActions
+          />
+        </DefaultLoader>
       </Box>
     </Box>
   );

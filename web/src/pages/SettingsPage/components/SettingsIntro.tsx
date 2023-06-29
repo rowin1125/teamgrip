@@ -17,9 +17,10 @@ import { routes } from '@redwoodjs/router';
 import Card from 'src/components/Card/Card';
 import RedwoodLink from 'src/components/RedwoodLink';
 import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const SettingsIntro = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
 
   return (
     <GridItem
@@ -28,54 +29,56 @@ const SettingsIntro = () => {
       mb={{ base: 10, xl: 0 }}
     >
       <Card h="full">
-        <Flex
-          flexDirection={{ base: 'column', xl: 'row' }}
-          justifyContent="space-between"
-          h="full"
-        >
+        <DefaultLoader isLoading={loading} minH="150px">
           <Flex
-            alignItems="center"
             flexDirection={{ base: 'column', xl: 'row' }}
+            justifyContent="space-between"
+            h="full"
           >
-            <Box>
-              <Icon as={GiLaurelsTrophy} fontSize="80px" color="gold" />
-            </Box>
-            <Box ml={8}>
-              <Heading>
-                {allWordsCapitalized(
-                  `${currentUser?.userProfile?.firstname} ${
-                    currentUser?.userProfile?.lastname || 'Onbekend'
-                  }`
-                )}
-              </Heading>
-              <Text>{currentUser?.email}</Text>
-            </Box>
-          </Flex>
+            <Flex
+              alignItems="center"
+              flexDirection={{ base: 'column', xl: 'row' }}
+            >
+              <Box>
+                <Icon as={GiLaurelsTrophy} fontSize="80px" color="gold" />
+              </Box>
+              <Box ml={8}>
+                <Heading>
+                  {allWordsCapitalized(
+                    `${currentUser?.userProfile?.firstname} ${
+                      currentUser?.userProfile?.lastname || 'Onbekend'
+                    }`
+                  )}
+                </Heading>
+                <Text>{currentUser?.email}</Text>
+              </Box>
+            </Flex>
 
-          <Flex
-            alignItems={{ xl: 'center' }}
-            mt={{ base: 8, xl: 0 }}
-            flexDirection={{ base: 'column', xl: 'row' }}
-          >
-            <Button
-              as={RedwoodLink}
-              to={routes.club()}
-              mb={{ base: 4, xl: 0 }}
-              variant="outline"
-              mx={{ xl: 10 }}
+            <Flex
+              alignItems={{ xl: 'center' }}
+              mt={{ base: 8, xl: 0 }}
+              flexDirection={{ base: 'column', xl: 'row' }}
             >
-              Mijn club
-            </Button>
-            <Button
-              as={RedwoodLink}
-              to={routes.team()}
-              mb={{ base: 4, xl: 0 }}
-              variant="outline"
-            >
-              Mijn team
-            </Button>
+              <Button
+                as={RedwoodLink}
+                to={routes.club()}
+                mb={{ base: 4, xl: 0 }}
+                variant="outline"
+                mx={{ xl: 10 }}
+              >
+                Mijn club
+              </Button>
+              <Button
+                as={RedwoodLink}
+                to={routes.team()}
+                mb={{ base: 4, xl: 0 }}
+                variant="outline"
+              >
+                Mijn team
+              </Button>
+            </Flex>
           </Flex>
-        </Flex>
+        </DefaultLoader>
       </Card>
     </GridItem>
   );

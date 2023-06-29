@@ -10,6 +10,7 @@ import { useGetPlayersForTeam } from 'src/pages/Team/TeamPage/hooks/useGetPlayer
 import GameForm from '../form/GameForm';
 
 import { useCreateGame } from './hooks/useCreateGame';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const NewGamePage = () => {
   const { team, loading } = useGetTeamById();
@@ -37,23 +38,24 @@ const NewGamePage = () => {
         <GridItem colSpan={{ base: 3, md: 3, '2xl': 2 }}>
           <Card position="relative">
             <Heading>Nieuwe wedstrijd aanmaken ⚽️🏃</Heading>
-
-            <GameForm
-              initialValues={{
-                date: format(new Date(), 'yyyy-MM-dd'),
-                seasonId: defaultTeamSeasonId,
-                teamId: team?.id,
-                scores: initialScoresInputValues,
-                topGameScores: initialTopGameScores,
-              }}
-              type="new"
-              onSubmit={handleCreateGame}
-              loading={createGameLoading}
-              team={team}
-              players={playersData?.playersForTeam}
-              setShowTop={setShowTop}
-              showTop={showTop}
-            />
+            <DefaultLoader isLoading={playersLoading || loading} minH="400px">
+              <GameForm
+                initialValues={{
+                  date: format(new Date(), 'yyyy-MM-dd'),
+                  seasonId: defaultTeamSeasonId,
+                  teamId: team?.id,
+                  scores: initialScoresInputValues,
+                  topGameScores: initialTopGameScores,
+                }}
+                type="new"
+                onSubmit={handleCreateGame}
+                loading={createGameLoading}
+                team={team}
+                players={playersData?.playersForTeam}
+                setShowTop={setShowTop}
+                showTop={showTop}
+              />
+            </DefaultLoader>
           </Card>
         </GridItem>
       </Grid>

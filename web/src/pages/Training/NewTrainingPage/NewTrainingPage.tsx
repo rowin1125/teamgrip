@@ -10,6 +10,7 @@ import { useGetPlayersForTeam } from 'src/pages/Team/TeamPage/hooks/useGetPlayer
 import TrainingForm from '../form/TrainingForm';
 
 import { useCreateTraining } from './hooks/useCreateTraining';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const NewTrainingPage = () => {
   const { playersData, playersLoading } = useGetPlayersForTeam();
@@ -38,23 +39,24 @@ const NewTrainingPage = () => {
         <GridItem colSpan={{ base: 3, md: 3, '2xl': 2 }}>
           <Card position="relative">
             <Heading>Nieuwe training aanmaken ⚽️🏃</Heading>
-
-            <TrainingForm
-              initialValues={{
-                date: format(new Date(), 'yyyy-MM-dd'),
-                seasonId: defaultTeamSeasonId,
-                teamId: team?.id,
-                scores: initialScoresInputValues,
-                topTrainingScores: initialTopTrainingScores,
-              }}
-              type="new"
-              onSubmit={handleCreateTraining}
-              loading={createTrainingLoading}
-              team={team}
-              players={playersData?.playersForTeam}
-              setShowTop={setShowTop}
-              showTop={showTop}
-            />
+            <DefaultLoader isLoading={playersLoading || loading} minH="400px">
+              <TrainingForm
+                initialValues={{
+                  date: format(new Date(), 'yyyy-MM-dd'),
+                  seasonId: defaultTeamSeasonId,
+                  teamId: team?.id,
+                  scores: initialScoresInputValues,
+                  topTrainingScores: initialTopTrainingScores,
+                }}
+                type="new"
+                onSubmit={handleCreateTraining}
+                loading={createTrainingLoading}
+                team={team}
+                players={playersData?.playersForTeam}
+                setShowTop={setShowTop}
+                showTop={showTop}
+              />
+            </DefaultLoader>
           </Card>
         </GridItem>
       </Grid>

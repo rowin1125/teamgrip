@@ -12,6 +12,7 @@ import TrainingForm from '../form/TrainingForm';
 
 import { useGetTrainingById } from './hooks/useGetTrainingById';
 import { useUpdateTrainingById } from './hooks/useUpdateTrainingById';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const UpdateTrainingPage = () => {
   const { training, trainingLoading } = useGetTrainingById();
@@ -38,8 +39,6 @@ const UpdateTrainingPage = () => {
     setShowTop(hasTopTrainingScores);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [training]);
-
-  if (trainingLoading || loading || !training) return null;
 
   const topTrainingScoresArray = hasTopTrainingScores
     ? topTrainingScores.map((score) => ({
@@ -70,30 +69,35 @@ const UpdateTrainingPage = () => {
         <GridItem colSpan={{ base: 3, md: 3, '2xl': 2 }}>
           <Card position="relative">
             <Heading>Update training ⚽️🏃</Heading>
-
-            <TrainingForm
-              initialValues={{
-                date: format(new Date(training.date), 'yyyy-MM-dd'),
-                seasonId: training?.season?.id,
-                teamId: training?.teamId,
-                scores: regularScores?.map((score) => ({
-                  playerId: score?.player?.id,
-                  seasonId: training?.season?.id,
-                  points: score?.points,
-                  teamId: team?.id,
-                  trainingId: training?.id,
-                  type: 'TRAINING',
-                })),
-                topTrainingScores: topTrainingScoresArray,
-              }}
-              type="new"
-              onSubmit={handleUpdateTraining}
-              loading={trainingLoading || updateTrainingLoading}
-              team={team}
-              players={team?.players.filter((player) => player?.isActivePlayer)}
-              setShowTop={setShowTop}
-              showTop={showTop}
-            />
+            <DefaultLoader isLoading={trainingLoading || loading} minH="400px">
+              {training && team && (
+                <TrainingForm
+                  initialValues={{
+                    date: format(new Date(training?.date || ''), 'yyyy-MM-dd'),
+                    seasonId: training?.season?.id,
+                    teamId: training?.teamId,
+                    scores: regularScores?.map((score) => ({
+                      playerId: score?.player?.id,
+                      seasonId: training?.season?.id,
+                      points: score?.points,
+                      teamId: team?.id,
+                      trainingId: training?.id,
+                      type: 'TRAINING',
+                    })),
+                    topTrainingScores: topTrainingScoresArray,
+                  }}
+                  type="new"
+                  onSubmit={handleUpdateTraining}
+                  loading={trainingLoading || updateTrainingLoading}
+                  team={team}
+                  players={team?.players.filter(
+                    (player) => player?.isActivePlayer
+                  )}
+                  setShowTop={setShowTop}
+                  showTop={showTop}
+                />
+              )}
+            </DefaultLoader>
           </Card>
         </GridItem>
       </Grid>
