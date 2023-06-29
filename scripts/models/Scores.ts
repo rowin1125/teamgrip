@@ -30,7 +30,7 @@ export const createScores = async (season: Prisma.SeasonCreateArgs['data']) => {
           },
           team: {
             connect: {
-              id: user.team[0].id,
+              id: user.player?.teamId || '',
             },
           },
 
@@ -55,7 +55,7 @@ export const createScores = async (season: Prisma.SeasonCreateArgs['data']) => {
               type: 'TRAINING',
               team: {
                 connect: {
-                  id: user.team[0].id,
+                  id: user.player?.teamId || '',
                 },
               },
             },
