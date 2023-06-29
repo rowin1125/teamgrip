@@ -30,3 +30,7 @@ do-db-reset-and-create-migration:
 
 do-seed:
 	@yarn rw prisma db seed
+
+do-migrate-create:
+	@yarn rw prisma migrate dev
+	@yarn rw prisma migrate deploy

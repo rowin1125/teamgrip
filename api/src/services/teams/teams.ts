@@ -145,7 +145,7 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
     }
     console.log('user', user);
 
-    const isInATeam = user?.team && user.team.length > 0;
+    const isInATeam = user?.player?.teamId;
     if (isInATeam)
       throw new UserInputError('Je maakt al deel uit van een Team');
 
