@@ -143,8 +143,10 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
         },
       });
     }
+    console.log('user', user);
 
-    if (user?.team.length)
+    const isInATeam = user?.team && user.team.length > 0;
+    if (isInATeam)
       throw new UserInputError('Je maakt al deel uit van een Team');
 
     const createTeam = db.team.create({
@@ -239,7 +241,7 @@ export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
 
   await db.player.update({
     where: {
-      userId: context.currentUser.id,
+      userId: context?.currentUser?.id,
     },
     data: {
       playerType: 'PLAYER',
