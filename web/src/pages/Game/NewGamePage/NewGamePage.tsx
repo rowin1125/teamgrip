@@ -25,8 +25,6 @@ const NewGamePage = () => {
     handleCreateGame,
   } = useCreateGame({ team, playersData, showTop });
 
-  if (loading || playersLoading) return null;
-
   return (
     <>
       <MetaTags

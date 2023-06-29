@@ -29,8 +29,6 @@ const NewTrainingPage = () => {
     showTop,
   });
 
-  if (loading || playersLoading) return null;
-
   return (
     <>
       <MetaTags title="Nieuwe training" description="NewTraining page" />
