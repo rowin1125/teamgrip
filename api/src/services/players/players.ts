@@ -465,6 +465,7 @@ export const deletePlayer: MutationResolvers['deletePlayer'] = async ({
             id: player.id,
           },
           data: {
+            playerType: 'PLAYER',
             historySeasons: {
               connect: {
                 id: player.team?.season?.[0]?.id,
