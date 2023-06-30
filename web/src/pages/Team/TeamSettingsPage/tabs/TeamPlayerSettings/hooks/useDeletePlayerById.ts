@@ -14,7 +14,7 @@ export const DELETE_PLAYER_BY_ID_MUTATION = gql`
   }
 `;
 
-export const useDeletePlayerById = (refreshAfterDelete: boolean) => {
+export const useDeletePlayerById = (refreshAfterDelete?: boolean) => {
   const { currentUser } = useAuth();
   const [deletePlayer, { loading }] = useMutation(
     DELETE_PLAYER_BY_ID_MUTATION,

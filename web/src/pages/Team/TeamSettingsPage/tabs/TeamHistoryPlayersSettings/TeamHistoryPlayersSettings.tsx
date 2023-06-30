@@ -3,13 +3,13 @@ import { useGetHistoryPlayersByTeamId } from './hooks/useGetHistoryPlayersByTeam
 import TeamHistoryPlayersTable from './components/TeamHistoryPlayersTable';
 import { Box, Heading, Text } from '@chakra-ui/react';
 import TextAlert from 'src/components/TextAlert/TextAlert';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 type TeamHistoryPlayersSettingsProps = {};
 
 const TeamHistoryPlayersSettings = ({}: TeamHistoryPlayersSettingsProps) => {
-  const { historyPlayersData } = useGetHistoryPlayersByTeamId();
-
-  if (!historyPlayersData) return null;
+  const { historyPlayersData, historyPlayersLoading } =
+    useGetHistoryPlayersByTeamId();
 
   const transformedTeamPlayers = historyPlayersData?.map((player) => ({
     id: player?.id,
@@ -36,9 +36,11 @@ const TeamHistoryPlayersSettings = ({}: TeamHistoryPlayersSettingsProps) => {
           spelers te koppelen.
         </Text>
       </TextAlert>
-      <Box w={{ base: '100%', xl: '600px' }}>
-        <TeamHistoryPlayersTable entries={transformedTeamPlayers} />
-      </Box>
+      <DefaultLoader minH="200px" isLoading={historyPlayersLoading}>
+        <Box w={{ base: '100%', xl: '600px' }}>
+          <TeamHistoryPlayersTable entries={transformedTeamPlayers} />
+        </Box>
+      </DefaultLoader>
     </Box>
   );
 };

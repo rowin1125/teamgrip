@@ -16,6 +16,7 @@ import { handleTeamNameTransformation } from '../NewTeamPage/helpers/handleTeamn
 import { useGetClubs } from '../NewTeamPage/hooks/useGetClubs';
 
 import { useUpdateTeam } from './hooks/useUpdateTeam';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const UpdateTeamPage = () => {
   const { currentUser, loading: authLoading } = useAuth();
@@ -40,61 +41,65 @@ const UpdateTeamPage = () => {
         <GridItem colSpan={{ base: 3, xl: 2 }}>
           <Card>
             <Heading>Maak nu je eigen team aan 💪</Heading>
-            <Formik
-              onSubmit={handleUpdateTeam}
-              initialValues={{
-                name: team?.name || '',
-                clubId: team?.club?.id || '',
-                ownerId: currentUser?.id || '',
-                ownerIsPlayer: currentUser?.player?.isActivePlayer || false,
-                clubTeamName: team?.clubTeamName || '',
-              }}
-              validationSchema={validationSchema}
-            >
-              {({ values }) => {
-                const { name, clubId } = values;
-                const club = clubs?.find((club) => club.id === clubId);
-                const customTeamName =
-                  club &&
-                  name &&
-                  `${capitalizeText(club.name)} ${capitalizeText(name)}`;
-                return (
-                  <Box as={Form} w="full" maxW="500px">
-                    <ControlledSelect
-                      id="clubId"
-                      label="Club"
-                      options={clubs?.map(({ name, id }) => ({
-                        label: capitalizeText(name),
-                        value: id,
-                      }))}
-                      placeholder="Selecteer"
-                      reactSelectProps={{ isClearable: true }}
-                    />
-                    <ControlledInput
-                      id="name"
-                      label="Teamnaam"
-                      placeholder="Zaterdag-1"
-                      transformValue={handleTeamNameTransformation}
-                      helperText="Letop: De teamnaam mag alleen bestaan uit nummers, letters en dashes: Zaterdag-1, Zatedag-JO-17-2"
-                    />
-                    <ControlledSwitch
-                      id="ownerIsPlayer"
-                      helperText="Actieveer dit als de eigenaar zelf als speler wilt deelnemen aan de training / competitie van het team."
-                    >
-                      Eigenaar is een actieve speler van het team?
-                    </ControlledSwitch>
-                    <Button
-                      mt={8}
-                      colorScheme="secondary"
-                      type="submit"
-                      isLoading={updateTeamLoading}
-                    >
-                      Update {customTeamName ? customTeamName : 'team'}
-                    </Button>
-                  </Box>
-                );
-              }}
-            </Formik>
+            <DefaultLoader isLoading={loading || authLoading} minH="400px">
+              {team && clubs && currentUser && (
+                <Formik
+                  onSubmit={handleUpdateTeam}
+                  initialValues={{
+                    name: team?.name || '',
+                    clubId: team?.club?.id || '',
+                    ownerId: currentUser?.id || '',
+                    ownerIsPlayer: currentUser?.player?.isActivePlayer || false,
+                    clubTeamName: team?.clubTeamName || '',
+                  }}
+                  validationSchema={validationSchema}
+                >
+                  {({ values }) => {
+                    const { name, clubId } = values;
+                    const club = clubs?.find((club) => club.id === clubId);
+                    const customTeamName =
+                      club &&
+                      name &&
+                      `${capitalizeText(club.name)} ${capitalizeText(name)}`;
+                    return (
+                      <Box as={Form} w="full" maxW="500px">
+                        <ControlledSelect
+                          id="clubId"
+                          label="Club"
+                          options={clubs?.map(({ name, id }) => ({
+                            label: capitalizeText(name),
+                            value: id,
+                          }))}
+                          placeholder="Selecteer"
+                          reactSelectProps={{ isClearable: true }}
+                        />
+                        <ControlledInput
+                          id="name"
+                          label="Teamnaam"
+                          placeholder="Zaterdag-1"
+                          transformValue={handleTeamNameTransformation}
+                          helperText="Letop: De teamnaam mag alleen bestaan uit nummers, letters en dashes: Zaterdag-1, Zatedag-JO-17-2"
+                        />
+                        <ControlledSwitch
+                          id="ownerIsPlayer"
+                          helperText="Actieveer dit als de eigenaar zelf als speler wilt deelnemen aan de training / competitie van het team."
+                        >
+                          Eigenaar is een actieve speler van het team?
+                        </ControlledSwitch>
+                        <Button
+                          mt={8}
+                          colorScheme="secondary"
+                          type="submit"
+                          isLoading={updateTeamLoading}
+                        >
+                          Update {customTeamName ? customTeamName : 'team'}
+                        </Button>
+                      </Box>
+                    );
+                  }}
+                </Formik>
+              )}
+            </DefaultLoader>
           </Card>
         </GridItem>
       </Grid>

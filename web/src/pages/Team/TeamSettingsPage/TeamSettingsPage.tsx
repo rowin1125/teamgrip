@@ -1,9 +1,16 @@
 import { useEffect } from 'react';
 
 import {
+  Box,
+  Button,
+  Flex,
   Grid,
   GridItem,
   Heading,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Tab,
   TabList,
   TabPanel,
@@ -26,10 +33,13 @@ import GlobalTeamSettings from './tabs/GlobalTeamSettings/GlobalTeamSettings';
 import TeamPlayerSettings from './tabs/TeamPlayerSettings';
 import TeamSeasonSettings from './tabs/TeamSeasonSettings';
 import TeamHistoryPlayersSettings from './tabs/TeamHistoryPlayersSettings/TeamHistoryPlayersSettings';
+import { FiChevronDown } from 'react-icons/fi';
 
 const TeamSettingsPage = () => {
   const { team, loading } = useGetTeamById();
   const { isTeamStaff } = useTeamPlayerAuth();
+  const [index, setIndex] = React.useState(0);
+
   const isPartOfTeam = !!team?.id;
 
   useEffect(() => {
@@ -51,6 +61,13 @@ const TeamSettingsPage = () => {
       </>
     );
 
+  const menuItems = [
+    'Globale instellingen',
+    'Spelers beheren',
+    'Seizoenen beheren',
+    'Historische spelers',
+  ];
+
   return (
     <>
       <MetaTags
@@ -65,21 +82,56 @@ const TeamSettingsPage = () => {
         </GridItem>
         <GridItem colSpan={{ base: 4, xl: 4 }} rowSpan={1}>
           <Card overflowX="scroll">
-            <Tabs>
-              <TabList>
-                <Tab>
-                  <Text fontWeight="bold">Globale instellingen</Text>
-                </Tab>
-                <Tab>
-                  <Text fontWeight="bold">Spelers beheren</Text>
-                </Tab>
-                <Tab>
-                  <Text fontWeight="bold">Seizoenen beheren</Text>
-                </Tab>
-                <Tab>
-                  <Text fontWeight="bold">Historische spelers</Text>
-                </Tab>
-              </TabList>
+            <Tabs
+              position="relative"
+              index={index}
+              onChange={(index) => setIndex(index)}
+            >
+              <Box overflow="auto">
+                <Flex
+                  justifyContent="flex-end"
+                  display={{ base: 'flex', lg: 'none' }}
+                >
+                  <Menu>
+                    <MenuButton as={Button} rightIcon={<FiChevronDown />}>
+                      Teaminstellingen{' '}
+                    </MenuButton>
+                    <MenuList>
+                      {menuItems.map((item, i) => (
+                        <MenuItem onClick={() => setIndex(i)}>
+                          <Text
+                            color={index === i ? 'secondary.500' : 'black'}
+                            textDecoration={index === i ? 'underline' : 'none'}
+                            fontSize="md"
+                          >
+                            {item}
+                          </Text>
+                        </MenuItem>
+                      ))}
+                    </MenuList>
+                  </Menu>
+                </Flex>
+                <TabList w="max-content" display={{ base: 'none', lg: 'flex' }}>
+                  {menuItems.map((item) => (
+                    <Tab>
+                      <Text
+                        fontWeight="bold"
+                        fontSize={{ base: 'sm', lg: 'lg' }}
+                      >
+                        {item}
+                      </Text>
+                    </Tab>
+                  ))}
+                  <Box
+                    display={{ base: 'block', xl: 'none' }}
+                    position="absolute"
+                    right={0}
+                    w="50px"
+                    h="68px"
+                    bg="linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)"
+                  />
+                </TabList>
+              </Box>
 
               <TabPanels>
                 <TabPanel>

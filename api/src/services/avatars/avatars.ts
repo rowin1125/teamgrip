@@ -5,6 +5,7 @@ import type {
 } from 'types/graphql';
 
 import { db } from 'src/lib/db';
+import { removeNulls } from '@redwoodjs/api';
 
 export const avatars: QueryResolvers['avatars'] = () => {
   return db.avatar.findMany();
@@ -22,24 +23,26 @@ export const createAvatar: MutationResolvers['createAvatar'] = ({ input }) => {
   });
 };
 
-export const updateAvatar: MutationResolvers['updateAvatar'] = ({
+export const updateAvatar: MutationResolvers['updateAvatar'] = async ({
   id,
   input,
 }) => {
-  const currentAvatar = db.avatar.findUnique({ where: { id } });
+  const currentAvatar = await db.avatar.findUnique({ where: { id } });
 
   if (!currentAvatar) {
     return db.avatar.create({
       data: {
-        ...input,
+        ...removeNulls(input),
         user: {
-          connect: { id },
+          connect: {
+            id: context.currentUser?.id || '',
+          },
         },
       },
     });
   }
   return db.avatar.update({
-    data: input,
+    data: removeNulls(input),
     where: { id },
   });
 };

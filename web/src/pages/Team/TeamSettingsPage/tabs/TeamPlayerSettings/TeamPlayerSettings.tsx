@@ -3,13 +3,12 @@ import { Box, Heading } from '@chakra-ui/react';
 import TeamPlayerSettingsTable from './components/TeamPlayerSettingsTable';
 import { useDeletePlayerById } from './hooks/useDeletePlayerById';
 import { useGetTeamPlayersForSettings } from './hooks/useGetTeamPlayersForSettings';
+import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
 
 const TeamPlayerSettings = () => {
   const { teamWithExtra, teamWithExtraLoading } =
     useGetTeamPlayersForSettings();
   const { handleDeletePlayerById } = useDeletePlayerById();
-
-  if (teamWithExtraLoading) return null;
 
   const transformedTeamPlayers = teamWithExtra?.players?.map((player) => ({
     id: player?.id,
@@ -22,17 +21,18 @@ const TeamPlayerSettings = () => {
       <Heading as="h2" size="lg" mt={8}>
         Beheer jouw spelers
       </Heading>
+      <DefaultLoader minH="600px" isLoading={teamWithExtraLoading}>
+        <Box my={8} w={{ base: '100%', xl: '600px' }}>
+          <Heading as="h3" size="md">
+            Spelers in jouw team
+          </Heading>
 
-      <Box my={8} w={{ base: '100%', xl: '600px' }}>
-        <Heading as="h3" size="md">
-          Spelers in jouw team
-        </Heading>
-
-        <TeamPlayerSettingsTable
-          entries={transformedTeamPlayers}
-          onDelete={handleDeletePlayerById}
-        />
-      </Box>
+          <TeamPlayerSettingsTable
+            entries={transformedTeamPlayers}
+            onDelete={handleDeletePlayerById}
+          />
+        </Box>
+      </DefaultLoader>
     </Box>
   );
 };
