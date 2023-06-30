@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import {
+  Box,
   Grid,
   GridItem,
   Heading,
@@ -65,21 +66,31 @@ const TeamSettingsPage = () => {
         </GridItem>
         <GridItem colSpan={{ base: 4, xl: 4 }} rowSpan={1}>
           <Card overflowX="scroll">
-            <Tabs>
-              <TabList>
-                <Tab>
-                  <Text fontWeight="bold">Globale instellingen</Text>
-                </Tab>
-                <Tab>
-                  <Text fontWeight="bold">Spelers beheren</Text>
-                </Tab>
-                <Tab>
-                  <Text fontWeight="bold">Seizoenen beheren</Text>
-                </Tab>
-                <Tab>
-                  <Text fontWeight="bold">Historische spelers</Text>
-                </Tab>
-              </TabList>
+            <Tabs position="relative">
+              <Box overflow="auto">
+                <TabList w="max-content">
+                  <Tab>
+                    <Text fontWeight="bold">Globale instellingen</Text>
+                  </Tab>
+                  <Tab>
+                    <Text fontWeight="bold">Spelers beheren</Text>
+                  </Tab>
+                  <Tab>
+                    <Text fontWeight="bold">Seizoenen beheren</Text>
+                  </Tab>
+                  <Tab>
+                    <Text fontWeight="bold">Historische spelers</Text>
+                  </Tab>
+                  <Box
+                    display={{ base: 'block', xl: 'none' }}
+                    position="absolute"
+                    right={0}
+                    w="50px"
+                    h="68px"
+                    bg="linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)"
+                  ></Box>
+                </TabList>
+              </Box>
 
               <TabPanels>
                 <TabPanel>
