@@ -45,14 +45,14 @@ const Sidebar = () => {
     >
       <Flex flexDir="column" w="full" as="nav">
         <Flex justifyContent="center" alignItems="center" py={6}>
-          <RedwoodLink to={routes.home()}>
+          <a href={process.env.REDWOOD_ENV_WEBSITE_URL || '/'}>
             <Image
               src="/TeamGrip Logo.png"
               w={navOpen ? '100px' : '50px'}
               my={navOpen ? 0 : 6}
               h="auto"
             />
-          </RedwoodLink>
+          </a>
         </Flex>
 
         <SidebarItem

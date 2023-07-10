@@ -21,35 +21,40 @@ const AccordionDirectLink = ({
   icon: IconComponent,
   onClose,
   iconProps,
+  as,
   ...props
-}: AccordionDirectLinkProps) => (
-  <Box
-    borderColor={nested ? '' : 'gray.100'}
-    borderTop={nested ? '' : '1px'}
-    py={nested ? 0 : 2}
-    onClick={onClose}
-    {...props}
-  >
-    <Button
+}: AccordionDirectLinkProps) => {
+  const isRegularLink = as === 'a';
+  const linkProps = isRegularLink ? { href: to } : { to };
+  return (
+    <Box
+      borderColor={nested ? '' : 'gray.100'}
+      borderTop={nested ? '' : '1px'}
       py={nested ? 0 : 2}
-      as={RedwoodLink}
-      to={to}
-      display="flex"
-      alignItems="center"
-      justifyContent="flex-start"
+      onClick={onClose}
+      {...props}
     >
-      <Icon
-        as={IconComponent}
-        fontSize="lg"
-        color="white"
-        mr={4}
-        {...iconProps}
-      />
-      <Text fontWeight="bold" fontSize="lg" color="white">
-        {children}
-      </Text>
-    </Button>
-  </Box>
-);
+      <Button
+        py={nested ? 0 : 2}
+        as={as || RedwoodLink}
+        {...linkProps}
+        display="flex"
+        alignItems="center"
+        justifyContent="flex-start"
+      >
+        <Icon
+          as={IconComponent}
+          fontSize="lg"
+          color="white"
+          mr={4}
+          {...iconProps}
+        />
+        <Text fontWeight="bold" fontSize="lg" color="white">
+          {children}
+        </Text>
+      </Button>
+    </Box>
+  );
+};
 
 export default AccordionDirectLink;

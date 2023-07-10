@@ -19,8 +19,8 @@ export default () => (
         <Cavemen />
         <Button
           colorScheme="secondary"
-          as={RedwoodLink}
-          to={routes.home()}
+          as={'a'}
+          href={process.env.REDWOOD_ENV_WEBSITE_URL || '/'}
           mb={40}
         >
           Terug naar home

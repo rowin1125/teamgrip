@@ -50,8 +50,9 @@ const FooterDrawer = ({ isOpen, onClose, btnRef }: FooterDrawerProps) => {
             <Accordion allowToggle allowMultiple>
               <AccordionDirectLink
                 onClose={onClose}
-                to={routes.home()}
+                to={process.env.REDWOOD_ENV_WEBSITE_URL || '/'}
                 icon={TbHome}
+                as={'a'}
               >
                 Home
               </AccordionDirectLink>

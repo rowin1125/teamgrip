@@ -22,7 +22,6 @@ import { useAuth } from 'src/auth';
 const Header = () => {
   const { currentUser } = useAuth();
   const { pathname } = useLocation();
-  const showBreadCrumbs = pathname.includes('app');
 
   return (
     <Box as="header" w="full" pl={{ xl: 8 }} pb={4}>
@@ -31,15 +30,13 @@ const Header = () => {
         alignItems="center"
       >
         <GridItem colSpan={2} display={{ base: 'none', xl: 'block' }}>
-          {showBreadCrumbs && <BreadCrumbs />}
+          <BreadCrumbs />
         </GridItem>
 
         <GridItem colSpan={1} display={{ base: 'block', xl: 'none' }}>
-          {showBreadCrumbs && (
-            <RedwoodLink to={currentUser ? routes.app() : routes.home()}>
-              <Image src="/TeamGrip Logo.png" w={'70px'} h="auto" />
-            </RedwoodLink>
-          )}
+          <a href={process.env.REDWOOD_ENV_WEBSITE_URL || '/'}>
+            <Image src="/TeamGrip Logo.png" w={'70px'} h="auto" />
+          </a>
         </GridItem>
 
         <GridItem colSpan={{ base: 3, xl: 2 }} alignSelf="flex-end">

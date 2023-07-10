@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 
-import { Link as RedwoodLink, routes } from '@redwoodjs/router';
+import { Link as RedwoodLink } from '@redwoodjs/router';
 import { Toaster } from '@redwoodjs/web/dist/toast';
 
 import Footer from 'src/components/Footer/Footer';
@@ -18,8 +18,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
       <Flex justifyContent="space-between" px={4} position="fixed" zIndex="1">
         <Link
           display="flex"
-          as={RedwoodLink}
-          to={routes.home()}
+          href={process.env.REDWOOD_ENV_WEBSITE_URL || '/'}
           alignItems="center"
         >
           <Image h="80px" src="/TeamGrip Logo.png" alt="Redwood" />

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  Button,
   Flex,
   Menu,
   MenuButton,
@@ -30,27 +29,18 @@ const ProfileMenu = () => {
     }
   };
 
-  const hideAppButton = !pathname.includes('app');
-
   return (
     <Flex alignItems="center" zIndex={99999}>
-      {hideAppButton && (
-        <Button
-          as={RedwoodLink}
-          to={routes.app()}
-          mr={4}
-          colorScheme="secondary"
-        >
-          Naar de app
-        </Button>
-      )}
       <Menu closeOnBlur>
         <MenuButton>
           <Avatar />
         </MenuButton>
         <MenuList>
           <MenuGroup title="Pages">
-            <MenuItem as={RedwoodLink} to={routes.home()}>
+            <MenuItem
+              as={'a'}
+              href={process.env.REDWOOD_ENV_WEBSITE_URL || '/'}
+            >
               Home
             </MenuItem>
             {currentUser && (

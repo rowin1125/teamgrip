@@ -10,7 +10,8 @@
   port = 8910
   apiUrl = "${API_URL}"
   includeEnvironmentVariables = [
-    'REDWOOD_ENV_VERCEL_URL'
+    'REDWOOD_ENV_VERCEL_URL',
+    'REDWOOD_ENV_WEBSITE_URL'
   ] # any ENV vars that should be available to the web side, see https://redwoodjs.com/docs/environment-variables#web
 [api]
   port = 8911
