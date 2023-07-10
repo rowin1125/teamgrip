@@ -29,7 +29,7 @@ const SidebarItem = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const isHomepage =
-    title.toLocaleLowerCase() === 'dashboard' && pathname === '/app';
+    title.toLocaleLowerCase() === 'dashboard' && pathname === '/';
   const active =
     (pathname.includes(title.toLocaleLowerCase()) && !isHomepage) || isHomepage;
 
