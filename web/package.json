@@ -17,10 +17,10 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@ngneat/falso": "^6.1.0",
-    "@redwoodjs/auth-dbauth-web": "5.3.2",
-    "@redwoodjs/forms": "5.3.2",
-    "@redwoodjs/router": "5.3.2",
-    "@redwoodjs/web": "5.3.2",
+    "@redwoodjs/auth-dbauth-web": "6.3.1",
+    "@redwoodjs/forms": "6.3.1",
+    "@redwoodjs/router": "6.3.1",
+    "@redwoodjs/web": "6.3.1",
     "@simplewebauthn/browser": "^6",
     "avataaars": "^2.0.0",
     "chakra-ui-steps": "^1.7.3",
@@ -40,6 +40,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@redwoodjs/vite": "6.3.1",
     "@types/react-table": "^7.7.12",
     "jest-scss-transform": "^1.0.3",
     "sass": "^1.54.2",

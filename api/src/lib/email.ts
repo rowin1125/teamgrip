@@ -20,7 +20,7 @@ export async function mailUser(options: MailUserOptions) {
   const client = Sib.ApiClient.instance;
 
   const apiKey = client.authentications['api-key'];
-  apiKey.apiKey = process.env.SENDINBLUE_API_KEY.toString();
+  apiKey.apiKey = process.env.SENDINBLUE_API_KEY?.toString();
 
   const transEmailApi = new Sib.TransactionalEmailsApi();
 
