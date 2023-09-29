@@ -24,7 +24,10 @@ const TeamGripAvatar = ({
   const { id, ...avatarProps } = combinedAvatarProps;
 
   return (
-    <AvatarComponent style={{ width: size, height: size }} {...avatarProps} />
+    <AvatarComponent
+      style={{ width: `${size}px`, height: `${size}px` }}
+      {...avatarProps}
+    />
   );
 };
 

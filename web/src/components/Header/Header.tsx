@@ -21,7 +21,6 @@ import { useAuth } from 'src/auth';
 
 const Header = () => {
   const { currentUser } = useAuth();
-  const { pathname } = useLocation();
 
   return (
     <Box as="header" w="full" pl={{ xl: 8 }} pb={4}>
