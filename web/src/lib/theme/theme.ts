@@ -9,19 +9,19 @@ import { shadows } from './foundation/shadows';
 import { styles } from './foundation/styles';
 
 export const theme = extendTheme({
-  styles,
-  colors,
-  shadows,
-  fonts: {
-    heading: `'Inter', sans-serif`,
-    body: `'Inter',  sans-serif`,
-  },
-  components: {
-    Heading,
-    Steps,
-    Button,
-    Text,
-  },
+    styles,
+    colors,
+    shadows,
+    fonts: {
+        heading: `'Inter', sans-serif`,
+        body: `'Inter',  sans-serif`,
+    },
+    components: {
+        Heading,
+        Steps,
+        Button,
+        Text,
+    },
 });
 
 export type TeamGripTheme = typeof theme;

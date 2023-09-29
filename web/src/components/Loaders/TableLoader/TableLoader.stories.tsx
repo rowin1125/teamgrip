@@ -1,7 +1,7 @@
 import TableLoader from './TableLoader';
 
 export const generated = () => {
-  return <TableLoader />;
+    return <TableLoader />;
 };
 
 export default { title: 'Components/TableLoader' };

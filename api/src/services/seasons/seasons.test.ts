@@ -1,9 +1,9 @@
 import {
-  seasons,
-  season,
-  createSeason,
-  updateSeason,
-  deleteSeason,
+    seasons,
+    season,
+    createSeason,
+    updateSeason,
+    deleteSeason,
 } from './seasons';
 import type { StandardScenario } from './seasons.scenarios';
 
@@ -14,40 +14,40 @@ import type { StandardScenario } from './seasons.scenarios';
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('seasons', () => {
-  scenario('returns all seasons', async (scenario: StandardScenario) => {
-    const result = await seasons();
+    scenario('returns all seasons', async (scenario: StandardScenario) => {
+        const result = await seasons();
 
-    expect(result.length).toEqual(Object.keys(scenario.season).length);
-  });
-
-  scenario('returns a single season', async (scenario: StandardScenario) => {
-    const result = await season({ id: scenario.season.one.id });
-
-    expect(result).toEqual(scenario.season.one);
-  });
-
-  scenario('creates a season', async () => {
-    const result = await createSeason({
-      input: { name: 'String' },
+        expect(result.length).toEqual(Object.keys(scenario.season).length);
     });
 
-    expect(result.name).toEqual('String');
-  });
+    scenario('returns a single season', async (scenario: StandardScenario) => {
+        const result = await season({ id: scenario.season.one.id });
 
-  scenario('updates a season', async (scenario: StandardScenario) => {
-    const original = await season({ id: scenario.season.one.id });
-    const result = await updateSeason({
-      id: original.id,
-      input: { name: 'String2' },
+        expect(result).toEqual(scenario.season.one);
     });
 
-    expect(result.name).toEqual('String2');
-  });
+    scenario('creates a season', async () => {
+        const result = await createSeason({
+            input: { name: 'String' },
+        });
 
-  scenario('deletes a season', async (scenario: StandardScenario) => {
-    const original = await deleteSeason({ id: scenario.season.one.id });
-    const result = await season({ id: original.id });
+        expect(result.name).toEqual('String');
+    });
 
-    expect(result).toEqual(null);
-  });
+    scenario('updates a season', async (scenario: StandardScenario) => {
+        const original = await season({ id: scenario.season.one.id });
+        const result = await updateSeason({
+            id: original.id,
+            input: { name: 'String2' },
+        });
+
+        expect(result.name).toEqual('String2');
+    });
+
+    scenario('deletes a season', async (scenario: StandardScenario) => {
+        const original = await deleteSeason({ id: scenario.season.one.id });
+        const result = await season({ id: original.id });
+
+        expect(result).toEqual(null);
+    });
 });

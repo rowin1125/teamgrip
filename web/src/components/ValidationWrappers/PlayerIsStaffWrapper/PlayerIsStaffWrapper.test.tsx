@@ -6,13 +6,13 @@ import PlayerIsStaffWrapper from './PlayerIsStaffWrapper';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('PlayerIsStaffWrapper', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(
-        <PlayerIsStaffWrapper>
-          <p>Hi</p>
-        </PlayerIsStaffWrapper>
-      );
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(
+                <PlayerIsStaffWrapper>
+                    <p>Hi</p>
+                </PlayerIsStaffWrapper>
+            );
+        }).not.toThrow();
+    });
 });

@@ -6,9 +6,9 @@ import AuthLayout from './AuthLayout';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('AuthLayout', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<AuthLayout />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<AuthLayout />);
+        }).not.toThrow();
+    });
 });

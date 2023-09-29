@@ -6,9 +6,9 @@ import UpdateAvatarPage from './UpdateAvatarPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('UpdateAvatarPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<UpdateAvatarPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<UpdateAvatarPage />);
+        }).not.toThrow();
+    });
 });

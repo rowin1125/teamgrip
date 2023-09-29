@@ -5,11 +5,11 @@ import { Cell } from 'react-table';
 import { UseTeamTableReturnType } from '../../hooks/useTeamTable';
 
 type TableDataDefaultProps = {
-  cell: Cell<UseTeamTableReturnType, any>;
+    cell: Cell<UseTeamTableReturnType, any>;
 };
 
 const TableDataDefault = ({ cell }: TableDataDefaultProps) => {
-  return <Box fontSize="md">{cell.render('Cell')}</Box>;
+    return <Box fontSize="md">{cell.render('Cell')}</Box>;
 };
 
 export default TableDataDefault;

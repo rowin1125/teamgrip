@@ -6,9 +6,9 @@ import TeamPage from './TeamPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('TeamPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<TeamPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<TeamPage />);
+        }).not.toThrow();
+    });
 });

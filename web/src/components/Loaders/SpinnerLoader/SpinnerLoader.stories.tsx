@@ -16,10 +16,10 @@ import type { Meta } from '@storybook/react';
 import SpinnerLoader from './SpinnerLoader';
 
 export const generated = () => {
-  return <SpinnerLoader />;
+    return <SpinnerLoader />;
 };
 
 export default {
-  title: 'Components/SpinnerLoader',
-  component: SpinnerLoader,
+    title: 'Components/SpinnerLoader',
+    component: SpinnerLoader,
 } as Meta<typeof SpinnerLoader>;

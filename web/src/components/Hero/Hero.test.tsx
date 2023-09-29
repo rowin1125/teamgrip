@@ -6,9 +6,9 @@ import Hero from './Hero';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('Hero', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<Hero />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<Hero />);
+        }).not.toThrow();
+    });
 });

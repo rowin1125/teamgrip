@@ -6,13 +6,13 @@ import SeasonLockWrapper from './SeasonLockWrapper';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('SeasonLockWrapper', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(
-        <SeasonLockWrapper>
-          <p>Hi</p>
-        </SeasonLockWrapper>
-      );
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(
+                <SeasonLockWrapper>
+                    <p>Hi</p>
+                </SeasonLockWrapper>
+            );
+        }).not.toThrow();
+    });
 });

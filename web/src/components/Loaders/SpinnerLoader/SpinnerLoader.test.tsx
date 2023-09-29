@@ -6,9 +6,9 @@ import SpinnerLoader from './SpinnerLoader';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('SpinnerLoader', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<SpinnerLoader />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<SpinnerLoader />);
+        }).not.toThrow();
+    });
 });

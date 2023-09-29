@@ -8,46 +8,46 @@ import type { StandardScenario } from './users.scenarios';
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('users', () => {
-  scenario('returns all users', async (scenario: StandardScenario) => {
-    const result = await users();
+    scenario('returns all users', async (scenario: StandardScenario) => {
+        const result = await users();
 
-    expect(result.length).toEqual(Object.keys(scenario.user).length);
-  });
-
-  scenario('returns a single user', async (scenario: StandardScenario) => {
-    const result = await user({ id: scenario.user.one.id });
-
-    expect(result).toEqual(scenario.user.one);
-  });
-
-  scenario('creates a user', async () => {
-    const result = await createUser({
-      input: {
-        email: 'String5522044',
-        hashedPassword: 'String',
-        salt: 'String',
-      },
+        expect(result.length).toEqual(Object.keys(scenario.user).length);
     });
 
-    expect(result.email).toEqual('String5522044');
-    expect(result.hashedPassword).toEqual('String');
-    expect(result.salt).toEqual('String');
-  });
+    scenario('returns a single user', async (scenario: StandardScenario) => {
+        const result = await user({ id: scenario.user.one.id });
 
-  scenario('updates a user', async (scenario: StandardScenario) => {
-    const original = await user({ id: scenario.user.one.id });
-    const result = await updateUser({
-      id: original.id,
-      input: { email: 'String12408662' },
+        expect(result).toEqual(scenario.user.one);
     });
 
-    expect(result.email).toEqual('String12408662');
-  });
+    scenario('creates a user', async () => {
+        const result = await createUser({
+            input: {
+                email: 'String5522044',
+                hashedPassword: 'String',
+                salt: 'String',
+            },
+        });
 
-  scenario('deletes a user', async (scenario: StandardScenario) => {
-    const original = await deleteUser({ id: scenario.user.one.id });
-    const result = await user({ id: original.id });
+        expect(result.email).toEqual('String5522044');
+        expect(result.hashedPassword).toEqual('String');
+        expect(result.salt).toEqual('String');
+    });
 
-    expect(result).toEqual(null);
-  });
+    scenario('updates a user', async (scenario: StandardScenario) => {
+        const original = await user({ id: scenario.user.one.id });
+        const result = await updateUser({
+            id: original.id,
+            input: { email: 'String12408662' },
+        });
+
+        expect(result.email).toEqual('String12408662');
+    });
+
+    scenario('deletes a user', async (scenario: StandardScenario) => {
+        const original = await deleteUser({ id: scenario.user.one.id });
+        const result = await user({ id: original.id });
+
+        expect(result).toEqual(null);
+    });
 });

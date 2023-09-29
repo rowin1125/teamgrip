@@ -1,41 +1,42 @@
 import {
-  GetSeasonByTeamIdQuery,
-  GetSeasonByTeamIdQueryVariables,
+    GetSeasonByTeamIdQuery,
+    GetSeasonByTeamIdQueryVariables,
 } from 'types/graphql';
 
-import { useAuth } from 'src/auth';
 import { useQuery } from '@redwoodjs/web';
 
+import { useAuth } from 'src/auth';
+
 export const GET_SEASON_BY_TEAM_ID_QUERY = gql`
-  query GetSeasonByTeamIdQuery($teamId: String!) {
-    seasonsByTeamId(teamId: $teamId) {
-      id
-      name
-      active
-      trainings {
-        id
-      }
-      games {
-        id
-      }
-      scores {
-        id
-        _count
-      }
+    query GetSeasonByTeamIdQuery($teamId: String!) {
+        seasonsByTeamId(teamId: $teamId) {
+            id
+            name
+            active
+            trainings {
+                id
+            }
+            games {
+                id
+            }
+            scores {
+                id
+                _count
+            }
+        }
     }
-  }
 `;
 
 export const useGetSeasonsByTeamId = () => {
-  const { currentUser } = useAuth();
-  const teamId = currentUser?.player?.teamId;
+    const { currentUser } = useAuth();
+    const teamId = currentUser?.player?.teamId;
 
-  const { data, loading } = useQuery<
-    GetSeasonByTeamIdQuery,
-    GetSeasonByTeamIdQueryVariables
-  >(GET_SEASON_BY_TEAM_ID_QUERY, {
-    variables: { teamId: teamId || '' },
-  });
+    const { data, loading } = useQuery<
+        GetSeasonByTeamIdQuery,
+        GetSeasonByTeamIdQueryVariables
+    >(GET_SEASON_BY_TEAM_ID_QUERY, {
+        variables: { teamId: teamId || '' },
+    });
 
-  return { seasons: data?.seasonsByTeamId, loading };
+    return { seasons: data?.seasonsByTeamId, loading };
 };

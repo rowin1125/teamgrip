@@ -6,9 +6,9 @@ import ChartHasDataWrapper from './ChartHasDataWrapper';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('ChartHasDataWrapper', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<ChartHasDataWrapper />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<ChartHasDataWrapper />);
+        }).not.toThrow();
+    });
 });

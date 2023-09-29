@@ -1,7 +1,7 @@
 import Header from './Header';
 
 export const generated = () => {
-  return <Header />;
+    return <Header />;
 };
 
 export default { title: 'Components/Header' };

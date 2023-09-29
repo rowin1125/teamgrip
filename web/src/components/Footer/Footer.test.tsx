@@ -6,9 +6,9 @@ import Footer from './Footer';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('Footer', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<Footer />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<Footer />);
+        }).not.toThrow();
+    });
 });

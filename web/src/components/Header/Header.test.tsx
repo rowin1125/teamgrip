@@ -6,9 +6,9 @@ import Header from './Header';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('Header', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<Header />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<Header />);
+        }).not.toThrow();
+    });
 });

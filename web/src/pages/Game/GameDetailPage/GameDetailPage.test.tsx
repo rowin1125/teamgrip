@@ -6,9 +6,9 @@ import GameDetailPage from './GameDetailPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('GameDetailPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<GameDetailPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<GameDetailPage />);
+        }).not.toThrow();
+    });
 });

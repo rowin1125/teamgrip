@@ -6,9 +6,9 @@ import TextAlert from './TextAlert';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('TextAlert', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<TextAlert status="info">Hallo</TextAlert>);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<TextAlert status="info">Hallo</TextAlert>);
+        }).not.toThrow();
+    });
 });

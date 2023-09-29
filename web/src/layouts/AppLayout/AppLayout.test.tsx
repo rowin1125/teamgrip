@@ -6,9 +6,9 @@ import AppLayout from './AppLayout';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('AppLayout', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<AppLayout />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<AppLayout />);
+        }).not.toThrow();
+    });
 });

@@ -1,95 +1,99 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from 'date-fns';
-import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 import { GetAllGamesAndTrainingsByTeamId } from 'types/graphql';
+
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 import { getRandomColor } from './getRandomColor';
 
 type GetTimelineForPlayersProps = {
-  labels: Set<string>;
-  playerTimelineBasedOnDates: Record<
-    string,
-    { date: string; points: number }[]
-  >;
-  allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId'];
+    labels: Set<string>;
+    playerTimelineBasedOnDates: Record<
+        string,
+        { date: string; points: number }[]
+    >;
+    allGamesAndTrainings: GetAllGamesAndTrainingsByTeamId['getAllGamesAndTrainingsByTeamId'];
 };
 
 export const getTimelineForPlayers = ({
-  labels: labelsSet,
-  playerTimelineBasedOnDates,
-  allGamesAndTrainings,
+    labels: labelsSet,
+    playerTimelineBasedOnDates,
+    allGamesAndTrainings,
 }: GetTimelineForPlayersProps) => {
-  let highestScore = 0;
-  const labels = Array.from(labelsSet);
+    let highestScore = 0;
+    const labels = Array.from(labelsSet);
 
-  const data = {
-    labels: labels,
-    datasets: Object.keys(playerTimelineBasedOnDates).map((player) => {
-      const values = playerTimelineBasedOnDates[player];
+    const data = {
+        labels: labels,
+        datasets: Object.keys(playerTimelineBasedOnDates).map((player) => {
+            const values = playerTimelineBasedOnDates[player];
 
-      const playerName = allGamesAndTrainings?.players.find(
-        (p) => p?.id === player
-      )?.displayName;
+            const playerName = allGamesAndTrainings?.players.find(
+                (p) => p?.id === player
+            )?.displayName;
 
-      const randomColor = getRandomColor();
+            const randomColor = getRandomColor();
 
-      const totalPointsForEachData: { date: string; points: number }[] =
-        values.reduce<any>((acc, curr) => {
-          const existing = acc.find((item: any) => item.date === curr.date);
-          if (existing) {
-            existing.points += curr.points;
-          } else {
-            acc.push({ date: curr.date, points: curr.points });
-          }
-          return acc;
-        }, []);
+            const totalPointsForEachData: { date: string; points: number }[] =
+                values.reduce<any>((acc, curr) => {
+                    const existing = acc.find(
+                        (item: any) => item.date === curr.date
+                    );
+                    if (existing) {
+                        existing.points += curr.points;
+                    } else {
+                        acc.push({ date: curr.date, points: curr.points });
+                    }
+                    return acc;
+                }, []);
 
-      const scoreTimeline = [{ date: 'Start', points: 0 }];
+            const scoreTimeline = [{ date: 'Start', points: 0 }];
 
-      for (const pt of totalPointsForEachData) {
-        const newPoints =
-          scoreTimeline[scoreTimeline.length - 1].points + pt.points;
-        if (newPoints > highestScore) {
-          highestScore = newPoints;
-        }
-        const date = format(new Date(pt.date), 'dd-MM-yyyy');
-        scoreTimeline.push({ date: date, points: newPoints });
-      }
+            for (const pt of totalPointsForEachData) {
+                const newPoints =
+                    scoreTimeline[scoreTimeline.length - 1].points + pt.points;
+                if (newPoints > highestScore) {
+                    highestScore = newPoints;
+                }
+                const date = format(new Date(pt.date), 'dd-MM-yyyy');
+                scoreTimeline.push({ date: date, points: newPoints });
+            }
 
-      if (scoreTimeline.length < labels.length) {
-        const missingDates = labels.filter((label) => {
-          if (label === 'Start') return false;
+            if (scoreTimeline.length < labels.length) {
+                const missingDates = labels.filter((label) => {
+                    if (label === 'Start') return false;
 
-          return !scoreTimeline.find((st) => {
-            if (st.date === 'Start') return false;
-            return st.date === label;
-          });
-        });
+                    return !scoreTimeline.find((st) => {
+                        if (st.date === 'Start') return false;
+                        return st.date === label;
+                    });
+                });
 
-        missingDates.forEach((date) => {
-          const positionInArrayBasedOnDate = labels.indexOf(date);
+                missingDates.forEach((date) => {
+                    const positionInArrayBasedOnDate = labels.indexOf(date);
 
-          const points = scoreTimeline[positionInArrayBasedOnDate - 1].points;
-          scoreTimeline.splice(positionInArrayBasedOnDate, 0, {
-            date,
-            points,
-          });
-        });
-      }
+                    const points =
+                        scoreTimeline[positionInArrayBasedOnDate - 1].points;
+                    scoreTimeline.splice(positionInArrayBasedOnDate, 0, {
+                        date,
+                        points,
+                    });
+                });
+            }
 
-      return {
-        type: 'line' as const,
-        label: capitalizeText(playerName || 'Onbekend'),
-        backgroundColor: randomColor,
-        data: scoreTimeline.map((tl) => tl.points),
-        borderColor: randomColor,
-        borderWidth: 2,
-      };
-    }),
-  };
+            return {
+                type: 'line' as const,
+                label: capitalizeText(playerName || 'Onbekend'),
+                backgroundColor: randomColor,
+                data: scoreTimeline.map((tl) => tl.points),
+                borderColor: randomColor,
+                borderWidth: 2,
+            };
+        }),
+    };
 
-  return {
-    data,
-    highestScore,
-  };
+    return {
+        data,
+        highestScore,
+    };
 };

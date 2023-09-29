@@ -6,9 +6,9 @@ import NewGamePage from './NewGamePage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('NewGamePage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<NewGamePage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<NewGamePage />);
+        }).not.toThrow();
+    });
 });

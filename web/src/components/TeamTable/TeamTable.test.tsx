@@ -6,9 +6,9 @@ import TeamTable from './TeamTable';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('TeamTable', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<TeamTable />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<TeamTable />);
+        }).not.toThrow();
+    });
 });

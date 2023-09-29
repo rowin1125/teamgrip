@@ -6,9 +6,9 @@ import GhostAvatar from './GhostAvatar';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('GhostAvatar', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<GhostAvatar />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<GhostAvatar />);
+        }).not.toThrow();
+    });
 });

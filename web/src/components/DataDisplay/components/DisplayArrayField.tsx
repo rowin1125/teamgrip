@@ -10,19 +10,19 @@ import { ApiEntriesTypes } from '../DataDisplay';
 import DataEntryToJsx from './DataEntryToJsx';
 
 type DisplayArrayFieldsProps = {
-  entry: ApiEntriesTypes[];
-  objectKey: string;
+    entry: ApiEntriesTypes[];
+    objectKey: string;
 };
 
 const DisplayArrayFields = ({ entry, objectKey }: DisplayArrayFieldsProps) => (
-  <Box w="100%" as="dd">
-    <Box color="gray.400" fontSize="sm">
-      {capitalizeText(objectKey)}:
+    <Box w="100%" as="dd">
+        <Box color="gray.400" fontSize="sm">
+            {capitalizeText(objectKey)}:
+        </Box>
+        {entry?.map((item) => (
+            <DataEntryToJsx key={nanoid()} entry={item} isNested={true} />
+        ))}
     </Box>
-    {entry?.map((item) => (
-      <DataEntryToJsx key={nanoid()} entry={item} isNested={true} />
-    ))}
-  </Box>
 );
 
 export default DisplayArrayFields;

@@ -6,9 +6,9 @@ import JoinTeamPage from './JoinTeamPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('JoinTeamPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<JoinTeamPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<JoinTeamPage />);
+        }).not.toThrow();
+    });
 });

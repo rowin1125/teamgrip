@@ -6,9 +6,9 @@ import UpdateUserPage from './UpdateUserPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('UpdateUserPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<UpdateUserPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<UpdateUserPage />);
+        }).not.toThrow();
+    });
 });

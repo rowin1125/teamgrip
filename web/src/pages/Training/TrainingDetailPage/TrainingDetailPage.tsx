@@ -15,156 +15,175 @@ import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaf
 import { useGetTrainingById } from '../UpdateTrainingPage/hooks/useGetTrainingById';
 
 const TrainingDetailPage = () => {
-  const { training, trainingLoading } = useGetTrainingById();
+    const { training, trainingLoading } = useGetTrainingById();
 
-  const topTrainingScores = training?.scores?.filter(
-    (score) => score?.type === 'TOP_TRAINING'
-  );
-  const regularTrainingScores = training?.scores?.filter(
-    (score) => score?.type === 'TRAINING'
-  );
-  const hasTopTrainings = topTrainingScores && topTrainingScores?.length > 0;
+    const topTrainingScores = training?.scores?.filter(
+        (score) => score?.type === 'TOP_TRAINING'
+    );
+    const regularTrainingScores = training?.scores?.filter(
+        (score) => score?.type === 'TRAINING'
+    );
+    const hasTopTrainings = topTrainingScores && topTrainingScores?.length > 0;
 
-  return (
-    <>
-      <MetaTags
-        title="Training Detail"
-        description="Alle details van de training"
-      />
-
-      <Flex
-        flexDir={{ base: 'column', xl: 'row' }}
-        justifyContent="space-between"
-      >
-        <Heading as="h1" size="2xl" mb={2} color="white">
-          {training?.team?.name}
-        </Heading>
-
-        <Flex
-          flexDir={{ base: 'column', xl: 'row' }}
-          justifyContent="space-between"
-          mb={10}
-        >
-          <PlayerIsStaffWrapper>
-            {training && (
-              <Button
-                as={RedwoodLink}
-                to={routes.updateTraining({ id: training?.id })}
-                colorScheme="orange"
-                mr={{ base: 0, xl: 4 }}
-              >
-                <Icon as={AiOutlineEdit} />
-              </Button>
-            )}
-          </PlayerIsStaffWrapper>
-          <Button
-            as={RedwoodLink}
-            to={routes.team()}
-            colorScheme="secondary"
-            mt={{ base: 4, xl: 0 }}
-          >
-            Terug naar team
-          </Button>
-        </Flex>
-      </Flex>
-
-      <Grid
-        templateColumns="repeat(12, 1fr)"
-        templateRows="auto"
-        gap={{ base: 0, xl: 10 }}
-        position="relative"
-      >
-        <GridItem
-          colSpan={{ base: 12, xl: 4 }}
-          rowSpan={1}
-          mb={{ base: 10, xl: 0 }}
-        >
-          <DefaultLoader isLoading={trainingLoading}>
-            <Card position="sticky" top={10}>
-              <Heading as="h2" size="md" mb={4}>
-                Traininggegevens
-              </Heading>
-              <DataDisplay
-                wrapperProps={{ mt: 4 }}
-                entry={{
-                  Teamnaam: training?.team?.name,
-                  Datum: training
-                    ? format(new Date(training?.date || ''), 'dd-MM-yyyy')
-                    : '',
-                  Seizoen: training?.season?.name,
-                  'Aantal spelers': training?.players?.length,
-                  'Aantal scores': training?.scores?.length,
-                  'Laatst bijgewerkt': training
-                    ? format(new Date(training?.updatedAt || ''), 'dd-MM-yyyy')
-                    : '',
-                }}
-              />
-            </Card>
-          </DefaultLoader>
-        </GridItem>
-        <GridItem colSpan={{ base: 12, xl: 8 }} rowSpan={1}>
-          {hasTopTrainings && (
-            <Card w="100%" bg="primary.500" color="white" overflowX="auto">
-              <Heading as="h2" size="lg" mb={10} color="white">
-                Top 3 van de training
-              </Heading>
-              <TeamTable
-                isLoading={trainingLoading}
-                size="md"
-                theme="dark"
-                entries={topTrainingScores
-                  ?.sort((scoreA, scoreB) => {
-                    const scoreAIsNumber = typeof scoreA?.points === 'number';
-                    const scoreBIsNumber = typeof scoreB?.points === 'number';
-                    if (scoreAIsNumber && scoreBIsNumber) {
-                      return scoreB?.points - scoreA?.points;
-                    }
-                    return 0;
-                  })
-                  ?.map((score, index) => ({
-                    Rank: index + 1,
-                    Naam: score?.player?.displayName,
-                    Avatar: score?.player?.user?.avatar,
-                    Punten: score?.points,
-                  }))}
-              />
-            </Card>
-          )}
-
-          <Card
-            w="100%"
-            bg="primary.500"
-            color="white"
-            overflowX="auto"
-            mt={hasTopTrainings ? 10 : 0}
-          >
-            <Heading as="h2" size="lg" mb={10} color="white">
-              Trainingresultaat
-            </Heading>
-            <TeamTable
-              isLoading={trainingLoading}
-              size="md"
-              entries={regularTrainingScores
-                ?.sort((scoreA, scoreB) => {
-                  const scoreAIsNumber = typeof scoreA?.points === 'number';
-                  const scoreBIsNumber = typeof scoreB?.points === 'number';
-                  if (scoreAIsNumber && scoreBIsNumber) {
-                    return scoreB?.points - scoreA?.points;
-                  }
-                  return 0;
-                })
-                ?.map((score, index) => ({
-                  Rank: index + 1,
-                  Naam: score?.player?.displayName,
-                  Avatar: score?.player?.user?.avatar,
-                  Punten: score?.points,
-                }))}
+    return (
+        <>
+            <MetaTags
+                title="Training Detail"
+                description="Alle details van de training"
             />
-          </Card>
-        </GridItem>
-      </Grid>
-    </>
-  );
+
+            <Flex
+                flexDir={{ base: 'column', xl: 'row' }}
+                justifyContent="space-between"
+            >
+                <Heading as="h1" size="2xl" mb={2} color="white">
+                    {training?.team?.name}
+                </Heading>
+
+                <Flex
+                    flexDir={{ base: 'column', xl: 'row' }}
+                    justifyContent="space-between"
+                    mb={10}
+                >
+                    <PlayerIsStaffWrapper>
+                        {training && (
+                            <Button
+                                as={RedwoodLink}
+                                to={routes.updateTraining({ id: training?.id })}
+                                colorScheme="orange"
+                                mr={{ base: 0, xl: 4 }}
+                            >
+                                <Icon as={AiOutlineEdit} />
+                            </Button>
+                        )}
+                    </PlayerIsStaffWrapper>
+                    <Button
+                        as={RedwoodLink}
+                        to={routes.team()}
+                        colorScheme="secondary"
+                        mt={{ base: 4, xl: 0 }}
+                    >
+                        Terug naar team
+                    </Button>
+                </Flex>
+            </Flex>
+
+            <Grid
+                templateColumns="repeat(12, 1fr)"
+                templateRows="auto"
+                gap={{ base: 0, xl: 10 }}
+                position="relative"
+            >
+                <GridItem
+                    colSpan={{ base: 12, xl: 4 }}
+                    rowSpan={1}
+                    mb={{ base: 10, xl: 0 }}
+                >
+                    <DefaultLoader isLoading={trainingLoading}>
+                        <Card position="sticky" top={10}>
+                            <Heading as="h2" size="md" mb={4}>
+                                Traininggegevens
+                            </Heading>
+                            <DataDisplay
+                                wrapperProps={{ mt: 4 }}
+                                entry={{
+                                    Teamnaam: training?.team?.name,
+                                    Datum: training
+                                        ? format(
+                                              new Date(training?.date || ''),
+                                              'dd-MM-yyyy'
+                                          )
+                                        : '',
+                                    Seizoen: training?.season?.name,
+                                    'Aantal spelers': training?.players?.length,
+                                    'Aantal scores': training?.scores?.length,
+                                    'Laatst bijgewerkt': training
+                                        ? format(
+                                              new Date(
+                                                  training?.updatedAt || ''
+                                              ),
+                                              'dd-MM-yyyy'
+                                          )
+                                        : '',
+                                }}
+                            />
+                        </Card>
+                    </DefaultLoader>
+                </GridItem>
+                <GridItem colSpan={{ base: 12, xl: 8 }} rowSpan={1}>
+                    {hasTopTrainings && (
+                        <Card
+                            w="100%"
+                            bg="primary.500"
+                            color="white"
+                            overflowX="auto"
+                        >
+                            <Heading as="h2" size="lg" mb={10} color="white">
+                                Top 3 van de training
+                            </Heading>
+                            <TeamTable
+                                isLoading={trainingLoading}
+                                size="md"
+                                theme="dark"
+                                entries={topTrainingScores
+                                    ?.sort((scoreA, scoreB) => {
+                                        const scoreAIsNumber =
+                                            typeof scoreA?.points === 'number';
+                                        const scoreBIsNumber =
+                                            typeof scoreB?.points === 'number';
+                                        if (scoreAIsNumber && scoreBIsNumber) {
+                                            return (
+                                                scoreB?.points - scoreA?.points
+                                            );
+                                        }
+                                        return 0;
+                                    })
+                                    ?.map((score, index) => ({
+                                        Rank: index + 1,
+                                        Naam: score?.player?.displayName,
+                                        Avatar: score?.player?.user?.avatar,
+                                        Punten: score?.points,
+                                    }))}
+                            />
+                        </Card>
+                    )}
+
+                    <Card
+                        w="100%"
+                        bg="primary.500"
+                        color="white"
+                        overflowX="auto"
+                        mt={hasTopTrainings ? 10 : 0}
+                    >
+                        <Heading as="h2" size="lg" mb={10} color="white">
+                            Trainingresultaat
+                        </Heading>
+                        <TeamTable
+                            isLoading={trainingLoading}
+                            size="md"
+                            entries={regularTrainingScores
+                                ?.sort((scoreA, scoreB) => {
+                                    const scoreAIsNumber =
+                                        typeof scoreA?.points === 'number';
+                                    const scoreBIsNumber =
+                                        typeof scoreB?.points === 'number';
+                                    if (scoreAIsNumber && scoreBIsNumber) {
+                                        return scoreB?.points - scoreA?.points;
+                                    }
+                                    return 0;
+                                })
+                                ?.map((score, index) => ({
+                                    Rank: index + 1,
+                                    Naam: score?.player?.displayName,
+                                    Avatar: score?.player?.user?.avatar,
+                                    Punten: score?.points,
+                                }))}
+                        />
+                    </Card>
+                </GridItem>
+            </Grid>
+        </>
+    );
 };
 
 export default TrainingDetailPage;

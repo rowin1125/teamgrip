@@ -6,9 +6,9 @@ import SpinnerOverlay from './SpinnerOverlay';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('SpinnerOverlay', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<SpinnerOverlay />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<SpinnerOverlay />);
+        }).not.toThrow();
+    });
 });

@@ -13,54 +13,54 @@ import TableDataDefault from './TableDataComponents/TableDataDefault';
 import TableDataRank from './TableDataComponents/TableDataRank';
 
 type TableDataMachineProps = {
-  cell: Cell<UseTeamTableReturnType, any>;
-  routes?: {
-    detail?: (params?: any) => string;
-    update?: (params?: any) => string;
-  };
-  row: Row<UseTeamTableReturnType>;
-  hiddenColumns?: string[];
-  size?: 'sm' | 'md' | 'lg';
+    cell: Cell<UseTeamTableReturnType, any>;
+    routes?: {
+        detail?: (params?: any) => string;
+        update?: (params?: any) => string;
+    };
+    row: Row<UseTeamTableReturnType>;
+    hiddenColumns?: string[];
+    size?: 'sm' | 'md' | 'lg';
 };
 
 const TableDataMachine = ({
-  cell,
-  routes,
-  row,
-  hiddenColumns,
-  size,
+    cell,
+    routes,
+    row,
+    hiddenColumns,
+    size,
 }: TableDataMachineProps) => {
-  const headerTitle =
-    cell?.column?.Header?.toString()?.toLocaleLowerCase() || '';
-  if (hiddenColumns && hiddenColumns.includes(headerTitle)) return null;
+    const headerTitle =
+        cell?.column?.Header?.toString()?.toLocaleLowerCase() || '';
+    if (hiddenColumns && hiddenColumns.includes(headerTitle)) return null;
 
-  let TableDataComponent;
-  switch (headerTitle) {
-    case 'avatar':
-      TableDataComponent = TableDataAvatar;
-      break;
+    let TableDataComponent;
+    switch (headerTitle) {
+        case 'avatar':
+            TableDataComponent = TableDataAvatar;
+            break;
 
-    case 'rank':
-      TableDataComponent = TableDataRank;
-      break;
+        case 'rank':
+            TableDataComponent = TableDataRank;
+            break;
 
-    default:
-      TableDataComponent = TableDataDefault;
-      break;
-  }
+        default:
+            TableDataComponent = TableDataDefault;
+            break;
+    }
 
-  const TdChildComponent = routes?.detail ? RedwoodLink : 'div';
-  const tdChildProps = routes?.detail
-    ? { to: routes?.detail({ id: row.values?.id }) }
-    : {};
+    const TdChildComponent = routes?.detail ? RedwoodLink : 'div';
+    const tdChildProps = routes?.detail
+        ? { to: routes?.detail({ id: row.values?.id }) }
+        : {};
 
-  return (
-    <Td {...cell.getCellProps()}>
-      <Box as={TdChildComponent} {...tdChildProps}>
-        <TableDataComponent cell={cell} size={size} />
-      </Box>
-    </Td>
-  );
+    return (
+        <Td {...cell.getCellProps()}>
+            <Box as={TdChildComponent} {...tdChildProps}>
+                <TableDataComponent cell={cell} size={size} />
+            </Box>
+        </Td>
+    );
 };
 
 export default TableDataMachine;

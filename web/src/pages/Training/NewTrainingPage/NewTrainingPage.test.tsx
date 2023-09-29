@@ -6,9 +6,9 @@ import NewTrainingPage from './NewTrainingPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('NewTrainingPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<NewTrainingPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<NewTrainingPage />);
+        }).not.toThrow();
+    });
 });
