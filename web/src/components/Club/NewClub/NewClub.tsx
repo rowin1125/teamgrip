@@ -4,10 +4,11 @@ import { toast } from '@redwoodjs/web/toast';
 
 import ClubForm from 'src/components/Club/ClubForm';
 
-const CREATE_CLUB_MUTATION = gql`
+export const CREATE_CLUB_MUTATION = gql`
     mutation CreateClubMutation($input: CreateClubInput!) {
         createClub(input: $input) {
             id
+            name
         }
     }
 `;

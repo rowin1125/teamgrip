@@ -2,7 +2,7 @@ import { GetClubsQuery } from 'types/graphql';
 
 import { useQuery } from '@redwoodjs/web';
 
-const GET_CLUBS_QUERY = gql`
+export const GET_CLUBS_QUERY = gql`
     query GetClubsQuery {
         clubs {
             id

@@ -10,10 +10,10 @@ import ControlledInput from 'src/components/forms/components/ControlledInput';
 import ControlledSelect from 'src/components/forms/components/ControlledSelect';
 import ControlledSwitch from 'src/components/forms/components/ControlledSwitch/ControlledSwitch';
 import DefaultLoader from 'src/components/Loaders/DefaultLoader/DefaultLoader';
-import RedwoodLink from 'src/components/RedwoodLink';
 import TextAlert from 'src/components/TextAlert/TextAlert';
 import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
+import NewClubModal from './components/NewClubModal/NewClubModal';
 import { handleTeamNameTransformation } from './helpers/handleTeamnameTransformation/handleTeamnameTransformation';
 import { useCreateTeam } from './hooks/useCreateTeam';
 import { useGetClubs } from './hooks/useGetClubs';
@@ -37,20 +37,6 @@ const NewTeamPage = () => {
                     <Card>
                         <DefaultLoader isLoading={loading || clubsLoading}>
                             <Heading>Maak nu je eigen team aan 💪</Heading>
-                            <TextAlert status="info" mt={4}>
-                                <Box>
-                                    <Text>
-                                        Staat je club er niet bij? Klik dan{' '}
-                                        <RedwoodLink
-                                            textDecor="underline"
-                                            to="/"
-                                        >
-                                            hier
-                                        </RedwoodLink>{' '}
-                                        om deze club toe te voegen.
-                                    </Text>
-                                </Box>
-                            </TextAlert>
                             <Formik
                                 onSubmit={handleCreateTeam}
                                 initialValues={{
@@ -62,7 +48,7 @@ const NewTeamPage = () => {
                                 }}
                                 validationSchema={validationSchema}
                             >
-                                {({ values }) => {
+                                {({ values, setFieldValue }) => {
                                     const { name, clubId } = values;
                                     const club = clubs?.find(
                                         (club) => club.id === clubId
@@ -75,6 +61,22 @@ const NewTeamPage = () => {
                                         )} ${capitalizeText(name)}`;
                                     return (
                                         <Box as={Form} w="full" maxW="500px">
+                                            <TextAlert status="info" mt={4}>
+                                                <Box>
+                                                    <Text>
+                                                        Staat je club er niet
+                                                        bij? Klik dan op de
+                                                        button hieronder om een
+                                                        nieuwe club aan te
+                                                        maken.
+                                                    </Text>
+                                                    <NewClubModal
+                                                        setFieldValue={
+                                                            setFieldValue
+                                                        }
+                                                    />
+                                                </Box>
+                                            </TextAlert>
                                             <ControlledSelect
                                                 id="clubId"
                                                 label="Club"

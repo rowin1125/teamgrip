@@ -5,12 +5,16 @@ export const schema = gql`
         updatedAt: DateTime!
         name: String!
         teams: [Team]!
-        players: [Player]!
+        players: [Player]
+        season: [Season]!
+        trainings: [Training]!
+        games: [Game]!
     }
 
     type Query {
         clubs: [Club!]! @requireAuth
         club(id: String!): Club @requireAuth
+        clubSearch(term: String!): [Club!]! @requireAuth
     }
 
     input CreateClubInput {
@@ -22,8 +26,7 @@ export const schema = gql`
     }
 
     type Mutation {
-        createClub(input: CreateClubInput!): Club!
-            @requireAuth(roles: ["ADMIN"])
+        createClub(input: CreateClubInput!): Club! @requireAuth
         updateClub(id: String!, input: UpdateClubInput!): Club!
             @requireAuth(roles: ["ADMIN"])
         deleteClub(id: String!): Club! @requireAuth(roles: ["ADMIN"])

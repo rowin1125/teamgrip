@@ -4,6 +4,8 @@ import type {
     ClubRelationResolvers,
 } from 'types/graphql';
 
+import { UserInputError } from '@redwoodjs/graphql-server';
+
 import { db } from 'src/lib/db';
 
 export const clubs: QueryResolvers['clubs'] = () => {
@@ -24,19 +26,47 @@ export const club: QueryResolvers['club'] = async ({ id }) => {
         },
     });
 
+    if (!club) {
+        throw new UserInputError(`Club with id ${id} not found`);
+    }
+
     return club;
 };
 
-export const createClub: MutationResolvers['createClub'] = ({ input }) => {
-    return db.club.create({
-        data: input,
+export const clubSearch: QueryResolvers['clubSearch'] = ({ term }) => {
+    if (term.length < 3)
+        throw new UserInputError(
+            `Search term must be at least 3 characters long`
+        );
+    return db.club.findMany({
+        where: {
+            name: {
+                contains: term,
+                mode: 'insensitive',
+            },
+        },
     });
 };
 
-export const updateClub: MutationResolvers['updateClub'] = ({ id, input }) => {
-    return db.club.update({
+export const createClub: MutationResolvers['createClub'] = async ({
+    input,
+}) => {
+    const { name } = input;
+    const club = await db.club.findFirst({
+        where: {
+            name: {
+                equals: name,
+                mode: 'insensitive',
+            },
+        },
+    });
+
+    if (club) {
+        throw new UserInputError(`Club with name ${name} already exists`);
+    }
+
+    return db.club.create({
         data: input,
-        where: { id },
     });
 };
 

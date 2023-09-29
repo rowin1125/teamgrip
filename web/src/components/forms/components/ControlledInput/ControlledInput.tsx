@@ -25,6 +25,7 @@ type ControlledInputProps = {
     fullWidth?: boolean;
     formControlProps?: FormControlProps;
     transformValue?: (value: string) => string;
+    callback?: (value: string) => void;
 } & InputProps;
 
 const ControlledInput = ({
@@ -38,6 +39,7 @@ const ControlledInput = ({
     formControlProps,
     maxW,
     transformValue,
+    callback,
     ...props
 }: ControlledInputProps) => {
     const [{ onChange, ...field }, meta, { setValue }] = useField(id);
@@ -49,13 +51,14 @@ const ControlledInput = ({
             return;
         }
         onChange(e);
+        callback?.(e.target.value);
     };
 
     return (
         <FormControl
             isInvalid={isInvalid}
             mb={8}
-            maxW={maxW || (fullWidth ? null : 80)}
+            maxW={maxW || (fullWidth ? undefined : 80)}
             w="full"
             {...formControlProps}
         >
