@@ -21,10 +21,9 @@ const LeaveTeamSettings = () => {
           Danger-zone
         </Heading>
         <Text mt={4}>
-          Verwijder het team permanent. Dit kan niet ongedaan worden en betekend
-          dat alle data permanent verloren gaat. Daarnaast komt de teamnaam vrij
-          voor andere teams om te gebruiken en worden alle spelers losgekoppeld
-          van het team.
+          Hier kun je jezelf terugtrekken uit het team. Deze actie kan niet
+          ongedaan worden gemaakt. Hierna moet je of opnieuw een andere
+          uitnodiging ontvangen of zelf een team starten
         </Text>
         <DeleteDialog
           onDelete={handleDeletePlayerById}

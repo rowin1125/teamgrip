@@ -11,15 +11,15 @@
 //
 // See https://storybook.js.org/docs/react/writing-stories/args.
 
-import type { ComponentMeta } from '@storybook/react'
+import type { Meta } from '@storybook/react';
 
-import Pagination from './Pagination'
+import Pagination from './Pagination';
 
 export const generated = () => {
-  return <Pagination />
-}
+  return <Pagination />;
+};
 
 export default {
   title: 'Components/Pagination',
   component: Pagination,
-} as ComponentMeta<typeof Pagination>
+} as Meta<typeof Pagination>;

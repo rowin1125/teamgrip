@@ -21,7 +21,7 @@ const Avatar = ({
   const { currentUser, loading } = useAuth();
 
   return (
-    <Box position="relative" maxW={size} m={2}>
+    <Box position="relative" m={2}>
       {loading && (
         <Flex
           position="relative"
