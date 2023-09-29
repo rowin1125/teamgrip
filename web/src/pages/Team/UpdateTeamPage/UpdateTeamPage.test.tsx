@@ -6,9 +6,9 @@ import UpdateTeamPage from './UpdateTeamPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('UpdateTeamPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<UpdateTeamPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<UpdateTeamPage />);
+        }).not.toThrow();
+    });
 });

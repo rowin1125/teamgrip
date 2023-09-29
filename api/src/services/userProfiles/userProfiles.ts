@@ -3,56 +3,56 @@ import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
 
 export const userProfiles: QueryResolvers['userProfiles'] = () => {
-  return db.userProfile.findMany();
+    return db.userProfile.findMany();
 };
 
 export const userProfile: QueryResolvers['userProfile'] = ({ id }) => {
-  return db.userProfile.findUnique({
-    where: { id },
-  });
+    return db.userProfile.findUnique({
+        where: { id },
+    });
 };
 
 export const createUserProfile: MutationResolvers['createUserProfile'] = ({
-  input,
+    input,
 }) => {
-  return db.userProfile.create({
-    data: {
-      ...input,
-      firstname: input.firstname.toLocaleLowerCase(),
-      lastname: input.lastname.toLocaleLowerCase(),
-    },
-  });
+    return db.userProfile.create({
+        data: {
+            ...input,
+            firstname: input.firstname.toLocaleLowerCase(),
+            lastname: input.lastname.toLocaleLowerCase(),
+        },
+    });
 };
 
 export const updateUserProfile: MutationResolvers['updateUserProfile'] =
-  async ({ id, input }) => {
-    const userProfile = await db.userProfile.update({
-      where: { userId: id },
-      data: {
-        ...input,
-        firstname: input.firstname.toLocaleLowerCase(),
-        lastname: input.lastname.toLocaleLowerCase(),
-      },
-    });
+    async ({ id, input }) => {
+        const userProfile = await db.userProfile.update({
+            where: { userId: id },
+            data: {
+                ...input,
+                firstname: input.firstname.toLocaleLowerCase(),
+                lastname: input.lastname.toLocaleLowerCase(),
+            },
+        });
 
-    await db.player.update({
-      where: {
-        userId: id,
-      },
-      data: {
-        displayName: `${userProfile.firstname} ${userProfile.lastname}`,
-      },
-    });
+        await db.player.update({
+            where: {
+                userId: id,
+            },
+            data: {
+                displayName: `${userProfile.firstname} ${userProfile.lastname}`,
+            },
+        });
 
-    return userProfile;
-  };
+        return userProfile;
+    };
 
 export const deleteUserProfile: MutationResolvers['deleteUserProfile'] = ({
-  id,
+    id,
 }) => {
-  return db.userProfile.delete({
-    where: { id },
-  });
+    return db.userProfile.delete({
+        where: { id },
+    });
 };
 
 // Might be nice for in the future to fetched the user based on the profile id

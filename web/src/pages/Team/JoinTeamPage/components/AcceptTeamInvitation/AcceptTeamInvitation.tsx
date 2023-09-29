@@ -11,28 +11,28 @@ import AcceptButtons from './components/AcceptButtons';
 import AcceptIntroText from './components/AcceptIntroText';
 
 const AcceptTeamInvitation = () => {
-  const { ghostPlayer } = useGhostTeamInvitation();
-  const { invitationToken } = useParams();
+    const { ghostPlayer } = useGhostTeamInvitation();
+    const { invitationToken } = useParams();
 
-  const { team, loading: teamLoading } = useGetTeamByInvitationToken(
-    invitationToken || ''
-  );
+    const { team, loading: teamLoading } = useGetTeamByInvitationToken(
+        invitationToken || ''
+    );
 
-  useEffect(() => {
-    if (!teamLoading && !team) {
-      toast.error('Geen team gevonden op basis van de uitnodiging');
-      navigate(routes.app());
-    }
+    useEffect(() => {
+        if (!teamLoading && !team) {
+            toast.error('Geen team gevonden op basis van de uitnodiging');
+            navigate(routes.app());
+        }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [teamLoading]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [teamLoading]);
 
-  return (
-    <>
-      <AcceptIntroText team={team} ghostPlayer={ghostPlayer} />
-      <AcceptButtons team={team} ghostPlayer={ghostPlayer} />
-    </>
-  );
+    return (
+        <>
+            <AcceptIntroText team={team} ghostPlayer={ghostPlayer} />
+            <AcceptButtons team={team} ghostPlayer={ghostPlayer} />
+        </>
+    );
 };
 
 export default AcceptTeamInvitation;

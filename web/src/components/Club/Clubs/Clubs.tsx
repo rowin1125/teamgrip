@@ -6,11 +6,11 @@ import { toast } from '@redwoodjs/web/toast';
 import { QUERY } from 'src/components/Club/ClubsCell';
 
 const DELETE_CLUB_MUTATION = gql`
-  mutation DeleteClubMutation($id: String!) {
-    deleteClub(id: $id) {
-      id
+    mutation DeleteClubMutation($id: String!) {
+        deleteClub(id: $id) {
+            id
+        }
     }
-  }
 `;
 
 const MAX_STRING_LENGTH = 150;
@@ -27,11 +27,11 @@ const MAX_STRING_LENGTH = 150;
 // }
 
 const truncate = (text: string) => {
-  let output = text;
-  if (text && text.length > MAX_STRING_LENGTH) {
-    output = output.substring(0, MAX_STRING_LENGTH) + '...';
-  }
-  return output;
+    let output = text;
+    if (text && text.length > MAX_STRING_LENGTH) {
+        output = output.substring(0, MAX_STRING_LENGTH) + '...';
+    }
+    return output;
 };
 
 // const jsonTruncate = (obj) => {
@@ -39,13 +39,13 @@ const truncate = (text: string) => {
 // }
 
 const timeTag = (datetime: string) => {
-  return (
-    datetime && (
-      <time dateTime={datetime} title={datetime}>
-        {new Date(datetime).toUTCString()}
-      </time>
-    )
-  );
+    return (
+        datetime && (
+            <time dateTime={datetime} title={datetime}>
+                {new Date(datetime).toUTCString()}
+            </time>
+        )
+    );
 };
 
 // const checkboxInputTag = (checked) => {
@@ -53,77 +53,81 @@ const timeTag = (datetime: string) => {
 // }
 
 const ClubsList = ({ clubs }: { clubs: any[] }) => {
-  const [deleteClub] = useMutation(DELETE_CLUB_MUTATION, {
-    onCompleted: () => {
-      toast.success('Club deleted');
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    // This refetches the query on the list page. Read more about other ways to
-    // update the cache over here:
-    // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
-    refetchQueries: [{ query: QUERY }],
-    awaitRefetchQueries: true,
-  });
+    const [deleteClub] = useMutation(DELETE_CLUB_MUTATION, {
+        onCompleted: () => {
+            toast.success('Club deleted');
+        },
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        // This refetches the query on the list page. Read more about other ways to
+        // update the cache over here:
+        // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
+        refetchQueries: [{ query: QUERY }],
+        awaitRefetchQueries: true,
+    });
 
-  const onDeleteClick = (id: string) => {
-    if (confirm('Are you sure you want to delete club ' + id + '?')) {
-      deleteClub({ variables: { id } });
-    }
-  };
+    const onDeleteClick = (id: string) => {
+        if (confirm('Are you sure you want to delete club ' + id + '?')) {
+            deleteClub({ variables: { id } });
+        }
+    };
 
-  return (
-    <div className="rw-segment rw-table-wrapper-responsive">
-      <table className="rw-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Created at</th>
-            <th>Updated at</th>
-            <th>Name</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clubs.map((club: any) => (
-            <tr key={club.id}>
-              <td>{truncate(club.id)}</td>
-              <td>{timeTag(club.createdAt)}</td>
-              <td>{timeTag(club.updatedAt)}</td>
-              <td>{truncate(club.name)}</td>
-              <td>
-                <nav className="rw-table-actions">
-                  <Link
-                    to={routes.adminClub({ id: club.id })}
-                    title={'Show club ' + club.id + ' detail'}
-                    className="rw-button rw-button-small"
-                  >
-                    Show
-                  </Link>
-                  <Link
-                    to={routes.adminEditClub({ id: club.id })}
-                    title={'Edit club ' + club.id}
-                    className="rw-button rw-button-small rw-button-blue"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    title={'Delete club ' + club.id}
-                    className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(club.id)}
-                  >
-                    Delete
-                  </button>
-                </nav>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    return (
+        <div className="rw-segment rw-table-wrapper-responsive">
+            <table className="rw-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Created at</th>
+                        <th>Updated at</th>
+                        <th>Name</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {clubs.map((club: any) => (
+                        <tr key={club.id}>
+                            <td>{truncate(club.id)}</td>
+                            <td>{timeTag(club.createdAt)}</td>
+                            <td>{timeTag(club.updatedAt)}</td>
+                            <td>{truncate(club.name)}</td>
+                            <td>
+                                <nav className="rw-table-actions">
+                                    <Link
+                                        to={routes.adminClub({ id: club.id })}
+                                        title={
+                                            'Show club ' + club.id + ' detail'
+                                        }
+                                        className="rw-button rw-button-small"
+                                    >
+                                        Show
+                                    </Link>
+                                    <Link
+                                        to={routes.adminEditClub({
+                                            id: club.id,
+                                        })}
+                                        title={'Edit club ' + club.id}
+                                        className="rw-button rw-button-small rw-button-blue"
+                                    >
+                                        Edit
+                                    </Link>
+                                    <button
+                                        type="button"
+                                        title={'Delete club ' + club.id}
+                                        className="rw-button rw-button-small rw-button-red"
+                                        onClick={() => onDeleteClick(club.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </nav>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default ClubsList;

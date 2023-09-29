@@ -10,66 +10,76 @@ import PlayerIsStaffWrapper from 'src/components/ValidationWrappers/PlayerIsStaf
 import { UseTeamTableReturnType } from '../hooks/useTeamTable';
 
 type TeamTableHeadProps = {
-  headerGroups: HeaderGroup<UseTeamTableReturnType>[];
-  theme?: 'dark' | 'light';
-  hiddenColumns?: string[];
-  showActions?: boolean;
+    headerGroups: HeaderGroup<UseTeamTableReturnType>[];
+    theme?: 'dark' | 'light';
+    hiddenColumns?: string[];
+    showActions?: boolean;
 };
 
 const TeamTableHead = ({
-  headerGroups,
-  theme = 'dark',
-  hiddenColumns,
-  showActions,
+    headerGroups,
+    theme = 'dark',
+    hiddenColumns,
+    showActions,
 }: TeamTableHeadProps) => (
-  <Thead>
-    {headerGroups.map((headerGroup) => (
-      <Tr {...headerGroup.getHeaderGroupProps()}>
-        {headerGroup.headers.map((column) => {
-          if (
-            hiddenColumns &&
-            column?.Header &&
-            hiddenColumns.includes(
-              column?.Header?.toString()?.toLocaleLowerCase()
-            )
-          )
-            return null;
-          return (
-            <Th
-              {...column.getHeaderProps(column.getSortByToggleProps())}
-              fontWeight="bold"
-              fontSize="lg"
-              textTransform="none"
-              color={theme === 'dark' ? 'white' : 'primary.500'}
-            >
-              <Box as="span" display="flex">
-                {column.render('Header')}
-                {column.isSorted ? (
-                  column.isSortedDesc ? (
-                    <Icon as={CgChevronDown} fontSize="md" ml={2} />
-                  ) : (
-                    <Icon as={CgChevronUp} fontSize="md" ml={2} />
-                  )
-                ) : null}
-              </Box>
-            </Th>
-          );
-        })}
-        {showActions && (
-          <PlayerIsStaffWrapper>
-            <Th
-              fontWeight="bold"
-              fontSize="lg"
-              textTransform="none"
-              color={theme === 'dark' ? 'white' : 'primary.500'}
-            >
-              Acties
-            </Th>
-          </PlayerIsStaffWrapper>
-        )}
-      </Tr>
-    ))}
-  </Thead>
+    <Thead>
+        {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => {
+                    if (
+                        hiddenColumns &&
+                        column?.Header &&
+                        hiddenColumns.includes(
+                            column?.Header?.toString()?.toLocaleLowerCase()
+                        )
+                    )
+                        return null;
+                    return (
+                        <Th
+                            {...column.getHeaderProps(
+                                column.getSortByToggleProps()
+                            )}
+                            fontWeight="bold"
+                            fontSize="lg"
+                            textTransform="none"
+                            color={theme === 'dark' ? 'white' : 'primary.500'}
+                        >
+                            <Box as="span" display="flex">
+                                {column.render('Header')}
+                                {column.isSorted ? (
+                                    column.isSortedDesc ? (
+                                        <Icon
+                                            as={CgChevronDown}
+                                            fontSize="md"
+                                            ml={2}
+                                        />
+                                    ) : (
+                                        <Icon
+                                            as={CgChevronUp}
+                                            fontSize="md"
+                                            ml={2}
+                                        />
+                                    )
+                                ) : null}
+                            </Box>
+                        </Th>
+                    );
+                })}
+                {showActions && (
+                    <PlayerIsStaffWrapper>
+                        <Th
+                            fontWeight="bold"
+                            fontSize="lg"
+                            textTransform="none"
+                            color={theme === 'dark' ? 'white' : 'primary.500'}
+                        >
+                            Acties
+                        </Th>
+                    </PlayerIsStaffWrapper>
+                )}
+            </Tr>
+        ))}
+    </Thead>
 );
 
 export default TeamTableHead;

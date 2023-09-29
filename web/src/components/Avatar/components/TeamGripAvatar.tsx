@@ -5,30 +5,30 @@ import AvatarComponent from 'avataaars';
 import { Avatar } from 'types/graphql';
 
 type TeamGripAvatarProps = {
-  size: string;
-  avatar: Omit<
-    Avatar,
-    '__typename' | 'createdAt' | 'updatedAt' | 'userId' | 'user'
-  >;
+    size: string;
+    avatar: Omit<
+        Avatar,
+        '__typename' | 'createdAt' | 'updatedAt' | 'userId' | 'user'
+    >;
 };
 
 const TeamGripAvatar = ({
-  size,
-  avatar,
-  ...additionalAvatarProps
+    size,
+    avatar,
+    ...additionalAvatarProps
 }: TeamGripAvatarProps) => {
-  const combinedAvatarProps = {
-    ...avatar,
-    ...additionalAvatarProps,
-  };
-  const { id, ...avatarProps } = combinedAvatarProps;
+    const combinedAvatarProps = {
+        ...avatar,
+        ...additionalAvatarProps,
+    };
+    const { id, ...avatarProps } = combinedAvatarProps;
 
-  return (
-    <AvatarComponent
-      style={{ width: `${size}px`, height: `${size}px` }}
-      {...avatarProps}
-    />
-  );
+    return (
+        <AvatarComponent
+            style={{ width: `${size}px`, height: `${size}px` }}
+            {...avatarProps}
+        />
+    );
 };
 
 export default TeamGripAvatar;

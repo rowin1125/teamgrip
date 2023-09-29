@@ -1,48 +1,49 @@
 import {
-  DeleteSeasonMutation,
-  DeleteSeasonMutationVariables,
-  Season,
+    DeleteSeasonMutation,
+    DeleteSeasonMutationVariables,
+    Season,
 } from 'types/graphql';
 
-import { useAuth } from 'src/auth';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/dist/toast';
+
+import { useAuth } from 'src/auth';
 
 import { GET_SEASON_BY_TEAM_ID_QUERY } from './useGetSeasonsByTeamId';
 
 export const DELETE_SEASON_MUTATION = gql`
-  mutation DeleteSeasonMutation($id: String!) {
-    deleteSeason(id: $id) {
-      id
+    mutation DeleteSeasonMutation($id: String!) {
+        deleteSeason(id: $id) {
+            id
+        }
     }
-  }
 `;
 
 export const useDeleteSeasonById = () => {
-  const { currentUser } = useAuth();
+    const { currentUser } = useAuth();
 
-  const [deleteSeason, { loading }] = useMutation<
-    DeleteSeasonMutation,
-    DeleteSeasonMutationVariables
-  >(DELETE_SEASON_MUTATION, {
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    refetchQueries: [
-      {
-        query: GET_SEASON_BY_TEAM_ID_QUERY,
-        variables: { teamId: currentUser?.player?.teamId },
-      },
-    ],
-  });
+    const [deleteSeason, { loading }] = useMutation<
+        DeleteSeasonMutation,
+        DeleteSeasonMutationVariables
+    >(DELETE_SEASON_MUTATION, {
+        onError: (error) => {
+            toast.error(error.message);
+        },
+        refetchQueries: [
+            {
+                query: GET_SEASON_BY_TEAM_ID_QUERY,
+                variables: { teamId: currentUser?.player?.teamId },
+            },
+        ],
+    });
 
-  const handleDeleteSeason = async (id: Season['id']) => {
-    const deletedSeason = await deleteSeason({ variables: { id } });
+    const handleDeleteSeason = async (id: Season['id']) => {
+        const deletedSeason = await deleteSeason({ variables: { id } });
 
-    if (!deletedSeason.errors) {
-      toast.success('Seizoen succesvol verwijderd 🗑️');
-    }
-  };
+        if (!deletedSeason.errors) {
+            toast.success('Seizoen succesvol verwijderd 🗑️');
+        }
+    };
 
-  return { handleDeleteSeason, loading };
+    return { handleDeleteSeason, loading };
 };

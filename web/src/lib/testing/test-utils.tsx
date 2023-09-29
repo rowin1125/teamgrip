@@ -8,21 +8,21 @@ import { MockProviders } from '@redwoodjs/testing/web';
 import { theme } from 'src/lib/theme/theme';
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
+    return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
 
 const customRender = (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
+    ui: ReactElement,
+    options?: Omit<RenderOptions, 'wrapper'>
 ) =>
-  render(ui, {
-    wrapper: ({ children }) => (
-      <MockProviders>
-        <AllTheProviders>{children}</AllTheProviders>
-      </MockProviders>
-    ),
-    ...options,
-  });
+    render(ui, {
+        wrapper: ({ children }) => (
+            <MockProviders>
+                <AllTheProviders>{children}</AllTheProviders>
+            </MockProviders>
+        ),
+        ...options,
+    });
 
 export * from '@testing-library/react';
 export { customRender as render };

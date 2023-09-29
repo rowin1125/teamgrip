@@ -11,46 +11,51 @@ import TrainingPresence from './components/TrainingPresence';
 import { useGetPlayersPresence } from './hooks/useGetTeamPresenceByTeamId';
 
 const TeamPresence = () => {
-  const { teamPresence, teamPresenceLoading } = useGetPlayersPresence();
+    const { teamPresence, teamPresenceLoading } = useGetPlayersPresence();
 
-  if (teamPresenceLoading) return null;
+    if (teamPresenceLoading) return null;
 
-  return (
-    <>
-      <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-        <SpinnerLoader isLoading={teamPresenceLoading}>
-          <Card bg="primary.500" color="white" minH="700px">
-            <Heading color="white">Training aanwezigheid</Heading>
+    return (
+        <>
+            <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
+                <SpinnerLoader isLoading={teamPresenceLoading}>
+                    <Card bg="primary.500" color="white" minH="700px">
+                        <Heading color="white">Training aanwezigheid</Heading>
 
-            <Box mt={8}>
-              <SeasonLockWrapper>
-                <TrainingPresence
-                  teamPresence={teamPresence}
-                  isLoading={teamPresenceLoading}
-                />
-              </SeasonLockWrapper>
-            </Box>
-          </Card>
-        </SpinnerLoader>
-      </GridItem>
-      <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-        <SpinnerLoader isLoading={teamPresenceLoading}>
-          <Card bg="primary.500" color="white" minH="700px" mt={{ xl: 0 }}>
-            <Heading color="white">Wedstrijd aanwezigheid</Heading>
+                        <Box mt={8}>
+                            <SeasonLockWrapper>
+                                <TrainingPresence
+                                    teamPresence={teamPresence}
+                                    isLoading={teamPresenceLoading}
+                                />
+                            </SeasonLockWrapper>
+                        </Box>
+                    </Card>
+                </SpinnerLoader>
+            </GridItem>
+            <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
+                <SpinnerLoader isLoading={teamPresenceLoading}>
+                    <Card
+                        bg="primary.500"
+                        color="white"
+                        minH="700px"
+                        mt={{ xl: 0 }}
+                    >
+                        <Heading color="white">Wedstrijd aanwezigheid</Heading>
 
-            <Box mt={{ xl: 8 }}>
-              <SeasonLockWrapper>
-                <GamePresence
-                  teamPresence={teamPresence}
-                  isLoading={teamPresenceLoading}
-                />
-              </SeasonLockWrapper>
-            </Box>
-          </Card>
-        </SpinnerLoader>
-      </GridItem>
-    </>
-  );
+                        <Box mt={{ xl: 8 }}>
+                            <SeasonLockWrapper>
+                                <GamePresence
+                                    teamPresence={teamPresence}
+                                    isLoading={teamPresenceLoading}
+                                />
+                            </SeasonLockWrapper>
+                        </Box>
+                    </Card>
+                </SpinnerLoader>
+            </GridItem>
+        </>
+    );
 };
 
 export default TeamPresence;

@@ -6,9 +6,9 @@ import UpdateGamePage from './UpdateGamePage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('UpdateGamePage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<UpdateGamePage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<UpdateGamePage />);
+        }).not.toThrow();
+    });
 });

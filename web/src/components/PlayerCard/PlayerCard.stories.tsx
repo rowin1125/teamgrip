@@ -1,7 +1,7 @@
 import PlayerCard from './PlayerCard';
 
 export const generated = () => {
-  return <PlayerCard />;
+    return <PlayerCard />;
 };
 
 export default { title: 'Components/PlayerCard' };

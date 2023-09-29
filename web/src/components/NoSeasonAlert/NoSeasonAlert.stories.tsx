@@ -1,7 +1,7 @@
 import NoSeasonAlert from './NoSeasonAlert';
 
 export const generated = () => {
-  return <NoSeasonAlert />;
+    return <NoSeasonAlert />;
 };
 
 export default { title: 'Components/NoSeasonAlert' };

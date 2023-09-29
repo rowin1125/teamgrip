@@ -6,9 +6,9 @@ import GeneralLayout from './GeneralLayout';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('GeneralLayout', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<GeneralLayout />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<GeneralLayout />);
+        }).not.toThrow();
+    });
 });

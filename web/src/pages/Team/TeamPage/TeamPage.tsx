@@ -15,54 +15,54 @@ import TeamNotFoundMessage from './components/TeamNotFoundMessage/TeamNotFoundMe
 import TeamTrainings from './components/TeamTrainings/TeamTrainings';
 
 const TeamPage = () => {
-  const { team, loading } = useGetTeamById();
-  const disclosure = useDisclosure();
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+    const { team, loading } = useGetTeamById();
+    const disclosure = useDisclosure();
+    const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
-  const isPartOfTeam = !!team?.id;
+    const isPartOfTeam = !!team?.id;
 
-  if (!loading && !isPartOfTeam)
+    if (!loading && !isPartOfTeam)
+        return (
+            <>
+                <MetaTags title="Team" description="Team page" />
+                <TeamNotFoundMessage title="Mijn team" />
+            </>
+        );
+
     return (
-      <>
-        <MetaTags title="Team" description="Team page" />
-        <TeamNotFoundMessage title="Mijn team" />
-      </>
+        <>
+            <MetaTags title="Team" description="Team page" />
+
+            <Grid templateColumns="repeat(4, 1fr)" templateRows="auto" gap={10}>
+                <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
+                    <TeamGeneralInformation
+                        currentTabIndex={currentTabIndex}
+                        disclosure={disclosure}
+                        setCurrentTabIndex={setCurrentTabIndex}
+                        team={team}
+                        isLoading={loading}
+                    />
+                </GridItem>
+                <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={14}>
+                    <TeamList
+                        team={team}
+                        disclosure={disclosure}
+                        setCurrentTabIndex={setCurrentTabIndex}
+                    />
+                </GridItem>
+                <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
+                    <SeasonLockWrapper>
+                        <TeamTrainings />
+                    </SeasonLockWrapper>
+                </GridItem>
+                <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
+                    <SeasonLockWrapper>
+                        <TeamGames />
+                    </SeasonLockWrapper>
+                </GridItem>
+            </Grid>
+        </>
     );
-
-  return (
-    <>
-      <MetaTags title="Team" description="Team page" />
-
-      <Grid templateColumns="repeat(4, 1fr)" templateRows="auto" gap={10}>
-        <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
-          <TeamGeneralInformation
-            currentTabIndex={currentTabIndex}
-            disclosure={disclosure}
-            setCurrentTabIndex={setCurrentTabIndex}
-            team={team}
-            isLoading={loading}
-          />
-        </GridItem>
-        <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={14}>
-          <TeamList
-            team={team}
-            disclosure={disclosure}
-            setCurrentTabIndex={setCurrentTabIndex}
-          />
-        </GridItem>
-        <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
-          <SeasonLockWrapper>
-            <TeamTrainings />
-          </SeasonLockWrapper>
-        </GridItem>
-        <GridItem colSpan={{ base: 4, xl: 2 }} rowSpan={1}>
-          <SeasonLockWrapper>
-            <TeamGames />
-          </SeasonLockWrapper>
-        </GridItem>
-      </Grid>
-    </>
-  );
 };
 
 export default TeamPage;

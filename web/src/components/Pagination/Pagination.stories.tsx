@@ -16,10 +16,10 @@ import type { Meta } from '@storybook/react';
 import Pagination from './Pagination';
 
 export const generated = () => {
-  return <Pagination />;
+    return <Pagination />;
 };
 
 export default {
-  title: 'Components/Pagination',
-  component: Pagination,
+    title: 'Components/Pagination',
+    component: Pagination,
 } as Meta<typeof Pagination>;

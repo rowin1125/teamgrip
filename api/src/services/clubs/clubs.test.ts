@@ -8,40 +8,40 @@ import type { StandardScenario } from './clubs.scenarios';
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('clubs', () => {
-  scenario('returns all clubs', async (scenario: StandardScenario) => {
-    const result = await clubs();
+    scenario('returns all clubs', async (scenario: StandardScenario) => {
+        const result = await clubs();
 
-    expect(result.length).toEqual(Object.keys(scenario.club).length);
-  });
-
-  scenario('returns a single club', async (scenario: StandardScenario) => {
-    const result = await club({ id: scenario.club.one.id });
-
-    expect(result).toEqual(scenario.club.one);
-  });
-
-  scenario('creates a club', async () => {
-    const result = await createClub({
-      input: { name: 'String' },
+        expect(result.length).toEqual(Object.keys(scenario.club).length);
     });
 
-    expect(result.name).toEqual('String');
-  });
+    scenario('returns a single club', async (scenario: StandardScenario) => {
+        const result = await club({ id: scenario.club.one.id });
 
-  scenario('updates a club', async (scenario: StandardScenario) => {
-    const original = await club({ id: scenario.club.one.id });
-    const result = await updateClub({
-      id: original.id,
-      input: { name: 'String2' },
+        expect(result).toEqual(scenario.club.one);
     });
 
-    expect(result.name).toEqual('String2');
-  });
+    scenario('creates a club', async () => {
+        const result = await createClub({
+            input: { name: 'String' },
+        });
 
-  scenario('deletes a club', async (scenario: StandardScenario) => {
-    const original = await deleteClub({ id: scenario.club.one.id });
-    const result = await club({ id: original.id });
+        expect(result.name).toEqual('String');
+    });
 
-    expect(result).toEqual(null);
-  });
+    scenario('updates a club', async (scenario: StandardScenario) => {
+        const original = await club({ id: scenario.club.one.id });
+        const result = await updateClub({
+            id: original.id,
+            input: { name: 'String2' },
+        });
+
+        expect(result.name).toEqual('String2');
+    });
+
+    scenario('deletes a club', async (scenario: StandardScenario) => {
+        const original = await deleteClub({ id: scenario.club.one.id });
+        const result = await club({ id: original.id });
+
+        expect(result).toEqual(null);
+    });
 });

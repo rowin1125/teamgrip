@@ -6,9 +6,9 @@ import UpdateSeasonPage from './UpdateSeasonPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('UpdateSeasonPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<UpdateSeasonPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<UpdateSeasonPage />);
+        }).not.toThrow();
+    });
 });

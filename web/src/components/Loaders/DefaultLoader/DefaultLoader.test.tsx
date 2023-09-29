@@ -6,9 +6,9 @@ import DefaultLoader from './DefaultLoader';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('DefaultLoader', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<DefaultLoader />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<DefaultLoader />);
+        }).not.toThrow();
+    });
 });

@@ -6,9 +6,9 @@ import AppPage from './AppPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('AppPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<AppPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<AppPage />);
+        }).not.toThrow();
+    });
 });

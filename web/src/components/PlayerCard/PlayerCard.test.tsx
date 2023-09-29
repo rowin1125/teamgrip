@@ -6,9 +6,9 @@ import PlayerCard from './PlayerCard';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('PlayerCard', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<PlayerCard />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<PlayerCard />);
+        }).not.toThrow();
+    });
 });

@@ -6,9 +6,9 @@ import NoSeasonAlert from './NoSeasonAlert';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('NoSeasonAlert', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<NoSeasonAlert />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<NoSeasonAlert />);
+        }).not.toThrow();
+    });
 });

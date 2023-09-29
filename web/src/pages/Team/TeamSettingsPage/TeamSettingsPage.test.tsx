@@ -6,9 +6,9 @@ import TeamSettingsPage from './TeamSettingsPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('TeamSettingsPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<TeamSettingsPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<TeamSettingsPage />);
+        }).not.toThrow();
+    });
 });

@@ -6,9 +6,9 @@ import NewTeamPage from './NewTeamPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('NewTeamPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<NewTeamPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<NewTeamPage />);
+        }).not.toThrow();
+    });
 });

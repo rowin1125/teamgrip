@@ -10,8 +10,8 @@ import App from './App';
 const redwoodAppElement = document.getElementById('redwood-app') as Element;
 
 if (redwoodAppElement && redwoodAppElement.children?.length > 0) {
-  hydrateRoot(redwoodAppElement, <App />);
+    hydrateRoot(redwoodAppElement, <App />);
 } else {
-  const root = createRoot(redwoodAppElement);
-  root.render(<App />);
+    const root = createRoot(redwoodAppElement);
+    root.render(<App />);
 }

@@ -6,9 +6,9 @@ import ActivatePage from './ActivatePage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('ActivatePage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<ActivatePage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<ActivatePage />);
+        }).not.toThrow();
+    });
 });

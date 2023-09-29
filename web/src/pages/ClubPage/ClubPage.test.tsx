@@ -6,9 +6,9 @@ import ClubPage from './ClubPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('ClubPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<ClubPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<ClubPage />);
+        }).not.toThrow();
+    });
 });

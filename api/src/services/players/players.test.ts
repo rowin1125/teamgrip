@@ -1,9 +1,9 @@
 import {
-  players,
-  player,
-  createPlayer,
-  updatePlayer,
-  deletePlayer,
+    players,
+    player,
+    createPlayer,
+    updatePlayer,
+    deletePlayer,
 } from './players';
 import type { StandardScenario } from './players.scenarios';
 
@@ -14,40 +14,40 @@ import type { StandardScenario } from './players.scenarios';
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('players', () => {
-  scenario('returns all players', async (scenario: StandardScenario) => {
-    const result = await players();
+    scenario('returns all players', async (scenario: StandardScenario) => {
+        const result = await players();
 
-    expect(result.length).toEqual(Object.keys(scenario.player).length);
-  });
-
-  scenario('returns a single player', async (scenario: StandardScenario) => {
-    const result = await player({ id: scenario.player.one.id });
-
-    expect(result).toEqual(scenario.player.one);
-  });
-
-  scenario('creates a player', async (scenario: StandardScenario) => {
-    const result = await createPlayer({
-      input: { userId: scenario.player.two.userId },
+        expect(result.length).toEqual(Object.keys(scenario.player).length);
     });
 
-    expect(result.userId).toEqual(scenario.player.two.userId);
-  });
+    scenario('returns a single player', async (scenario: StandardScenario) => {
+        const result = await player({ id: scenario.player.one.id });
 
-  scenario('updates a player', async (scenario: StandardScenario) => {
-    const original = await player({ id: scenario.player.one.id });
-    const result = await updatePlayer({
-      id: original.id,
-      input: { userId: scenario.player.two.userId },
+        expect(result).toEqual(scenario.player.one);
     });
 
-    expect(result.userId).toEqual(scenario.player.two.userId);
-  });
+    scenario('creates a player', async (scenario: StandardScenario) => {
+        const result = await createPlayer({
+            input: { userId: scenario.player.two.userId },
+        });
 
-  scenario('deletes a player', async (scenario: StandardScenario) => {
-    const original = await deletePlayer({ id: scenario.player.one.id });
-    const result = await player({ id: original.id });
+        expect(result.userId).toEqual(scenario.player.two.userId);
+    });
 
-    expect(result).toEqual(null);
-  });
+    scenario('updates a player', async (scenario: StandardScenario) => {
+        const original = await player({ id: scenario.player.one.id });
+        const result = await updatePlayer({
+            id: original.id,
+            input: { userId: scenario.player.two.userId },
+        });
+
+        expect(result.userId).toEqual(scenario.player.two.userId);
+    });
+
+    scenario('deletes a player', async (scenario: StandardScenario) => {
+        const original = await deletePlayer({ id: scenario.player.one.id });
+        const result = await player({ id: original.id });
+
+        expect(result).toEqual(null);
+    });
 });

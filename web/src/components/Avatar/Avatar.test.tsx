@@ -6,9 +6,9 @@ import Avatar from './Avatar';
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('Avatar', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<Avatar />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<Avatar />);
+        }).not.toThrow();
+    });
 });

@@ -6,9 +6,9 @@ import SettingsPage from './SettingsPage';
 //   https://redwoodjs.com/docs/testing#testing-pages-layouts
 
 describe('SettingsPage', () => {
-  it('renders successfully', () => {
-    expect(() => {
-      render(<SettingsPage />);
-    }).not.toThrow();
-  });
+    it('renders successfully', () => {
+        expect(() => {
+            render(<SettingsPage />);
+        }).not.toThrow();
+    });
 });
