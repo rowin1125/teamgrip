@@ -9,4 +9,28 @@
   <body>
     <div id="redwood-app"></div>
   </body>
+  <!-- Brevo Conversations {literal} -->
+    <script>
+        (function(d, w, c) {
+            w.BrevoConversationsID = '62e42fcaf4fb9c55755353b8';
+            w[c] = w[c] || function() {
+                (w[c].q = w[c].q || []).push(arguments);
+            };
+            var s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+            if (d.head) d.head.appendChild(s);
+        })(document, window, 'BrevoConversations');
+    </script>
+    <style>
+        @media (max-width: 1280px) {
+            #brevo-conversations {
+                bottom: 80px
+            }
+        }
+        #brevo-conversations {
+            bottom: 20px
+        }
+    </style>
+    <!-- /Brevo Conversations {/literal} -->
 </html>
