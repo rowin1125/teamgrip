@@ -22,6 +22,7 @@ export const useBrevo = () => {
                     };
                 const s = d.createElement('script');
                 s.async = true;
+                s.defer = true;
                 s.src =
                     'https://conversations-widget.brevo.com/brevo-conversations.js';
                 if (d.head) d.head.appendChild(s);
