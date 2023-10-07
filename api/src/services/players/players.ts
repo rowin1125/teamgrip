@@ -211,6 +211,7 @@ export const getPlayersPresenceByTeamId: QueryResolvers['getPlayersPresenceByTea
                 activityPresence: {
                     where: {
                         seasonId: activeSeason?.id,
+                        teamId: teamId,
                     },
                 },
                 trainings: {
@@ -513,6 +514,7 @@ export const Player: PlayerRelationResolvers = {
             .activityPresence({
                 where: {
                     activityType: type || undefined,
+                    teamId: root.teamId || undefined,
                 },
             });
     },
@@ -522,6 +524,7 @@ export const Player: PlayerRelationResolvers = {
             .activityPresence({
                 where: {
                     activityType: type || undefined,
+                    teamId: root.teamId || undefined,
                 },
             });
 
