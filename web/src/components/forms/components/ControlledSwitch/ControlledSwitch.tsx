@@ -32,7 +32,7 @@ const ControlledSwitch = ({
     const [field, { error, touched }] = useField(id);
 
     return (
-        <FormControl name={id} {...rest}>
+        <FormControl name={id} {...rest} mb={6}>
             {label && (
                 <FormLabel fontWeight="bold" htmlFor={id} {...labelProps}>
                     {label}

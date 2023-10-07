@@ -27,6 +27,7 @@ const UpdateTeamPage = () => {
     const validationSchema = Yup.object().shape({
         clubId: Yup.string().required('Club is verplicht'),
         name: Yup.string().min(4).required('Naam is verplicht'),
+        scoreModuleActive: Yup.boolean().required('Score module is verplicht'),
     });
     if (loading || authLoading) return null;
 
@@ -40,7 +41,7 @@ const UpdateTeamPage = () => {
             <Grid templateColumns="repeat(3, 1fr)" gap={{ xl: 10 }}>
                 <GridItem colSpan={{ base: 3, xl: 2 }}>
                     <Card>
-                        <Heading>Maak nu je eigen team aan 💪</Heading>
+                        <Heading>Update je team</Heading>
                         <DefaultLoader
                             isLoading={loading || authLoading}
                             minH="400px"
@@ -56,6 +57,8 @@ const UpdateTeamPage = () => {
                                             currentUser?.player
                                                 ?.isActivePlayer || false,
                                         clubTeamName: team?.clubTeamName || '',
+                                        scoreModuleActive:
+                                            team?.scoreModuleActive || false,
                                     }}
                                     validationSchema={validationSchema}
                                 >
@@ -101,6 +104,12 @@ const UpdateTeamPage = () => {
                                                     }
                                                     helperText="Letop: De teamnaam mag alleen bestaan uit nummers, letters en dashes: Zaterdag-1, Zatedag-JO-17-2"
                                                 />
+                                                <ControlledSwitch
+                                                    id="scoreModuleActive"
+                                                    helperText="Actieveer dit als je de score module wilt gebruiken voor dit team."
+                                                >
+                                                    Score module actief?
+                                                </ControlledSwitch>
                                                 <ControlledSwitch
                                                     id="ownerIsPlayer"
                                                     helperText="Actieveer dit als de eigenaar zelf als speler wilt deelnemen aan de training / competitie van het team."

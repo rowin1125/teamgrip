@@ -15,6 +15,8 @@ export const schema = gql`
         trainings: [Training]!
         games: [Game]!
         historyPlayers: [Player]!
+        scoreModuleActive: Boolean!
+        activityPresence: [ActivityPresence]
     }
 
     type AllGamesAndTrainings {
@@ -38,6 +40,7 @@ export const schema = gql`
         clubId: String!
         ownerId: String!
         ownerIsPlayer: Boolean!
+        scoreModuleActive: Boolean!
     }
 
     input UpdateTeamInput {
@@ -46,6 +49,7 @@ export const schema = gql`
         clubId: String!
         ownerId: String!
         ownerIsPlayer: Boolean!
+        scoreModuleActive: Boolean!
     }
 
     type Mutation {

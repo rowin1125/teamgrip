@@ -4,6 +4,7 @@ export const TEAM_FRAGMENT = gql`
         name
         invitationToken
         clubTeamName
+        scoreModuleActive
         owner {
             id
             player {

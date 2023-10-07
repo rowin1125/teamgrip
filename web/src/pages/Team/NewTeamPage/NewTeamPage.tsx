@@ -26,6 +26,7 @@ const NewTeamPage = () => {
     const validationSchema = Yup.object().shape({
         clubId: Yup.string().required('Club is verplicht'),
         name: Yup.string().min(4).required('Naam is verplicht'),
+        scoreModuleActive: Yup.boolean().required('Score module is verplicht'),
     });
 
     return (
@@ -45,6 +46,7 @@ const NewTeamPage = () => {
                                     ownerId: currentUser?.id || '',
                                     ownerIsPlayer: false,
                                     clubTeamName: '',
+                                    scoreModuleActive: true,
                                 }}
                                 validationSchema={validationSchema}
                             >

@@ -208,6 +208,11 @@ export const getPlayersPresenceByTeamId: QueryResolvers['getPlayersPresenceByTea
                 },
             },
             include: {
+                activityPresence: {
+                    where: {
+                        seasonId: activeSeason?.id,
+                    },
+                },
                 trainings: {
                     where: {
                         season: {
@@ -459,7 +464,7 @@ export const deletePlayer: MutationResolvers['deletePlayer'] = async ({
     if (!player || !player.teamId) throw new UserInputError('Player not found');
 
     await db.team.update({
-        where: { id: player.teamId! },
+        where: { id: player.teamId },
         data: {
             players: {
                 update: {
@@ -502,4 +507,24 @@ export const Player: PlayerRelationResolvers = {
         db.player.findUnique({ where: { id: root.id } }).club(),
     scores: (_obj, { root }) =>
         db.player.findUnique({ where: { id: root.id } }).scores(),
+    activityPresence: ({ type }, { root }) => {
+        return db.player
+            .findUnique({ where: { id: root.id } })
+            .activityPresence({
+                where: {
+                    activityType: type || undefined,
+                },
+            });
+    },
+    activityPresenceCount: async ({ type }, { root }) => {
+        const res = await db.player
+            .findUnique({ where: { id: root.id } })
+            .activityPresence({
+                where: {
+                    activityType: type || undefined,
+                },
+            });
+
+        return res?.length || 0;
+    },
 };

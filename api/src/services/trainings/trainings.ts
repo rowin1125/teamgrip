@@ -3,6 +3,7 @@ import type {
     MutationResolvers,
     CreateScoreInput,
     TrainingRelationResolvers,
+    CreateActivityPresenceInput,
 } from 'types/graphql';
 
 import { UserInputError } from '@redwoodjs/graphql-server';
@@ -102,7 +103,7 @@ export const createTraining: MutationResolvers['createTraining'] = async ({
                 ...input,
                 players: {
                     connect: scores.map((score) => ({
-                        id: score.playerId,
+                        id: score?.playerId,
                     })),
                 },
             },
@@ -110,12 +111,34 @@ export const createTraining: MutationResolvers['createTraining'] = async ({
 
         const scoreData: CreateScoreInput[] = scores.map((score) => ({
             ...score,
+            playerId: score?.playerId || '',
+            points: score?.points || 0,
             trainingId: trainingResult.id,
+            seasonId: input.seasonId,
+            teamId: input.teamId,
+            type: 'TRAINING',
         }));
 
-        await db.score.createMany({
+        const activityPresenceData: CreateActivityPresenceInput[] = scores.map(
+            (score) => ({
+                trainingId: trainingResult.id,
+                activityType: 'TRAINING',
+                playerId: score?.playerId || '',
+                present: true,
+                seasonId: input.seasonId,
+                teamId: input.teamId,
+            })
+        );
+
+        const createActivity = db.activityPresence.createMany({
+            data: activityPresenceData,
+        });
+
+        const createScore = db.score.createMany({
             data: scoreData,
         });
+
+        await db.$transaction([createActivity, createScore]);
 
         return trainingResult;
     } catch (error) {
@@ -138,12 +161,16 @@ export const updateTraining: MutationResolvers['updateTraining'] = async ({
         where: { id },
         data: {
             ...input,
+            date: new Date(input.date || Date.now()),
             players: {
                 connect: scores.map((score) => ({
-                    id: score.playerId,
+                    id: score?.playerId ?? '',
                 })),
             },
             scores: {
+                deleteMany: {},
+            },
+            activityPresence: {
                 deleteMany: {},
             },
         },
@@ -151,12 +178,34 @@ export const updateTraining: MutationResolvers['updateTraining'] = async ({
 
     const scoreData: CreateScoreInput[] = scores.map((score) => ({
         ...score,
+        playerId: score?.playerId || '',
+        points: score?.points || 0,
         trainingId: trainingResult.id,
+        seasonId: input.seasonId,
+        teamId: input.teamId,
+        type: 'TRAINING',
     }));
 
-    await db.score.createMany({
+    const activityPresenceData: CreateActivityPresenceInput[] = scores.map(
+        (score) => ({
+            trainingId: trainingResult.id,
+            activityType: 'TRAINING',
+            playerId: score?.playerId || '',
+            present: true,
+            seasonId: input.seasonId,
+            teamId: input.teamId,
+        })
+    );
+
+    const createActivity = db.activityPresence.createMany({
+        data: activityPresenceData,
+    });
+
+    const createScore = db.score.createMany({
         data: scoreData,
     });
+
+    await db.$transaction([createActivity, createScore]);
 
     return trainingResult;
 };
@@ -174,4 +223,6 @@ export const Training: TrainingRelationResolvers = {
         db.training.findUnique({ where: { id: root.id } }).players(),
     scores: (_obj, { root }) =>
         db.training.findUnique({ where: { id: root.id } }).scores(),
+    activityPresence: (_obj, { root }) =>
+        db.training.findUnique({ where: { id: root.id } }).activityPresence(),
 };

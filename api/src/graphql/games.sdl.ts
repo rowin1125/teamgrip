@@ -10,6 +10,7 @@ export const schema = gql`
         scores: [Score]!
         team: Team!
         teamId: String!
+        activityPresence: [ActivityPresence]
     }
 
     type PaginatedGames {
@@ -31,14 +32,14 @@ export const schema = gql`
 
     input CreateGameInput {
         date: DateTime!
-        seasonId: String
+        seasonId: String!
         teamId: String!
     }
 
     input UpdateGameInput {
-        date: DateTime
-        seasonId: String
-        teamId: String
+        date: DateTime!
+        seasonId: String!
+        teamId: String!
     }
 
     type Mutation {

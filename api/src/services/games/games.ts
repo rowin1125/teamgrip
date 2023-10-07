@@ -3,6 +3,7 @@ import type {
     MutationResolvers,
     CreateScoreInput,
     GameRelationResolvers,
+    CreateActivityPresenceInput,
 } from 'types/graphql';
 
 import { UserInputError } from '@redwoodjs/graphql-server';
@@ -94,7 +95,7 @@ export const createGame: MutationResolvers['createGame'] = async ({
                 ...input,
                 players: {
                     connect: scores.map((score) => ({
-                        id: score.playerId,
+                        id: score?.playerId,
                     })),
                 },
             },
@@ -102,8 +103,28 @@ export const createGame: MutationResolvers['createGame'] = async ({
 
         const scoreData: CreateScoreInput[] = scores.map((score) => ({
             ...score,
+            playerId: score?.playerId || '',
+            points: score?.points || 0,
             gameId: gameResult.id,
+            seasonId: input.seasonId,
+            teamId: input.teamId,
+            type: 'GAME',
         }));
+
+        const activityPresenceData: CreateActivityPresenceInput[] = scores.map(
+            (score) => ({
+                gameId: gameResult.id,
+                activityType: 'GAME',
+                playerId: score?.playerId || '',
+                present: true,
+                seasonId: input.seasonId,
+                teamId: input.teamId,
+            })
+        );
+
+        await db.activityPresence.createMany({
+            data: activityPresenceData,
+        });
 
         await db.score.createMany({
             data: scoreData,
@@ -133,10 +154,13 @@ export const updateGame: MutationResolvers['updateGame'] = async ({
                 ...input,
                 players: {
                     connect: scores.map((score) => ({
-                        id: score.playerId,
+                        id: score?.playerId,
                     })),
                 },
                 scores: {
+                    deleteMany: {},
+                },
+                activityPresence: {
                     deleteMany: {},
                 },
             },
@@ -144,8 +168,28 @@ export const updateGame: MutationResolvers['updateGame'] = async ({
 
         const scoreData: CreateScoreInput[] = scores.map((score) => ({
             ...score,
+            playerId: score?.playerId || '',
+            points: score?.points || 0,
             gameId: gameResult.id,
+            seasonId: input.seasonId,
+            teamId: input.teamId,
+            type: 'GAME',
         }));
+
+        const activityPresenceData: CreateActivityPresenceInput[] = scores.map(
+            (score) => ({
+                gameId: gameResult.id,
+                activityType: 'GAME',
+                playerId: score?.playerId || '',
+                present: true,
+                seasonId: input.seasonId,
+                teamId: input.teamId,
+            })
+        );
+
+        await db.activityPresence.createMany({
+            data: activityPresenceData,
+        });
 
         await db.score.createMany({
             data: scoreData,
@@ -172,4 +216,6 @@ export const Game: GameRelationResolvers = {
         db.game.findUnique({ where: { id: root.id } }).scores(),
     team: (_obj, { root }) =>
         db.game.findUnique({ where: { id: root.id } }).team(),
+    activityPresence: (_obj, { root }) =>
+        db.game.findUnique({ where: { id: root.id } }).activityPresence(),
 };

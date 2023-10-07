@@ -143,7 +143,6 @@ export const createTeam: MutationResolvers['createTeam'] = async ({
                 },
             });
         }
-        console.log('user', user);
 
         const isInATeam = user?.player?.teamId;
         if (isInATeam)
@@ -316,4 +315,6 @@ export const Team: TeamRelationResolvers = {
         db.team.findUnique({ where: { id: root.id } }).trainings(),
     games: (_obj, { root }) =>
         db.team.findUnique({ where: { id: root.id } }).games(),
+    activityPresence: (_obj, { root }) =>
+        db.team.findUnique({ where: { id: root.id } }).activityPresence(),
 };

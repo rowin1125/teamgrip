@@ -175,6 +175,7 @@ export const createUsers = async () => {
                 connect: [{ userId: user.id }],
             },
             clubId: club.id,
+            scoreModuleActive: true,
         },
     });
 
