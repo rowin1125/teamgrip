@@ -10,6 +10,8 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 export const GET_TEAM_PRESENCE_BY_TEAM_ID_QUERY = gql`
     query GetPlayersPresenceQuery($teamId: String!) {
         getPlayersPresenceByTeamId(teamId: $teamId) {
+            gamePresence: activityPresenceCount(type: GAME)
+            trainingPresence: activityPresenceCount(type: TRAINING)
             displayName
             trainings {
                 id

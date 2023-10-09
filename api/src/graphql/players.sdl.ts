@@ -18,6 +18,8 @@ export const schema = gql`
         trainings: [Training]!
         scores: [Score]!
         games: [Game]!
+        activityPresence(type: ActivityType): [ActivityPresence]!
+        activityPresenceCount(type: ActivityType): Int!
     }
 
     enum PlayerType {

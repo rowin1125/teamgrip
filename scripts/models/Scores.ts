@@ -19,7 +19,7 @@ export const createScores = async (season: Prisma.SeasonCreateArgs['data']) => {
             const date = new Date();
             const newDate = date.setDate(date.getDate() + i);
 
-            await db.training.create({
+            const training = await db.training.create({
                 data: {
                     date: new Date(newDate),
                     season: {
@@ -61,6 +61,17 @@ export const createScores = async (season: Prisma.SeasonCreateArgs['data']) => {
                     },
                 },
             });
+
+            await db.activityPresence.create({
+                data: {
+                    playerId: user.player?.id || '',
+                    trainingId: training.id,
+                    activityType: 'TRAINING',
+                    seasonId: season.id || '',
+                    teamId: user.player?.teamId || '',
+                    present: true,
+                },
+            });
         })
     );
 
@@ -69,7 +80,7 @@ export const createScores = async (season: Prisma.SeasonCreateArgs['data']) => {
             const date = new Date();
             const newDate = date.setDate(date.getDate() + i);
 
-            await db.game.create({
+            const game = await db.game.create({
                 data: {
                     date: new Date(newDate),
                     season: {
@@ -109,6 +120,17 @@ export const createScores = async (season: Prisma.SeasonCreateArgs['data']) => {
                             },
                         },
                     },
+                },
+            });
+
+            await db.activityPresence.create({
+                data: {
+                    playerId: user.player?.id || '',
+                    gameId: game.id,
+                    activityType: 'GAME',
+                    seasonId: season.id || '',
+                    teamId: user.team[0].id,
+                    present: true,
                 },
             });
         })

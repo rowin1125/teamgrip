@@ -10,6 +10,7 @@ export const schema = gql`
         scores: [Score]!
         team: Team
         teamId: String
+        activityPresence: [ActivityPresence]
     }
 
     type PaginatedTrainings {

@@ -1,197 +1,233 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = "native"
+    provider      = "prisma-client-js"
+    binaryTargets = "native"
 }
 
 enum Role {
-  ADMIN
-  USER
+    ADMIN
+    USER
 }
 
 model User {
-  id                  String           @id @default(cuid())
-  createdAt           DateTime         @default(now())
-  updatedAt           DateTime         @default(now()) @updatedAt
-  email               String           @unique
-  hashedPassword      String?
-  salt                String?
-  resetToken          String?
-  resetTokenExpiresAt DateTime?
-  verified            Boolean          @default(false)
-  verifiedToken       String?
-  roles               Role             @default(USER)
-  userProfile         UserProfile?
-  avatar              Avatar?
-  player              Player?
-  team                Team[]
-  webAuthnChallenge   String?          @unique
-  credentials         UserCredential[]
+    id                  String           @id @default(cuid())
+    createdAt           DateTime         @default(now())
+    updatedAt           DateTime         @default(now()) @updatedAt
+    email               String           @unique
+    hashedPassword      String?
+    salt                String?
+    resetToken          String?
+    resetTokenExpiresAt DateTime?
+    verified            Boolean          @default(false)
+    verifiedToken       String?
+    roles               Role             @default(USER)
+    userProfile         UserProfile?
+    avatar              Avatar?
+    player              Player?
+    team                Team[]
+    webAuthnChallenge   String?          @unique
+    credentials         UserCredential[]
 }
 
 model UserCredential {
-  id         String  @id
-  userId     String  @unique
-  user       User    @relation(fields: [userId], references: [id])
-  publicKey  Bytes
-  transports String?
-  counter    BigInt
+    id         String  @id
+    userId     String  @unique
+    user       User    @relation(fields: [userId], references: [id])
+    publicKey  Bytes
+    transports String?
+    counter    BigInt
 }
 
 model UserProfile {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  firstname String?
-  lastname  String?
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+    firstname String?
+    lastname  String?
+    userId    String   @unique
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Avatar {
-  id              String   @id @default(cuid())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now()) @updatedAt
-  avatarStyle     String
-  topType         String
-  accessoriesType String
-  hatColor        String
-  hairColor       String
-  facialHairType  String
-  facialHairColor String
-  clotheType      String
-  clotheColor     String
-  graphicType     String
-  eyeType         String
-  eyebrowType     String
-  mouthType       String
-  skinColor       String
-  userId          String   @unique
-  user            User     @relation(fields: [userId], references: [id])
+    id              String   @id @default(cuid())
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @default(now()) @updatedAt
+    avatarStyle     String
+    topType         String
+    accessoriesType String
+    hatColor        String
+    hairColor       String
+    facialHairType  String
+    facialHairColor String
+    clotheType      String
+    clotheColor     String
+    graphicType     String
+    eyeType         String
+    eyebrowType     String
+    mouthType       String
+    skinColor       String
+    userId          String   @unique
+    user            User     @relation(fields: [userId], references: [id])
 }
 
 enum PlayerType {
-  PLAYER
-  STAFF
+    PLAYER
+    STAFF
 }
 
 model Player {
-  id              String     @id @default(cuid())
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @default(now()) @updatedAt
-  userId          String?    @unique
-  user            User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  teamId          String?
-  team            Team?      @relation(fields: [teamId], references: [id])
-  club            Club?      @relation(fields: [clubId], references: [id])
-  clubId          String?
-  playerType      PlayerType @default(PLAYER)
-  isActivePlayer  Boolean    @default(false)
-  teamInvitation  String?
-  ghostInvitation String?
-  displayName     String?
-  isGhost         Boolean    @default(false)
-  trainings       Training[]
-  scores          Score[]
-  games           Game[]
-  historyTeams    Team[]     @relation("HistoryPlayers")
-  historySeasons  Season[]
+    id               String             @id @default(cuid())
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @default(now()) @updatedAt
+    userId           String?            @unique
+    user             User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    teamId           String?
+    team             Team?              @relation(fields: [teamId], references: [id])
+    club             Club?              @relation(fields: [clubId], references: [id])
+    clubId           String?
+    playerType       PlayerType         @default(PLAYER)
+    isActivePlayer   Boolean            @default(false)
+    teamInvitation   String?
+    ghostInvitation  String?
+    displayName      String?
+    isGhost          Boolean            @default(false)
+    trainings        Training[]
+    scores           Score[]
+    games            Game[]
+    historyTeams     Team[]             @relation("HistoryPlayers")
+    historySeasons   Season[]
+    activityPresence ActivityPresence[]
 }
 
 model Team {
-  id              String     @id @default(cuid())
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @default(now()) @updatedAt
-  name            String
-  clubTeamName    String     @unique @default(cuid())
-  players         Player[]
-  historyPlayers  Player[]   @relation("HistoryPlayers")
-  club            Club?      @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  clubId          String?
-  owner           User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId         String
-  invitationToken String?
-  season          Season[]
-  trainings       Training[]
-  scores          Score[]
-  games           Game[]
+    id                String             @id @default(cuid())
+    createdAt         DateTime           @default(now())
+    updatedAt         DateTime           @default(now()) @updatedAt
+    name              String
+    clubTeamName      String             @unique @default(cuid())
+    players           Player[]
+    historyPlayers    Player[]           @relation("HistoryPlayers")
+    club              Club?              @relation(fields: [clubId], references: [id], onDelete: Cascade)
+    clubId            String?
+    owner             User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId           String
+    invitationToken   String?
+    season            Season[]
+    trainings         Training[]
+    scores            Score[]
+    games             Game[]
+    scoreModuleActive Boolean            @default(true)
+    activityPresence  ActivityPresence[]
 }
 
 model Club {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  name      String
-  teams     Team[]
-  players   Player[]
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default(now()) @updatedAt
+    name      String
+    teams     Team[]
+    players   Player[]
 }
 
 model Training {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  date      DateTime
-  season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-  seasonId  String?
-  players   Player[]
-  scores    Score[]
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId    String
+    id               String             @id @default(cuid())
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @default(now()) @updatedAt
+    date             DateTime
+    season           Season?            @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+    seasonId         String?
+    players          Player[]
+    scores           Score[]
+    team             Team               @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    teamId           String
+    activityPresence ActivityPresence[]
+}
+
+enum ActivityType {
+    TRAINING
+    GAME
+}
+
+model ActivityPresence {
+    id           String       @id @default(cuid())
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @default(now()) @updatedAt
+    activityType ActivityType
+    player       Player       @relation(fields: [playerId], references: [id], onDelete: Cascade)
+    playerId     String
+    present      Boolean      @default(false)
+    season       Season       @relation(fields: [seasonId], references: [id])
+    seasonId     String
+    team         Team         @relation(fields: [teamId], references: [id])
+    teamId       String
+    training     Training?    @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+    trainingId   String?
+    game         Game?        @relation(fields: [gameId], references: [id], onDelete: Cascade)
+    gameId       String?
 }
 
 model Game {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  date      DateTime
-  season    Season?  @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-  seasonId  String?
-  players   Player[]
-  scores    Score[]
-  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId    String
+    id               String             @id @default(cuid())
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @default(now()) @updatedAt
+    date             DateTime
+    season           Season?            @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+    seasonId         String?
+    players          Player[]
+    scores           Score[]
+    team             Team               @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    teamId           String
+    activityPresence ActivityPresence[]
 }
 
 model Score {
-  id         String    @id @default(cuid())
-  points     Int
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @default(now()) @updatedAt
-  type       ScoreType
-  season     Season    @relation(fields: [seasonId], references: [id])
-  seasonId   String
-  player     Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
-  playerId   String
-  training   Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
-  trainingId String?
-  team       Team?     @relation(fields: [teamId], references: [id])
-  teamId     String?
-  game       Game?     @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  gameId     String?
+    id         String    @id @default(cuid())
+    points     Int
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @default(now()) @updatedAt
+    type       ScoreType
+    season     Season    @relation(fields: [seasonId], references: [id])
+    seasonId   String
+    player     Player    @relation(fields: [playerId], references: [id], onDelete: Cascade)
+    playerId   String
+    training   Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+    trainingId String?
+    team       Team?     @relation(fields: [teamId], references: [id])
+    teamId     String?
+    game       Game?     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+    gameId     String?
 }
 
 enum ScoreType {
-  TRAINING
-  TOP_TRAINING
-  GAME
-  TOP_GAME
+    TRAINING
+    TOP_TRAINING
+    GAME
+    TOP_GAME
 }
 
 model Season {
-  id             String     @id @default(cuid())
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @default(now()) @updatedAt
-  name           String
-  active         Boolean    @default(false)
-  seasonTeamName String     @unique
-  team           Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId         String
-  trainings      Training[]
-  scores         Score[]
-  games          Game[]
-  removedPlayers Player[]
+    id               String             @id @default(cuid())
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @default(now()) @updatedAt
+    name             String
+    active           Boolean            @default(false)
+    seasonTeamName   String             @unique
+    team             Team               @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    teamId           String
+    trainings        Training[]
+    scores           Score[]
+    games            Game[]
+    removedPlayers   Player[]
+    activityPresence ActivityPresence[]
+}
+
+model RW_DataMigration {
+    version    String   @id
+    name       String
+    startedAt  DateTime
+    finishedAt DateTime
 }

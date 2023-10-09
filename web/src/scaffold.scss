@@ -384,3 +384,15 @@
   text-align: center;
   flex-basis: 100%;
 }
+
+#brevo-conversations {
+    bottom: 80px;
+    right: 20px;
+}
+
+@media (min-width: 1280px) {
+    #brevo-conversations {
+        bottom: 20px;
+        right: 20px;
+    }
+  }
