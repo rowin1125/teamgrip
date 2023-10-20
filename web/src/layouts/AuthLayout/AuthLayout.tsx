@@ -1,6 +1,5 @@
 import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 
-import { Link as RedwoodLink } from '@redwoodjs/router';
 import { Toaster } from '@redwoodjs/web/dist/toast';
 
 import Footer from 'src/components/Footer/Footer';

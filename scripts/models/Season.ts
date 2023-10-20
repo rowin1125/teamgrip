@@ -1,4 +1,4 @@
-import { db } from '$api/src/lib/db';
+import { db } from 'api/src/lib/db';
 
 export const createSeason = async () => {
     const teamWithRowin = await db.team.findFirst({

@@ -27,13 +27,6 @@ const TeamGames = () => {
 
     const gameEntries = games?.map((game) => {
         const bestPlayer = getBestGamePlayer(game as Game);
-        const bestPlayerOfGame = game?.scores?.slice()?.sort((a, b) => {
-            if (!a?.points || !b?.points) return 0;
-
-            if (a.points < b.points) return -1;
-            if (a.points > b.points) return 1;
-            return 0;
-        })?.[0];
 
         return {
             id: game?.id,

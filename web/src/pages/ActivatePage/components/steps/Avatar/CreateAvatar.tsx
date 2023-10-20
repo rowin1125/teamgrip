@@ -16,10 +16,7 @@ import { waitFor } from 'src/helpers/waitFor/waitFor';
 
 import Avatar from './components/Avatar';
 import AvatarFormFields from './components/AvatarFormFields';
-import {
-    avatarOptions,
-    generateRandomAvatarOptions,
-} from './helpers/generateRandomAvatar';
+import { generateRandomAvatarOptions } from './helpers/generateRandomAvatar';
 
 type CreateAvatarProps = {
     setActivateStep: (step: number) => void;

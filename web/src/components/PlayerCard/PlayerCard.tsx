@@ -1,6 +1,6 @@
 import { Box, Fade, Flex, Spinner } from '@chakra-ui/react';
 
-import { useAuth } from 'src/auth';
+import { useParams } from '@redwoodjs/router';
 
 import Avatar from '../Avatar/Avatar';
 
@@ -11,9 +11,10 @@ import { useGetPlayerScoresByTeamId } from './hooks/useGetPlayerScoresByTeamId';
 import './PLayerCard.scss';
 
 const PlayerCard = () => {
-    const { currentUser } = useAuth();
+    const { id } = useParams();
+
     const { playerWithTotalScore, playerWithTotalScoreLoading } =
-        useGetPlayerScoresByTeamId();
+        useGetPlayerScoresByTeamId({ playerId: id });
 
     return (
         <Box>
@@ -27,6 +28,7 @@ const PlayerCard = () => {
                 <Fade
                     in={playerWithTotalScoreLoading}
                     style={{
+                        display: playerWithTotalScoreLoading ? 'block' : 'none',
                         height: '100%',
                         position: 'absolute',
                         inset: 0,
@@ -45,21 +47,10 @@ const PlayerCard = () => {
                                     <div className="player-rating">
                                         <span>97</span>
                                     </div>
-                                    {/* Implement when playerStats are added */}
-                                    {/* <div className="player-position">
-                      <span>RW</span>
-                    </div> */}
                                     <div className="player-nation">
                                         <img
                                             src={dutchFlag}
                                             alt="Argentina"
-                                            draggable="false"
-                                        />
-                                    </div>
-                                    <div className="player-club">
-                                        <img
-                                            src="https://website.storage/Data/Zob/Layout/Images/Logo/full/default3_logo.png?637092497617279194"
-                                            alt="Barcelona"
                                             draggable="false"
                                         />
                                     </div>
@@ -75,6 +66,9 @@ const PlayerCard = () => {
                                         additionalAvatarProps={{
                                             avatarStyle: 'blank',
                                         }}
+                                        avatar={
+                                            playerWithTotalScore.user?.avatar
+                                        }
                                     />
                                 </Flex>
                             </Box>
@@ -83,8 +77,8 @@ const PlayerCard = () => {
                                     <div className="player-name">
                                         <span>
                                             {
-                                                currentUser?.userProfile
-                                                    ?.firstname
+                                                playerWithTotalScore.user
+                                                    ?.userProfile.firstname
                                             }
                                         </span>
                                     </div>

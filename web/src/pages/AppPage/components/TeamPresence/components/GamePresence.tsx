@@ -53,11 +53,9 @@ const GamePresence = ({ teamPresence, isLoading }: GamePresenceProps) => {
         datasets: [
             {
                 type: 'bar' as const,
-                label: 'Jouw score',
+                label: 'Score',
                 backgroundColor: '#1f8efa',
                 data: teamPresence.map((player) => player?.games.length),
-                borderColor: 'white',
-                borderWidth: 2,
             },
         ],
     };

@@ -61,13 +61,12 @@ export const useTeamInvitation = () => {
         onCompleted: reauthenticate,
     });
 
-    const [playerRejoinsTeamFromHistory, { loading: rejoinLoading }] =
-        useMutation<
-            PlayerRejoinsTeamFromHistory,
-            PlayerRejoinsTeamFromHistoryVariables
-        >(PLAYER_REJOINS_TEAM_FROM_HISTORY, {
-            onCompleted: reauthenticate,
-        });
+    const [playerRejoinsTeamFromHistory] = useMutation<
+        PlayerRejoinsTeamFromHistory,
+        PlayerRejoinsTeamFromHistoryVariables
+    >(PLAYER_REJOINS_TEAM_FROM_HISTORY, {
+        onCompleted: reauthenticate,
+    });
 
     const handleJoinTeam = async (playerId: string, teamId: string) => {
         const isPartOfTeam = !!team;
@@ -98,7 +97,8 @@ export const useTeamInvitation = () => {
 
             toast.success('Gefeliciteerd, je bent onderdeel van het team');
             navigate(routes.team());
-        } catch (error: any) {
+        } catch (err) {
+            const error = err as Error;
             toast.error(error.message);
         }
     };

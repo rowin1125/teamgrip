@@ -38,6 +38,8 @@ const Routes = () => {
                     <Route path="/team/game/new-game" page={GameNewGamePage} name="newGame" />
                     <Route path="/team/game/{id}" page={GameGameDetailPage} name="gameDetail" />
                     <Route path="/team/game/{id}/update-game" page={GameUpdateGamePage} name="updateGame" />
+                    {/* PLAYERS */}
+                    <Route path="/team/speler/{id}" page={PlayerDetailPage} name="playerDetail" />
                     {/* INSTELLINGEN */}
                     <Route path="/instellingen" page={SettingsPage} name="settings" />
                     <Route path="/instellingen/update-avatar" page={UpdateAvatarPage} name="updateAvatar" />

@@ -2,23 +2,23 @@ import React from 'react';
 
 import { Heading, Text } from '@chakra-ui/react';
 
+import { routes } from '@redwoodjs/router';
+
 import Card from 'src/components/Card/Card';
 import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
 import TeamTable from 'src/components/TeamTable';
 import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
-import {
-    allWordsCapitalized,
-    capitalizeText,
-} from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 import { useGetPlayersAndScoresByTeamId } from 'src/pages/Team/TeamPage/hooks/useGetPlayersAndScoresByTeamId';
 
 type TopTeamPlayersProps = {
     amount?: number;
+    teamId?: string;
 };
 
-const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
+const TopTeamPlayers = ({ amount = 5, teamId }: TopTeamPlayersProps) => {
     const { playersWithTotalScore, playersWithTotalScoreLoading } =
-        useGetPlayersAndScoresByTeamId(amount);
+        useGetPlayersAndScoresByTeamId(amount, teamId);
 
     return (
         <Card
@@ -57,9 +57,14 @@ const TopTeamPlayers = ({ amount = 5 }: TopTeamPlayersProps) => {
                                         player?.displayName || 'Onbekend'
                                     ),
                                     Avatar: player?.user?.avatar,
+                                    id: player?.id,
                                 })
                             )}
                             isLoading={playersWithTotalScoreLoading}
+                            hiddenColumns={['id']}
+                            routes={{
+                                detail: routes.playerDetail,
+                            }}
                         />
                     </>
                 </SeasonLockWrapper>

@@ -75,10 +75,11 @@ export const createSeason: MutationResolvers['createSeason'] = async ({
             })
         );
 
-        const [season, season2] = await db.$transaction(requestArray);
+        const [season] = await db.$transaction(requestArray);
 
         return season;
-    } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
         if (error.code === 'P2002')
             throw new UserInputError('Seizoen bestaat al');
         if (error.message) throw new UserInputError(error.message);
@@ -113,12 +114,13 @@ export const updateSeason: MutationResolvers['updateSeason'] = async ({
         db.season.update({
             data: {
                 ...input,
+                name: input.name || 'MISSING',
             },
             where: { id },
         })
     );
 
-    const [season, season2] = await db.$transaction(requestArray);
+    const [, season2] = await db.$transaction(requestArray);
 
     return season2;
 };

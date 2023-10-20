@@ -25,14 +25,16 @@ export const GET_TEAM_PRESENCE_BY_TEAM_ID_QUERY = gql`
     }
 `;
 
-export const useGetPlayersPresence = () => {
+export const useGetPlayersPresence = (teamId?: string | null) => {
     const { currentUser } = useTeamPlayerAuth();
+    const queryTeamId = teamId || currentUser?.player?.teamId;
+
     const { data, loading, error } = useQuery<
         GetPlayersPresenceQuery,
         GetPlayersPresenceQueryVariables
     >(GET_TEAM_PRESENCE_BY_TEAM_ID_QUERY, {
         variables: {
-            teamId: currentUser?.player?.teamId || '',
+            teamId: queryTeamId || '',
         },
     });
 

@@ -30,8 +30,6 @@ const TopType = () => {
         'Hijab',
     ].includes(values.topType);
 
-    const hairColorMap = {};
-
     return (
         <Grid templateColumns="repeat(4, 1fr)" gap={4}>
             <GridItem colSpan={{ base: 4, xl: 2 }}>

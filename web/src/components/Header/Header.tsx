@@ -11,12 +11,11 @@ import {
 import styled from '@emotion/styled';
 import { CgBell } from 'react-icons/cg';
 
-import { Link, routes, useLocation } from '@redwoodjs/router';
+import { Link, routes } from '@redwoodjs/router';
 
 import { useAuth } from 'src/auth';
 
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
-import RedwoodLink from '../RedwoodLink';
 
 import ProfileMenu from './components/ProfileMenu';
 

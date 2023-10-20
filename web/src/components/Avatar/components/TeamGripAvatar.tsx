@@ -2,14 +2,11 @@
 import React from 'react';
 
 import AvatarComponent from 'avataaars';
-import { Avatar } from 'types/graphql';
+import { AvatarFragment } from 'types/graphql';
 
 type TeamGripAvatarProps = {
     size: string;
-    avatar: Omit<
-        Avatar,
-        '__typename' | 'createdAt' | 'updatedAt' | 'userId' | 'user'
-    >;
+    avatar: AvatarFragment['avatar'];
 };
 
 const TeamGripAvatar = ({
@@ -21,12 +18,12 @@ const TeamGripAvatar = ({
         ...avatar,
         ...additionalAvatarProps,
     };
-    const { id, ...avatarProps } = combinedAvatarProps;
 
     return (
         <AvatarComponent
             style={{ width: `${size}px`, height: `${size}px` }}
-            {...avatarProps}
+            avatarStyle={avatar?.avatarStyle || 'Circle'}
+            {...combinedAvatarProps}
         />
     );
 };

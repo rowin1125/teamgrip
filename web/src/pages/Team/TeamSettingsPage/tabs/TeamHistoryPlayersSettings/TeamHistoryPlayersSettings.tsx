@@ -8,9 +8,7 @@ import TextAlert from 'src/components/TextAlert/TextAlert';
 import TeamHistoryPlayersTable from './components/TeamHistoryPlayersTable';
 import { useGetHistoryPlayersByTeamId } from './hooks/useGetHistoryPlayersByTeamId';
 
-type TeamHistoryPlayersSettingsProps = {};
-
-const TeamHistoryPlayersSettings = ({}: TeamHistoryPlayersSettingsProps) => {
+const TeamHistoryPlayersSettings = () => {
     const { historyPlayersData, historyPlayersLoading } =
         useGetHistoryPlayersByTeamId();
 

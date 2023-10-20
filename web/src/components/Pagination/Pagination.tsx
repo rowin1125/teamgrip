@@ -18,8 +18,6 @@ const Pagination = ({
     setCurrentPage,
     currentPage,
 }: PaginationProps) => {
-    if (!total) return null;
-
     const {
         firstPage,
         lastPage,
@@ -34,6 +32,7 @@ const Pagination = ({
         currentPage,
     });
 
+    if (!total) return null;
     if (total <= limit) return null;
 
     return (

@@ -102,6 +102,7 @@ const TeamSettingsPage = () => {
                                         <MenuList>
                                             {menuItems.map((item, i) => (
                                                 <MenuItem
+                                                    key={item}
                                                     onClick={() => setIndex(i)}
                                                 >
                                                     <Text
@@ -129,7 +130,7 @@ const TeamSettingsPage = () => {
                                     display={{ base: 'none', lg: 'flex' }}
                                 >
                                     {menuItems.map((item) => (
-                                        <Tab>
+                                        <Tab key={item}>
                                             <Text
                                                 fontWeight="bold"
                                                 fontSize={{

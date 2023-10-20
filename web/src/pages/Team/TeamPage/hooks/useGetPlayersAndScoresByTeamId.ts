@@ -35,14 +35,19 @@ export const GET_PLAYERS_AND_SCORES_BY_TEAM_ID = gql`
     }
 `;
 
-export const useGetPlayersAndScoresByTeamId = (amount?: number) => {
+export const useGetPlayersAndScoresByTeamId = (
+    amount?: number,
+    teamId?: string
+) => {
     const { currentUser } = useAuth();
+
+    const queryTeamId = teamId || currentUser?.player?.teamId;
 
     const { data: playersWithTotalScore, loading } = useQuery<
         GetPlayersAndScoresByTeamId,
         GetPlayersAndScoresByTeamIdVariables
     >(GET_PLAYERS_AND_SCORES_BY_TEAM_ID, {
-        variables: { teamId: currentUser?.player?.teamId || '', limit: amount },
+        variables: { teamId: queryTeamId || '', limit: amount },
     });
 
     return {

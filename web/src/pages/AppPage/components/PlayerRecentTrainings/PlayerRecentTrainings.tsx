@@ -15,6 +15,7 @@ import {
 } from 'chart.js';
 import { format } from 'date-fns';
 import { Chart } from 'react-chartjs-2';
+import { GetPlayerByIdQuery } from 'types/graphql';
 
 import { routes } from '@redwoodjs/router';
 
@@ -23,6 +24,7 @@ import Card from 'src/components/Card/Card';
 import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
 import ChartHasDataWrapper from 'src/components/ValidationWrappers/ChartHasDataWrapper/ChartHasDataWrapper';
 import SeasonLockWrapper from 'src/components/ValidationWrappers/SeasonLockWrapper/SeasonLockWrapper';
+import { capitalizeText } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 import { useScreenSize } from 'src/hooks/global/useScreenSize';
 
 import { useGetRecentTrainingPoints } from './hooks/useGetRecentTrainingPoints';
@@ -39,10 +41,17 @@ ChartJS.register(
     BarController
 );
 
-const PlayerRecentTrainings = () => {
-    const { recentTrainings, loading } = useGetRecentTrainingPoints();
+type PlayerRecentTrainingsType = {
+    player?: GetPlayerByIdQuery['player'];
+};
+
+const PlayerRecentTrainings = ({ player }: PlayerRecentTrainingsType) => {
+    const { recentTrainings, loading } = useGetRecentTrainingPoints(player?.id);
     const { currentUser } = useAuth();
     const { isXl } = useScreenSize();
+
+    const isPublicPlayerPage = !!player?.id;
+    const currentPlayerId = player?.id || currentUser?.player?.id;
 
     const labels = recentTrainings?.map((training) =>
         format(new Date(training.date), 'dd/MM')
@@ -53,12 +62,14 @@ const PlayerRecentTrainings = () => {
         datasets: [
             {
                 type: 'bar' as const,
-                label: 'Jouw score',
+                label: isPublicPlayerPage
+                    ? `${capitalizeText(player?.displayName || '')}`
+                    : 'Jouw score',
                 backgroundColor: 'rgb(75, 192, 192)',
                 data: recentTrainings?.map((training) => {
                     const totalPointsOfCurrentPlayer = training.scores.reduce(
                         (acc, score) => {
-                            if (score?.playerId === currentUser?.player?.id)
+                            if (score?.playerId === currentPlayerId)
                                 return acc + (score?.points ?? 0);
 
                             return acc;
@@ -67,8 +78,6 @@ const PlayerRecentTrainings = () => {
                     );
                     return totalPointsOfCurrentPlayer;
                 }),
-                borderColor: 'white',
-                borderWidth: 2,
             },
             {
                 type: 'bar' as const,
@@ -92,7 +101,7 @@ const PlayerRecentTrainings = () => {
     );
 
     return (
-        <Card bg="primary.500" color="white" h="full" minH="700px">
+        <Card bg="primary.500" color="white" h="full" minH="300px">
             <SpinnerLoader isLoading={loading}>
                 <SeasonLockWrapper>
                     <Heading color="white" mb={8}>
@@ -108,7 +117,7 @@ const PlayerRecentTrainings = () => {
                         buttonText="Maak je eerste training aan"
                     >
                         <Chart
-                            height={isXl ? 150 : 200}
+                            height={isXl ? 400 : 200}
                             type="bar"
                             options={{
                                 responsive: true,
@@ -128,6 +137,7 @@ const PlayerRecentTrainings = () => {
                                     x: {
                                         ticks: {
                                             color: 'white',
+                                            minRotation: 45,
                                         },
                                     },
                                     y: {

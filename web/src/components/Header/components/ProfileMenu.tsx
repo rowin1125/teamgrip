@@ -10,7 +10,7 @@ import {
     MenuList,
 } from '@chakra-ui/react';
 
-import { Link as RedwoodLink, routes, useLocation } from '@redwoodjs/router';
+import { Link as RedwoodLink, routes } from '@redwoodjs/router';
 import { toast } from '@redwoodjs/web/toast';
 
 import { useAuth } from 'src/auth';
@@ -18,7 +18,6 @@ import Avatar from 'src/components/Avatar/Avatar';
 
 const ProfileMenu = () => {
     const { logOut, currentUser } = useAuth();
-    const { pathname } = useLocation();
 
     const handleLogout = async () => {
         try {

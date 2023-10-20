@@ -1,6 +1,6 @@
 import { Box, Flex, Spinner } from '@chakra-ui/react';
 import AvatarComponent from 'avataaars';
-import { Avatar as AdditionalAvatarProps } from 'types/graphql';
+import { Avatar as AdditionalAvatarProps, AvatarFragment } from 'types/graphql';
 
 import { useAuth } from 'src/auth';
 import { generateRandomAvatarOptions } from 'src/pages/ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
@@ -11,14 +11,18 @@ type AvatarProps = {
     size?: string;
     disableInitials?: boolean;
     additionalAvatarProps?: Partial<AdditionalAvatarProps>;
+    avatar?: AvatarFragment['avatar'];
 };
 
 const Avatar = ({
     size = '60',
     disableInitials,
     additionalAvatarProps,
+    avatar,
 }: AvatarProps) => {
     const { currentUser, loading } = useAuth();
+
+    const avatarData = avatar || currentUser?.avatar;
 
     return (
         <Box position="relative" m={2}>
@@ -44,9 +48,9 @@ const Avatar = ({
                     />
                 </Flex>
             )}
-            {!loading && currentUser?.avatar?.avatarStyle && (
+            {!loading && avatarData?.avatarStyle && (
                 <TeamGripAvatar
-                    avatar={currentUser.avatar}
+                    avatar={avatarData}
                     size={size}
                     {...additionalAvatarProps}
                 />

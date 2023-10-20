@@ -128,18 +128,18 @@ export const getPlayersAndScoresByTeamId: QueryResolvers['getPlayersAndScoresByT
     };
 
 export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] =
-    async ({ teamId }) => {
-        if (!context.currentUser?.player) throw new Error('Not authorized');
+    async ({ teamId, playerId }) => {
+        const searchPlayerId = playerId || context.currentUser?.player?.id;
 
         const playerWithoutScores = await db.player.findFirst({
             where: {
                 teamId,
-                id: context.currentUser.player.id,
+                id: searchPlayerId,
             },
             include: {
                 scores: {
                     where: {
-                        playerId: context.currentUser.player.id,
+                        playerId: searchPlayerId,
                     },
                     orderBy: {
                         createdAt: 'desc',
@@ -166,7 +166,7 @@ export const getPlayerScoresByTeamId: QueryResolvers['getPlayerScoresByTeamId'] 
                 season: {
                     active: true,
                 },
-                playerId: context.currentUser.player.id,
+                playerId: searchPlayerId,
             },
         });
 

@@ -49,10 +49,12 @@ const TableDataMachine = ({
             break;
     }
 
-    const TdChildComponent = routes?.detail ? RedwoodLink : 'div';
-    const tdChildProps = routes?.detail
-        ? { to: routes?.detail({ id: row.values?.id }) }
-        : {};
+    const TdChildComponent =
+        routes?.detail && row.values?.id ? RedwoodLink : 'div';
+    const tdChildProps =
+        routes?.detail && row.values.id
+            ? { to: routes?.detail({ id: row.values?.id || '' }) }
+            : {};
 
     return (
         <Td {...cell.getCellProps()}>
