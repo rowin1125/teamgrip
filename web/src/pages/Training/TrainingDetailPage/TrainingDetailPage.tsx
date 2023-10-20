@@ -125,6 +125,10 @@ const TrainingDetailPage = () => {
                                 isLoading={trainingLoading}
                                 size="md"
                                 theme="dark"
+                                hiddenColumns={['id']}
+                                routes={{
+                                    detail: routes.playerDetail,
+                                }}
                                 entries={topTrainingScores
                                     ?.sort((scoreA, scoreB) => {
                                         const scoreAIsNumber =
@@ -143,6 +147,7 @@ const TrainingDetailPage = () => {
                                         Naam: score?.player?.displayName,
                                         Avatar: score?.player?.user?.avatar,
                                         Punten: score?.points,
+                                        id: score?.player.id,
                                     }))}
                             />
                         </Card>
@@ -161,6 +166,10 @@ const TrainingDetailPage = () => {
                         <TeamTable
                             isLoading={trainingLoading}
                             size="md"
+                            hiddenColumns={['id']}
+                            routes={{
+                                detail: routes.playerDetail,
+                            }}
                             entries={regularTrainingScores
                                 ?.sort((scoreA, scoreB) => {
                                     const scoreAIsNumber =
@@ -177,6 +186,7 @@ const TrainingDetailPage = () => {
                                     Naam: score?.player?.displayName,
                                     Avatar: score?.player?.user?.avatar,
                                     Punten: score?.points,
+                                    id: score?.player.id,
                                 }))}
                         />
                     </Card>

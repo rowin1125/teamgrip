@@ -11,12 +11,11 @@ import {
 import { BiUserPlus } from 'react-icons/bi';
 import { FindTeamQuery } from 'types/graphql';
 
+import { routes } from '@redwoodjs/router';
+
 import Card from 'src/components/Card/Card';
 import TeamTable from 'src/components/TeamTable';
-import {
-    allWordsCapitalized,
-    capitalizeText,
-} from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
+import { allWordsCapitalized } from 'src/helpers/textHelpers/capitalizeText/capitalizeText';
 
 import { useGetPlayersAndScoresByTeamId } from '../../hooks/useGetPlayersAndScoresByTeamId';
 
@@ -85,8 +84,13 @@ const TeamList = ({ team, setCurrentTabIndex, disclosure }: TeamListProps) => {
                             player?.displayName || 'Onbekend'
                         )}`,
                         Avatar: player?.user?.avatar,
+                        id: player?.id,
                     }))}
                     isLoading={playersWithTotalScoreLoading}
+                    hiddenColumns={['id']}
+                    routes={{
+                        detail: routes.playerDetail,
+                    }}
                 />
             </>
         </Card>

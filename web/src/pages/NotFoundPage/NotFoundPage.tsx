@@ -1,8 +1,5 @@
 import { Box, Button, Flex } from '@chakra-ui/react';
 
-import { routes } from '@redwoodjs/router';
-
-import RedwoodLink from 'src/components/RedwoodLink';
 import AuthLayout from 'src/layouts/AuthLayout/AuthLayout';
 
 import Cavemen from './components/CaveMen/Cavemen';

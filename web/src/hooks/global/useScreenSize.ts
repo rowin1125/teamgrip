@@ -1,4 +1,4 @@
-import { useBreakpoint, useMediaQuery } from '@chakra-ui/react';
+import { useBreakpoint } from '@chakra-ui/react';
 
 export const useScreenSize = () => {
     const breakpoint = useBreakpoint({ ssr: false });

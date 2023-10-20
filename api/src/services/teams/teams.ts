@@ -189,6 +189,7 @@ export const updateTeam: MutationResolvers['updateTeam'] = async ({
     input,
 }) => {
     try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { ownerIsPlayer, ownerId, ...data } = input;
         const teamResult = await db.team.update({
             data: {
@@ -207,7 +208,8 @@ export const updateTeam: MutationResolvers['updateTeam'] = async ({
         });
 
         return teamResult;
-    } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
         if (error.code === 'P2002') throw new UserInputError('Team bestaat al');
         if (error.message) throw new UserInputError(error.message);
         throw new UserInputError('Er is iets misgegaan');

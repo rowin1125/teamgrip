@@ -32,7 +32,7 @@ export const useGetGamesByTeamId = (page: number) => {
 
     useEffect(() => {
         refetch({ id: currentUser?.player?.teamId || '', limit, page });
-    }, [page]);
+    }, [currentUser?.player?.teamId, page, refetch]);
 
     return {
         games: data?.gamesByTeamId?.games,

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box, GridItem, Heading } from '@chakra-ui/react';
+import { GetPlayerByIdQuery } from 'types/graphql';
 
 import Card from 'src/components/Card/Card';
 import SpinnerLoader from 'src/components/Loaders/SpinnerLoader/SpinnerLoader';
@@ -10,16 +11,20 @@ import GamePresence from './components/GamePresence';
 import TrainingPresence from './components/TrainingPresence';
 import { useGetPlayersPresence } from './hooks/useGetTeamPresenceByTeamId';
 
-const TeamPresence = () => {
-    const { teamPresence, teamPresenceLoading } = useGetPlayersPresence();
+type TeamPresenceType = {
+    player?: GetPlayerByIdQuery['player'];
+};
 
-    if (teamPresenceLoading) return null;
+const TeamPresence = ({ player }: TeamPresenceType) => {
+    const { teamPresence, teamPresenceLoading } = useGetPlayersPresence(
+        player?.teamId
+    );
 
     return (
         <>
             <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-                <SpinnerLoader isLoading={teamPresenceLoading}>
-                    <Card bg="primary.500" color="white" minH="700px">
+                <Card bg="primary.500" color="white" h="full" minH="300px">
+                    <SpinnerLoader isLoading={teamPresenceLoading}>
                         <Heading color="white">Training aanwezigheid</Heading>
 
                         <Box mt={8}>
@@ -30,17 +35,18 @@ const TeamPresence = () => {
                                 />
                             </SeasonLockWrapper>
                         </Box>
-                    </Card>
-                </SpinnerLoader>
+                    </SpinnerLoader>
+                </Card>
             </GridItem>
             <GridItem colSpan={{ base: 12, xl: 6 }} rowSpan={1}>
-                <SpinnerLoader isLoading={teamPresenceLoading}>
-                    <Card
-                        bg="primary.500"
-                        color="white"
-                        minH="700px"
-                        mt={{ xl: 0 }}
-                    >
+                <Card
+                    bg="primary.500"
+                    color="white"
+                    h="full"
+                    mt={{ xl: 0 }}
+                    minH="300px"
+                >
+                    <SpinnerLoader isLoading={teamPresenceLoading}>
                         <Heading color="white">Wedstrijd aanwezigheid</Heading>
 
                         <Box mt={{ xl: 8 }}>
@@ -51,8 +57,8 @@ const TeamPresence = () => {
                                 />
                             </SeasonLockWrapper>
                         </Box>
-                    </Card>
-                </SpinnerLoader>
+                    </SpinnerLoader>
+                </Card>
             </GridItem>
         </>
     );

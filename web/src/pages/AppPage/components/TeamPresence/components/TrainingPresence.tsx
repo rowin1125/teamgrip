@@ -56,11 +56,9 @@ const TrainingPresence = ({
         datasets: [
             {
                 type: 'bar' as const,
-                label: 'Jouw score',
+                label: 'Score',
                 backgroundColor: 'rgb(75, 192, 192)',
                 data: teamPresence.map((player) => player?.trainingPresence),
-                borderColor: 'white',
-                borderWidth: 2,
             },
         ],
     };

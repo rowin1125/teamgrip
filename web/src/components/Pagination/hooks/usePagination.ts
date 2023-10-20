@@ -1,13 +1,13 @@
 type UsePaginationProps = {
     limit: number;
-    total: number;
+    total?: number;
     setCurrentPage: (page: number) => void;
     currentPage: number;
 };
 
 export const usePagination = ({
     limit,
-    total,
+    total = 0,
     setCurrentPage,
     currentPage,
 }: UsePaginationProps) => {

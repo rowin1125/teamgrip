@@ -35,7 +35,7 @@ export const useGetTrainingsByTeam = (page: number) => {
 
     useEffect(() => {
         refetch({ id: currentUser?.player?.teamId || '', limit, page });
-    }, [page]);
+    }, [currentUser?.player?.teamId, page, refetch]);
 
     return {
         trainings: data?.trainingByTeamId?.trainings,

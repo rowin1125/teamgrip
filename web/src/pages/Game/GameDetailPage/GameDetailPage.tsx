@@ -123,6 +123,10 @@ const GameDetailPage = () => {
                             <TeamTable
                                 isLoading={gameLoading}
                                 size="md"
+                                hiddenColumns={['id']}
+                                routes={{
+                                    detail: routes.playerDetail,
+                                }}
                                 entries={topGameScores
                                     ?.sort((scoreA, scoreB) => {
                                         const scoreAIsNumber =
@@ -141,6 +145,7 @@ const GameDetailPage = () => {
                                         Naam: score?.player?.displayName,
                                         Avatar: score?.player?.user?.avatar,
                                         Punten: score?.points,
+                                        id: score?.player.id,
                                     }))}
                             />
                         </Card>
@@ -159,6 +164,10 @@ const GameDetailPage = () => {
                         <TeamTable
                             isLoading={gameLoading}
                             size="md"
+                            hiddenColumns={['id']}
+                            routes={{
+                                detail: routes.playerDetail,
+                            }}
                             entries={regularGameScores
                                 ?.sort((scoreA, scoreB) => {
                                     const scoreAIsNumber =
@@ -175,6 +184,7 @@ const GameDetailPage = () => {
                                     Naam: score?.player?.displayName,
                                     Avatar: score?.player?.user?.avatar,
                                     Punten: score?.points,
+                                    id: score?.player.id,
                                 }))}
                         />
                     </Card>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
@@ -11,10 +12,7 @@ import Card from 'src/components/Card/Card';
 
 import Avatar from '../ActivatePage/components/steps/Avatar/components/Avatar';
 import AvatarFormFields from '../ActivatePage/components/steps/Avatar/components/AvatarFormFields';
-import {
-    avatarOptions,
-    generateRandomAvatarOptions,
-} from '../ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
+import { generateRandomAvatarOptions } from '../ActivatePage/components/steps/Avatar/helpers/generateRandomAvatar';
 
 const UPDATE_AVATAR_MUTATION = gql`
     mutation UpdateAvatar($id: String!, $input: UpdateAvatarInput!) {

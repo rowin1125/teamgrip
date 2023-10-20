@@ -35,10 +35,24 @@ export const getTimelineForPlayers = ({
             const randomColor = getRandomColor();
 
             const totalPointsForEachData: { date: string; points: number }[] =
-                values.reduce<any>((acc, curr) => {
-                    const existing = acc.find(
-                        (item: any) => item.date === curr.date
-                    );
+                values.reduce<
+                    {
+                        date: string;
+                        points: number;
+                    }[]
+                >((acc, curr) => {
+                    const existing = acc.find((item: any) => {
+                        const itemDate = format(
+                            new Date(item.date),
+                            'dd-MM-yyyy'
+                        );
+                        const currDate = format(
+                            new Date(curr.date),
+                            'dd-MM-yyyy'
+                        );
+
+                        return itemDate === currDate;
+                    });
                     if (existing) {
                         existing.points += curr.points;
                     } else {
@@ -46,7 +60,6 @@ export const getTimelineForPlayers = ({
                     }
                     return acc;
                 }, []);
-
             const scoreTimeline = [{ date: 'Start', points: 0 }];
 
             for (const pt of totalPointsForEachData) {

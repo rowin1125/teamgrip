@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import nanoid from 'nanoid';
 import { User } from 'types/graphql';

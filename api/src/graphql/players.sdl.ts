@@ -42,7 +42,8 @@ export const schema = gql`
             @requireAuth
         getPlayersAndScoresByTeamId(teamId: String!, limit: Int): [Player]!
             @requireAuth
-        getPlayerScoresByTeamId(teamId: String!): Player @requireAuth
+        getPlayerScoresByTeamId(teamId: String!, playerId: String): Player
+            @requireAuth
         getPlayersPresenceByTeamId(teamId: String!): [Player]! @requireAuth
         getHistoryPlayersByTeamId(teamId: String!): [Player]! @requireAuth
     }

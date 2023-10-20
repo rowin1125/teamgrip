@@ -8,8 +8,6 @@ import { routes } from '@redwoodjs/router';
 import useLocalStorage from 'src/hooks/global/useLocalStorage';
 import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 
-import RedwoodLink from '../RedwoodLink';
-
 import SidebarItem from './components/SidebarItem';
 import SidebarItemChild from './components/SidebarItemChild';
 import SidebarToggle from './components/SidebarToggle';
