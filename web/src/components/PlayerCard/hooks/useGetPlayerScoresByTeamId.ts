@@ -46,6 +46,7 @@ export const useGetPlayerScoresByTeamId = ({
         GetPlayerScoresByTeamIdVariables
     >(GET_PLAYER_SCORES_BY_TEAM_ID, {
         variables: { teamId: currentUser?.player?.teamId || '', playerId },
+        skip: !currentUser?.player?.teamId || !playerId,
     });
 
     return {

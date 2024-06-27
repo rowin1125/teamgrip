@@ -217,39 +217,51 @@ export const updateTeam: MutationResolvers['updateTeam'] = async ({
 };
 
 export const deleteTeam: MutationResolvers['deleteTeam'] = async ({ id }) => {
-    await db.player.deleteMany({
-        where: {
-            teamId: id,
-            AND: {
-                isGhost: true,
+    try {
+        await db.player.deleteMany({
+            where: {
+                teamId: id,
+                AND: {
+                    isGhost: true,
+                },
             },
-        },
-    });
+        });
 
-    const deletedTeam = await db.team.delete({
-        where: { id },
-    });
 
-    await db.player.updateMany({
-        where: {
-            teamId: id,
-        },
-        data: {
-            teamId: null,
-            clubId: null,
-        },
-    });
+        await db.player.updateMany({
+            where: {
+                teamId: id,
+            },
+            data: {
+                teamId: null,
+                clubId: null,
+            },
+        });
 
-    await db.player.update({
-        where: {
-            userId: context?.currentUser?.id,
-        },
-        data: {
-            playerType: 'PLAYER',
-        },
-    });
+        await db.activityPresence.deleteMany({
+            where: {
+                teamId: id,
+            },
+        });
 
-    return deletedTeam;
+        const deletedTeam = await db.team.delete({
+            where: { id },
+        });
+
+        await db.player.update({
+            where: {
+                userId: context?.currentUser?.id,
+            },
+            data: {
+                playerType: 'PLAYER',
+            },
+        });
+
+        return deletedTeam;
+    } catch (error) {
+        console.log('error', error);
+        throw new UserInputError('Er is iets misgegaan');
+    }
 };
 
 export const createInvitationToken: MutationResolvers['createInvitationToken'] =
