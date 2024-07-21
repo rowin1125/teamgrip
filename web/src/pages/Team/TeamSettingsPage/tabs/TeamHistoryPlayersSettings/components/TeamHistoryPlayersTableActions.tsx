@@ -7,7 +7,7 @@ import { useGetTeamById } from 'src/hooks/api/query/useGetTeamById';
 const TeamHistoryPlayersTableActions = () => {
     const { team } = useGetTeamById();
 
-    const inviteUrl = `${process.env.REDWOOD_ENV_VERCEL_URL}/app/team/join?invitationToken=${team?.invitationToken}`;
+    const inviteUrl = `${process.env.REDWOOD_ENV_VERCEL_URL}/team/join?invitationToken=${team?.invitationToken}`;
     const { hasCopied, onCopy } = useClipboard(inviteUrl);
 
     return (
