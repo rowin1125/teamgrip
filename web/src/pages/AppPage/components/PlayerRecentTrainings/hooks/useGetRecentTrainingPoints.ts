@@ -33,7 +33,7 @@ export const GET_RECENT_TRAININGS_QUERY = gql`
 export const useGetRecentTrainingPoints = (playerId?: string) => {
     const { currentUser } = useTeamPlayerAuth();
     const queryPlayerId = playerId || currentUser?.player?.id;
-    console.log('queryPlayerId', queryPlayerId);
+
     const { data, loading, error } = useQuery<
         GetRecentTrainingsQuery,
         GetRecentTrainingsQueryVariables

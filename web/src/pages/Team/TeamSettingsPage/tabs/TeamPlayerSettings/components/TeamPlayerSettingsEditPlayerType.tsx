@@ -50,6 +50,7 @@ const TeamPlayerSettingsEditPlayerType = ({
     if (!onClose || !onOpen) return null;
 
     const uniquePlayerType = new Set();
+    uniquePlayerType.add('PLAYER');
     entries?.forEach((entry) => {
         uniquePlayerType.add(entry['Spelers rol']);
     });

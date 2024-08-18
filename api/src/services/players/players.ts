@@ -455,6 +455,7 @@ export const deletePlayer: MutationResolvers['deletePlayer'] = async ({
         },
     });
 
+    // If the player is a "ghost", delete it directly
     if (player?.isGhost) {
         await db.player.delete({
             where: { id },
@@ -462,28 +463,39 @@ export const deletePlayer: MutationResolvers['deletePlayer'] = async ({
         return player;
     }
 
+    // If the player or their team is not found, throw an error
     if (!player || !player.teamId) throw new UserInputError('Player not found');
 
+    // Update the player's relationship with the team and connect the active season if it exists
+    if (player.team?.season?.[0]?.id) {
+        await db.team.update({
+            where: { id: player.teamId },
+            data: {
+                players: {
+                    update: {
+                        where: { id: player.id },
+                        data: {
+                            playerType: 'PLAYER',
+                            historySeasons: {
+                                connect: {
+                                    id: player.team.season[0].id,
+                                },
+                            },
+                            club: {
+                                disconnect: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    }
+
+    // Disconnect the player from the team and connect them to historyPlayers
     await db.team.update({
         where: { id: player.teamId },
         data: {
             players: {
-                update: {
-                    where: {
-                        id: player.id,
-                    },
-                    data: {
-                        playerType: 'PLAYER',
-                        historySeasons: {
-                            connect: {
-                                id: player.team?.season?.[0]?.id,
-                            },
-                        },
-                        club: {
-                            disconnect: true,
-                        },
-                    },
-                },
                 disconnect: {
                     id: player.id,
                 },
@@ -496,6 +508,7 @@ export const deletePlayer: MutationResolvers['deletePlayer'] = async ({
         },
     });
 
+    // Return the player data
     return player;
 };
 
