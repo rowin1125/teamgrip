@@ -20,7 +20,18 @@ import { useTeamPlayerAuth } from 'src/hooks/global/useTeamPlayerAuth';
 import { useGetSeasonById } from './hooks/useGetSeasonById';
 import { useUpdateSeasonById } from './hooks/useUpdateSeasonById';
 
-export const seasonList = ['2021-2022', '2022-2023', '2023-2024', '2024-2025'];
+export const seasonList = [
+    '2024-2025',
+    '2025-2026',
+    '2026-2027',
+    '2027-2028',
+    '2028-2029',
+    '2029-2030',
+    '2030-2031',
+    '2031-2032',
+    '2032-2033',
+    '2033-2034',
+];
 
 const UpdateSeasonPage = () => {
     const { currentUser, isTeamStaff, loading } = useTeamPlayerAuth();
